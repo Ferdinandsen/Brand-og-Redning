@@ -12,8 +12,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class CheckInFrame extends javax.swing.JFrame {
-
-    
     
     ArrayList<String> stuff = new ArrayList<>();
     ArrayList<BEFireman> allFiremen = new ArrayList<>();
