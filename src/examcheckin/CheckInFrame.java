@@ -10,10 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-/**
- * Ny kommentar
- * @author Shadowleet
- */
+
 public class CheckInFrame extends javax.swing.JFrame {
 
     ArrayList<String> stuff = new ArrayList<>();
