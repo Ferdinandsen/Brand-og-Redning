@@ -126,7 +126,7 @@ public class CheckInView extends javax.swing.JFrame {
 
         private Color getColor(BEFireman fireman) {
             if (fireman.isCheckedIn()) {
-                return Color.;
+                return Color.RED;
             }
             return Color.GREEN;
 
