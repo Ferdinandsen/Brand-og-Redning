@@ -2,6 +2,7 @@ package GUI;
 
 import BE.BEFireman;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -12,7 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class CheckInView extends javax.swing.JFrame {
-    
+
     ArrayList<String> stuff = new ArrayList<>();
     ArrayList<BEFireman> allFiremen = new ArrayList<>();
     int amount;
@@ -70,8 +71,9 @@ public class CheckInView extends javax.swing.JFrame {
                 public void actionPerformed(ActionEvent e) {
                     msgbox((firemanButton) e.getSource());
                 }
+
                 private void msgbox(firemanButton fButton) {
-                System.out.println(fButton.getMyName());
+                    System.out.println(fButton.toString());
                 }
             });
             p.add(b);
@@ -111,13 +113,22 @@ public class CheckInView extends javax.swing.JFrame {
     private class firemanButton extends JButton {
 
         String name;
+        int test = 0;
 
         public firemanButton(BEFireman fireman) {
-//            this.name = fireman.getName();
+            test++;
+            this.name = fireman.toString();
+            this.setBackground(getColor(fireman));
+            this.setText(name);
+            System.out.println(test);
         }
 
-        public String getMyName() {
-            return name;
+        private Color getColor(BEFireman fireman) {
+            if (fireman.isCheckedIn()) {
+                return Color.RED;
+            }
+            return Color.GREEN;
+
         }
     }
 }

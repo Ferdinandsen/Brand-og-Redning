@@ -5,22 +5,36 @@ public class BEFireman {
     BEMedarbejder medarbjeder;
     boolean holdleder;
     boolean chaffør;
-    boolean isCheckin;
-    public static int AMOUNT = 0;
+    boolean isCheckedin;
+      String name;
+    public static int amount = 0;
+
 
     public BEFireman(BEMedarbejder medarbejderRef, boolean holdleder, boolean chauffør, boolean isCheckIn){
     
         medarbjeder = medarbejderRef;
         this.holdleder = holdleder;
         this.chaffør = chauffør;
-        this.isCheckin = isCheckIn;
-        AMOUNT++;
+        this.isCheckedin = isCheckIn;
+        amount++;
     }
-       public int getAmount(){
-        return AMOUNT;
+        
+   
+    public int getAmount() {
+        return amount;
     }
+    
+    public boolean isCheckedIn(){
+        return isCheckedin;
+    }
+
     @Override
-    public String toString(){
-        return medarbjeder.fornavn + medarbjeder.mellemnavn + medarbjeder.efternavn;
+    public String toString() {
+        if (isCheckedIn())
+        {
+            return medarbjeder.fornavn + medarbjeder.mellemnavn + medarbjeder.efternavn + " (CHECKED IN)";
+        }
+        return name;
+
     }
 }
