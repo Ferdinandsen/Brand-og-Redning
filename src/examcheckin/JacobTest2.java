@@ -7,4 +7,6 @@ package examcheckin;
 
 public class JacobTest2 {
 //Dette er Andrés klasse
+
+
 }
