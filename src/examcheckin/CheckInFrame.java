@@ -54,7 +54,6 @@ public class CheckInFrame extends javax.swing.JFrame {
         p.setLayout(new BorderLayout());
         p.add(getGridLayout(), BorderLayout.CENTER);
         return p;
-
     }
 
     private Component getGridLayout() {
@@ -73,7 +72,7 @@ public class CheckInFrame extends javax.swing.JFrame {
                     msgbox((firemanButton) e.getSource());
                 }
                 private void msgbox(firemanButton fButton) {
-                    System.out.println(fButton.getMyName());
+                System.out.println(fButton.getMyName());
                 }
             });
             p.add(b);
