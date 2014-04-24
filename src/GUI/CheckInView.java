@@ -2,6 +2,7 @@ package GUI;
 
 import BE.BEFireman;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -65,7 +66,6 @@ public class CheckInView extends javax.swing.JFrame {
 
         for (BEFireman fireman : allFiremen) {
             JButton b = new firemanButton(fireman);
-
             b.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -104,19 +104,31 @@ public class CheckInView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void makeBE() {
-        for (int i = 0; i < stuff.size(); i++) {
-            BEFireman fireman = new BEFireman(stuff.get(i), true);
-            allFiremen.add(fireman);
-        }
+//        for (int i = 0; i < stuff.size(); i++) {
+//            BEFireman fireman = new BEFireman(stuff.get(i));
+//            allFiremen.add(fireman);
+//        }
     }
 
     private class firemanButton extends JButton {
 
         String name;
+        int test = 0;
 
         public firemanButton(BEFireman fireman) {
+            test++;
             this.name = fireman.toString();
+            this.setBackground(getColor(fireman));
             this.setText(name);
+            System.out.println(test);
+        }
+
+        private Color getColor(BEFireman fireman) {
+            if (fireman.isCheckedIn()) {
+                return Color.RED;
+            }
+            return Color.GREEN;
+
         }
     }
 }

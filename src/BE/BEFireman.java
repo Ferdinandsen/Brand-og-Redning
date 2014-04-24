@@ -2,32 +2,36 @@ package BE;
 
 public class BEFireman {
 
-    boolean isCheckedIn;
-    String name;
+    BEMedarbejder medarbjeder;
+    boolean holdleder;
+    boolean chaffør;
+    boolean isCheckedin;
+      String name;
     public static int amount = 0;
 
-    public BEFireman(String name, boolean isCheckedIn) {
-        this.name = name;
-        this.isCheckedIn = isCheckedIn;
+    public BEFireman(BEMedarbejder medarbejderRef, boolean holdleder, boolean chauffør, boolean isCheckIn){
+    
+        medarbjeder = medarbejderRef;
+        this.holdleder = holdleder;
+        this.chaffør = chauffør;
+        this.isCheckedin = isCheckIn;
         amount++;
     }
-
-    public String getName() {
-        return name;
-    }
-
+        
+   
     public int getAmount() {
         return amount;
     }
+    
     public boolean isCheckedIn(){
-        return isCheckedIn;
+        return isCheckedin;
     }
 
     @Override
     public String toString() {
         if (isCheckedIn())
         {
-            return name + " (CHECKED IN)";
+            return medarbjeder.fornavn + medarbjeder.mellemnavn + medarbjeder.efternavn + " (CHECKED IN)";
         }
         return name;
     }
