@@ -12,7 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class CheckInView extends javax.swing.JFrame {
-    
+
     ArrayList<String> stuff = new ArrayList<>();
     ArrayList<BEFireman> allFiremen = new ArrayList<>();
     int amount;
@@ -65,14 +65,15 @@ public class CheckInView extends javax.swing.JFrame {
 
         for (BEFireman fireman : allFiremen) {
             JButton b = new firemanButton(fireman);
-            
+
             b.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     msgbox((firemanButton) e.getSource());
                 }
+
                 private void msgbox(firemanButton fButton) {
-                System.out.println(fButton.toString());
+                    System.out.println(fButton.toString());
                 }
             });
             p.add(b);
