@@ -89,7 +89,8 @@ public class CheckInFrame extends javax.swing.JFrame {
                 public void actionPerformed(ActionEvent e) {
                     msgbox((firemanButton) e.getSource());
                 }
-                private void msgbox(firemanButton fButton){
+
+                private void msgbox(firemanButton fButton) {
                     System.out.println(fButton.getMyName());
                 }
             });
