@@ -47,17 +47,6 @@ public class CheckInFrame extends javax.swing.JFrame {
         pack();
         setResizable(false);
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                Point p = new Point(0, 0);
-                SwingUtilities.convertPointToScreen(p, getContentPane());
-                Point l = getLocation();
-                l.x -= p.x;
-                l.y -= p.y;
-                setLocation(l);
-            }
-        });
         main = getBorderLayout();
         this.setTitle("Fireman check in screen");
         this.setLocationRelativeTo(null);
