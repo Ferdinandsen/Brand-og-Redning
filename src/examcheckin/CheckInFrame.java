@@ -44,11 +44,9 @@ public class CheckInFrame extends javax.swing.JFrame {
         getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         pack();
         setResizable(false);
-
         main = getBorderLayout();
         this.setTitle("Fireman check in screen");
         this.setLocationRelativeTo(null);
-
         this.add(main);
     }
 
