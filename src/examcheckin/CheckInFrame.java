@@ -10,7 +10,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
+/**
+ * Ny kommentar
+ * @author Shadowleet
+ */
 public class CheckInFrame extends javax.swing.JFrame {
 
     ArrayList<String> stuff = new ArrayList<>();
@@ -43,11 +46,9 @@ public class CheckInFrame extends javax.swing.JFrame {
         getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         pack();
         setResizable(false);
-
         main = getBorderLayout();
         this.setTitle("Fireman check in screen");
         this.setLocationRelativeTo(null);
-
         this.add(main);
     }
 
@@ -74,14 +75,12 @@ public class CheckInFrame extends javax.swing.JFrame {
                 public void actionPerformed(ActionEvent e) {
                     msgbox((firemanButton) e.getSource());
                 }
-
                 private void msgbox(firemanButton fButton) {
                     System.out.println(fButton.getMyName());
                 }
             });
             p.add(b);
         }
-
         return p;
     }
 
