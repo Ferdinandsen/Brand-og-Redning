@@ -1,7 +1,5 @@
 package GUI;
 
-import java.awt.Toolkit;
-
 /**
  *
  * @author Shadowleet
