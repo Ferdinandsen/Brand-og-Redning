@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package examcheckin;
+package GUI;
 
-public class ExamCheckIn {
+public class Main {
     public static void main(String[] args) {
-        CheckInFrame main = new CheckInFrame();
+        CheckInView main = new CheckInView();
         main.setResizable(false);
         main.setVisible(true);
     }
