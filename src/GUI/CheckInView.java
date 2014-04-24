@@ -65,14 +65,14 @@ public class CheckInView extends javax.swing.JFrame {
 
         for (BEFireman fireman : allFiremen) {
             JButton b = new firemanButton(fireman);
-            b.setText(fireman.getName());
+            
             b.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     msgbox((firemanButton) e.getSource());
                 }
                 private void msgbox(firemanButton fButton) {
-                System.out.println(fButton.getMyName());
+                System.out.println(fButton.toString());
                 }
             });
             p.add(b);
@@ -104,7 +104,7 @@ public class CheckInView extends javax.swing.JFrame {
 
     private void makeBE() {
         for (int i = 0; i < stuff.size(); i++) {
-            BEFireman fireman = new BEFireman(stuff.get(i));
+            BEFireman fireman = new BEFireman(stuff.get(i), true);
             allFiremen.add(fireman);
         }
     }
@@ -114,11 +114,8 @@ public class CheckInView extends javax.swing.JFrame {
         String name;
 
         public firemanButton(BEFireman fireman) {
-            this.name = fireman.getName();
-        }
-
-        public String getMyName() {
-            return name;
+            this.name = fireman.toString();
+            this.setText(name);
         }
     }
 }

@@ -2,7 +2,7 @@ package BE;
 
 public class BEFireman {
 
-    boolean isCheckedIn = true;
+    boolean isCheckedIn;
     String name;
     public static int amount = 0;
 
