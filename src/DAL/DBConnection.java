@@ -13,10 +13,10 @@ public class DBConnection {
 
     private final Connection m_connection;
     private static DAL.DBConnection m_instance = null;
-    //dd
+    
     private static final String SERVER_NAME = "localhost";
     private static final String DATABASE_INSTANCE = "SQLEXPRESS";
-    private static final int PORTNO = 1433; //49197; //58828;
+    private static final int PORTNO = 1433; // 49197; //58828;
     private static final String DATABASE_NAME = "Kaj Car Rental";
     private static final String USERNAME = "sa";
     private static final String PASSWORD = "mobiler123";
