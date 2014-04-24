@@ -39,7 +39,7 @@ public class CheckInView extends javax.swing.JFrame {
         stuff.add("Peter");
         this.setUndecorated(true);
         makeBE();
-        amount = BEFireman.AMOUNT;
+        amount = BEFireman.amount;
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         pack();

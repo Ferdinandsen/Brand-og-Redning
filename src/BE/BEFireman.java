@@ -9,7 +9,6 @@ public class BEFireman {
       String name;
     public static int amount = 0;
 
-
     public BEFireman(BEMedarbejder medarbejderRef, boolean holdleder, boolean chauffør, boolean isCheckIn){
     
         medarbjeder = medarbejderRef;
@@ -35,6 +34,5 @@ public class BEFireman {
             return medarbjeder.fornavn + medarbjeder.mellemnavn + medarbjeder.efternavn + " (CHECKED IN)";
         }
         return name;
-
     }
 }
