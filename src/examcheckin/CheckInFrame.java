@@ -10,13 +10,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 public class CheckInFrame extends javax.swing.JFrame {
 
-    ArrayList<String> stuff = new ArrayList<String>();
+    ArrayList<String> stuff = new ArrayList<>();
     ArrayList<BEFireman> allFiremen = new ArrayList<>();
     int amount;
     JPanel main;
@@ -49,7 +48,7 @@ public class CheckInFrame extends javax.swing.JFrame {
         setResizable(false);
 
         main = getBorderLayout();
-        this.setTitle("Tic Tac Toe GUI");
+        this.setTitle("Fireman check in screen");
         this.setLocationRelativeTo(null);
 
         this.add(main);
@@ -78,7 +77,8 @@ public class CheckInFrame extends javax.swing.JFrame {
                 public void actionPerformed(ActionEvent e) {
                     msgbox((firemanButton) e.getSource());
                 }
-                private void msgbox(firemanButton fButton){
+
+                private void msgbox(firemanButton fButton) {
                     System.out.println(fButton.getMyName());
                 }
             });
