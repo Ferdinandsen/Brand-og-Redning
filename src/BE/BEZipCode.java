@@ -13,9 +13,9 @@ public class BEZipCode {
     /**
      * @return the ZIPCODE
      */
-//    public int getZIPCODE() {
-//        return ZIPCODE;
-//    }
+    public int getZIPCODE() {
+        return ZIPCODE;
+    }
 
     /**
      * @param ZIPCODE the ZIPCODE to set
