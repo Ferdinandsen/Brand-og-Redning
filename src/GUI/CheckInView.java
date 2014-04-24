@@ -38,7 +38,7 @@ public class CheckInView extends javax.swing.JFrame {
         stuff.add("Peter");
         this.setUndecorated(true);
         makeBE();
-        amount = BEFireman.amount;
+        amount = BEFireman.AMOUNT;
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         pack();
@@ -65,7 +65,6 @@ public class CheckInView extends javax.swing.JFrame {
 
         for (BEFireman fireman : allFiremen) {
             JButton b = new firemanButton(fireman);
-            b.setText(fireman.getName());
             b.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -103,10 +102,10 @@ public class CheckInView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void makeBE() {
-        for (int i = 0; i < stuff.size(); i++) {
-            BEFireman fireman = new BEFireman(stuff.get(i));
-            allFiremen.add(fireman);
-        }
+//        for (int i = 0; i < stuff.size(); i++) {
+//            BEFireman fireman = new BEFireman(stuff.get(i));
+//            allFiremen.add(fireman);
+//        }
     }
 
     private class firemanButton extends JButton {
@@ -114,7 +113,7 @@ public class CheckInView extends javax.swing.JFrame {
         String name;
 
         public firemanButton(BEFireman fireman) {
-            this.name = fireman.getName();
+//            this.name = fireman.getName();
         }
 
         public String getMyName() {
