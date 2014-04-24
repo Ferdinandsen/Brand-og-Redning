@@ -21,7 +21,6 @@ public class CheckInFrame extends javax.swing.JFrame {
     int height = amount / width;
 
     public CheckInFrame() {
-        //  super("Fullscreen");
         stuff.add("André");
         stuff.add("Jacob");
         stuff.add("Jakob");
