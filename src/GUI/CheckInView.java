@@ -1,7 +1,9 @@
 package GUI;
 
 import BE.BEFireman;
+import BLL.BLLEmployee;
 import BLL.BLLFireman;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -14,7 +16,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class CheckInView extends javax.swing.JFrame {
+BLLEmployee bllEmployee;
     BLLFireman bllFireman;
+    ArrayList<String> stuff = new ArrayList<>();
     ArrayList<BEFireman> allFiremen = new ArrayList<>();
     int amount;
     JPanel main;

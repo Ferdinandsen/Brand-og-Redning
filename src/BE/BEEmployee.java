@@ -1,10 +1,16 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package BE;
 
 /**
  *
- * @author Jakob
+ * @author André
  */
-public class BEMedarbejder {
+public class BEEmployee {
 
     private int medarbejderNo;
     private String fornavn;
@@ -15,7 +21,7 @@ public class BEMedarbejder {
     private BEAddress adressRef;
     private boolean isFriviligBrand;
     
-    public BEMedarbejder(int medarbejderNo, String fornavn, String mellemnavn, 
+    public BEEmployee(int medarbejderNo, String fornavn, String mellemnavn, 
             String efternavn, String cpr, String portræt, BEAddress adressRef, 
             boolean isFriviligBrand){
         
