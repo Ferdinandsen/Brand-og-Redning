@@ -51,7 +51,7 @@ public class DALFireman {
                     medarbejder = arbejder;
                 }
             }
-
+            
             BEFireman fireman = new BEFireman(medarbejder, holdleder, chauffør, isCheckIn);
             firemen.add(fireman);
         }
@@ -60,5 +60,4 @@ public class DALFireman {
     public ArrayList<BEFireman> getAllfiremen(){
         return firemen;
     }
-
 }
