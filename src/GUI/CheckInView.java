@@ -1,6 +1,7 @@
 package GUI;
 
 import BE.BEFireman;
+import BLL.BLLFireman;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -13,8 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class CheckInView extends javax.swing.JFrame {
-
-    ArrayList<String> stuff = new ArrayList<>();
+    BLLFireman bllFireman;
     ArrayList<BEFireman> allFiremen = new ArrayList<>();
     int amount;
     JPanel main;
@@ -22,23 +22,8 @@ public class CheckInView extends javax.swing.JFrame {
     int height = amount / width;
 
     public CheckInView() {
-        stuff.add("André");
-        stuff.add("Jacob");
-        stuff.add("Jakob");
-        stuff.add("Andreas");
-        stuff.add("Michael");
-        stuff.add("Sus");
-        stuff.add("Poul");
-        stuff.add("Niels");
-        stuff.add("Stephen");
-        stuff.add("Michelle");
-        stuff.add("Steffen");
-        stuff.add("Kevin");
-        stuff.add("Mikkel");
-        stuff.add("Morten");
-        stuff.add("Peter");
+        bllFireman = BLLFireman.getInstance();
         this.setUndecorated(true);
-        makeBE();
         amount = BEFireman.getAmount();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
@@ -102,13 +87,6 @@ public class CheckInView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-
-    private void makeBE() {
-//        for (int i = 0; i < stuff.size(); i++) {
-//            BEFireman fireman = new BEFireman(stuff.get(i));
-//            allFiremen.add(fireman);
-//        }
-    }
 
     private class firemanButton extends JButton {
 
