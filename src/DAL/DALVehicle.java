@@ -31,7 +31,7 @@ public class DALVehicle {
     }
 
     private void populateVehicle() throws SQLException {
-        String sql = "select * from KØTJ order by odinNo";
+        String sql = "select * from KØTJ";
 
         PreparedStatement ps = getM_connection().prepareStatement(sql);
         ps.execute();
@@ -46,6 +46,7 @@ public class DALVehicle {
 
             BEVehicle bil = new BEVehicle(odin, reg, mark, mod, desc);
             vehicles.add(bil);
+            System.out.println("populated" + vehicles.size());
         }
     }
 

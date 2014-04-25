@@ -9,6 +9,7 @@ import BLL.BLLVehicle;
  */
 public class CheckOutView extends javax.swing.JDialog {
  BLLVehicle bllvehicle;
+ 
     /**
      * Creates new form CheckOutView
      */
@@ -113,5 +114,4 @@ public class CheckOutView extends javax.swing.JDialog {
             }
         }    
     }
-
 }
