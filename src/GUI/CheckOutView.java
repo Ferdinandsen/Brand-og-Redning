@@ -1,6 +1,7 @@
 package GUI;
 
 import BE.BEVehicle;
+import BLL.BLLTimelist;
 import BLL.BLLVehicle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,12 +13,13 @@ import java.awt.event.ActionListener;
 public class CheckOutView extends javax.swing.JDialog {
 
     BLLVehicle bllvehicle;
+    BLLTimelist blltime;
 
     /**
      * Creates new form CheckOutView
      */
     public CheckOutView() {
-        bllvehicle = BLLVehicle.getInstance();
+
         initComponents();
         initOtherComponents();
         this.setTitle("CHECK UD");
@@ -25,6 +27,7 @@ public class CheckOutView extends javax.swing.JDialog {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         bllvehicle = BLLVehicle.getInstance();
+        
         fillCboxVehicle();
     }
 
@@ -112,7 +115,7 @@ public class CheckOutView extends javax.swing.JDialog {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                sendTo();
+//                sendToBLL();
                 dispose();
             }
         });
@@ -124,14 +127,21 @@ public class CheckOutView extends javax.swing.JDialog {
         }
     }
 
-    private void sendTo() {
-        Object odin;
-        odin = cboxVehicle.getSelectedItem();
-        if (rbtnHoldleder.isSelected()){
-            
+    private void sendToBLL() {
+        BEVehicle odin;
+        boolean hl = false;
+        boolean ch = false;
+        boolean st = false;
+        odin = (BEVehicle) cboxVehicle.getSelectedItem();
+        if (rbtnHoldleder.isSelected()) {
+            hl = true;
         }
-        
-        
-
+        if (rbtnChauffør.isSelected()){
+            ch = true;
+        }
+        if (rbtnStVagt.isSelected()){
+            st = true;
+        }
+    blltime.sendToDAL(odin,hl,ch,st);     
     }
 }
