@@ -20,7 +20,7 @@ public class DBConnection {
     private static final String DATABASE_NAME = "Brand og Redning";
     private static final String USERNAME = "Jakob";
     private static final String PASSWORD = "Jakob123";
-
+//FUCK AF
     private DBConnection() throws SQLServerException {
         SQLServerDataSource ds = new SQLServerDataSource();
         ds.setServerName(SERVER_NAME);
