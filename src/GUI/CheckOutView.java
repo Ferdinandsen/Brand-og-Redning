@@ -115,7 +115,7 @@ public class CheckOutView extends javax.swing.JDialog {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                sendToBLL();
+//                sendToBLL();
                 dispose();
             }
         });
