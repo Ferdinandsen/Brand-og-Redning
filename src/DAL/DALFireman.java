@@ -45,26 +45,26 @@ public class DALFireman {
             boolean chauffør = result.getBoolean("chauffør");
             boolean isCheckIn = result.getBoolean("isCheckIn");
             BEEmployee localEmployee = null;
-           
-            for (BEEmployee employee : DALEmployee.getInstance().getAllEmployess() ) {
+
+            for (BEEmployee employee : DALEmployee.getInstance().getAllEmployess()) {
                 if (employee.getMedarbejderNo() == medarbejderRef) {
                     localEmployee = employee;
                 }
             }
-            
+
             BEFireman fireman = new BEFireman(localEmployee, holdleder, chauffør, isCheckIn);
             firemen.add(fireman);
         }
     }
-    
-    public ArrayList<BEFireman> getAllfiremen(){
+
+    public ArrayList<BEFireman> getAllfiremen() {
         return firemen;
     }
 
     public void changeBit(BEFireman fireman) throws SQLException {
-         String sql = "Update Deltidsbrandmand set isCheckIn = ? where medarbejderRef = ?";
-        
-       PreparedStatement ps = m_connection.prepareStatement(sql);
+        String sql = "Update Deltidsbrandmand set isCheckIn = ? where medarbejderRef = ?";
+
+        PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setBoolean(1, fireman.isCheckedin());
         ps.setInt(2, fireman.getMedarbjeder().getMedarbejderNo());
         ps.execute();
