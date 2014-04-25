@@ -19,7 +19,6 @@ public class CheckInView extends javax.swing.JFrame {
 
     BLLEmployee bllEmployee;
     BLLFireman bllFireman;
-    ArrayList<String> stuff = new ArrayList<>();
     ArrayList<BEFireman> allFiremen = new ArrayList<>();
     int amount;
     JPanel main;
@@ -63,7 +62,7 @@ public class CheckInView extends javax.swing.JFrame {
                 }
 
                 private void msgbox(firemanButton fButton) {
-                    System.out.println(fButton.toString());
+                    System.out.println(fButton.name);
                 }
             });
             p.add(b);
