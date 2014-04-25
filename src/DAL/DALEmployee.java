@@ -54,12 +54,12 @@ public class DALEmployee {
 
             BEAddress localaddress = null;
 
-            for (BEAddress address : allAddresses) {
+            for (BEAddress address : getAllAddresses()) {
                 if (adresseRef == address.getId()) {
                     localaddress = address;
                 }
                 BEEmployee employee = new BEEmployee(medarbejderNo, fornavn, mellemnavn, efternavn, CPR, portræt, localaddress, isFriviligBrandmand);
-                allEmployess.add(employee);
+                getAllEmployess().add(employee);
             }
         }
     }
@@ -81,19 +81,19 @@ public class DALEmployee {
 
             BEZipCode localZipCode = null;
 
-            for (BEZipCode zipCode : allZipCodes) {
+            for (BEZipCode zipCode : getAllZipCodes()) {
                 if (postnummerRef == zipCode.getZIPCODE()) {
                     localZipCode = zipCode;
                 }
                 BEAddress address = new BEAddress(ID, gadenavn, gadenummer, etage, lejlighed, localZipCode);
-                allAddresses.add(address);
+                getAllAddresses().add(address);
             }
         }
     }
 
     private void populateZip() throws SQLException {
         allEmployess = new ArrayList<>();
-        String sql = "select * from PostNu";
+        String sql = "select * from Postnummer";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.execute();
@@ -103,7 +103,28 @@ public class DALEmployee {
             String bynavn = result.getString("bynavn");
 
             BEZipCode zipCode = new BEZipCode(postNummer, bynavn);
-            allZipCodes.add(zipCode);
+            getAllZipCodes().add(zipCode);
         }
+    }
+
+    /**
+     * @return the allEmployess
+     */
+    public ArrayList<BEEmployee> getAllEmployess() {
+        return allEmployess;
+    }
+
+    /**
+     * @return the allZipCodes
+     */
+    public ArrayList<BEZipCode> getAllZipCodes() {
+        return allZipCodes;
+    }
+
+    /**
+     * @return the allAddresses
+     */
+    public ArrayList<BEAddress> getAllAddresses() {
+        return allAddresses;
     }
 }

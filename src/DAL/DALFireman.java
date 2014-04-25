@@ -1,7 +1,8 @@
 package DAL;
 
+import BE.BEEmployee;
 import BE.BEFireman;
-import BE.BEMedarbejder;
+import DAL.DALEmployee;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -44,15 +45,15 @@ public class DALFireman {
             boolean holdleder = result.getBoolean("holdleder");
             boolean chauffør = result.getBoolean("chauffør");
             boolean isCheckIn = result.getBoolean("isCheckIn");
-            BEMedarbejder medarbejder = null;
+            BEEmployee localEmployee = null;
            
-            for (BEMedarbejder arbejder : DALEmployee..getInstance(). ) {
-                if (arbejder.getMedarbejderNo() == medarbejderRef) {
-                    medarbejder = arbejder;
+            for (BEEmployee employee : DALEmployee.getInstance().getAllEmployess() ) {
+                if (employee.getMedarbejderNo() == medarbejderRef) {
+                    localEmployee = employee;
                 }
             }
             
-            BEFireman fireman = new BEFireman(medarbejder, holdleder, chauffør, isCheckIn);
+            BEFireman fireman = new BEFireman(localEmployee, holdleder, chauffør, isCheckIn);
             firemen.add(fireman);
         }
     }
