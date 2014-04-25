@@ -39,7 +39,7 @@ public class CheckInView extends javax.swing.JFrame {
         stuff.add("Peter");
         this.setUndecorated(true);
         makeBE();
-        amount = BEFireman.amount;
+        amount = BEFireman.getAmount();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         pack();
@@ -124,7 +124,7 @@ public class CheckInView extends javax.swing.JFrame {
         }
 
         private Color getColor(BEFireman fireman) {
-            if (fireman.isCheckedIn()) {
+            if (fireman.isCheckedin()) {
                 return Color.RED;
             }
             return Color.GREEN;
