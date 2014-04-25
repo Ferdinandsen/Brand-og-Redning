@@ -23,7 +23,7 @@ public class BLLFireman {
         try {
             dalFireman = DALFireman.getInstance();
         } catch (SQLException e) {
-            System.out.println("database connection fail");
+            System.out.println("fejl i BLLFireman" +e);
         }
     }
     public static BLLFireman getInstance(){
