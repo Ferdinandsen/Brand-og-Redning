@@ -2,14 +2,14 @@ package BE;
 
 public class BEFireman {
 
-     private BEMedarbejder medarbjeder;
+     private BEEmployee medarbjeder;
     private boolean holdleder;
     private boolean chaffør;
     private boolean isCheckedIn;
     private String name;
     private static int amount = 0;
 
-    public BEFireman(BEMedarbejder medarbejderRef, boolean holdleder, boolean chauffør, boolean isCheckIn) {
+    public BEFireman(BEEmployee medarbejderRef, boolean holdleder, boolean chauffør, boolean isCheckIn) {
 
         medarbjeder = medarbejderRef;
         this.holdleder = holdleder;
@@ -33,14 +33,14 @@ public class BEFireman {
     /**
      * @return the medarbjeder
      */
-    public BEMedarbejder getMedarbjeder() {
+    public BEEmployee getMedarbjeder() {
         return medarbjeder;
     }
 
     /**
      * @param medarbjeder the medarbjeder to set
      */
-    public void setMedarbjeder(BEMedarbejder medarbjeder) {
+    public void setMedarbjeder(BEEmployee medarbjeder) {
         this.medarbjeder = medarbjeder;
     }
 
