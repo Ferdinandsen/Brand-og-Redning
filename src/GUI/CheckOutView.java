@@ -1,6 +1,7 @@
 package GUI;
 
 import BE.BEVehicle;
+import BLL.BLLTimelist;
 import BLL.BLLVehicle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ import java.awt.event.ActionListener;
 public class CheckOutView extends javax.swing.JDialog {
 
     BLLVehicle bllvehicle;
+    BLLTimelist blltime;
 
     /**
      * Creates new form CheckOutView
@@ -25,6 +27,7 @@ public class CheckOutView extends javax.swing.JDialog {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         bllvehicle = BLLVehicle.getInstance();
+        
         fillCboxVehicle();
     }
 
@@ -112,7 +115,7 @@ public class CheckOutView extends javax.swing.JDialog {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                sendTo();
+                sendToBLL();
                 dispose();
             }
         });
@@ -124,7 +127,7 @@ public class CheckOutView extends javax.swing.JDialog {
         }
     }
 
-    private void sendTo() {
+    private void sendToBLL() {
         BEVehicle odin;
         boolean hl = false;
         boolean ch = false;
@@ -139,6 +142,6 @@ public class CheckOutView extends javax.swing.JDialog {
         if (rbtnStVagt.isSelected()){
             st = true;
         }
-
+    blltime.sendToDAL(odin,hl,ch,st);     
     }
 }
