@@ -8,7 +8,7 @@ package BE;
 
 /**
  *
- * @author Jakob
+ * @author André
  */
 public class BEEmployee {
 
