@@ -2,7 +2,6 @@ package DAL;
 
 import BE.BEEmployee;
 import BE.BEFireman;
-import DAL.DALEmployee;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -60,5 +59,14 @@ public class DALFireman {
     
     public ArrayList<BEFireman> getAllfiremen(){
         return firemen;
+    }
+
+    public void changeBit(BEFireman fireman) throws SQLException {
+         String sql = "Update Deltidsbrandmand set isCheckIn = ? where medarbejderRef = ?";
+        
+       PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setBoolean(1, fireman.isCheckedin());
+        ps.setInt(2, fireman.getMedarbjeder().getMedarbejderNo());
+        ps.execute();
     }
 }

@@ -60,10 +60,15 @@ public class CheckInView extends javax.swing.JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     msgbox((firemanButton) e.getSource());
+                    changebit((firemanButton) e.getSource());
                 }
 
                 private void msgbox(firemanButton fButton) {
-                    System.out.println(fButton.toString());
+                    System.out.println(fButton.name);
+                }
+
+                private void changebit(firemanButton fButton) {
+                    fButton.changebit();
                 }
             });
             p.add(b);
@@ -97,20 +102,32 @@ public class CheckInView extends javax.swing.JFrame {
 
         String name;
         int test = 0;
+        BEFireman localFireman;
 
         public firemanButton(BEFireman fireman) {
             test++;
+            localFireman = fireman;
             this.name = fireman.getMedarbjeder().getFornavn();
-            this.setBackground(getColor(fireman));
+            this.setBackground(getColor());
             this.setText(name);
         }
 
-        private Color getColor(BEFireman fireman) {
-            if (fireman.isCheckedin()) {
+        private Color getColor() {
+            if (localFireman.isCheckedin()) {
                 return Color.RED;
             }
             return Color.GREEN;
+        }
 
+        private void setColor() {
+            this.setBackground(getColor());
+            repaint();
+        }
+
+        public void changebit() {
+            localFireman.setIsCheckedin(!localFireman.isCheckedin());
+            bllFireman.changeBit(localFireman);
+            setColor();
         }
     }
 }
