@@ -1,6 +1,6 @@
 package DAL;
 
-import BE.BEKØTJ;
+import BE.BEVehicle;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,39 +12,25 @@ import java.util.ArrayList;
  *
  * @author Jacob
  */
-public class DALKØTJ {
+public class DALVehicle {
 
-    /**
-     * @return the m_instance
-     */
-    public static DALKØTJ getM_instance() {
+    private Connection m_connection;
+    private static DALVehicle m_instance = null;
+    private ArrayList<BEVehicle> vehicles = new ArrayList<>();
+
+    private DALVehicle() throws SQLException, SQLServerException {
+        m_connection = DBConnection.getInstance().getConnection();
+        populateVehicle();
+    }
+
+    public static DALVehicle getInstance() throws SQLException {
+        if (m_instance == null) {
+            m_instance = new DALVehicle();
+        }
         return m_instance;
     }
 
-    /**
-     * @param aM_instance the m_instance to set
-     */
-    public static void setM_instance(DALKØTJ aM_instance) {
-        m_instance = aM_instance;
-    }
-
-    private Connection m_connection;
-    private static DALKØTJ m_instance = null;
-    private ArrayList<BEKØTJ> køtj = new ArrayList<>();
-
-    private DALKØTJ() throws SQLException, SQLServerException {
-        m_connection = DBConnection.getInstance().getConnection();
-        populateKØTJ();
-    }
-
-    public static DALKØTJ getInstance() throws SQLException {
-        if (getM_instance() == null) {
-            setM_instance(new DALKØTJ());
-        }
-        return getM_instance();
-    }
-
-    private void populateKØTJ() throws SQLException {
+    private void populateVehicle() throws SQLException {
         String sql = "select * from KØTJ order by odinNo";
 
         PreparedStatement ps = getM_connection().prepareStatement(sql);
@@ -58,8 +44,8 @@ public class DALKØTJ {
             String mod = result.getString("model");
             String desc = result.getString("beskrivelse");
 
-            BEKØTJ bil = new BEKØTJ(odin, reg, mark, mod, desc);
-            getKøtj().add(bil);
+            BEVehicle bil = new BEVehicle(odin, reg, mark, mod, desc);
+            vehicles.add(bil);
         }
     }
 
@@ -78,17 +64,17 @@ public class DALKØTJ {
     }
 
     /**
-     * @return the køtj
+     * @return the vehicles
      */
-    public ArrayList<BEKØTJ> getKøtj() {
-        return køtj;
+    public ArrayList<BEVehicle> getVehicles() {
+        return vehicles;
     }
 
     /**
-     * @param køtj the køtj to set
+     * @param vehicles the vehicles to set
      */
-    public void setKøtj(ArrayList<BEKØTJ> køtj) {
-        this.køtj = køtj;
+    public void setVehicles(ArrayList<BEVehicle> vehicles) {
+        this.vehicles = vehicles;
     }
 
 }
