@@ -2,7 +2,6 @@ package DAL;
 
 import BE.BEEmployee;
 import BE.BEFireman;
-import DAL.DALEmployee;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -18,8 +18,8 @@ public class DBConnection {
     private static final String DATABASE_INSTANCE = "SQLEXPRESS";
     private static final int PORTNO = 58828; //1433; //49197;
     private static final String DATABASE_NAME = "Brand og Redning";
-    private static final String USERNAME = "sa";
-    private static final String PASSWORD = "mobiler123";
+    private static final String USERNAME = "Jacob";
+    private static final String PASSWORD = "Jacob1234";
 
     private DBConnection() throws SQLServerException {
         SQLServerDataSource ds = new SQLServerDataSource();
