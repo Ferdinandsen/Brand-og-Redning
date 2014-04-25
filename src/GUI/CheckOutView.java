@@ -1,13 +1,14 @@
 package GUI;
 
-import java.awt.Toolkit;
+import BE.BEVehicle;
+import BLL.BLLVehicle;
 
 /**
  *
  * @author Shadowleet
  */
 public class CheckOutView extends javax.swing.JDialog {
-
+ BLLVehicle bllvehicle;
     /**
      * Creates new form CheckOutView
      */
@@ -18,6 +19,7 @@ public class CheckOutView extends javax.swing.JDialog {
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        fillCboxVehicle();
     }
 
     /**
@@ -38,7 +40,7 @@ public class CheckOutView extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        cboxKØTJ.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboxKØTJ.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ALL" }));
 
         rbtnHoldleder.setText("Holdleder");
 
@@ -93,6 +95,7 @@ public class CheckOutView extends javax.swing.JDialog {
     public void initOtherComponents() {
         btnAcknowledge.setText("Bekræft");
         btnAcknowledge.setEnabled(false);
+        
 
         btnGrpCheckOut.add(rbtnStVagt);
         btnGrpCheckOut.add(rbtnHoldleder);
@@ -100,6 +103,15 @@ public class CheckOutView extends javax.swing.JDialog {
         rbtnHoldleder.setEnabled(false);
         rbtnChauffør.setEnabled(false);
         rbtnStVagt.setEnabled(true);
+    }
+
+    private void fillCboxVehicle() {
+        for (BEVehicle car : bllvehicle.GetVehicle()) {
+            cboxKØTJ.addItem(car);
+            if (car.getOdinnummer()== 0) {
+                cboxKØTJ.setSelectedItem(car);
+            }
+        }    
     }
 
 }
