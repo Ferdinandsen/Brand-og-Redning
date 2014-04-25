@@ -17,9 +17,9 @@ public class DALEmployee {
 
     Connection m_connection;
     private static DALEmployee m_instance = null;
-    private ArrayList<BEZipCode> allZipCodes;
-    private ArrayList<BEAddress> allAddresses;
-    private ArrayList<BEEmployee> allEmployess;
+    private ArrayList<BEZipCode> allZipCodes = new ArrayList<>();
+    private ArrayList<BEAddress> allAddresses = new ArrayList<>();
+    private ArrayList<BEEmployee> allEmployees = new ArrayList<>();
 
     private DALEmployee() throws SQLException {
         m_connection = DBConnection.getInstance().getConnection();
@@ -36,7 +36,6 @@ public class DALEmployee {
     }
 
     public void populateEmployee() throws SQLException {
-        allEmployess = new ArrayList<>();
         String sql = "select * from Medarbejder";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
@@ -59,13 +58,12 @@ public class DALEmployee {
                     localaddress = address;
                 }
                 BEEmployee employee = new BEEmployee(medarbejderNo, fornavn, mellemnavn, efternavn, CPR, portræt, localaddress, isFriviligBrandmand);
-                getAllEmployess().add(employee);
+                allEmployees.add(employee);
             }
         }
     }
 
     private void populateAddress() throws SQLException {
-        allEmployess = new ArrayList<>();
         String sql = "select * from Address";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
@@ -92,7 +90,6 @@ public class DALEmployee {
     }
 
     private void populateZip() throws SQLException {
-        allEmployess = new ArrayList<>();
         String sql = "select * from Postnummer";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
@@ -111,7 +108,7 @@ public class DALEmployee {
      * @return the allEmployess
      */
     public ArrayList<BEEmployee> getAllEmployess() {
-        return allEmployess;
+        return allEmployees;
     }
 
     /**

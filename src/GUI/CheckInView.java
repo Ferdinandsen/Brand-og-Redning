@@ -16,7 +16,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class CheckInView extends javax.swing.JFrame {
-BLLEmployee bllEmployee;
+
+    BLLEmployee bllEmployee;
     BLLFireman bllFireman;
     ArrayList<String> stuff = new ArrayList<>();
     ArrayList<BEFireman> allFiremen = new ArrayList<>();
@@ -52,7 +53,7 @@ BLLEmployee bllEmployee;
         gl.setVgap(40);
         gl.setHgap(20);
         p.setLayout(gl);
-
+        allFiremen = bllFireman.getAllfiremen();
         for (BEFireman fireman : allFiremen) {
             JButton b = new firemanButton(fireman);
             b.addActionListener(new ActionListener() {
@@ -99,10 +100,9 @@ BLLEmployee bllEmployee;
 
         public firemanButton(BEFireman fireman) {
             test++;
-            this.name = fireman.toString();
+            this.name = fireman.getMedarbjeder().getFornavn();
             this.setBackground(getColor(fireman));
             this.setText(name);
-            System.out.println(test);
         }
 
         private Color getColor(BEFireman fireman) {

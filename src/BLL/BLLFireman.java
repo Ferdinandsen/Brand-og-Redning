@@ -6,8 +6,10 @@
 
 package BLL;
 
+import BE.BEFireman;
 import DAL.DALFireman;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -23,7 +25,7 @@ public class BLLFireman {
         try {
             dalFireman = DALFireman.getInstance();
         } catch (SQLException e) {
-            System.out.println("database connection fail");
+            System.out.println("fejl i BLLFireman" +e);
         }
     }
     public static BLLFireman getInstance(){
@@ -31,5 +33,9 @@ public class BLLFireman {
             m_instance = new BLLFireman();
         }
         return m_instance;
+    }
+
+    public ArrayList<BEFireman> getAllfiremen() {
+      return dalFireman.getAllfiremen();
     }
 }
