@@ -23,24 +23,8 @@ BLLEmployee bllEmployee;
     int height = amount / width;
 
     public CheckInView() {
-        bllEmployee = BLLEmployee.getInstance();
-        stuff.add("André");
-        stuff.add("Jacob");
-        stuff.add("Jakob");
-        stuff.add("Andreas");
-        stuff.add("Michael");
-        stuff.add("Sus");
-        stuff.add("Poul");
-        stuff.add("Niels");
-        stuff.add("Stephen");
-        stuff.add("Michelle");
-        stuff.add("Steffen");
-        stuff.add("Kevin");
-        stuff.add("Mikkel");
-        stuff.add("Morten");
-        stuff.add("Peter");
+        bllFireman = BLLFireman.getInstance();
         this.setUndecorated(true);
-        makeBE();
         amount = BEFireman.getAmount();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
@@ -104,13 +88,6 @@ BLLEmployee bllEmployee;
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-
-    private void makeBE() {
-//        for (int i = 0; i < stuff.size(); i++) {
-//            BEFireman fireman = new BEFireman(stuff.get(i));
-//            allFiremen.add(fireman);
-//        }
-    }
 
     private class firemanButton extends JButton {
 
