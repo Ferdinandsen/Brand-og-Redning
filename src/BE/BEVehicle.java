@@ -4,19 +4,19 @@ package BE;
  *
  * @author Jacob
  */
-public class BEKØTJ {
+public class BEVehicle {
     private int odinnummer;
-    private String registrering;
-    private String mærke;
+    private String licensplate;
+    private String mark;
     private String model;
-    private String beskrivelse;
+    private String description;
 
-public BEKØTJ (int odin, String reg, String mark, String mod, String desc){
+public BEVehicle (int odin, String reg, String mark, String mod, String desc){
     odinnummer = odin;
-    registrering = reg;
-    mærke = mark;
+    licensplate = reg;
+    this.mark = mark;
     model = mod;
-    beskrivelse = desc;    
+    description = desc;    
 }
 
     /**
@@ -37,28 +37,28 @@ public BEKØTJ (int odin, String reg, String mark, String mod, String desc){
      * @return the registrering
      */
     public String getRegistrering() {
-        return registrering;
+        return licensplate;
     }
 
     /**
      * @param registrering the registrering to set
      */
     public void setRegistrering(String registrering) {
-        this.registrering = registrering;
+        this.licensplate = registrering;
     }
 
     /**
      * @return the mærke
      */
     public String getMærke() {
-        return mærke;
+        return mark;
     }
 
     /**
      * @param mærke the mærke to set
      */
     public void setMærke(String mærke) {
-        this.mærke = mærke;
+        this.mark = mærke;
     }
 
     /**
@@ -79,14 +79,14 @@ public BEKØTJ (int odin, String reg, String mark, String mod, String desc){
      * @return the beskrivelse
      */
     public String getBeskrivelse() {
-        return beskrivelse;
+        return description;
     }
 
     /**
      * @param beskrivelse the beskrivelse to set
      */
     public void setBeskrivelse(String beskrivelse) {
-        this.beskrivelse = beskrivelse;
+        this.description = beskrivelse;
     }
 
 }
