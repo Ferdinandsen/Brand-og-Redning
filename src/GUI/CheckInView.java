@@ -56,11 +56,14 @@ public class CheckInView extends javax.swing.JFrame {
         for (BEFireman fireman : allFiremen) {
             JButton b = new firemanButton(fireman);
             b.addActionListener(new ActionListener() {
+               
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    msgbox((firemanButton) e.getSource());
-                    changebit((firemanButton) e.getSource());
+                    firemanButton fb = (firemanButton) e.getSource();
+                    msgbox(fb);
+                    changebit(fb);
                     CheckOutView frame = new CheckOutView();
+                    if(!fb.localFireman.isCheckedin())
                     frame.setVisible(true);
                 }
 
@@ -76,7 +79,7 @@ public class CheckInView extends javax.swing.JFrame {
         }
         return p;
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

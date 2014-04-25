@@ -27,7 +27,7 @@ public class CheckOutView extends javax.swing.JDialog {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         bllvehicle = BLLVehicle.getInstance();
-        
+
         fillCboxVehicle();
     }
 
@@ -136,12 +136,12 @@ public class CheckOutView extends javax.swing.JDialog {
         if (rbtnHoldleder.isSelected()) {
             hl = true;
         }
-        if (rbtnChauffør.isSelected()){
+        if (rbtnChauffør.isSelected()) {
             ch = true;
         }
-        if (rbtnStVagt.isSelected()){
+        if (rbtnStVagt.isSelected()) {
             st = true;
         }
-    blltime.sendToDAL(odin,hl,ch,st);     
+         blltime.sendToDAL(odin, hl, ch, st);
     }
 }
