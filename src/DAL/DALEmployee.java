@@ -35,7 +35,7 @@ public class DALEmployee {
         return m_instance;
     }
 
-    public void populateEmployee() throws SQLException {
+    private void populateEmployee() throws SQLException {
         String sql = "select * from Medarbejder";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
