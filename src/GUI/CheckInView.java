@@ -19,7 +19,6 @@ public class CheckInView extends javax.swing.JFrame {
 
     BLLEmployee bllEmployee;
     BLLFireman bllFireman;
-    ArrayList<String> stuff = new ArrayList<>();
     ArrayList<BEFireman> allFiremen = new ArrayList<>();
     int amount;
     JPanel main;
