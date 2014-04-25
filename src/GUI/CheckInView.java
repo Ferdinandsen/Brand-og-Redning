@@ -60,6 +60,8 @@ public class CheckInView extends javax.swing.JFrame {
                 public void actionPerformed(ActionEvent e) {
                     msgbox((firemanButton) e.getSource());
                     changebit((firemanButton) e.getSource());
+                    CheckOutView frame = new CheckOutView();
+                    frame.setVisible(true);
                 }
 
                 private void msgbox(firemanButton fButton) {

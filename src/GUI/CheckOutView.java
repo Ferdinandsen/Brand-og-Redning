@@ -125,13 +125,20 @@ public class CheckOutView extends javax.swing.JDialog {
     }
 
     private void sendTo() {
-        Object odin;
-        odin = cboxVehicle.getSelectedItem();
-        if (rbtnHoldleder.isSelected()){
-            
+        BEVehicle odin;
+        boolean hl = false;
+        boolean ch = false;
+        boolean st = false;
+        odin = (BEVehicle) cboxVehicle.getSelectedItem();
+        if (rbtnHoldleder.isSelected()) {
+            hl = true;
         }
-        
-        
+        if (rbtnChauffør.isSelected()){
+            ch = true;
+        }
+        if (rbtnStVagt.isSelected()){
+            st = true;
+        }
 
     }
 }
