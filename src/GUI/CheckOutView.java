@@ -8,12 +8,14 @@ import BLL.BLLVehicle;
  * @author Shadowleet
  */
 public class CheckOutView extends javax.swing.JDialog {
- BLLVehicle bllvehicle;
+
+    BLLVehicle bllvehicle;
+
     /**
      * Creates new form CheckOutView
      */
     public CheckOutView() {
-
+        bllvehicle = BLLVehicle.getInstance();
         initComponents();
         this.setTitle("CHECK UD");
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -95,7 +97,6 @@ public class CheckOutView extends javax.swing.JDialog {
     public void initOtherComponents() {
         btnAcknowledge.setText("Bekræft");
         btnAcknowledge.setEnabled(false);
-        
 
         btnGrpCheckOut.add(rbtnStVagt);
         btnGrpCheckOut.add(rbtnHoldleder);
@@ -108,10 +109,10 @@ public class CheckOutView extends javax.swing.JDialog {
     private void fillCboxVehicle() {
         for (BEVehicle car : bllvehicle.GetVehicle()) {
             cboxKØTJ.addItem(car);
-            if (car.getOdinnummer()== 0) {
+            if (car.getOdinnummer() == 0) {
                 cboxKØTJ.setSelectedItem(car);
             }
-        }    
+        }
     }
 
 }

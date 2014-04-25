@@ -5,19 +5,20 @@ package BE;
  * @author Jacob
  */
 public class BEVehicle {
+
     private int odinnummer;
     private String licensplate;
     private String mark;
     private String model;
     private String description;
 
-public BEVehicle (int odin, String reg, String mark, String mod, String desc){
-    odinnummer = odin;
-    licensplate = reg;
-    this.mark = mark;
-    model = mod;
-    description = desc;    
-}
+    public BEVehicle(int odin, String reg, String mark, String mod, String desc) {
+        odinnummer = odin;
+        licensplate = reg;
+        this.mark = mark;
+        model = mod;
+        description = desc;
+    }
 
     /**
      * @return the odinnummer
@@ -89,4 +90,8 @@ public BEVehicle (int odin, String reg, String mark, String mod, String desc){
         this.description = beskrivelse;
     }
 
+    @Override
+    public String toString() {
+        return "" + odinnummer;
+    }
 }
