@@ -46,7 +46,7 @@ public class DALFireman {
             boolean isCheckIn = result.getBoolean("isCheckIn");
             BEMedarbejder medarbejder = null;
            
-            for (BEMedarbejder arbejder : DALEmployee.getAllEmployees() ) {
+            for (BEMedarbejder arbejder : DALEmployee..getInstance(). ) {
                 if (arbejder.getMedarbejderNo() == medarbejderRef) {
                     medarbejder = arbejder;
                 }
