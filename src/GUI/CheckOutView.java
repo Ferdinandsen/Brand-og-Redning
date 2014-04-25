@@ -2,6 +2,8 @@ package GUI;
 
 import BE.BEVehicle;
 import BLL.BLLVehicle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -17,10 +19,12 @@ public class CheckOutView extends javax.swing.JDialog {
     public CheckOutView() {
 
         initComponents();
+        initOtherComponents();
         this.setTitle("CHECK UD");
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        bllvehicle = BLLVehicle.getInstance();
         fillCboxVehicle();
     }
 
@@ -34,7 +38,7 @@ public class CheckOutView extends javax.swing.JDialog {
     private void initComponents() {
 
         btnGrpCheckOut = new javax.swing.ButtonGroup();
-        cboxKØTJ = new javax.swing.JComboBox();
+        cboxVehicle = new javax.swing.JComboBox();
         rbtnHoldleder = new javax.swing.JRadioButton();
         rbtnChauffør = new javax.swing.JRadioButton();
         rbtnStVagt = new javax.swing.JRadioButton();
@@ -42,7 +46,7 @@ public class CheckOutView extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        cboxKØTJ.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ALL" }));
+        cboxVehicle.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Intet køretøj valgt" }));
 
         rbtnHoldleder.setText("Holdleder");
 
@@ -59,18 +63,18 @@ public class CheckOutView extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(cboxKØTJ, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cboxVehicle, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(rbtnStVagt, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rbtnHoldleder, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rbtnChauffør, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAcknowledge, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
-                .addContainerGap(55, Short.MAX_VALUE))
+                    .addComponent(btnAcknowledge, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(cboxKØTJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cboxVehicle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addComponent(rbtnHoldleder)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -88,30 +92,46 @@ public class CheckOutView extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcknowledge;
     private javax.swing.ButtonGroup btnGrpCheckOut;
-    private javax.swing.JComboBox cboxKØTJ;
+    private javax.swing.JComboBox cboxVehicle;
     private javax.swing.JRadioButton rbtnChauffør;
     private javax.swing.JRadioButton rbtnHoldleder;
     private javax.swing.JRadioButton rbtnStVagt;
     // End of variables declaration//GEN-END:variables
 
-    public void initOtherComponents() {
+    private void initOtherComponents() {
         btnAcknowledge.setText("Bekræft");
-        btnAcknowledge.setEnabled(false);
+        btnAcknowledge.setEnabled(true);
 
         btnGrpCheckOut.add(rbtnStVagt);
-        btnGrpCheckOut.add(rbtnHoldleder);
         btnGrpCheckOut.add(rbtnChauffør);
         rbtnHoldleder.setEnabled(false);
         rbtnChauffør.setEnabled(false);
         rbtnStVagt.setEnabled(true);
+
+        btnAcknowledge.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sendTo();
+                dispose();
+            }
+        });
     }
 
     private void fillCboxVehicle() {
         for (BEVehicle car : bllvehicle.GetVehicle()) {
-            cboxKØTJ.addItem(car);
-            if (car.getOdinnummer() == 0) {
-                cboxKØTJ.setSelectedItem(car);
-            }
+            cboxVehicle.addItem(car);
         }
+    }
+
+    private void sendTo() {
+        Object odin;
+        odin = cboxVehicle.getSelectedItem();
+        if (rbtnHoldleder.isSelected()){
+            
+        }
+        
+        
+
     }
 }

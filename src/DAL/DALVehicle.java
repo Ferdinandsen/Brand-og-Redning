@@ -46,7 +46,6 @@ public class DALVehicle {
 
             BEVehicle bil = new BEVehicle(odin, reg, mark, mod, desc);
             vehicles.add(bil);
-            System.out.println("populated" + vehicles.size());
         }
     }
 

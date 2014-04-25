@@ -89,4 +89,15 @@ public BEVehicle (int odin, String reg, String mark, String mod, String desc){
         this.description = beskrivelse;
     }
 
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString(){
+        return "" + odinnummer;
+        
+    
+}
+        
 }
