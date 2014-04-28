@@ -64,7 +64,7 @@ public class DALEmployee {
     }
 
     private void populateAddress() throws SQLException {
-        String sql = "select * from Address";
+        String sql = "select * from Adresse";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.execute();
