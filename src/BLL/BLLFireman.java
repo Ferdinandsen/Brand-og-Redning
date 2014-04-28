@@ -18,7 +18,7 @@ public class BLLFireman {
         try {
             dalFireman = DALFireman.getInstance();
         } catch (SQLException e) {
-            System.out.println("fejl i BLLFireman " + e);
+            System.out.println("fejl i DALFireman " + e);
         }
     }
 
