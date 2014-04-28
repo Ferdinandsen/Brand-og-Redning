@@ -58,27 +58,17 @@ public class CheckInView extends javax.swing.JFrame {
         allFiremen = bllFireman.getAllfiremen();
         for (BEFireman fireman : allFiremen) {
             JButton b = new firemanButton(fireman);
-            b.addMouseListener(new MouseAdapter() {
-                public void mousePressed(MouseEvent e) {
-                   
-                }
-            });
             b.addActionListener(new ActionListener() {
-
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     firemanButton fb = (firemanButton) e.getSource();
-                    msgbox(fb);
                     changebit(fb);
-                    CheckOutView frame = new CheckOutView();
-                    frame.setModal(true);
-                    if (!fb.localFireman.isCheckedin()) {
+                    if (fb.localFireman.isCheckedin()) { //hvis han skal til at logge ind
+                    } else { // hvis han skal til at logge ud
+                        CheckOutView frame = new CheckOutView();
+                        frame.setModal(true);
                         frame.setVisible(true);
                     }
-                }
-
-                private void msgbox(firemanButton fButton) {
-                    System.out.println(fButton.name);
                 }
 
                 private void changebit(firemanButton fButton) {
@@ -115,11 +105,9 @@ public class CheckInView extends javax.swing.JFrame {
     private class firemanButton extends JButton {
 
         String name;
-        int test = 0;
         BEFireman localFireman;
 
         public firemanButton(BEFireman fireman) {
-            test++;
             localFireman = fireman;
             this.name = fireman.getMedarbjeder().getFornavn();
             this.setBackground(getColor());
