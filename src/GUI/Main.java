@@ -5,9 +5,12 @@
 package GUI;
 
 public class Main {
+
     public static void main(String[] args) {
         CheckInView main = new CheckInView();
-        main.setResizable(false);
+//        main.setResizable(false);
+//        CheckOutView main = new CheckOutView();
+//        main.setVisible(true);
         main.setVisible(true);
     }
 
