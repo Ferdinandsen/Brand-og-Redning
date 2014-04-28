@@ -67,7 +67,7 @@ public class CheckInView extends javax.swing.JFrame {
                         bllFireman.createTimestamp(fb.localFireman);
                         
                     } else { // hvis han skal til at logge ud
-                        CheckOutView frame = new CheckOutView();
+                        CheckOutView frame = new CheckOutView(fb.localFireman);
                         frame.setModal(true);
                         frame.setVisible(true);
                     }
