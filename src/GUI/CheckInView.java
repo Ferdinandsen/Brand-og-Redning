@@ -31,8 +31,8 @@ public class CheckInView extends javax.swing.JFrame {
     public CheckInView() {
         bllFireman = BLLFireman.getInstance();
         this.setUndecorated(true);
-        amount = BEFireman.getAmount();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        amount = BEFireman.getAmount();
         getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         pack();
         setResizable(false);
@@ -64,12 +64,14 @@ public class CheckInView extends javax.swing.JFrame {
                 }
             });
             b.addActionListener(new ActionListener() {
+
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     firemanButton fb = (firemanButton) e.getSource();
                     msgbox(fb);
                     changebit(fb);
                     CheckOutView frame = new CheckOutView();
+                    frame.setModal(true);
                     if (!fb.localFireman.isCheckedin()) {
                         frame.setVisible(true);
                     }

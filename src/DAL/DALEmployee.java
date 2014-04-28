@@ -107,7 +107,7 @@ public class DALEmployee {
     /**
      * @return the allEmployess
      */
-    public ArrayList<BEEmployee> getAllEmployess() {
+    public ArrayList<BEEmployee> getAllEmployees() {
         return allEmployees;
     }
 
