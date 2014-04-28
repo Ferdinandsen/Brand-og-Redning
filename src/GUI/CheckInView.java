@@ -1,6 +1,6 @@
 package GUI;
-
-import BE.BEFireman;
+import BLL.CheckIn;
+import BE.BEFiremanTest;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -13,15 +13,16 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class CheckInView extends javax.swing.JFrame {
-
+    CheckIn bllCheckIn;
     ArrayList<String> stuff = new ArrayList<>();
-    ArrayList<BEFireman> allFiremen = new ArrayList<>();
     int amount;
     JPanel main;
     int width = 5;
     int height = amount / width;
 
     public CheckInView() {
+        bllCheckIn = new CheckIn();
+        bllCheckIn.populateFiremen();
         stuff.add("André");
         stuff.add("Jacob");
         stuff.add("Jakob");
@@ -39,7 +40,7 @@ public class CheckInView extends javax.swing.JFrame {
         stuff.add("Peter");
         this.setUndecorated(true);
         makeBE();
-        amount = BEFireman.amount;
+        amount = BEFiremanTest.amount;
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         pack();
@@ -64,7 +65,7 @@ public class CheckInView extends javax.swing.JFrame {
         gl.setHgap(20);
         p.setLayout(gl);
 
-        for (BEFireman fireman : allFiremen) {
+        for (BEFiremanTest fireman : bllCheckIn.getFiremen()) {
             JButton b = new firemanButton(fireman);
             b.addActionListener(new ActionListener() {
                 @Override
@@ -115,7 +116,7 @@ public class CheckInView extends javax.swing.JFrame {
         String name;
         int test = 0;
 
-        public firemanButton(BEFireman fireman) {
+        public firemanButton(BEFiremanTest fireman) {
             test++;
             this.name = fireman.toString();
             this.setBackground(getColor(fireman));
@@ -123,7 +124,7 @@ public class CheckInView extends javax.swing.JFrame {
             System.out.println(test);
         }
 
-        private Color getColor(BEFireman fireman) {
+        private Color getColor(BEFiremanTest fireman) {
             if (fireman.isCheckedIn()) {
                 return Color.RED;
             }
