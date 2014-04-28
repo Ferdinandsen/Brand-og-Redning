@@ -2,26 +2,26 @@ package BE;
 
 public class BEAddress {
     private int ID;
-    private String STREETNAME;
-    private int STREETNUMBER;
-    private int FLOOR;
-    private String APARTMENT;
-    private BEZipCode ZIP;
+    private String streetName;
+    private int streetNumber;
+    private int floor;
+    private String apartmnet;
+    private BEZipCode zip;
 
     public BEAddress(int id, String streetname, int streetNumber, int floor, String apartment, BEZipCode zip) {
-       ID = id;
-       STREETNAME = streetname;
-       STREETNUMBER = streetNumber;
-       FLOOR = floor;
-       APARTMENT = apartment;
-       ZIP = zip;
+       this.ID = id;
+       this.streetName = streetname;
+       this.streetNumber = streetNumber;
+       this.floor = floor;
+       this.apartmnet = apartment;
+       this.zip = zip;
     }
     public BEAddress(String streetname, int streetNumber, int floor, String apartment, BEZipCode zip) {
-       STREETNAME = streetname;
-       STREETNUMBER = streetNumber;
-       FLOOR = floor;
-       APARTMENT = apartment;
-       ZIP = zip;
+       this.streetName = streetname;
+       this.streetNumber = streetNumber;
+       this.floor = floor;
+       this.apartmnet = apartment;
+       this.zip = zip;
     }
 
     /**
@@ -31,28 +31,28 @@ public class BEAddress {
         return ID;
     }
     public int getStreetNumber(){
-        return STREETNUMBER;
+        return streetNumber;
     }
 
     /**
      * @return the streetName
      */
     public String getStreetName() {
-        return STREETNAME;
+        return streetName;
     }
 
     /**
      * @return the floor
      */
     public int getFloor() {
-        return FLOOR;
+        return floor;
     }
 
     /**
      * @return the apartment
      */
     public String getApartment() {
-        return APARTMENT;
+        return apartmnet;
     }
     public BEZipCode getZipCode(){
         return getZip();
@@ -69,41 +69,41 @@ public class BEAddress {
      * @param streetName the streetName to set
      */
     public void setStreetName(String streetName) {
-        this.STREETNAME = streetName;
+        this.streetName = streetName;
     }
 
     /**
      * @param streetNumber the streetNumber to set
      */
     public void setStreetNumber(int streetNumber) {
-        this.STREETNUMBER = streetNumber;
+        this.streetNumber = streetNumber;
     }
 
     /**
      * @param floor the floor to set
      */
     public void setFloor(int floor) {
-        this.FLOOR = floor;
+        this.floor = floor;
     }
 
     /**
      * @param apartment the apartment to set
      */
     public void setApartment(String apartment) {
-        this.APARTMENT = apartment;
+        this.apartmnet = apartment;
     }
 
     /**
      * @return the zip
      */
     public BEZipCode getZip() {
-        return ZIP;
+        return zip;
     }
 
     /**
      * @param zip the zip to set
      */
     public void setZip(BEZipCode zip) {
-        this.ZIP = zip;
+        this.zip = zip;
     }
 }

@@ -2,39 +2,39 @@ package BE;
 
 
 public class BEZipCode {
-    private int ZIPCODE;
-    private String CITY;
+    private int zipCode;
+    private String city;
 
     public BEZipCode(int zipCode, String city) {
-       ZIPCODE = zipCode;
-       CITY = city;
+       this.zipCode = zipCode;
+       this.city = city;
     }
 
     /**
      * @return the ZIPCODE
      */
     public int getZIPCODE() {
-        return ZIPCODE;
+        return zipCode;
     }
 
     /**
      * @param ZIPCODE the ZIPCODE to set
      */
     public void setZIPCODE(int ZIPCODE) {
-        this.ZIPCODE = ZIPCODE;
+        this.zipCode = ZIPCODE;
     }
 
     /**
      * @return the CITY
      */
     public String getCITY() {
-        return CITY;
+        return city;
     }
 
     /**
      * @param CITY the CITY to set
      */
     public void setCITY(String CITY) {
-        this.CITY = CITY;
+        this.city = CITY;
     }
 }

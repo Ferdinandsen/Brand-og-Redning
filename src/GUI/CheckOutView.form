@@ -30,13 +30,13 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                  <Component id="cboxKØTJ" alignment="0" max="32767" attributes="0"/>
+                  <Component id="cboxVehicle" alignment="0" max="32767" attributes="0"/>
                   <Component id="rbtnStVagt" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="rbtnHoldleder" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="rbtnChauffør" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnAcknowledge" alignment="0" pref="93" max="32767" attributes="0"/>
+                  <Component id="btnAcknowledge" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="55" max="32767" attributes="0"/>
+              <EmptySpace pref="35" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -44,7 +44,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-              <Component id="cboxKØTJ" min="-2" max="-2" attributes="0"/>
+              <Component id="cboxVehicle" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               <Component id="rbtnHoldleder" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -59,14 +59,11 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JComboBox" name="cboxK&#xd8;TJ">
+    <Component class="javax.swing.JComboBox" name="cboxVehicle">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="1">
+            <StringItem index="0" value="Intet k&#xf8;ret&#xf8;j valgt"/>
           </StringArray>
         </Property>
       </Properties>
