@@ -1,6 +1,9 @@
 package GUI;
 
 import BE.BEFireman;
+import BLL.BLLEmployee;
+import BLL.BLLFireman;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -14,7 +17,8 @@ import javax.swing.JPanel;
 
 public class CheckInView extends javax.swing.JFrame {
 
-    ArrayList<String> stuff = new ArrayList<>();
+    BLLEmployee bllEmployee;
+    BLLFireman bllFireman;
     ArrayList<BEFireman> allFiremen = new ArrayList<>();
     int amount;
     JPanel main;
@@ -22,24 +26,9 @@ public class CheckInView extends javax.swing.JFrame {
     int height = amount / width;
 
     public CheckInView() {
-        stuff.add("André");
-        stuff.add("Jacob");
-        stuff.add("Jakob");
-        stuff.add("Andreas");
-        stuff.add("Michael");
-        stuff.add("Sus");
-        stuff.add("Poul");
-        stuff.add("Niels");
-        stuff.add("Stephen");
-        stuff.add("Michelle");
-        stuff.add("Steffen");
-        stuff.add("Kevin");
-        stuff.add("Mikkel");
-        stuff.add("Morten");
-        stuff.add("Peter");
+        bllFireman = BLLFireman.getInstance();
         this.setUndecorated(true);
-        makeBE();
-        amount = BEFireman.amount;
+        amount = BEFireman.getAmount();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         pack();
@@ -63,25 +52,34 @@ public class CheckInView extends javax.swing.JFrame {
         gl.setVgap(40);
         gl.setHgap(20);
         p.setLayout(gl);
-
+        allFiremen = bllFireman.getAllfiremen();
         for (BEFireman fireman : allFiremen) {
             JButton b = new firemanButton(fireman);
             b.addActionListener(new ActionListener() {
+               
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    msgbox((firemanButton) e.getSource());
+                    firemanButton fb = (firemanButton) e.getSource();
+                    msgbox(fb);
+                    changebit(fb);
+                    CheckOutView frame = new CheckOutView();
+                    if(!fb.localFireman.isCheckedin())
+                    frame.setVisible(true);
                 }
 
                 private void msgbox(firemanButton fButton) {
-                    System.out.println(fButton.toString());
-                    
+                    System.out.println(fButton.name);
+                }
+
+                private void changebit(firemanButton fButton) {
+                    fButton.changebit();
                 }
             });
             p.add(b);
         }
         return p;
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -104,32 +102,36 @@ public class CheckInView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
-    private void makeBE() {
-//        for (int i = 0; i < stuff.size(); i++) {
-//            BEFireman fireman = new BEFireman(stuff.get(i));
-//            allFiremen.add(fireman);
-//        }
-    }
-
     private class firemanButton extends JButton {
 
         String name;
         int test = 0;
+        BEFireman localFireman;
 
         public firemanButton(BEFireman fireman) {
             test++;
-            this.name = fireman.toString();
-            this.setBackground(getColor(fireman));
+            localFireman = fireman;
+            this.name = fireman.getMedarbjeder().getFornavn();
+            this.setBackground(getColor());
             this.setText(name);
-            System.out.println(test);
         }
 
-        private Color getColor(BEFireman fireman) {
-            if (fireman.isCheckedIn()) {
+        private Color getColor() {
+            if (localFireman.isCheckedin()) {
                 return Color.RED;
             }
             return Color.GREEN;
+        }
 
+        private void setColor() {
+            this.setBackground(getColor());
+            repaint();
+        }
+
+        public void changebit() {
+            localFireman.setIsCheckedin(!localFireman.isCheckedin());
+            bllFireman.changeBit(localFireman);
+            setColor();
         }
     }
 }

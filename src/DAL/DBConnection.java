@@ -16,10 +16,10 @@ public class DBConnection {
     
     private static final String SERVER_NAME = "localhost";
     private static final String DATABASE_INSTANCE = "SQLEXPRESS";
-    private static final int PORTNO = 1433; //49197; //58828;
+    private static final int PORTNO = 49197; //1433; //58828;
     private static final String DATABASE_NAME = "Brand og Redning";
-    private static final String USERNAME = "Jacob";
-    private static final String PASSWORD = "Jacob123";
+    private static final String USERNAME = "Jakob";
+    private static final String PASSWORD = "Jakob123";
 
     private DBConnection() throws SQLServerException {
         SQLServerDataSource ds = new SQLServerDataSource();
@@ -43,5 +43,3 @@ public class DBConnection {
         return m_instance;
     }
 }
-
-
