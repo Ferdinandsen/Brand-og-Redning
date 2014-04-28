@@ -108,7 +108,7 @@ public class CheckInView extends javax.swing.JFrame {
         int test = 0;
         BEFireman localFireman;
 
-        public firemanButton(BEFiremanTest fireman) {
+        public firemanButton(BEFireman fireman) {
             test++;
             localFireman = fireman;
             this.name = fireman.getMedarbjeder().getFornavn();
