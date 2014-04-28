@@ -1,7 +1,5 @@
 package GUI;
 
-import java.awt.Toolkit;
-
 /**
  *
  * @author Shadowleet
@@ -14,6 +12,7 @@ public class CheckOutView extends javax.swing.JDialog {
     public CheckOutView() {
 
         initComponents();
+        initOtherComponents();
         this.setTitle("CHECK UD");
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setResizable(false);
@@ -90,15 +89,15 @@ public class CheckOutView extends javax.swing.JDialog {
     private javax.swing.JRadioButton rbtnStVagt;
     // End of variables declaration//GEN-END:variables
 
-    public void initOtherComponents() {
+    private void initOtherComponents() {
         btnAcknowledge.setText("Bekræft");
         btnAcknowledge.setEnabled(false);
 
         btnGrpCheckOut.add(rbtnStVagt);
         btnGrpCheckOut.add(rbtnHoldleder);
         btnGrpCheckOut.add(rbtnChauffør);
-        rbtnHoldleder.setEnabled(false);
-        rbtnChauffør.setEnabled(false);
+        rbtnHoldleder.setEnabled(true);
+        rbtnChauffør.setEnabled(true);
         rbtnStVagt.setEnabled(true);
     }
 
