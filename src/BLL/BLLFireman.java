@@ -1,16 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package BLL;
 
 import BE.BEFireman;
 import DAL.DALFireman;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -25,7 +18,7 @@ public class BLLFireman {
         try {
             dalFireman = DALFireman.getInstance();
         } catch (SQLException e) {
-            System.out.println("fejl i BLLFireman" + e);
+            System.out.println("fejl i BLLFireman " + e);
         }
     }
 
@@ -44,7 +37,7 @@ public class BLLFireman {
         try {
             dalFireman.changeBit(fireman);
         } catch (SQLException ex) {
-            System.out.println("kunne ikk changeBit" + ex);
+            System.out.println("kunne ikke changeBit" + ex);
         }
     }
 }
