@@ -58,6 +58,7 @@ public class CheckInView extends javax.swing.JFrame {
         for (BEFireman fireman : allFiremen) {
             JButton b = new firemanButton(fireman);
             b.addMouseListener(new MouseAdapter() {
+                @Override
                 public void mousePressed(MouseEvent e) {
                    
                 }

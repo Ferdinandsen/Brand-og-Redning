@@ -15,14 +15,16 @@ public class CheckOutView extends javax.swing.JDialog {
 
     BLLVehicle bllvehicle;
     BLLTimelist blltime;
+    BETime localtime;
 
     /**
      * Creates new form CheckOutView
      */
-    public CheckOutView(BEFireman fm) {
+    public CheckOutView(BETime time) {
 
+        localtime = time;
         initComponents();
-        initOtherComponents(fm);
+        initOtherComponents();
         this.setTitle("CHECK UD");
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setResizable(false);
@@ -101,21 +103,28 @@ public class CheckOutView extends javax.swing.JDialog {
     private javax.swing.JRadioButton rbtnStVagt;
     // End of variables declaration//GEN-END:variables
 
-    private void initOtherComponents(BEFireman fm) {
+    private void initOtherComponents() {
         btnAcknowledge.setText("Bekræft");
         btnAcknowledge.setEnabled(true);
 
         btnGrpCheckOut.add(rbtnStVagt);
         btnGrpCheckOut.add(rbtnChauffør);
+
         rbtnHoldleder.setEnabled(false);
+        if (localtime.isHoldleder()) {
+            rbtnHoldleder.setEnabled(true);
+        }
         rbtnChauffør.setEnabled(false);
+        if (localtime.isChaffør()) {
+            rbtnChauffør.setEnabled(true);
+        }
         rbtnStVagt.setEnabled(true);
-        
+
         btnAcknowledge.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-//                sendToBLL(fm);
+                sendToBLL();
                 dispose();
             }
         });
@@ -127,7 +136,7 @@ public class CheckOutView extends javax.swing.JDialog {
         }
     }
 
-    private void sendToBLL(BEFireman fm) {
+    private void sendToBLL() {
         BEVehicle odin;
         boolean hl = false;
         boolean ch = false;
@@ -142,6 +151,6 @@ public class CheckOutView extends javax.swing.JDialog {
         if (rbtnStVagt.isSelected()) {
             st = true;
         }
-         blltime.sendToDAL(fm, odin, hl, ch, st);
+        blltime.sendToDAL(localtime, odin, hl, ch, st);
     }
 }
