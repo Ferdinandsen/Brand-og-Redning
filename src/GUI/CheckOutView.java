@@ -104,13 +104,13 @@ public class CheckOutView extends javax.swing.JDialog {
     private void initOtherComponents() {
         btnAcknowledge.setText("Bekræft");
         btnAcknowledge.setEnabled(true);
-
+        
         btnGrpCheckOut.add(rbtnStVagt);
         btnGrpCheckOut.add(rbtnChauffør);
         rbtnHoldleder.setEnabled(false);
         rbtnChauffør.setEnabled(false);
         rbtnStVagt.setEnabled(true);
-
+        
         btnAcknowledge.addActionListener(new ActionListener() {
 
             @Override

@@ -11,6 +11,9 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -55,16 +58,21 @@ public class CheckInView extends javax.swing.JFrame {
         allFiremen = bllFireman.getAllfiremen();
         for (BEFireman fireman : allFiremen) {
             JButton b = new firemanButton(fireman);
+            b.addMouseListener(new MouseAdapter() {
+                public void mousePressed(MouseEvent e) {
+                   
+                }
+            });
             b.addActionListener(new ActionListener() {
-               
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     firemanButton fb = (firemanButton) e.getSource();
                     msgbox(fb);
                     changebit(fb);
                     CheckOutView frame = new CheckOutView();
-                    if(!fb.localFireman.isCheckedin())
-                    frame.setVisible(true);
+                    if (!fb.localFireman.isCheckedin()) {
+                        frame.setVisible(true);
+                    }
                 }
 
                 private void msgbox(firemanButton fButton) {
@@ -79,7 +87,7 @@ public class CheckInView extends javax.swing.JFrame {
         }
         return p;
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
