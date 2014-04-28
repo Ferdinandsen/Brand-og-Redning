@@ -1,7 +1,6 @@
 package GUI;
 
 import BE.BEFireman;
-import BLL.BLLEmployee;
 import BLL.BLLFireman;
 
 import java.awt.BorderLayout;
@@ -11,16 +10,13 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class CheckInView extends javax.swing.JFrame {
 
-    BLLEmployee bllEmployee;
     BLLFireman bllFireman;
     ArrayList<BEFireman> allFiremen = new ArrayList<>();
     int amount;
@@ -58,12 +54,16 @@ public class CheckInView extends javax.swing.JFrame {
         allFiremen = bllFireman.getAllfiremen();
         for (BEFireman fireman : allFiremen) {
             JButton b = new firemanButton(fireman);
+             b.setIcon(new ImageIcon(((new ImageIcon("images/test.JPG")).getImage()).getScaledInstance(120, 60, java.awt.Image.SCALE_SMOOTH)));
+
             b.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     firemanButton fb = (firemanButton) e.getSource();
                     changebit(fb);
                     if (fb.localFireman.isCheckedin()) { //hvis han skal til at logge ind
+                        bllFireman.createTimestamp(fb.localFireman);
+                        
                     } else { // hvis han skal til at logge ud
                         CheckOutView frame = new CheckOutView();
                         frame.setModal(true);
@@ -71,8 +71,8 @@ public class CheckInView extends javax.swing.JFrame {
                     }
                 }
 
-                private void changebit(firemanButton fButton) {
-                    fButton.changebit();
+                private void changebit(firemanButton fb) {
+                    fb.changebit();
                 }
             });
             p.add(b);

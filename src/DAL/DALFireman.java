@@ -4,10 +4,13 @@ import BE.BEEmployee;
 import BE.BEFireman;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  *
@@ -16,11 +19,9 @@ import java.util.ArrayList;
 public class DALFireman {
 
     Connection m_connection;
-
     private static DALFireman m_instance = null;
     public ArrayList<BEFireman> firemen = new ArrayList<>();
     DALEmployee dalEmployee = DALEmployee.getInstance();
-
 
     private DALFireman() throws SQLServerException, SQLException {
         m_connection = DBConnection.getInstance().getConnection();
@@ -69,6 +70,20 @@ public class DALFireman {
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setBoolean(1, fireman.isCheckedin());
         ps.setInt(2, fireman.getMedarbjeder().getMedarbejderNo());
+        ps.execute();
+    }
+
+    public void createTimestamp(BEFireman fb) throws SQLException {
+        String sql = "INSERT INTO Tidsregistrering VALUES (?,?, ?);";
+
+        Calendar calendar = Calendar.getInstance();
+        java.util.Date now = calendar.getTime();
+        Timestamp currentTimestamp = new java.sql.Timestamp(now.getTime());
+
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setInt(1, fb.getMedarbjeder().getMedarbejderNo());
+        ps.setTimestamp(2, currentTimestamp);
+        ps.setTimestamp(3, null);
         ps.execute();
     }
 }
