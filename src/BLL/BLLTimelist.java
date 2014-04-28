@@ -1,5 +1,6 @@
 package BLL;
 
+import BE.BEFireman;
 import BE.BEVehicle;
 import DAL.DALTimelist;
 import java.sql.SQLException;
@@ -28,7 +29,7 @@ public class BLLTimelist {
         return m_instance;
     }
 
-    public void sendToDAL(BEVehicle odin, boolean hl, boolean ch, boolean st) {
+    public void sendToDAL(BEFireman fm, BEVehicle odin, boolean hl, boolean ch, boolean st) {
 //send info videre
     }
 

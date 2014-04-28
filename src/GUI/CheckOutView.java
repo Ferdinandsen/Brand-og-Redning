@@ -1,5 +1,6 @@
 package GUI;
 
+import BE.BEFireman;
 import BE.BEVehicle;
 import BLL.BLLTimelist;
 import BLL.BLLVehicle;
@@ -18,10 +19,10 @@ public class CheckOutView extends javax.swing.JDialog {
     /**
      * Creates new form CheckOutView
      */
-    public CheckOutView() {
+    public CheckOutView(BEFireman fm) {
 
         initComponents();
-        initOtherComponents();
+        initOtherComponents(fm);
         this.setTitle("CHECK UD");
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setResizable(false);
@@ -100,7 +101,7 @@ public class CheckOutView extends javax.swing.JDialog {
     private javax.swing.JRadioButton rbtnStVagt;
     // End of variables declaration//GEN-END:variables
 
-    private void initOtherComponents() {
+    private void initOtherComponents(BEFireman fm) {
         btnAcknowledge.setText("Bekræft");
         btnAcknowledge.setEnabled(true);
 
@@ -114,7 +115,7 @@ public class CheckOutView extends javax.swing.JDialog {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-//                sendToBLL();
+//                sendToBLL(fm);
                 dispose();
             }
         });
@@ -126,7 +127,7 @@ public class CheckOutView extends javax.swing.JDialog {
         }
     }
 
-    private void sendToBLL() {
+    private void sendToBLL(BEFireman fm) {
         BEVehicle odin;
         boolean hl = false;
         boolean ch = false;
@@ -141,6 +142,6 @@ public class CheckOutView extends javax.swing.JDialog {
         if (rbtnStVagt.isSelected()) {
             st = true;
         }
-         blltime.sendToDAL(odin, hl, ch, st);
+         blltime.sendToDAL(fm, odin, hl, ch, st);
     }
 }

@@ -13,7 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -70,7 +69,7 @@ public class CheckInView extends javax.swing.JFrame {
                     firemanButton fb = (firemanButton) e.getSource();
                     msgbox(fb);
                     changebit(fb);
-                    CheckOutView frame = new CheckOutView();
+                    CheckOutView frame = new CheckOutView(fb.localFireman);
                     frame.setModal(true);
                     if (!fb.localFireman.isCheckedin()) {
                         frame.setVisible(true);
