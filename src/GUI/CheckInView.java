@@ -74,6 +74,7 @@ public class CheckInView extends javax.swing.JFrame {
 
                 private void msgbox(firemanButton fButton) {
                     System.out.println(fButton.toString());
+                    
                 }
             });
             p.add(b);
