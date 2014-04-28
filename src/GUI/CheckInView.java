@@ -63,6 +63,7 @@ public class CheckInView extends javax.swing.JFrame {
                     msgbox(fb);
                     changebit(fb);
                     CheckOutView frame = new CheckOutView();
+                    frame.setModal(true);
                     if (!fb.localFireman.isCheckedin()) {
                         frame.setVisible(true);
                     }
