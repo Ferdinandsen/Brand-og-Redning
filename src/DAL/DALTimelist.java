@@ -1,5 +1,6 @@
 package DAL;
 
+import BE.BEVehicle;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -22,5 +23,9 @@ public class DALTimelist {
             m_instance = new DALTimelist();
         }
         return m_instance;
+    }
+
+    public void updateTime(BETime time, BEVehicle odin, boolean hl, boolean ch, boolean st) {
+        
     }
 }

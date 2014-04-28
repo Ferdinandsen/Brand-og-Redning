@@ -1,5 +1,6 @@
 package GUI;
 
+import BE.BEFireman;
 import BE.BEVehicle;
 import BLL.BLLTimelist;
 import BLL.BLLVehicle;
@@ -14,12 +15,14 @@ public class CheckOutView extends javax.swing.JDialog {
 
     BLLVehicle bllvehicle;
     BLLTimelist blltime;
+    BETime localtime;
 
     /**
      * Creates new form CheckOutView
      */
-    public CheckOutView() {
+    public CheckOutView(BETime time) {
 
+        localtime = time;
         initComponents();
         initOtherComponents();
         this.setTitle("CHECK UD");
@@ -27,7 +30,6 @@ public class CheckOutView extends javax.swing.JDialog {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         bllvehicle = BLLVehicle.getInstance();
-
         fillCboxVehicle();
     }
 
@@ -104,18 +106,25 @@ public class CheckOutView extends javax.swing.JDialog {
     private void initOtherComponents() {
         btnAcknowledge.setText("Bekræft");
         btnAcknowledge.setEnabled(true);
-        
+
         btnGrpCheckOut.add(rbtnStVagt);
         btnGrpCheckOut.add(rbtnChauffør);
+
         rbtnHoldleder.setEnabled(false);
+        if (localtime.isHoldleder()) {
+            rbtnHoldleder.setEnabled(true);
+        }
         rbtnChauffør.setEnabled(false);
+        if (localtime.isChaffør()) {
+            rbtnChauffør.setEnabled(true);
+        }
         rbtnStVagt.setEnabled(true);
-        
+
         btnAcknowledge.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-//                sendToBLL();
+                sendToBLL();
                 dispose();
             }
         });
@@ -142,6 +151,6 @@ public class CheckOutView extends javax.swing.JDialog {
         if (rbtnStVagt.isSelected()) {
             st = true;
         }
-         blltime.sendToDAL(odin, hl, ch, st);
+        blltime.sendToDAL(localtime, odin, hl, ch, st);
     }
 }
