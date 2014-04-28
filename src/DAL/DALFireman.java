@@ -19,6 +19,8 @@ public class DALFireman {
 
     private static DALFireman m_instance = null;
     public ArrayList<BEFireman> firemen = new ArrayList<>();
+    DALEmployee dalEmployee = DALEmployee.getInstance();
+
 
     private DALFireman() throws SQLServerException, SQLException {
         m_connection = DBConnection.getInstance().getConnection();
@@ -46,7 +48,7 @@ public class DALFireman {
             boolean isCheckIn = result.getBoolean("isCheckIn");
             BEEmployee localEmployee = null;
 
-            for (BEEmployee employee : DALEmployee.getInstance().getAllEmployess()) {
+            for (BEEmployee employee : dalEmployee.getAllEmployees()) {
                 if (employee.getMedarbejderNo() == medarbejderRef) {
                     localEmployee = employee;
                 }
