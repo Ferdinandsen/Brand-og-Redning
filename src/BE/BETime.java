@@ -8,21 +8,29 @@ import java.sql.Timestamp;
  */
 public class BETime {
 
+    private int id;
     private BEFireman fireman;
     private Timestamp checkIn;
     private Timestamp checkOut;
     private boolean hasCheckedOut;
+    private boolean complete;
     
     
-    public BETime(BEFireman fireman, Timestamp checkIn, Timestamp checkOut,boolean hasCheckedOut){
-        
+    public BETime(BEFireman fireman, Timestamp checkIn, Timestamp checkOut,boolean hasCheckedOut,boolean complete){
         this.fireman = fireman;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.hasCheckedOut = hasCheckedOut;
-        
+        this.complete = complete;
     }
-
+    public BETime(int id,BEFireman fireman, Timestamp checkIn, Timestamp checkOut,boolean hasCheckedOut,boolean complete){
+        this.id = id;
+        this.fireman = fireman;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        this.hasCheckedOut = hasCheckedOut;
+        this.complete = complete;  
+    }
     /**
      * @return the medarbejderNo
      */
@@ -77,6 +85,34 @@ public class BETime {
      */
     public void setHasCheckedOut(boolean hasCheckedOut) {
         this.hasCheckedOut = hasCheckedOut;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the complete
+     */
+    public boolean isComplete() {
+        return complete;
+    }
+
+    /**
+     * @param complete the complete to set
+     */
+    public void setComplete(boolean complete) {
+        this.complete = complete;
     }
 
 }

@@ -7,6 +7,8 @@ import BLL.BLLTimelist;
 import BLL.BLLVehicle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 /**
  *
@@ -108,10 +110,11 @@ public class CheckOutView extends javax.swing.JDialog {
 
     private void initOtherComponents() {
         btnAcknowledge.setText("Bekræft");
-        btnAcknowledge.setEnabled(true);
+        btnAcknowledge.setEnabled(false);
 
         btnGrpCheckOut.add(rbtnStVagt);
         btnGrpCheckOut.add(rbtnChauffør);
+        btnGrpCheckOut.add(rbtnHoldleder);
 
         rbtnHoldleder.setEnabled(false);
         if (localFireman.isHoldleder()) {
@@ -126,8 +129,27 @@ public class CheckOutView extends javax.swing.JDialog {
         btnAcknowledge.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sendToBLL();
+                endShift();
                 dispose();
+            }
+        });
+        cboxVehicle.addItemListener(new ItemListener() {
+
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (rbtnStVagt.isSelected() && cboxVehicle.getSelectedIndex() != 0) {
+                    btnGrpCheckOut.clearSelection();
+                }
+                btnAcknowledge.setEnabled(cboxVehicle.getSelectedIndex() != 0);
+
+            }
+        });
+        rbtnStVagt.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cboxVehicle.setSelectedIndex(0);
+                btnAcknowledge.setEnabled(rbtnStVagt.isSelected());
             }
         });
     }
@@ -138,23 +160,23 @@ public class CheckOutView extends javax.swing.JDialog {
         }
     }
 
-    private void sendToBLL() {
-//        BEVehicle odin;
-//        boolean hl = false;
-//        boolean ch = false;
-//        boolean st = false;
-//        odin = (BEVehicle) cboxVehicle.getSelectedItem();
-//        if (rbtnHoldleder.isSelected()) {
-//            hl = true;
-//        }
-//        if (rbtnChauffør.isSelected()) {
-//            ch = true;
-//        }
-//        if (rbtnStVagt.isSelected()) {
-//            st = true;
-//        }
-
-        blltime.createCheckOutTimestamp(localFireman);
-        // blltime.sendToDAL(localFireman, odin, hl, ch, st);
+    private void endShift() {
+        BEVehicle veh = null;
+        boolean hl = false;
+        boolean ch = false;
+        boolean st = false;
+        if (cboxVehicle.getSelectedIndex() != 0) {
+            veh = (BEVehicle) cboxVehicle.getSelectedItem();
+        }
+        if (rbtnHoldleder.isSelected()) {
+            hl = true;
+        }
+        if (rbtnChauffør.isSelected()) {
+            ch = true;
+        }
+        if (rbtnStVagt.isSelected()) {
+            st = true;
+        }
+        blltime.createEndShift(localFireman, veh, hl, ch, st);
     }
 }
