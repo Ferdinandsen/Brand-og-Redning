@@ -1,12 +1,13 @@
 package BLL;
 
 import BE.BEFireman;
+import BE.BETime;
 import DAL.DALFireman;
 import GUI.CheckInView;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Calendar;
 
 /**
  *
@@ -43,19 +44,4 @@ public class BLLFireman {
             System.out.println("kunne ikke changeBit" + ex);
         }
     }
-
-    public void createCheckInTimestamp(BEFireman fireman) {
-        try {
-            dalFireman.createCheckInTimestamp(fireman);
-        } catch (SQLException ex) {
-            System.out.println("kunne ikke lave timestamp" + ex);
-        }
-    }
-
-    public void createCheckOutTimestamp(BEFireman fireman) {
-      try {
-            dalFireman.createCheckOutTimestamp(fireman);
-        } catch (SQLException ex) {
-            System.out.println("kunne ikke lave timestamp" + ex);
-        }}
 }

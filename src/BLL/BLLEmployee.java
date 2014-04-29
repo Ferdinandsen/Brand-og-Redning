@@ -16,7 +16,7 @@ public class BLLEmployee {
         try {
             dalEmployee = DALEmployee.getInstance();
         } catch (SQLException e) {
-            System.out.println(e);
+            System.out.println("fejl i bllEmployee " + e);
         }
     }
 

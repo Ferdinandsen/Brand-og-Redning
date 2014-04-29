@@ -35,7 +35,7 @@ public class DALEmployee {
     }
 
     private void populateEmployee() throws SQLException {
-        String sql = "select * from Medarbejder";
+        String sql = "SELECT * FROM Medarbejder";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.execute();
@@ -65,7 +65,7 @@ public class DALEmployee {
     }
 
     private void populateAddress() throws SQLException {
-        String sql = "select * from Adresse";
+        String sql = "SELECT * FROM Adresse";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.execute();
@@ -91,7 +91,7 @@ public class DALEmployee {
     }
 
     private void populateZip() throws SQLException {
-        String sql = "select * from Postnummer";
+        String sql = "SELECT * FROM Postnummer";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.execute();

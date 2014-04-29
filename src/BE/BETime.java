@@ -11,13 +11,15 @@ public class BETime {
     private BEFireman fireman;
     private Timestamp checkIn;
     private Timestamp checkOut;
+    private boolean hasCheckedOut;
     
     
-    public BETime(BEFireman fireman, Timestamp checkIn, Timestamp checkOut){
+    public BETime(BEFireman fireman, Timestamp checkIn, Timestamp checkOut,boolean hasCheckedOut){
         
         this.fireman = fireman;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
+        this.hasCheckedOut = hasCheckedOut;
         
     }
 
@@ -61,6 +63,20 @@ public class BETime {
      */
     public void setCheckOut(Timestamp checkOut) {
         this.checkOut = checkOut;
+    }
+
+    /**
+     * @return the hasCheckedOut
+     */
+    public boolean isHasCheckedOut() {
+        return hasCheckedOut;
+    }
+
+    /**
+     * @param hasCheckedOut the hasCheckedOut to set
+     */
+    public void setHasCheckedOut(boolean hasCheckedOut) {
+        this.hasCheckedOut = hasCheckedOut;
     }
 
 }

@@ -31,7 +31,7 @@ public class DALVehicle {
     }
 
     private void populateVehicle() throws SQLException {
-        String sql = "select * from KØTJ";
+        String sql = "SELECT * FROM KØTJ";
 
         PreparedStatement ps = getM_connection().prepareStatement(sql);
         ps.execute();
