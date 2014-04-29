@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author Jakob
@@ -24,7 +23,6 @@ public class DALFireman {
     private DALFireman() throws SQLServerException, SQLException {
         m_connection = DBConnection.getInstance().getConnection();
         populateFiremen();
-        
     }
 
     public static DALFireman getInstance() throws SQLException {
@@ -35,7 +33,7 @@ public class DALFireman {
     }
 
     private void populateFiremen() throws SQLException {
-        String sql = "select * from Deltidsbrandmand";
+        String sql = "SELECT * FROM Deltidsbrandmand";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.execute();
@@ -64,7 +62,7 @@ public class DALFireman {
     }
 
     public void changeBit(BEFireman fireman) throws SQLException {
-        String sql = "Update Deltidsbrandmand set isCheckIn = ? where medarbejderRef = ?";
+        String sql = "UPDATE Deltidsbrandmand SET isCheckIn = ? WHERE medarbejderRef = ?";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setBoolean(1, fireman.isCheckedin());

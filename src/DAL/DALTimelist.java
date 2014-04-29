@@ -35,7 +35,7 @@ public class DALTimelist {
     }
 
     private void populateTimes() throws SQLException {
-        String sql = "select * from Tidsregistrering";
+        String sql = "SELECT * FROM Tidsregistrering";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.execute();

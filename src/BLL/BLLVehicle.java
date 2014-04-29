@@ -18,7 +18,7 @@ public class BLLVehicle {
         try {
             dalvehicle = DALVehicle.getInstance();
         } catch (SQLException e) {
-            System.out.println("SQL fejl i BLLKØTJ" + e);
+            System.out.println("Fejl i BLLKØTJ " + e);
         }
     }
 

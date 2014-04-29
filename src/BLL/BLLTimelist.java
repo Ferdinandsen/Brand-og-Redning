@@ -21,7 +21,7 @@ public class BLLTimelist {
         try {
             daltime = DALTimelist.getInstance();
         } catch (SQLException e) {
-            System.out.println("Fejl i BLLTimeList" + e);
+            System.out.println("Fejl i BLLTimeList " + e);
         }
     }
 
