@@ -27,6 +27,7 @@ public class CheckInView extends javax.swing.JFrame {
     int height = amount / width;
 
     public CheckInView() {
+        bllTimelist = BLLTimelist.getInstance();
         bllFireman = BLLFireman.getInstance();
         this.setUndecorated(true);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);

@@ -24,6 +24,7 @@ public class CheckOutView extends javax.swing.JDialog {
      *
      */
     public CheckOutView(BEFireman fireman) {
+        blltime = BLLTimelist.getInstance();
         bllFireman = BLLFireman.getInstance();
         bllvehicle = BLLVehicle.getInstance();
         localFireman = fireman;

@@ -45,19 +45,15 @@ public class BLLTimelist {
     }
 
     public void createCheckInTimestamp(BEFireman fm) {
-        System.out.println("check in");
         try {
             BETime temptime = new BETime(fm, time(), null, false);
             daltime.createCheckInTimestamp(temptime);
-            System.out.println(temptime.getCheckIn());
         } catch (SQLException ex) {
             System.out.println("kunne ikke lave timestamp" + ex);
         }
     }
 
     public void createCheckOutTimestamp(BEFireman fireman) {
-        System.out.println("check ud");
-
         try {
             BETime localTime = null;
             for (BETime theTime : daltime.getAllTimes()) {
@@ -68,8 +64,6 @@ public class BLLTimelist {
             }
             daltime.createCheckOutTimestamp(localTime);
             localTime.setHasCheckedOut(true);
-            System.out.println(localTime.getCheckOut());
-
         } catch (SQLException ex) {
             System.out.println("kunne ikke lave timestamp" + ex);
         }
