@@ -36,7 +36,6 @@ public class BLLTimelist {
 //        daltime.updateTime(time, odin, hl, ch, st);
     }
 
-    
     private Timestamp time() {
         Calendar calendar = Calendar.getInstance();
         java.util.Date now = calendar.getTime();

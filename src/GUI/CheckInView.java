@@ -29,6 +29,7 @@ public class CheckInView extends javax.swing.JFrame {
     public CheckInView() {
         bllTimelist = BLLTimelist.getInstance();
         bllFireman = BLLFireman.getInstance();
+        bllTimelist = BLLTimelist.getInstance();
         this.setUndecorated(true);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         amount = BEFireman.getAmount();
@@ -57,7 +58,7 @@ public class CheckInView extends javax.swing.JFrame {
         allFiremen = bllFireman.getAllfiremen();
         for (BEFireman fireman : allFiremen) {
             JButton b = new firemanButton(fireman);
-             b.setIcon(new ImageIcon(((new ImageIcon("images/" + fireman.getMedarbjeder().getPortræt())).getImage()).getScaledInstance(80, 60, java.awt.Image.SCALE_SMOOTH)));
+            b.setIcon(new ImageIcon(((new ImageIcon("images/" + fireman.getMedarbjeder().getPortræt())).getImage()).getScaledInstance(80, 60, java.awt.Image.SCALE_SMOOTH)));
 
             b.addActionListener(new ActionListener() {
                 @Override
@@ -66,12 +67,11 @@ public class CheckInView extends javax.swing.JFrame {
                     changebit(fb);
                     if (fb.localFireman.isCheckedin()) { //hvis han skal til at logge ind
                         bllTimelist.createCheckInTimestamp(fb.localFireman);
-                        
+
                     } else { // hvis han skal til at logge ud
                         CheckOutView frame = new CheckOutView(fb.localFireman);
                         frame.setModal(true);
                         frame.setVisible(true);
-                        
                     }
                 }
 

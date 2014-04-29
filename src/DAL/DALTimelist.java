@@ -53,7 +53,6 @@ public class DALTimelist {
                     localFireman = fireman;
                 }
             }
-
             BETime time = new BETime(localFireman, checkIn, checkOut, hasCheckedOut);
             allTimes.add(time);
         }
