@@ -58,7 +58,7 @@ public class CheckInView extends javax.swing.JFrame {
         for (BEFireman fireman : allFiremen) {
             JButton b = new firemanButton(fireman);
             b.setIcon(new ImageIcon(((new ImageIcon("images/" + fireman.getMedarbjeder().getPortræt())).getImage()).getScaledInstance(80, 60, java.awt.Image.SCALE_SMOOTH)));
-
+            b.setFocusable(false);
             b.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
