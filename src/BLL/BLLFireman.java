@@ -2,8 +2,11 @@ package BLL;
 
 import BE.BEFireman;
 import DAL.DALFireman;
+import GUI.CheckInView;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,7 +33,7 @@ public class BLLFireman {
     }
 
     public ArrayList<BEFireman> getAllfiremen() {
-        return dalFireman.getAllfiremen();
+        return dalFireman.getAllFiremen();
     }
 
     public void changeBit(BEFireman fireman) {
@@ -40,4 +43,19 @@ public class BLLFireman {
             System.out.println("kunne ikke changeBit" + ex);
         }
     }
+
+    public void createCheckInTimestamp(BEFireman fireman) {
+        try {
+            dalFireman.createCheckInTimestamp(fireman);
+        } catch (SQLException ex) {
+            System.out.println("kunne ikke lave timestamp" + ex);
+        }
+    }
+
+    public void createCheckOutTimestamp(BEFireman fireman) {
+      try {
+            dalFireman.createCheckOutTimestamp(fireman);
+        } catch (SQLException ex) {
+            System.out.println("kunne ikke lave timestamp" + ex);
+        }}
 }

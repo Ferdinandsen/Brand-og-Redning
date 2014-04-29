@@ -2,7 +2,7 @@ package BE;
 
 public class BEFireman {
 
-     private BEEmployee medarbjeder;
+    private BEEmployee medarbjeder;
     private boolean holdleder;
     private boolean chaffør;
     private boolean isCheckedIn;
@@ -18,14 +18,13 @@ public class BEFireman {
         amount++;
     }
 
-       /**
+    /**
      * @param aAmount the amount to set
      */
     public static void setAmount(int aAmount) {
         amount = aAmount;
     }
-    
-    
+
     public static int getAmount() {
         return amount;
     }
@@ -102,9 +101,19 @@ public class BEFireman {
 
     @Override
     public String toString() {
-        if (isCheckedIn) {
-            return getMedarbjeder().getFornavn() + getMedarbjeder().getMellemnavn() + getMedarbjeder().getEfternavn() + " (CHECKED IN)";
+        if (getMedarbjeder().getMellemnavn().equals("")) {
+            if (isCheckedIn) {
+                return getMedarbjeder().getFornavn() + " " + getMedarbjeder().getEfternavn() + " (CHECKED IN)";
+            }
+            return getName();
         }
-        return getName();
+        else
+        {
+            if (isCheckedIn) {
+                return getMedarbjeder().getFornavn() + " " + getMedarbjeder().getMellemnavn() + " " + getMedarbjeder().getEfternavn() + " (CHECKED IN)";
+            }
+            return getName();
+        }
+        
     }
 }

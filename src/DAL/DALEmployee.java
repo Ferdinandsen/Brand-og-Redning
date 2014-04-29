@@ -44,6 +44,8 @@ public class DALEmployee {
             int medarbejderNo = result.getInt("medarbejderNo");
             String fornavn = result.getString("fornavn");
             String mellemnavn = result.getString("mellemnavn");
+            if (mellemnavn == (null))
+                mellemnavn = "";
             String efternavn = result.getString("efternavn");
             String CPR = result.getString("CPR");
             String portræt = result.getString("portræt");

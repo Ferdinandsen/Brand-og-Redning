@@ -3,6 +3,7 @@ package GUI;
 import BE.BEFireman;
 import BE.BETime;
 import BE.BEVehicle;
+import BLL.BLLFireman;
 import BLL.BLLTimelist;
 import BLL.BLLVehicle;
 import java.awt.event.ActionEvent;
@@ -14,17 +15,18 @@ import java.awt.event.ActionListener;
  */
 public class CheckOutView extends javax.swing.JDialog {
 
+    BLLFireman bllFireman;
     BLLVehicle bllvehicle;
     BLLTimelist blltime;
-    BETime localtime;
-    BEFireman localfm;
+    BEFireman localFireman;
 
     /**
      * Creates new form CheckOutView
      * @param time
      */
-    public CheckOutView(BEFireman fm) {
-        localfm = fm;
+    public CheckOutView(BEFireman fireman) {
+        bllFireman = BLLFireman.getInstance();
+        localFireman = fireman;
         initComponents();
         initOtherComponents();
         this.setTitle("CHECK UD");
@@ -95,7 +97,6 @@ public class CheckOutView extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcknowledge;
     private javax.swing.ButtonGroup btnGrpCheckOut;
@@ -113,17 +114,16 @@ public class CheckOutView extends javax.swing.JDialog {
         btnGrpCheckOut.add(rbtnChauffør);
 
         rbtnHoldleder.setEnabled(false);
-        if (localfm.isHoldleder()) {
-            rbtnHoldleder.setEnabled(true);
-        }
-        rbtnChauffør.setEnabled(false);
-        if (localfm.isChaffør()) {
-            rbtnChauffør.setEnabled(true);
-        }
+//        if (localtime.isHoldleder()) {
+//            rbtnHoldleder.setEnabled(true);
+//        }
+//        rbtnChauffør.setEnabled(false);
+//        if (localtime.isChaffør()) {
+//            rbtnChauffør.setEnabled(true);
+//        }
         rbtnStVagt.setEnabled(true);
 
         btnAcknowledge.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 sendToBLL();
@@ -139,20 +139,22 @@ public class CheckOutView extends javax.swing.JDialog {
     }
 
     private void sendToBLL() {
-        BEVehicle odin;
-        boolean hl = false;
-        boolean ch = false;
-        boolean st = false;
-        odin = (BEVehicle) cboxVehicle.getSelectedItem();
-        if (rbtnHoldleder.isSelected()) {
-            hl = true;
-        }
-        if (rbtnChauffør.isSelected()) {
-            ch = true;
-        }
-        if (rbtnStVagt.isSelected()) {
-            st = true;
-        }
-        blltime.sendToDAL(localtime, odin, hl, ch, st);
+//        BEVehicle odin;
+//        boolean hl = false;
+//        boolean ch = false;
+//        boolean st = false;
+//        odin = (BEVehicle) cboxVehicle.getSelectedItem();
+//        if (rbtnHoldleder.isSelected()) {
+//            hl = true;
+//        }
+//        if (rbtnChauffør.isSelected()) {
+//            ch = true;
+//        }
+//        if (rbtnStVagt.isSelected()) {
+//            st = true;
+//        }
+
+        bllFireman.createCheckOutTimestamp(localFireman);
+        // blltime.sendToDAL(localFireman, odin, hl, ch, st);
     }
 }
