@@ -1,7 +1,6 @@
 package DAL;
 
 import BE.BEFireman;
-import BE.BEVehicle;
 import BE.BETime;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
@@ -46,6 +45,7 @@ public class DALTimelist {
             Timestamp checkIn = result.getTimestamp("checkIn");
             Timestamp checkOut = result.getTimestamp("checkOut");
             boolean hasCheckedOut = result.getBoolean("hasCheckedOut");
+            boolean complete = result.getBoolean("complete");
             BEFireman localFireman = null;
 
             for (BEFireman fireman : dalFireman.getAllFiremen()) {
@@ -53,20 +53,26 @@ public class DALTimelist {
                     localFireman = fireman;
                 }
             }
-            BETime time = new BETime(localFireman, checkIn, checkOut, hasCheckedOut);
+            BETime time = new BETime(localFireman, checkIn, checkOut, hasCheckedOut, complete);
             allTimes.add(time);
         }
     }
 
     public void createCheckInTimestamp(BETime time) throws SQLException {
-        String sql = "INSERT INTO Tidsregistrering VALUES (?,?,?,?)";
+        String sql = "INSERT INTO Tidsregistrering VALUES (?,?,?,?,?)select @@identity";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setInt(1, time.getFireman().getMedarbjeder().getMedarbejderNo());
         ps.setTimestamp(2, time.getCheckIn());
         ps.setTimestamp(3, null);
         ps.setBoolean(4, false);
+        ps.setBoolean(5, false);
         ps.execute();
+        ResultSet rs = ps.getGeneratedKeys();
+        if (rs.next()) {
+            int id = rs.getInt(1);
+            time.setId(id);
+        }
         allTimes.add(time);
     }
 
@@ -81,9 +87,6 @@ public class DALTimelist {
         ps.execute();
     }
 
-    public void updateTime(BETime time, BEVehicle odin, boolean hl, boolean ch, boolean st) {
-
-    }
     public ArrayList<BETime> getAllTimes() {
         return allTimes;
     }

@@ -4,6 +4,7 @@ import BE.BEVehicle;
 import DAL.DALTimelist;
 import BE.BEFireman;
 import BE.BETime;
+import DAL.DALAppearance;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -15,11 +16,13 @@ import java.util.Calendar;
 public class BLLTimelist {
 
     DAL.DALTimelist daltime;
+    DAL.DALAppearance dalappearance;
     private static BLLTimelist m_instance = null;
 
     private BLLTimelist() {
         try {
             daltime = DALTimelist.getInstance();
+            dalappearance = DALAppearance.getInstance();
         } catch (SQLException e) {
             System.out.println("Fejl i BLLTimeList " + e);
         }
@@ -32,10 +35,6 @@ public class BLLTimelist {
         return m_instance;
     }
 
-    public void sendToDAL(BETime time, BEVehicle odin, boolean hl, boolean ch, boolean st) {
-//        daltime.updateTime(time, odin, hl, ch, st);
-    }
-
     private Timestamp time() {
         Calendar calendar = Calendar.getInstance();
         java.util.Date now = calendar.getTime();
@@ -45,27 +44,59 @@ public class BLLTimelist {
 
     public void createCheckInTimestamp(BEFireman fm) {
         try {
-            BETime temptime = new BETime(fm, time(), null, false);
+            BETime temptime = new BETime(fm, time(), null, false, false);
             daltime.createCheckInTimestamp(temptime);
         } catch (SQLException ex) {
             System.out.println("kunne ikke lave timestamp" + ex);
         }
     }
 
-    public void createCheckOutTimestamp(BEFireman fireman) {
-        try {
-            BETime localTime = null;
-            for (BETime theTime : daltime.getAllTimes()) {
-                if (theTime.getFireman().getMedarbjeder().getMedarbejderNo() == fireman.getMedarbjeder().getMedarbejderNo() && theTime.getCheckOut() == null) {
-                    theTime.setCheckOut(time());
-                    localTime = theTime;
-                }
+    public void createEndShift(BEFireman fireman, BEVehicle veh, boolean hl, boolean ch, boolean st) {
+        BETime localTime = null;
+        for (BETime theTime : daltime.getAllTimes()) {
+            if (theTime.getFireman().getMedarbjeder().getMedarbejderNo() == fireman.getMedarbjeder().getMedarbejderNo() && theTime.getCheckOut() == null) {
+                theTime.setCheckOut(time());
+                localTime = theTime;
             }
+        }
+        int total = calculateTotalTime(localTime);
+        try {
             daltime.createCheckOutTimestamp(localTime);
             localTime.setHasCheckedOut(true);
         } catch (SQLException ex) {
             System.out.println("kunne ikke lave timestamp" + ex);
         }
+        try {
+            dalappearance.endShift(localTime, veh, hl, ch, st, total);
+        } catch (SQLException e) {
+            System.out.println("kunne ikke oprette end shift" + e);
+        }
     }
 
+    /**
+     * TEST!
+     *
+     * @param localTime
+     */
+    private int calculateTotalTime(BETime localTime) {
+        Timestamp ci = localTime.getCheckIn();
+        Timestamp co = localTime.getCheckOut();
+
+        long total = (co.getTime() - ci.getTime());
+
+        long second = total / 1000 % 60;
+        long minute = total / (1000 * 60) % 60;
+        long hour = total / (60 * 60 * 1000) % 24;
+        if (second > 0) {
+            minute++;
+        }
+        if (minute > 0) {
+            hour++;
+        }
+        if (hour < 2) {
+            hour = 2;
+        }
+        int d = Integer.parseInt("" + hour);
+        return d;
+    }
 }
