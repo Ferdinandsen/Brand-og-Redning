@@ -5,7 +5,6 @@ import BE.BEFireman;
 import BE.BETime;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,6 +48,7 @@ public class DALFireman {
             int deltidsbrandmandRef = result.getInt("deltidsbrandmandRef");
             Timestamp checkIn = result.getTimestamp("checkIn");
             Timestamp checkOut = result.getTimestamp("checkOut");
+            boolean hasCheckedOut = result.getBoolean("hasCheckedOut");
             BEFireman localFireman = null;
 
             for (BEFireman fireman : getAllFiremen()) {
@@ -57,7 +57,7 @@ public class DALFireman {
                 }
             }
 
-            BETime time = new BETime(localFireman, checkIn, checkOut);
+            BETime time = new BETime(localFireman, checkIn, checkOut, hasCheckedOut);
             allTimes.add(time);
         }
     }
@@ -104,42 +104,26 @@ public class DALFireman {
         ps.execute();
     }
 
-    public void createCheckInTimestamp(BEFireman fb) throws SQLException {
-        String sql = "INSERT INTO Tidsregistrering VALUES (?,?, ?);";
-
-        Calendar calendar = Calendar.getInstance();
-        java.util.Date now = calendar.getTime();
-        Timestamp currentTimestamp = new java.sql.Timestamp(now.getTime());
+    public void createCheckInTimestamp(BETime time) throws SQLException {
+        String sql = "INSERT INTO Tidsregistrering VALUES (?,?,?,?)";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
-        ps.setInt(1, fb.getMedarbjeder().getMedarbejderNo());
-        ps.setTimestamp(2, currentTimestamp);
+        ps.setInt(1, time.getFireman().getMedarbjeder().getMedarbejderNo());
+        ps.setTimestamp(2, time.getCheckIn());
         ps.setTimestamp(3, null);
+        ps.setBoolean(4, false);
         ps.execute();
-
-        BETime time = new BETime(fb, currentTimestamp, null);
         allTimes.add(time);
     }
 
-    public void createCheckOutTimestamp(BEFireman fireman) throws SQLException {
-        Calendar calendar = Calendar.getInstance();
-        java.util.Date now = calendar.getTime();
-        Timestamp currentTimestamp = new java.sql.Timestamp(now.getTime());
-
-        BETime localTime = null;
-        for (BETime theTime : allTimes) {
-            if (theTime.getFireman().getMedarbjeder().getMedarbejderNo() == fireman.getMedarbjeder().getMedarbejderNo() && theTime.getCheckOut() == null) {
-                theTime.setCheckOut(currentTimestamp);
-                localTime = theTime;
-            }
-        }
-
-        String sql = "UPDATE Tidsregistrering SET checkOut=? WHERE deltidsbrandmandRef= ? and checkIn = ?";
+    public void createCheckOutTimestamp(BETime time) throws SQLException {
+        String sql = "UPDATE Tidsregistrering SET checkOut = ?, hasCheckedOut = ? WHERE deltidsbrandmandRef = ? and hasCheckedOut = ?";
+        
         PreparedStatement ps = m_connection.prepareStatement(sql);
-        ps.setTimestamp(1, currentTimestamp);
-        ps.setInt(2, fireman.getMedarbjeder().getMedarbejderNo());
-        ps.setTimestamp(3, localTime.getCheckIn());
+        ps.setTimestamp(1, time.getCheckOut());
+        ps.setBoolean(2, true);
+        ps.setInt(3, time.getFireman().getMedarbjeder().getMedarbejderNo());
+        ps.setBoolean(4, false);
         ps.execute();
-
     }
 }

@@ -1,12 +1,13 @@
 package BLL;
 
 import BE.BEFireman;
+import BE.BETime;
 import DAL.DALFireman;
 import GUI.CheckInView;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Calendar;
 
 /**
  *
@@ -44,18 +45,39 @@ public class BLLFireman {
         }
     }
 
-    public void createCheckInTimestamp(BEFireman fireman) {
+    public void createCheckInTimestamp(BEFireman fm) {
+        System.out.println("check in");
+        Calendar calendar = Calendar.getInstance();
+        java.util.Date now = calendar.getTime();
+        Timestamp currentTime = new java.sql.Timestamp(now.getTime());
         try {
-            dalFireman.createCheckInTimestamp(fireman);
+            BETime temptime = new BETime(fm, currentTime, null, false);
+            dalFireman.createCheckInTimestamp(temptime);
+            System.out.println(temptime.getCheckIn());
         } catch (SQLException ex) {
             System.out.println("kunne ikke lave timestamp" + ex);
         }
     }
 
     public void createCheckOutTimestamp(BEFireman fireman) {
-      try {
-            dalFireman.createCheckOutTimestamp(fireman);
+        System.out.println("check ud");
+        Calendar calendar = Calendar.getInstance();
+         java.util.Date now = calendar.getTime();
+        Timestamp currentTime = new java.sql.Timestamp(now.getTime());
+        try {
+            BETime localTime = null;
+            for (BETime theTime : dalFireman.getAllTimes()) {
+                if (theTime.getFireman().getMedarbjeder().getMedarbejderNo() == fireman.getMedarbjeder().getMedarbejderNo() && theTime.getCheckOut() == null) {
+                    theTime.setCheckOut(currentTime);
+                    localTime = theTime;
+                }
+            }
+            dalFireman.createCheckOutTimestamp(localTime);
+            localTime.setHasCheckedOut(true);
+            System.out.println(localTime.getCheckOut());
+
         } catch (SQLException ex) {
             System.out.println("kunne ikke lave timestamp" + ex);
-        }}
+        }
+    }
 }
