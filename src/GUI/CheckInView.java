@@ -60,7 +60,7 @@ public class CheckInView extends javax.swing.JFrame {
             b.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
-                   
+
                 }
             });
             b.addActionListener(new ActionListener() {

@@ -30,7 +30,7 @@ public class BLLTimelist {
     }
 
     public void sendToDAL(BETime time, BEVehicle odin, boolean hl, boolean ch, boolean st) {
-        daltime.updateTime(time, odin, hl, ch, st);
+//        daltime.updateTime(time, odin, hl, ch, st);
     }
 
 }

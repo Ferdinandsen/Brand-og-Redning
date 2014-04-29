@@ -1,5 +1,6 @@
 package DAL;
 
+import BE.BETime;
 import BE.BEVehicle;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;

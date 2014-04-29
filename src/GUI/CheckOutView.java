@@ -1,6 +1,7 @@
 package GUI;
 
 import BE.BEFireman;
+import BE.BETime;
 import BE.BEVehicle;
 import BLL.BLLTimelist;
 import BLL.BLLVehicle;
@@ -16,13 +17,14 @@ public class CheckOutView extends javax.swing.JDialog {
     BLLVehicle bllvehicle;
     BLLTimelist blltime;
     BETime localtime;
+    BEFireman localfm;
 
     /**
      * Creates new form CheckOutView
+     * @param time
      */
-    public CheckOutView(BETime time) {
-
-        localtime = time;
+    public CheckOutView(BEFireman fm) {
+        localfm = fm;
         initComponents();
         initOtherComponents();
         this.setTitle("CHECK UD");
@@ -111,11 +113,11 @@ public class CheckOutView extends javax.swing.JDialog {
         btnGrpCheckOut.add(rbtnChauffør);
 
         rbtnHoldleder.setEnabled(false);
-        if (localtime.isHoldleder()) {
+        if (localfm.isHoldleder()) {
             rbtnHoldleder.setEnabled(true);
         }
         rbtnChauffør.setEnabled(false);
-        if (localtime.isChaffør()) {
+        if (localfm.isChaffør()) {
             rbtnChauffør.setEnabled(true);
         }
         rbtnStVagt.setEnabled(true);
