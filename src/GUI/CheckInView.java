@@ -2,7 +2,7 @@ package GUI;
 
 import BE.BEFireman;
 import BLL.BLLFireman;
-import BE.BETime;
+import BLL.BLLTimelist;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,8 +11,6 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,6 +19,7 @@ import javax.swing.JPanel;
 public class CheckInView extends javax.swing.JFrame {
 
     BLLFireman bllFireman;
+    BLLTimelist bllTimelist;
     ArrayList<BEFireman> allFiremen = new ArrayList<>();
     int amount;
     JPanel main;
@@ -65,7 +64,7 @@ public class CheckInView extends javax.swing.JFrame {
                     firemanButton fb = (firemanButton) e.getSource();
                     changebit(fb);
                     if (fb.localFireman.isCheckedin()) { //hvis han skal til at logge ind
-                        bllFireman.createCheckInTimestamp(fb.localFireman);
+                        bllTimelist.createCheckInTimestamp(fb.localFireman);
                         
                     } else { // hvis han skal til at logge ud
                         CheckOutView frame = new CheckOutView(fb.localFireman);

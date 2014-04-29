@@ -153,7 +153,7 @@ public class CheckOutView extends javax.swing.JDialog {
 //            st = true;
 //        }
 
-        bllFireman.createCheckOutTimestamp(localFireman);
+        blltime.createCheckOutTimestamp(localFireman);
         // blltime.sendToDAL(localFireman, odin, hl, ch, st);
     }
 }

@@ -44,40 +44,4 @@ public class BLLFireman {
             System.out.println("kunne ikke changeBit" + ex);
         }
     }
-
-    public void createCheckInTimestamp(BEFireman fm) {
-        System.out.println("check in");
-        Calendar calendar = Calendar.getInstance();
-        java.util.Date now = calendar.getTime();
-        Timestamp currentTime = new java.sql.Timestamp(now.getTime());
-        try {
-            BETime temptime = new BETime(fm, currentTime, null, false);
-            dalFireman.createCheckInTimestamp(temptime);
-            System.out.println(temptime.getCheckIn());
-        } catch (SQLException ex) {
-            System.out.println("kunne ikke lave timestamp" + ex);
-        }
-    }
-
-    public void createCheckOutTimestamp(BEFireman fireman) {
-        System.out.println("check ud");
-        Calendar calendar = Calendar.getInstance();
-         java.util.Date now = calendar.getTime();
-        Timestamp currentTime = new java.sql.Timestamp(now.getTime());
-        try {
-            BETime localTime = null;
-            for (BETime theTime : dalFireman.getAllTimes()) {
-                if (theTime.getFireman().getMedarbjeder().getMedarbejderNo() == fireman.getMedarbjeder().getMedarbejderNo() && theTime.getCheckOut() == null) {
-                    theTime.setCheckOut(currentTime);
-                    localTime = theTime;
-                }
-            }
-            dalFireman.createCheckOutTimestamp(localTime);
-            localTime.setHasCheckedOut(true);
-            System.out.println(localTime.getCheckOut());
-
-        } catch (SQLException ex) {
-            System.out.println("kunne ikke lave timestamp" + ex);
-        }
-    }
 }
