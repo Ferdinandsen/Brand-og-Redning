@@ -47,7 +47,6 @@ public class BLLTimelist {
         try {
             BETime temptime = new BETime(fm, time(), null, false);
             daltime.createCheckInTimestamp(temptime);
-            System.out.println(temptime.getCheckIn());
         } catch (SQLException ex) {
             System.out.println("kunne ikke lave timestamp" + ex);
         }
