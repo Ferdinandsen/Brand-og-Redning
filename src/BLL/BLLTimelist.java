@@ -36,7 +36,6 @@ public class BLLTimelist {
 //        daltime.updateTime(time, odin, hl, ch, st);
     }
 
-    
     private Timestamp time() {
         Calendar calendar = Calendar.getInstance();
         java.util.Date now = calendar.getTime();
@@ -45,7 +44,6 @@ public class BLLTimelist {
     }
 
     public void createCheckInTimestamp(BEFireman fm) {
-        System.out.println("check in");
         try {
             BETime temptime = new BETime(fm, time(), null, false);
             daltime.createCheckInTimestamp(temptime);
@@ -56,8 +54,6 @@ public class BLLTimelist {
     }
 
     public void createCheckOutTimestamp(BEFireman fireman) {
-        System.out.println("check ud");
-
         try {
             BETime localTime = null;
             for (BETime theTime : daltime.getAllTimes()) {
@@ -68,8 +64,6 @@ public class BLLTimelist {
             }
             daltime.createCheckOutTimestamp(localTime);
             localTime.setHasCheckedOut(true);
-            System.out.println(localTime.getCheckOut());
-
         } catch (SQLException ex) {
             System.out.println("kunne ikke lave timestamp" + ex);
         }
