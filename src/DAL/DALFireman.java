@@ -2,6 +2,7 @@ package DAL;
 
 import BE.BEEmployee;
 import BE.BEFireman;
+import BE.BETime;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.Date;
@@ -20,12 +21,14 @@ public class DALFireman {
 
     Connection m_connection;
     private static DALFireman m_instance = null;
-    public ArrayList<BEFireman> firemen = new ArrayList<>();
+    private ArrayList<BEFireman> firemen = new ArrayList<>();
+    private ArrayList<BETime> allTimes = new ArrayList<>();
     DALEmployee dalEmployee = DALEmployee.getInstance();
 
     private DALFireman() throws SQLServerException, SQLException {
         m_connection = DBConnection.getInstance().getConnection();
         populateFiremen();
+        populateTimes();
     }
 
     public static DALFireman getInstance() throws SQLException {
@@ -33,6 +36,30 @@ public class DALFireman {
             m_instance = new DALFireman();
         }
         return m_instance;
+    }
+
+    private void populateTimes() throws SQLException {
+        String sql = "select * from Tidsregistrering";
+
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.execute();
+
+        ResultSet result = ps.getResultSet();
+        while (result.next()) {
+            int deltidsbrandmandRef = result.getInt("deltidsbrandmandRef");
+            Timestamp checkIn = result.getTimestamp("checkIn");
+            Timestamp checkOut = result.getTimestamp("checkOut");
+            BEFireman localFireman = null;
+
+            for (BEFireman fireman : getAllFiremen()) {
+                if (fireman.getMedarbjeder().getMedarbejderNo() == deltidsbrandmandRef) {
+                    localFireman = fireman;
+                }
+            }
+
+            BETime time = new BETime(localFireman, checkIn, checkOut);
+            allTimes.add(time);
+        }
     }
 
     private void populateFiremen() throws SQLException {
@@ -60,8 +87,12 @@ public class DALFireman {
         }
     }
 
-    public ArrayList<BEFireman> getAllfiremen() {
+    public ArrayList<BEFireman> getAllFiremen() {
         return firemen;
+    }
+
+    public ArrayList<BETime> getAllTimes() {
+        return allTimes;
     }
 
     public void changeBit(BEFireman fireman) throws SQLException {
@@ -73,7 +104,7 @@ public class DALFireman {
         ps.execute();
     }
 
-    public void createTimestamp(BEFireman fb) throws SQLException {
+    public void createCheckInTimestamp(BEFireman fb) throws SQLException {
         String sql = "INSERT INTO Tidsregistrering VALUES (?,?, ?);";
 
         Calendar calendar = Calendar.getInstance();
@@ -85,5 +116,30 @@ public class DALFireman {
         ps.setTimestamp(2, currentTimestamp);
         ps.setTimestamp(3, null);
         ps.execute();
+
+        BETime time = new BETime(fb, currentTimestamp, null);
+        allTimes.add(time);
+    }
+
+    public void createCheckOutTimestamp(BEFireman fireman) throws SQLException {
+        Calendar calendar = Calendar.getInstance();
+        java.util.Date now = calendar.getTime();
+        Timestamp currentTimestamp = new java.sql.Timestamp(now.getTime());
+
+        BETime localTime = null;
+        for (BETime theTime : allTimes) {
+            if (theTime.getFireman().getMedarbjeder().getMedarbejderNo() == fireman.getMedarbjeder().getMedarbejderNo() && theTime.getCheckOut() == null) {
+                theTime.setCheckOut(currentTimestamp);
+                localTime = theTime;
+            }
+        }
+
+        String sql = "UPDATE Tidsregistrering SET checkOut=? WHERE deltidsbrandmandRef= ? and checkIn = ?";
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setTimestamp(1, currentTimestamp);
+        ps.setInt(2, fireman.getMedarbjeder().getMedarbejderNo());
+        ps.setTimestamp(3, localTime.getCheckIn());
+        ps.execute();
+
     }
 }

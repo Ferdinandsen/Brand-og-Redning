@@ -33,7 +33,7 @@ public class BLLFireman {
     }
 
     public ArrayList<BEFireman> getAllfiremen() {
-        return dalFireman.getAllfiremen();
+        return dalFireman.getAllFiremen();
     }
 
     public void changeBit(BEFireman fireman) {
@@ -44,11 +44,18 @@ public class BLLFireman {
         }
     }
 
-    public void createTimestamp(BEFireman fb) {
+    public void createCheckInTimestamp(BEFireman fireman) {
         try {
-            dalFireman.createTimestamp(fb);
+            dalFireman.createCheckInTimestamp(fireman);
         } catch (SQLException ex) {
             System.out.println("kunne ikke lave timestamp" + ex);
         }
     }
+
+    public void createCheckOutTimestamp(BEFireman fireman) {
+      try {
+            dalFireman.createCheckOutTimestamp(fireman);
+        } catch (SQLException ex) {
+            System.out.println("kunne ikke lave timestamp" + ex);
+        }}
 }

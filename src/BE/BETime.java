@@ -8,14 +8,14 @@ import java.sql.Timestamp;
  */
 public class BETime {
 
-    private int medarbejderNo;
+    private BEFireman fireman;
     private Timestamp checkIn;
     private Timestamp checkOut;
     
     
-    public BETime(int medarbejderNo, Timestamp checkIn, Timestamp checkOut){
+    public BETime(BEFireman fireman, Timestamp checkIn, Timestamp checkOut){
         
-        this.medarbejderNo = medarbejderNo;
+        this.fireman = fireman;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         
@@ -24,26 +24,43 @@ public class BETime {
     /**
      * @return the medarbejderNo
      */
-    public int getMedarbejderNo() {
-        return medarbejderNo;
+    public BEFireman getFireman() {
+        return fireman;
     }
 
     /**
      * @param medarbejderNo the medarbejderNo to set
      */
-    public void setMedarbejderNo(int medarbejderNo) {
-        this.medarbejderNo = medarbejderNo;
+    public void setFireman(BEFireman fireman) {
+        this.fireman = fireman;
     }
 
     /**
-     * @return the fornavn
+     * @return the checkIn
      */
-    public Timestamp getCheckInTime() {
+    public Timestamp getCheckIn() {
         return checkIn;
     }
 
-    public Timestamp getCheckOutTime() {
+    /**
+     * @param checkIn the checkIn to set
+     */
+    public void setCheckIn(Timestamp checkIn) {
+        this.checkIn = checkIn;
+    }
+
+    /**
+     * @return the checkOut
+     */
+    public Timestamp getCheckOut() {
         return checkOut;
+    }
+
+    /**
+     * @param checkOut the checkOut to set
+     */
+    public void setCheckOut(Timestamp checkOut) {
+        this.checkOut = checkOut;
     }
 
 }

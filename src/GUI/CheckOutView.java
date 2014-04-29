@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
  */
 public class CheckOutView extends javax.swing.JDialog {
 
+    BLLFireman bllFireman;
     BLLVehicle bllvehicle;
     BLLTimelist blltime;
     BEFireman localFireman;
@@ -23,7 +24,7 @@ public class CheckOutView extends javax.swing.JDialog {
      * Creates new form CheckOutView
      */
     public CheckOutView(BEFireman fireman) {
-
+        bllFireman = BLLFireman.getInstance();
         localFireman = fireman;
         initComponents();
         initOtherComponents();
@@ -95,7 +96,6 @@ public class CheckOutView extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcknowledge;
     private javax.swing.ButtonGroup btnGrpCheckOut;
@@ -123,7 +123,6 @@ public class CheckOutView extends javax.swing.JDialog {
         rbtnStVagt.setEnabled(true);
 
         btnAcknowledge.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 sendToBLL();
@@ -139,20 +138,22 @@ public class CheckOutView extends javax.swing.JDialog {
     }
 
     private void sendToBLL() {
-        BEVehicle odin;
-        boolean hl = false;
-        boolean ch = false;
-        boolean st = false;
-        odin = (BEVehicle) cboxVehicle.getSelectedItem();
-        if (rbtnHoldleder.isSelected()) {
-            hl = true;
-        }
-        if (rbtnChauffør.isSelected()) {
-            ch = true;
-        }
-        if (rbtnStVagt.isSelected()) {
-            st = true;
-        }
-       // blltime.sendToDAL(localFireman, odin, hl, ch, st);
+//        BEVehicle odin;
+//        boolean hl = false;
+//        boolean ch = false;
+//        boolean st = false;
+//        odin = (BEVehicle) cboxVehicle.getSelectedItem();
+//        if (rbtnHoldleder.isSelected()) {
+//            hl = true;
+//        }
+//        if (rbtnChauffør.isSelected()) {
+//            ch = true;
+//        }
+//        if (rbtnStVagt.isSelected()) {
+//            st = true;
+//        }
+
+        bllFireman.createCheckOutTimestamp(localFireman);
+        // blltime.sendToDAL(localFireman, odin, hl, ch, st);
     }
 }
