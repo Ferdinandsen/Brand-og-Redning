@@ -7,7 +7,11 @@ import BE.BETime;
 import DAL.DALAppearance;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.TreeSet;
 
 /**
  *
@@ -98,5 +102,17 @@ public class BLLTimelist {
         }
         int d = Integer.parseInt("" + hour);
         return d;
+    }
+
+    public ArrayList<String> getDates() {
+        TreeSet<String> test = new TreeSet<>();
+        ArrayList<String> dates = new ArrayList<>();
+        for (BETime time : daltime.getAllTimes()) {
+            Date date = time.getCheckIn();
+            long milisecs = date.getTime();
+                test.add(new SimpleDateFormat("dd/MM-yyyy").format(new Date(milisecs)));
+            }
+        dates.addAll(test);
+        return dates;
     }
 }
