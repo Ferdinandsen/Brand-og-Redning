@@ -2,39 +2,54 @@ package GUI;
 
 import BE.BEVehicle;
 import BLL.BLLTimelist;
+import BLL.BLLAppearance;
 import BLL.BLLVehicle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class HLAfterAction1 extends javax.swing.JFrame {
 
     BLLVehicle bllVehicle;
     BLLTimelist bllTime;
+    BLLAppearance bllAppearance;
+    private FremmødeTableModel model;
 
     public HLAfterAction1() {
-        bllVehicle = BLLVehicle.getInstance();
-        bllTime = BLLTimelist.getInstance();
         initComponents();
         initOtherComponents();
+
+        bllVehicle = BLLVehicle.getInstance();
+        bllTime = BLLTimelist.getInstance();
+        bllAppearance = BLLAppearance.getInstance();
+
         this.setTitle("Hl After Action 1");
         this.setResizable(false);
 
         fillCboxKøretøj();
-
+        populateFremmødeTable();
 
 
     }
 
     private void initOtherComponents() {
-       
-    }
-    private void showCalendar() {
-               
-    }
+        btnHent.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
 
+    }
 
     private void fillCboxKøretøj() {
         for (BEVehicle veh : bllVehicle.GetVehicles()) {
             cboxKøretøj.addItem(veh);
         }
+    }
+
+    private void populateFremmødeTable() {
+        model = new FremmødeTableModel(bllAppearance.getAppearances());
+        tblTider.setModel(model);
+        model.fireTableDataChanged();
     }
 
     @SuppressWarnings("unchecked")

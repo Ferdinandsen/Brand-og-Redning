@@ -1,57 +1,54 @@
 package GUI;
 
-import BE.BETime;
-import BE.BEFireman;
-import BE.BEVehicle;
+import BE.BEAppearance;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
 public class FremmødeTableModel extends AbstractTableModel {
-   
+
     /**
      * the names of the columns in the table
      */
-    private ArrayList<BETime> times;
+    private ArrayList<BEAppearance> appearances;
     private String[] colNames = {
-        "Køretøj:",
-        "Last name",
-        "Phone",
-        "Bad payer",
-        "Street name",
-        "Street number",
-        "Floor",
-        "Apartment",
-        "Zip",
-        "City"};
-
-/**
- * the type definition for the columns 
- */
+        "Køretøj",
+        "Grad",
+        "Fornavn",
+        "Efternavn",
+        "Check ind",
+        "Check ud",
+        "Timer",
+        "Holdleder",
+        "Chauffør",
+    };
+    /**
+     * the type definition for the columns
+     */
     private Class[] classes = {
-        String.class,
-        String.class,
         Integer.class,
         Boolean.class,
         String.class,
-        Integer.class,
         String.class,
-        String.class,
+        Timestamp.class,
+        Timestamp.class,
         Integer.class,
-        String.class
+        Boolean.class,
+        Boolean.class,
     };
-    
-/**
- * 
- * @param allCustomers 
- */
-    public FremmødeTableModel(ArrayList<BETime> allTimes) {
-        times = allTimes;
+
+    /**
+     *
+     * @param allCustomers
+     */
+    public FremmødeTableModel(ArrayList<BEAppearance> allAppearances) {
+        appearances = allAppearances;
         fireTableDataChanged();
     }
 
     @Override
     public int getRowCount() {
-        return times.size();
+        return appearances.size();
     }
 
     @Override
@@ -61,28 +58,27 @@ public class FremmødeTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int row, int col) {
-        BETime t = times.get(row);
+        BEAppearance a = appearances.get(row);
         switch (col) {
             case 0:
-//                return t.get();
-//            case 1:
-//                return t.getLASTNAME();
-//            case 2:
-//                return t.getPHONE();
-//            case 3:
-//                return t.isBADPAYER();
-//            case 4:
-//                return t.getADDRESS().getStreetName();
-//            case 5:
-//                return t.getADDRESS().getStreetNumber();
-//            case 6:
-//                return t.getADDRESS().getFloor();
-//            case 7:
-//                return t.getADDRESS().getApartment();
-//            case 8:
-//                return t.getADDRESS().getZipCode().getZIPCODE();
-//            case 9:
-//                return t.getADDRESS().getZipCode().getCITY();
+                return a.getVehicle().getOdinnummer();
+            case 1:
+                return a.getTime().getFireman().isHoldleder();
+            case 2:
+                return a.getTime().getFireman().getMedarbjeder().getFornavn();
+            case 3:
+                return a.getTime().getFireman().getMedarbjeder().getEfternavn();
+            case 4:
+                return a.getTime().getCheckIn();
+            case 5:
+                return a.getTime().getCheckOut();
+            case 6:
+                return a.getTotalTid();
+            case 7:
+                return a.isHoldleder();
+            case 8:
+                return a.isChauffør();
+
         }
         return null;
     }
@@ -102,11 +98,11 @@ public class FremmødeTableModel extends AbstractTableModel {
         return false;
     }
 
-    public void setTimeList(ArrayList<BETime> time) {
-        this.times = time;
+    public void setAppearanceList(ArrayList<BEAppearance> appearance) {
+        this.appearances = appearance;
     }
 
-    public BETime getTimeByRow(int row) {
-        return times.get(row);
+    public BEAppearance getAppearanceByRow(int row) {
+        return appearances.get(row);
     }
 }
