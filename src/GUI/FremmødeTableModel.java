@@ -1,8 +1,6 @@
 package GUI;
 
 import BE.BETime;
-import BE.BEFireman;
-import BE.BEVehicle;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
@@ -42,7 +40,7 @@ public class FremmødeTableModel extends AbstractTableModel {
     
 /**
  * 
- * @param allCustomers 
+ * @param allTimes
  */
     public FremmødeTableModel(ArrayList<BETime> allTimes) {
         times = allTimes;
