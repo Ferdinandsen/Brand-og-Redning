@@ -19,9 +19,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
 
         fillCboxKøretøj();
-
-
-
     }
 
     private void initOtherComponents() {
@@ -30,7 +27,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     private void showCalendar() {
                
     }
-
 
     private void fillCboxKøretøj() {
         for (BEVehicle veh : bllVehicle.GetVehicles()) {

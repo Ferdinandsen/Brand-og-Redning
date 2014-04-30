@@ -8,6 +8,5 @@ public class Main {
 //        CheckOutView main = new CheckOutView();
         
         main.setVisible(true);
-
     }
 }
