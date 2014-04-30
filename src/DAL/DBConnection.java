@@ -16,7 +16,7 @@ public class DBConnection {
     
     private static final String SERVER_NAME = "localhost";
     private static final String DATABASE_INSTANCE = "SQLEXPRESS";
-    private static final int PORTNO = 1433; //49197; //58828;
+    private static final int PORTNO = 58828; //49197; //1433;
     private static final String DATABASE_NAME = "Brand og Redning";
     private static final String USERNAME = "sa";
     private static final String PASSWORD = "mobiler123";
