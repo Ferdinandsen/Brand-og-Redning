@@ -108,11 +108,29 @@ public class BLLTimelist {
         TreeSet<String> test = new TreeSet<>();
         ArrayList<String> dates = new ArrayList<>();
         for (BETime time : daltime.getAllTimes()) {
-            Date date = time.getCheckIn();
-            long milisecs = date.getTime();
+            if (time.isHasCheckedOut()) {
+                Date date = time.getCheckIn();
+                long milisecs = date.getTime();
                 test.add(new SimpleDateFormat("dd/MM-yyyy").format(new Date(milisecs)));
             }
+        }
         dates.addAll(test);
         return dates;
+    }
+    
+    public ArrayList<String> getTimes() {
+        TreeSet<String> test = new TreeSet<>();
+        ArrayList<String> times = new ArrayList<>();
+        for (BETime time : daltime.getAllTimes()) {
+            if (time.isHasCheckedOut()) {
+                Date date = time.getCheckIn();
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                System.out.println( sdf.format(date.getTime()) );
+//                long milisecs = date.getTime();
+//                test.add(new SimpleDateFormat("dd/MM-yyyy").format(new Date(milisecs)));
+            }
+        }
+        times.addAll(test);
+        return times;
     }
 }

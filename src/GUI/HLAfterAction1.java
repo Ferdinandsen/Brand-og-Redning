@@ -1,39 +1,47 @@
-
 package GUI;
 
-import BE.BETime;
 import BE.BEVehicle;
 import BLL.BLLTimelist;
 import BLL.BLLVehicle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class HLAfterAction1 extends javax.swing.JFrame {
-BLLVehicle bllVehicle;
+
+    BLLVehicle bllVehicle;
     BLLTimelist bllTime;
+
     public HLAfterAction1() {
         bllVehicle = BLLVehicle.getInstance();
         bllTime = BLLTimelist.getInstance();
         initComponents();
+        initOtherComponents();
         this.setTitle("Hl After Action 1");
         this.setResizable(false);
-        
-        fillCboxDato();
+
         fillCboxTid();
         fillCboxKøretøj();
+
+
+
     }
 
-    private void fillCboxDato() {
-//        for (BETime time : bllTime.){
-//            cboxKøretøj.addItem(veh);
-//        }
-        for (String date : bllTime.getDates()){
-            cboxDato.addItem(date);
+    private void initOtherComponents() {
+       
+    }
+    private void showCalendar() {
+               
+    }
+
+
+    private void fillCboxTid() {
+        for (String tid : bllTime.getTimes()) {
+            cboxTid.addItem(tid);
         }
     }
-    
-    private void fillCboxTid() {
-    }
-    
+
     private void fillCboxKøretøj() {
-        for (BEVehicle veh : bllVehicle.GetVehicles()){
+        for (BEVehicle veh : bllVehicle.GetVehicles()) {
             cboxKøretøj.addItem(veh);
         }
     }
@@ -42,7 +50,6 @@ BLLVehicle bllVehicle;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cboxDato = new javax.swing.JComboBox();
         lblDato = new javax.swing.JLabel();
         btnBekæft = new javax.swing.JButton();
         lblTid = new javax.swing.JLabel();
@@ -52,6 +59,7 @@ BLLVehicle bllVehicle;
         tblTider = new javax.swing.JTable();
         lblKøretøj = new javax.swing.JLabel();
         cboxKøretøj = new javax.swing.JComboBox();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,12 +103,12 @@ BLLVehicle bllVehicle;
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblDato)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cboxDato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
                         .addComponent(lblTid)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cboxTid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -108,8 +116,8 @@ BLLVehicle bllVehicle;
                         .addComponent(lblKøretøj)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cboxKøretøj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnHent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnHent, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnBekæft, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -119,14 +127,15 @@ BLLVehicle bllVehicle;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDato)
-                    .addComponent(cboxDato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTid)
-                    .addComponent(cboxTid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnHent)
-                    .addComponent(lblKøretøj)
-                    .addComponent(cboxKøretøj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblDato)
+                        .addComponent(lblTid)
+                        .addComponent(cboxTid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnHent)
+                        .addComponent(lblKøretøj)
+                        .addComponent(cboxKøretøj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -139,9 +148,9 @@ BLLVehicle bllVehicle;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBekæft;
     private javax.swing.JButton btnHent;
-    private javax.swing.JComboBox cboxDato;
     private javax.swing.JComboBox cboxKøretøj;
     private javax.swing.JComboBox cboxTid;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDato;
     private javax.swing.JLabel lblKøretøj;
