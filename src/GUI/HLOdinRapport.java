@@ -382,4 +382,7 @@ public class HLOdinRapport extends javax.swing.JFrame {
                 press, cobra, vand, skum, mængde, spænde);
         return usage;
     }
+    private void sendData(){
+        
+    }
 }
