@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser2">
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -30,12 +34,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="lblDato" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jDateChooser2" min="-2" pref="210" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jDateChooser1" min="-2" pref="196" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="lblTid" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="cboxTid" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jTextField1" min="-2" pref="47" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Component id="lblKøretøj" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cboxKøretøj" min="-2" max="-2" attributes="0"/>
@@ -55,14 +59,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblDato" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblTid" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cboxTid" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnHent" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblKøretøj" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cboxKøretøj" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jDateChooser2" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -89,19 +93,6 @@
     <Component class="javax.swing.JLabel" name="lblTid">
       <Properties>
         <Property name="text" type="java.lang.String" value="Tid:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="cboxTid">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="5">
-            <StringItem index="0" value="11:30"/>
-            <StringItem index="1" value="12:00"/>
-            <StringItem index="2" value="12:30"/>
-            <StringItem index="3" value="13:00"/>
-            <StringItem index="4" value="13:30"/>
-          </StringArray>
-        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnHent">
@@ -192,7 +183,9 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser2">
+    <Component class="javax.swing.JTextField" name="jTextField1">
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
     </Component>
   </SubComponents>
 </Form>
