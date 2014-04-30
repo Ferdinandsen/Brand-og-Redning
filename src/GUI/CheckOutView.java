@@ -155,7 +155,7 @@ public class CheckOutView extends javax.swing.JDialog {
     }
 
     private void fillCboxVehicle() {
-        for (BEVehicle car : bllvehicle.GetVehicle()) {
+        for (BEVehicle car : bllvehicle.GetVehicles()) {
             cboxVehicle.addItem(car);
         }
     }
