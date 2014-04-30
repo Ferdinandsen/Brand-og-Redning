@@ -1,6 +1,9 @@
 package GUI;
 
 import BE.BEUsage;
+import BLL.BLLUsage;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -8,12 +11,16 @@ import BE.BEUsage;
  */
 public class HLOdinRapport extends javax.swing.JFrame {
 
+    BEUsage usage;
+    BLLUsage bllUsage;
+
     /**
-     * Creates new form HLOdinRapport
+     * Creates new form HLOdinRapport HVILKEN PARAMETER???
      */
     public HLOdinRapport() {
         initComponents();
-        acknowledgeUsage();
+        initOtherComponents();
+
     }
 
     /**
@@ -352,7 +359,24 @@ public class HLOdinRapport extends javax.swing.JFrame {
     private javax.swing.JTextField txtVand;
     // End of variables declaration//GEN-END:variables
 
-    private BE.BEUsage acknowledgeUsage() {
+    /**
+     *
+     */
+    private void initOtherComponents() {
+        btnAcknowledge.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                createReport(Usage());
+            }
+        });
+    }
+
+    /**
+     *
+     * @return
+     */
+    private BEUsage Usage() {
 
         String htrør = txtHTrør.getText();
         String stråle = txtStråleslanger.getText();
@@ -375,14 +399,16 @@ public class HLOdinRapport extends javax.swing.JFrame {
         String mængde = txtMængde.getText();
         String spænde = txtSpænde.getText();
 
-        BEUsage usage = new BEUsage(htrør, stråle, bslanger,
+        BEUsage bu = new BEUsage(htrør, stråle, bslanger,
                 cslanger, røgdykker, flasker,
                 frigør, overtryk, lys, pulver,
                 kulsyre, flyde, kattegrus, absorb,
                 press, cobra, vand, skum, mængde, spænde);
-        return usage;
+        return bu;
     }
-    private void sendData(){
-        
+
+    private void createReport(BEUsage u) {
+        bllUsage.createReport(u);
     }
+
 }
