@@ -1,11 +1,13 @@
 package GUI;
 
+import BE.BEAppearance;
 import BE.BEVehicle;
 import BLL.BLLTimelist;
 import BLL.BLLAppearance;
 import BLL.BLLVehicle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 public class HLAfterAction1 extends javax.swing.JFrame {
 
@@ -35,10 +37,11 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         btnHent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                if (isInformationFilled()) {
+                    model.setAppearanceList(bllAppearance.getAppearancesWithCriteria(jDateChooser.getDate(), txtTid.getText(), (BEVehicle) cboxKøretøj.getSelectedItem()));
+                }
             }
         });
-
     }
 
     private void fillCboxKøretøj() {
@@ -54,6 +57,20 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         model.fireTableDataChanged();
     }
 
+    private boolean isInformationFilled() {
+        if (jDateChooser.getDate() != null && isTimeFormatCorrect() && cboxKøretøj.getSelectedIndex() != -1) {
+            return true;
+        }
+        JOptionPane.showMessageDialog(this, "Udfyld venligst al information");
+        return false;
+    }
+    private boolean isTimeFormatCorrect(){
+        if (txtTid.getText().trim().length() == 5 && Character.isDigit(txtTid.getText().charAt(0)) && Character.isDigit(txtTid.getText().charAt(1)) && Character.isLetter(txtTid.getText().charAt(2)) && Character.isDigit(txtTid.getText().charAt(3)) && Character.isDigit(txtTid.getText().charAt(4))){
+            return true;
+        }
+        return false;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -67,8 +84,8 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         tblTider = new javax.swing.JTable();
         lblKøretøj = new javax.swing.JLabel();
         cboxKøretøj = new javax.swing.JComboBox();
-        jTextField1 = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        txtTid = new javax.swing.JTextField();
+        jDateChooser = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,11 +131,11 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblDato)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(lblTid)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTid, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(24, 24, 24)
                         .addComponent(lblKøretøj)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -141,8 +158,8 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                         .addComponent(btnHent)
                         .addComponent(lblKøretøj)
                         .addComponent(cboxKøretøj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtTid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -156,13 +173,13 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     private javax.swing.JButton btnBekæft;
     private javax.swing.JButton btnHent;
     private javax.swing.JComboBox cboxKøretøj;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblDato;
     private javax.swing.JLabel lblKøretøj;
     private javax.swing.JLabel lblTid;
     private javax.swing.JTable tblTider;
+    private javax.swing.JTextField txtTid;
     // End of variables declaration//GEN-END:variables
 }

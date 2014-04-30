@@ -1,9 +1,11 @@
 package BLL;
 
 import BE.BEAppearance;
+import BE.BEVehicle;
 import DAL.DALAppearance;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -40,5 +42,9 @@ public class BLLAppearance {
 
     public ArrayList<BEAppearance> getAppearances() {
         return dalAppearance.getAppearances();
+    }
+
+    public ArrayList<BEAppearance> getAppearancesWithCriteria(Date date, String text, BEVehicle selectedItem) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
