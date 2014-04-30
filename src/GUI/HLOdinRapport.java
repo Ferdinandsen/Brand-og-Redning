@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package GUI;
+
+import BE.BEUsage;
 
 /**
  *
@@ -356,7 +352,34 @@ public class HLOdinRapport extends javax.swing.JFrame {
     private javax.swing.JTextField txtVand;
     // End of variables declaration//GEN-END:variables
 
-    private void acknowledgeUsage() {
-        
+    private BE.BEUsage acknowledgeUsage() {
+
+        String htrør = txtHTrør.getText();
+        String stråle = txtStråleslanger.getText();
+        String bslanger = txtBSlanger.getText();
+        String cslanger = txtCSlanger.getText();
+        String røgdykker = txtRøgdykker.getText();
+        String flasker = txtFlasker.getText();
+        String frigør = txtFrigørelse.getText();
+        String overtryk = txtOvertryk.getText();
+        String lys = txtLys.getText();
+        String pulver = txtPulverslukker.getText();
+        String kulsyre = txtKulsyreslukker.getText();
+        String flyde = txtFlyde.getText();
+        String kattegrus = txtKattegrus.getText();
+        String absorb = txtAbsorbW.getText();
+        String press = txtPresseninger.getText();
+        String cobra = txtCobraslukker.getText();
+        String vand = txtVand.getText();
+        String skum = txtSkum.getText();
+        String mængde = txtMængde.getText();
+        String spænde = txtSpænde.getText();
+
+        BEUsage usage = new BEUsage(htrør, stråle, bslanger,
+                cslanger, røgdykker, flasker,
+                frigør, overtryk, lys, pulver,
+                kulsyre, flyde, kattegrus, absorb,
+                press, cobra, vand, skum, mængde, spænde);
+        return usage;
     }
 }
