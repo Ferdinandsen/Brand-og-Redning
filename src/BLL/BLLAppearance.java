@@ -4,8 +4,6 @@ import BE.BEAppearance;
 import DAL.DALAppearance;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -13,7 +11,7 @@ import java.util.logging.Logger;
  */
 public class BLLAppearance {
 
-    DAL.DALAppearance dalAppearance;
+    DALAppearance dalAppearance;
     private static BLLAppearance m_instance = null;
     public ArrayList<BEAppearance> getAppearances;
 
@@ -31,14 +29,16 @@ public class BLLAppearance {
         }
         return m_instance;
     }
-    public void populateAppearances(){
+
+    public void populateAppearances() {
         try {
             dalAppearance.populateAppearances();
         } catch (SQLException ex) {
             System.out.println("fejl i bllAppearance " + ex);
         }
     }
-    public ArrayList<BEAppearance> getAppearances(){
+
+    public ArrayList<BEAppearance> getAppearances() {
         return dalAppearance.getAppearances();
     }
 }

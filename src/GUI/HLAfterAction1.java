@@ -35,6 +35,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         btnHent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                
             }
         });
 
@@ -44,6 +45,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         for (BEVehicle veh : bllVehicle.GetVehicles()) {
             cboxKøretøj.addItem(veh);
         }
+        cboxKøretøj.setSelectedIndex(-1);
     }
 
     private void populateFremmødeTable() {

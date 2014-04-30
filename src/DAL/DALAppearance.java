@@ -6,6 +6,7 @@ import BE.BEEmployee;
 import BE.BEVehicle;
 import DAL.DALVehicle;
 import DAL.DALTimelist;
+import DAL.DALFireman;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,11 +25,14 @@ public class DALAppearance {
     private ArrayList<BEAppearance> allAppearances = new ArrayList<>();
     private DALVehicle dalVehicle;
     private DALTimelist dalTime;
+    private DALFireman dalFireman;
 
     private DALAppearance() throws SQLServerException, SQLException {
         m_connection = DBConnection.getInstance().getConnection();
+        dalFireman = DALFireman.getInstance();
         dalVehicle = DALVehicle.getInstance();
         dalTime = DALTimelist.getInstance();
+
         populateAppearances();
 
     }
@@ -63,7 +67,7 @@ public class DALAppearance {
 
     public void populateAppearances() throws SQLException {
 
-        String sql = "SELECT * FROM Fremmøde";
+        String sql = "SELECT * FROM Fremmøde where køtjRef is not null";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.execute();
@@ -81,8 +85,9 @@ public class DALAppearance {
 
             BEVehicle localVehicle = null;
             for (BEVehicle veh : dalVehicle.getVehicles()) {
-                if (veh.getOdinnummer() == køtjRef) {
-                    localVehicle = veh;
+                    if (veh.getOdinnummer() == køtjRef) {
+                        localVehicle = veh;
+                    
                 }
             }
 
@@ -97,7 +102,8 @@ public class DALAppearance {
             allAppearances.add(appearance);
         }
     }
-    public ArrayList<BEAppearance> getAppearances(){
+
+    public ArrayList<BEAppearance> getAppearances() {
         return allAppearances;
     }
 }

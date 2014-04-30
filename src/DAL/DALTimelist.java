@@ -41,6 +41,7 @@ public class DALTimelist {
 
         ResultSet result = ps.getResultSet();
         while (result.next()) {
+            int id = result.getInt("id");
             int deltidsbrandmandRef = result.getInt("deltidsbrandmandRef");
             Timestamp checkIn = result.getTimestamp("checkIn");
             Timestamp checkOut = result.getTimestamp("checkOut");
@@ -53,7 +54,7 @@ public class DALTimelist {
                     localFireman = fireman;
                 }
             }
-            BETime time = new BETime(localFireman, checkIn, checkOut, hasCheckedOut, complete);
+            BETime time = new BETime(id, localFireman, checkIn, checkOut, hasCheckedOut, complete);
             allTimes.add(time);
         }
     }

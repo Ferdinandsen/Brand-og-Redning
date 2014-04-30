@@ -27,7 +27,7 @@ public class FremmødeTableModel extends AbstractTableModel {
      */
     private Class[] classes = {
         Integer.class,
-        Boolean.class,
+        boolean.class,
         String.class,
         String.class,
         Timestamp.class,
