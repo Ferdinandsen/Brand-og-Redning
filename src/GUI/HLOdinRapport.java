@@ -23,6 +23,7 @@ public class HLOdinRapport extends javax.swing.JFrame {
         this.setTitle("FORBRUG TIL ODIN RAPPORT");
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.setResizable(false);
     }
 
     /**
@@ -372,14 +373,14 @@ public class HLOdinRapport extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent ae) {
                 createReport(Usage());
                 dispose();
-                createErrorReport();
+                openErrorReport();
             }
         });
     }
 
     /**
      *
-     * @return
+     * @return BEUsage with the added usage.
      */
     private BEUsage Usage() {
 
@@ -411,12 +412,17 @@ public class HLOdinRapport extends javax.swing.JFrame {
                 press, cobra, vand, skum, mængde, spænde);
         return bu;
     }
-
+/**
+ * sends the information to the BLL with the BEUsage
+ * @param u 
+ */
     private void createReport(BEUsage u) {
         bllUsage.createReport(u);
     }
-
-    private void createErrorReport() {
+/**
+ * Opens a new frame
+ */
+    private void openErrorReport() {
         HLErrorReport frame = new HLErrorReport();
         frame.setVisible(true);
     }
