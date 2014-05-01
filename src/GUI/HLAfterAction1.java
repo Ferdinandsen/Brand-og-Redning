@@ -22,7 +22,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     BLLVehicle bllVehicle;
     BLLTimelist bllTime;
     BLLAppearance bllAppearance;
-    //private FremmødeTableModel model;
+    private FremmødeTableModel model;
     boolean startUp = true;
 
     public HLAfterAction1() {
@@ -39,9 +39,9 @@ public class HLAfterAction1 extends javax.swing.JFrame {
 
         fillCboxKøretøj();
         populateFremmødeTable();
-       // addCellRenderer();
+        addCellRenderer();
         btnBekæft.setEnabled(oneTeamOrNot());
-        //lblCount.setText("Fremmødt: " + model.getRowCount());
+        lblCount.setText("Fremmødt: " + model.getRowCount());
 
     }
 
@@ -51,7 +51,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 confirmTeam();
                 dispose();
-                HLUsageRapport frame = new HLUsageRapport(BLLAppearance.getInstance().newAppearances.get(0));
+                HLErrorReport frame = new HLErrorReport(BLLAppearance.getInstance().newAppearances.get(0));
                 frame.setVisible(true);
             }
         });
@@ -61,10 +61,10 @@ public class HLAfterAction1 extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 if (isInformationFilled()) {
-                    //model.setAppearanceList(bllAppearance.getAppearancesWithCriteria(jDateChooser.getDate(), txtTid.getText(), (BEVehicle) cboxKøretøj.getSelectedItem()));
-                    //model.fireTableDataChanged();
+                    model.setAppearanceList(bllAppearance.getAppearancesWithCriteria(jDateChooser.getDate(), txtTid.getText(), (BEVehicle) cboxKøretøj.getSelectedItem()));
+                    model.fireTableDataChanged();
                     btnBekæft.setEnabled(oneTeamOrNot());
-                    //lblCount.setText("Fremmødt: " + model.getRowCount());
+                    lblCount.setText("Fremmødt: " + model.getRowCount());
                 }
             }
         });
@@ -112,9 +112,9 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     }
 
     private void populateFremmødeTable() {
-        //model = new FremmødeTableModel(bllAppearance.getAllAppearances());
-        //tblTider.setModel(model);
-        //model.fireTableDataChanged();
+        model = new FremmødeTableModel(bllAppearance.getAllAppearances());
+        tblTider.setModel(model);
+        model.fireTableDataChanged();
     }
 
     private boolean isInformationFilled() {
@@ -125,16 +125,16 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         return false;
     }
 
-//    private void addCellRenderer() {
-//
-//        FremmødeTableCellRenderer renderer = new FremmødeTableCellRenderer();
-//
-//        for (int col = 0; col < model.getColumnCount(); col++) {
-//            renderer.setHorizontalAlignment(JLabel.CENTER);
-//            TableColumn tc = tblTider.getColumnModel().getColumn(col);
-//            tc.setCellRenderer(renderer);
-//        }
-//    }
+    private void addCellRenderer() {
+
+        FremmødeTableCellRenderer renderer = new FremmødeTableCellRenderer();
+
+        for (int col = 0; col < model.getColumnCount(); col++) {
+            renderer.setHorizontalAlignment(JLabel.CENTER);
+            TableColumn tc = tblTider.getColumnModel().getColumn(col);
+            tc.setCellRenderer(renderer);
+        }
+    }
 
     private boolean oneTeamOrNot() {
         int vehNo = 0;
