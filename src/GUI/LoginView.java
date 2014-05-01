@@ -35,7 +35,7 @@ BLLEmployee bllEmployee;
     }
 
     private void login() {
-        if (isInformationValid()) {
+        if (isInformationValid()) { //..
             if (bllEmployee.doesUserExist(txtName.getText(), txtPassword.getPassword())){
                 System.out.println(txtName.getText() + " findes!");
             }
