@@ -47,8 +47,11 @@ public class HLAfterAction1 extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 confirmTeam();
+//                HLErrorReport frame = new HLErrorReport(BLLAppearance.getInstance().getAppearances.get(0));
+//                frame.setVisible(true);
             }
         });
+        
         btnHent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -61,6 +64,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                 }
             }
         });
+        
         txtTid.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 if (txtTid.getText().length() == 2) {
@@ -71,7 +75,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                         || (vChar == KeyEvent.VK_BACK_SPACE)
                         || (vChar == KeyEvent.VK_DELETE))) {
                     e.consume();
-
                 }
                 if (Character.isDigit(vChar) && txtTid.getText().length() == 0 && Integer.parseInt(String.valueOf(vChar)) > 2) {
                     e.consume();
@@ -85,8 +88,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                     System.out.println("test");
                     e.consume();
                 }
-
-
                 if (vChar == KeyEvent.VK_BACK_SPACE) {
                     txtTid.setText("");
                 }

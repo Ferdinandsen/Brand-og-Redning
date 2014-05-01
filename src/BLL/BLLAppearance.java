@@ -22,6 +22,7 @@ public class BLLAppearance {
     private BLLAppearance() {
         try {
             dalAppearance = DALAppearance.getInstance();
+           // newAppearances = getAllAppearances();
         } catch (SQLException e) {
             System.out.println("fejl i bllEmployee " + e);
         }
