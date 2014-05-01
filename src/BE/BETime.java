@@ -114,5 +114,4 @@ public class BETime {
     public void setComplete(boolean complete) {
         this.complete = complete;
     }
-
 }

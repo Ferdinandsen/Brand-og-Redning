@@ -1,5 +1,9 @@
 package BE;
 
+/**
+ *
+ * @author Shadowleet
+ */
 public class BEAppearance {
     private int id;
     private BEVehicle vehicle;
@@ -171,6 +175,4 @@ public class BEAppearance {
     public void setSTvagt(boolean STvagt) {
         this.STvagt = STvagt;
     }
-
-    
 }

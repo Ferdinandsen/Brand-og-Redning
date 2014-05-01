@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 
 /**
  *
- * @author Shadowleet
+ * @author Team Kawabunga
  */
 public class HLErrorReport extends javax.swing.JFrame {
 
@@ -177,7 +177,6 @@ public class HLErrorReport extends javax.swing.JFrame {
     private javax.swing.JTextField txtUrgent;
     private javax.swing.JTextField txtWash;
     // End of variables declaration//GEN-END:variables
-
     private void initOtherComponents(BEAppearance a) {
         appear = a;
         lblHeader.setText("Reparation/Køretøjsmangler");

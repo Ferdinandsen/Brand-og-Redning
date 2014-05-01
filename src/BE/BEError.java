@@ -105,5 +105,4 @@ public class BEError {
     public void setWash(String wash) {
         this.wash = wash;
     }
-    
 }

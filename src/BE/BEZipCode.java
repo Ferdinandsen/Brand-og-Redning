@@ -1,7 +1,12 @@
 package BE;
 
+/**
+ *
+ * @author Shadowleet
+ */
 
 public class BEZipCode {
+    
     private int zipCode;
     private String city;
 

@@ -1,5 +1,9 @@
 package BE;
 
+/**
+ *
+ * @author Shadowleet
+ */
 public class BEFireman {
 
     private BEEmployee medarbjeder;
@@ -7,7 +11,6 @@ public class BEFireman {
     private boolean chaffør;
     private boolean isCheckedIn;
     private String name;
-    private static int amount = 0;
 
     public BEFireman(BEEmployee medarbejderRef, boolean holdleder, boolean chauffør, boolean isCheckIn) {
 
@@ -15,18 +18,6 @@ public class BEFireman {
         this.holdleder = holdleder;
         this.chaffør = chauffør;
         this.isCheckedIn = isCheckIn;
-        amount++;
-    }
-
-    /**
-     * @param aAmount the amount to set
-     */
-    public static void setAmount(int aAmount) {
-        amount = aAmount;
-    }
-
-    public static int getAmount() {
-        return amount;
     }
 
     /**
@@ -114,6 +105,5 @@ public class BEFireman {
             }
             return getName();
         }
-        
     }
 }

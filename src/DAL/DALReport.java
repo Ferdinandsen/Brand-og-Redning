@@ -32,7 +32,6 @@ public class DALReport {
     public void createErrorReport(BEError be,BEAppearance a) throws SQLException {
         String sql = "INSERT INTO Report VALUES (?,?,?,?,?,?,?,?,?)";
         
-        
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setInt(1,a.getVehicle().getOdinnummer());
         ps.setString(2, be.getError());
@@ -43,5 +42,4 @@ public class DALReport {
         ps.setString(7, be.getWash());
         ps.execute();
     }
-
 }

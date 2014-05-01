@@ -8,13 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableColumn;
@@ -93,7 +86,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                 if (vChar == KeyEvent.VK_BACK_SPACE) {
                     txtTid.setText("");
                 }
-
             }
         });
     }

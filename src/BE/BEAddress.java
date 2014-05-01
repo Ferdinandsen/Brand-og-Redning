@@ -1,5 +1,9 @@
 package BE;
 
+/**
+ *
+ * @author Shadowleet
+ */
 public class BEAddress {
     private int ID;
     private String streetName;
