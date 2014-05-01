@@ -2,11 +2,7 @@ package DAL;
 
 import BE.BEAppearance;
 import BE.BETime;
-import BE.BEEmployee;
 import BE.BEVehicle;
-import DAL.DALVehicle;
-import DAL.DALTimelist;
-import DAL.DALFireman;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -67,7 +63,7 @@ public class DALAppearance {
 
     public void populateAppearances() throws SQLException {
 
-        String sql = "SELECT * FROM Fremmøde where køtjRef is not null";
+        String sql = "SELECT * FROM Fremmøde WHERE hlGodkendt = 'false'";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.execute();
@@ -78,16 +74,17 @@ public class DALAppearance {
             int tidsregistreringRef = result.getInt("tidsregistreringRef");
             int totalTid = result.getInt("totaltid");
             int evaNo = result.getInt("evaNo");
-            boolean isGodkendt = result.getBoolean("isGodkendt");
+            boolean hlGodkendt = result.getBoolean("hlGodkendt");
+            boolean ilGodkendt = result.getBoolean("ilGodkendt");
             boolean holdleder = result.getBoolean("holdleder");
             boolean chauffør = result.getBoolean("chauffør");
             boolean stationsvagt = result.getBoolean("stationsvagt");
 
             BEVehicle localVehicle = null;
             for (BEVehicle veh : dalVehicle.getVehicles()) {
-                    if (veh.getOdinnummer() == køtjRef) {
-                        localVehicle = veh;
-                    
+                if (veh.getOdinnummer() == køtjRef) {
+                    localVehicle = veh;
+
                 }
             }
 
@@ -98,12 +95,23 @@ public class DALAppearance {
                 }
             }
 
-            BEAppearance appearance = new BEAppearance(id, localVehicle, localTime, totalTid, evaNo, isGodkendt, holdleder, chauffør, stationsvagt);
+            BEAppearance appearance = new BEAppearance(id, localVehicle, localTime, totalTid, evaNo, hlGodkendt, ilGodkendt, holdleder, chauffør, stationsvagt);
             allAppearances.add(appearance);
         }
     }
 
     public ArrayList<BEAppearance> getAppearances() {
         return allAppearances;
+    }
+
+    public void confirmTeam(BEAppearance appearance) throws SQLException {
+            String sql = "UPDATE Fremmøde SET hlGodkendt = ? WHERE id = ?";
+
+            PreparedStatement ps = m_connection.prepareStatement(sql);
+            ps.setBoolean(1, true);
+            ps.setInt(2, appearance.getId());
+           appearance.setHlGodkendt(true);
+            ps.execute();
+        
     }
 }

@@ -4,8 +4,14 @@ import BE.BEAppearance;
 import BE.BEVehicle;
 import DAL.DALAppearance;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,6 +19,7 @@ import java.util.Date;
  */
 public class BLLAppearance {
 
+    ArrayList<BEAppearance> newAppearances;
     DALAppearance dalAppearance;
     private static BLLAppearance m_instance = null;
     public ArrayList<BEAppearance> getAppearances;
@@ -40,11 +47,49 @@ public class BLLAppearance {
         }
     }
 
-    public ArrayList<BEAppearance> getAppearances() {
+    public ArrayList<BEAppearance> getAllAppearances() {
         return dalAppearance.getAppearances();
     }
 
-    public ArrayList<BEAppearance> getAppearancesWithCriteria(Date date, String text, BEVehicle selectedItem) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<BEAppearance> getAppearancesWithCriteria(Date date, String time, BEVehicle selectedItem) {
+        newAppearances = new ArrayList();
+        for (BEAppearance appearance : getAllAppearances()) {
+
+//            String times[] = appearance.getTime().getCheckIn().toString().split(" ");
+//            String times2[] = times[1].split(":");
+//            String hourAndMin = times2[0] + ":" + times2[1];
+//            int checkInHour = Integer.parseInt(times2[0]);
+//            int checkInMin = Integer.parseInt(times2[1]);
+
+
+            String selectedTime[] = time.split(":");
+            int selectedHour = Integer.parseInt(selectedTime[0]);
+            int selectedMin = Integer.parseInt(selectedTime[1]);
+            Timestamp test = new Timestamp(date.getYear(), date.getMonth(), date.getDate(), selectedHour, selectedMin, 0, 0);
+            long testMili = test.getTime();
+            long checkMili = appearance.getTime().getCheckIn().getTime();
+            long minutes = (checkMili - testMili) / 1000 / 60;
+            if (minutes <= 10 && selectedItem == appearance.getVehicle()) { //dagene + tid (10min) passer!
+
+
+
+
+                newAppearances.add(appearance);
+            }
+        }
+
+        return newAppearances;
+    }
+
+    public void confirmTeam() {
+        for (BEAppearance appearance : newAppearances){
+            try {
+                dalAppearance.confirmTeam(appearance);
+            } catch (SQLException ex) {
+                System.out.println("fejl i bllAppearance " + ex);
+            }
+        }
+       
+        
     }
 }

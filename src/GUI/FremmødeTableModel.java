@@ -13,7 +13,6 @@ public class FremmødeTableModel extends AbstractTableModel {
     private ArrayList<BEAppearance> appearances;
     private String[] colNames = {
         "Køretøj",
-        "Grad",
         "Fornavn",
         "Efternavn",
         "Check ind",
@@ -21,20 +20,21 @@ public class FremmødeTableModel extends AbstractTableModel {
         "Timer",
         "Holdleder",
         "Chauffør",
+        "ST Vagt"
     };
     /**
      * the type definition for the columns
      */
     private Class[] classes = {
         Integer.class,
-        boolean.class,
         String.class,
         String.class,
-        Timestamp.class,
-        Timestamp.class,
+        String.class,
+        String.class,
         Integer.class,
-        Boolean.class,
-        Boolean.class,
+        String.class,
+        String.class,
+        String.class
     };
 
     /**
@@ -61,23 +61,37 @@ public class FremmødeTableModel extends AbstractTableModel {
         BEAppearance a = appearances.get(row);
         switch (col) {
             case 0:
+                if (a.getVehicle() == null) {
+                    return 0;
+                }
                 return a.getVehicle().getOdinnummer();
             case 1:
-                return a.getTime().getFireman().isHoldleder();
-            case 2:
                 return a.getTime().getFireman().getMedarbjeder().getFornavn();
-            case 3:
+            case 2:
                 return a.getTime().getFireman().getMedarbjeder().getEfternavn();
+            case 3:
+                String[] checkInTime = a.getTime().getCheckIn().toString().split(" ");
+                return checkInTime[1];
             case 4:
-                return a.getTime().getCheckIn();
+                String[] checkOutTime = a.getTime().getCheckOut().toString().split(" ");
+                return checkOutTime[1];
             case 5:
-                return a.getTime().getCheckOut();
-            case 6:
                 return a.getTotalTid();
+            case 6:
+                if (a.isHoldleder()) {
+                    return "X";
+                }
+                return "";
             case 7:
-                return a.isHoldleder();
+                if (a.isChauffør()) {
+                    return "X";
+                }
+                return "";
             case 8:
-                return a.isChauffør();
+                if (a.isSTvagt()) {
+                    return "X";
+                }
+                return "";
 
         }
         return null;

@@ -1,13 +1,23 @@
 package GUI;
 
-import BE.BEAppearance;
 import BE.BEVehicle;
 import BLL.BLLTimelist;
 import BLL.BLLAppearance;
 import BLL.BLLVehicle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableColumn;
 
 public class HLAfterAction1 extends javax.swing.JFrame {
 
@@ -29,19 +39,66 @@ public class HLAfterAction1 extends javax.swing.JFrame {
 
         fillCboxKøretøj();
         populateFremmødeTable();
-
+        addCellRenderer();
+        lblCount.setText("Fremmødt: " + model.getRowCount());
 
     }
 
     private void initOtherComponents() {
+        btnBekæft.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+             confirmTeam();
+            }
+        });
         btnHent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 if (isInformationFilled()) {
                     model.setAppearanceList(bllAppearance.getAppearancesWithCriteria(jDateChooser.getDate(), txtTid.getText(), (BEVehicle) cboxKøretøj.getSelectedItem()));
+                    model.fireTableDataChanged();
+                    lblCount.setText("Fremmødt: " + model.getRowCount());
                 }
             }
         });
+        txtTid.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                if (txtTid.getText().length() == 2) {
+                    txtTid.setText(txtTid.getText() + ":");
+                }
+                char vChar = e.getKeyChar();
+                if (!(Character.isDigit(vChar) && txtTid.getText().length() != 5
+                        || (vChar == KeyEvent.VK_BACK_SPACE)
+                        || (vChar == KeyEvent.VK_DELETE))) {
+                    e.consume();
+
+                }
+                if (Character.isDigit(vChar) && txtTid.getText().length() == 0 && Integer.parseInt(String.valueOf(vChar)) > 2) {
+                    e.consume();
+                }
+                if (txtTid.getText().length() > 0 && txtTid.getText().charAt(0) == '2') {
+                    if (txtTid.getText().length() == 1 && Integer.parseInt(String.valueOf(vChar)) > 3) {
+                        e.consume();
+                    }
+                }
+                if (Character.isDigit(vChar) && txtTid.getText().length() == 3 && Integer.parseInt(String.valueOf(vChar)) > 5) {
+                    System.out.println("test");
+                    e.consume();
+                }
+
+
+                if (vChar == KeyEvent.VK_BACK_SPACE) {
+                    txtTid.setText("");
+                }
+
+            }
+        });
+    }
+    private void confirmTeam(){
+        bllAppearance.confirmTeam();
+        JOptionPane.showMessageDialog(this, "Holdet er nu bekræftet!");
     }
 
     private void fillCboxKøretøj() {
@@ -52,30 +109,34 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     }
 
     private void populateFremmødeTable() {
-        model = new FremmødeTableModel(bllAppearance.getAppearances());
+        model = new FremmødeTableModel(bllAppearance.getAllAppearances());
         tblTider.setModel(model);
         model.fireTableDataChanged();
     }
 
     private boolean isInformationFilled() {
-        if (jDateChooser.getDate() != null && isTimeFormatCorrect() && cboxKøretøj.getSelectedIndex() != -1) {
+        if (jDateChooser.getDate() != null && txtTid.getText().trim().length() == 5 && cboxKøretøj.getSelectedIndex() != -1) {
             return true;
         }
         JOptionPane.showMessageDialog(this, "Udfyld venligst al information");
         return false;
     }
-    private boolean isTimeFormatCorrect(){
-        if (txtTid.getText().trim().length() == 5 && Character.isDigit(txtTid.getText().charAt(0)) && Character.isDigit(txtTid.getText().charAt(1)) && Character.isLetter(txtTid.getText().charAt(2)) && Character.isDigit(txtTid.getText().charAt(3)) && Character.isDigit(txtTid.getText().charAt(4))){
-            return true;
+
+    private void addCellRenderer() {
+
+        FremmødeTableCellRenderer renderer = new FremmødeTableCellRenderer();
+
+        for (int col = 0; col < model.getColumnCount(); col++) {
+            renderer.setHorizontalAlignment(JLabel.CENTER);
+            TableColumn tc = tblTider.getColumnModel().getColumn(col);
+            tc.setCellRenderer(renderer);
         }
-        return false;
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
         lblDato = new javax.swing.JLabel();
         btnBekæft = new javax.swing.JButton();
         lblTid = new javax.swing.JLabel();
@@ -86,6 +147,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         cboxKøretøj = new javax.swing.JComboBox();
         txtTid = new javax.swing.JTextField();
         jDateChooser = new com.toedter.calendar.JDateChooser();
+        lblCount = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -120,6 +182,8 @@ public class HLAfterAction1 extends javax.swing.JFrame {
 
         lblKøretøj.setText("Køretøj:");
 
+        lblCount.setText("Fremmødt:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -143,7 +207,8 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnHent, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblCount)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnBekæft, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -162,8 +227,13 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                     .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnBekæft)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBekæft))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(lblCount)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -174,8 +244,8 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     private javax.swing.JButton btnHent;
     private javax.swing.JComboBox cboxKøretøj;
     private com.toedter.calendar.JDateChooser jDateChooser;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCount;
     private javax.swing.JLabel lblDato;
     private javax.swing.JLabel lblKøretøj;
     private javax.swing.JLabel lblTid;
