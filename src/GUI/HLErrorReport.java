@@ -1,5 +1,6 @@
 package GUI;
 
+import BE.BEAppearance;
 import BE.BEError;
 import BLL.BLLReport;
 import java.awt.event.ActionEvent;
@@ -12,19 +13,19 @@ import java.awt.event.ActionListener;
 public class HLErrorReport extends javax.swing.JFrame {
 
     BLLReport bllreport;
+    BEAppearance appear;
 
     /**
      * Creates new form HLErrorReport
      */
-    public HLErrorReport() {//BEAppearance a) {
+    public HLErrorReport(BEAppearance a) {
         bllreport = BLLReport.getInstance();
         initComponents();
-        initOtherComponents();//a
+        initOtherComponents(a);
         this.setTitle("Reparation/Køretøjsmangler");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-
     }
 
     /**
@@ -177,7 +178,8 @@ public class HLErrorReport extends javax.swing.JFrame {
     private javax.swing.JTextField txtWash;
     // End of variables declaration//GEN-END:variables
 
-    private void initOtherComponents() {//BEAppearance a
+    private void initOtherComponents(BEAppearance a) {
+        appear = a;
         lblHeader.setText("Reparation/Køretøjsmangler");
         btnAcknowledge.setText("Bekræft");
         btnAcknowledge.setEnabled(true);
@@ -185,7 +187,7 @@ public class HLErrorReport extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                bllreport.createErrorReport(errorAsBE());
+                bllreport.createErrorReport(errorAsBE(), appear);
                 dispose();
             }
         });

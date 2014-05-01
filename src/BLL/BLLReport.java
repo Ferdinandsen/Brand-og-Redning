@@ -1,5 +1,6 @@
 package BLL;
 
+import BE.BEAppearance;
 import BE.BEError;
 import DAL.DALReport;
 import java.sql.SQLException;
@@ -27,9 +28,9 @@ public class BLLReport {
         }
         return m_instance;
     }
- public void createErrorReport(BEError be) {
+ public void createErrorReport(BEError be,BEAppearance a) {
        try{
-           dalreport.createErrorReport(be);
+           dalreport.createErrorReport(be,a);
        }
        catch(SQLException e){
            System.out.println("Fejl i report" + e);

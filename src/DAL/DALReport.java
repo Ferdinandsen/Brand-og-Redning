@@ -1,8 +1,10 @@
 package DAL;
 
+import BE.BEAppearance;
 import BE.BEError;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
@@ -27,8 +29,19 @@ public class DALReport {
         return m_instance;
     }
 
-    public void createErrorReport(BEError be) throws SQLException{
-        System.out.println("Error: " + be.getError() + "Course " + be.getCourse()); 
+    public void createErrorReport(BEError be,BEAppearance a) throws SQLException {
+        String sql = "INSERT INTO Report VALUES (?,?,?,?,?,?,?,?,?)";
+        
+        
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setInt(1,a.getVehicle().getOdinnummer());
+        ps.setString(2, be.getError());
+        ps.setString(3, be.getCourse());
+        ps.setString(4, be.getOutoforder());
+        ps.setString(5, be.getUrgent());
+        ps.setString(6, be.getInduetime());
+        ps.setString(7, be.getWash());
+        ps.execute();
     }
 
 }
