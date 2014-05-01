@@ -13,6 +13,5 @@ public class Main {
 //        HLErrorReport main = new HLErrorReport());
         LoginView main = new LoginView();
         main.setVisible(true);
-
     }
 }
