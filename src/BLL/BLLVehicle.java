@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Jacob
+ * @author Team Kawabunga
  */
 public class BLLVehicle {
 

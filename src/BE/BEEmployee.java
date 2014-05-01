@@ -1,12 +1,10 @@
 package BE;
 
-
 /**
  *
- * @author André
+ * @author Team Kawabunga
  */
 public class BEEmployee {
-
     private int medarbejderNo;
     private String fornavn;
     private String mellemnavn;

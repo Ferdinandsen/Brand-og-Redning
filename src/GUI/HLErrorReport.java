@@ -1,22 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package GUI;
+
+import BE.BEAppearance;
+import BE.BEError;
+import BLL.BLLReport;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
- * @author Jacob
+ * @author Team Kawabunga
  */
 public class HLErrorReport extends javax.swing.JFrame {
+
+    BLLReport bllreport;
+    BEAppearance appear;
 
     /**
      * Creates new form HLErrorReport
      */
-    public HLErrorReport() {
+    public HLErrorReport(BEAppearance a) {
+        bllreport = BLLReport.getInstance();
         initComponents();
+        initOtherComponents(a);
+        this.setTitle("Reparation/Køretøjsmangler");
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }
 
     /**
@@ -28,57 +37,173 @@ public class HLErrorReport extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblHeader = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtError = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        lblDate = new javax.swing.JLabel();
+        lblKøtj = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtCourse = new javax.swing.JTextArea();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtOutofOrder = new javax.swing.JTextField();
+        txtUrgent = new javax.swing.JTextField();
+        txtInDueTime = new javax.swing.JTextField();
+        txtWash = new javax.swing.JTextField();
+        btnAcknowledge = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        lblHeader.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        txtError.setColumns(20);
+        txtError.setRows(5);
+        jScrollPane1.setViewportView(txtError);
+
+        jLabel2.setText("FEJL:");
+
+        lblDate.setText("DATO:");
+
+        lblKøtj.setText("Køretøj:");
+
+        txtCourse.setColumns(20);
+        txtCourse.setRows(5);
+        jScrollPane2.setViewportView(txtCourse);
+
+        jLabel5.setText("Evt. årsag:");
+
+        jLabel6.setText("Ud af drift:");
+
+        jLabel7.setText("Haster:");
+
+        jLabel8.setText("Ved lejlighed:");
+
+        jLabel9.setText("Branddragter til vask:");
+
+        btnAcknowledge.setText("Bekræft");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(lblDate)
+                            .addGap(45, 45, 45)
+                            .addComponent(lblKøtj, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel2)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel8)
+                                .addComponent(jLabel9))
+                            .addGap(31, 31, 31)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtOutofOrder)
+                                .addComponent(txtUrgent)
+                                .addComponent(txtInDueTime)
+                                .addComponent(txtWash, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2)
+                        .addComponent(btnAcknowledge, javax.swing.GroupLayout.Alignment.TRAILING)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(lblHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDate)
+                    .addComponent(lblKøtj))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtOutofOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(txtUrgent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(txtInDueTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(txtWash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(btnAcknowledge)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAcknowledge;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblDate;
+    private javax.swing.JLabel lblHeader;
+    private javax.swing.JLabel lblKøtj;
+    private javax.swing.JTextArea txtCourse;
+    private javax.swing.JTextArea txtError;
+    private javax.swing.JTextField txtInDueTime;
+    private javax.swing.JTextField txtOutofOrder;
+    private javax.swing.JTextField txtUrgent;
+    private javax.swing.JTextField txtWash;
+    // End of variables declaration//GEN-END:variables
+    private void initOtherComponents(BEAppearance a) {
+        appear = a;
+        lblHeader.setText("Reparation/Køretøjsmangler");
+        btnAcknowledge.setText("Bekræft");
+        btnAcknowledge.setEnabled(true);
+        btnAcknowledge.addActionListener(new ActionListener() {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HLErrorReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HLErrorReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HLErrorReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HLErrorReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new HLErrorReport().setVisible(true);
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                bllreport.createErrorReport(errorAsBE(), appear);
+                dispose();
             }
         });
+        //OBS det er HL checkin tid der lige nu er styrrende
+//        lblDate.setText("" + a.getTime().getCheckIn());
+//        lblKøtj.setText("" + a.getVehicle().getOdinnummer());
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
+    private BEError errorAsBE() {
+        String error = txtError.getText();
+        String course = txtCourse.getText();
+        String ooo = txtOutofOrder.getText();
+        String urgent = txtUrgent.getText();
+        String idt = txtInDueTime.getText();
+        String wash = txtWash.getText();
+
+        BEError be = new BEError(error, course, ooo, urgent, idt, wash);
+        return be;
+    }
 }

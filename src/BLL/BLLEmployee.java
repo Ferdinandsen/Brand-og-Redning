@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Shadowleet
+ * @author Team Kawabunga
  */
 public class BLLEmployee {
 

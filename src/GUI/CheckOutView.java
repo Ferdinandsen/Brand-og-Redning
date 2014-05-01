@@ -12,7 +12,7 @@ import java.awt.event.ItemListener;
 
 /**
  *
- * @author Shadowleet
+ * @author Team Kawabunga
  */
 public class CheckOutView extends javax.swing.JDialog {
 
@@ -26,6 +26,7 @@ public class CheckOutView extends javax.swing.JDialog {
      *
      */
     public CheckOutView(BEFireman fireman) {
+        blltime = BLLTimelist.getInstance();
         bllFireman = BLLFireman.getInstance();
         bllvehicle = BLLVehicle.getInstance();
         blltime = BLLTimelist.getInstance();
@@ -141,7 +142,6 @@ public class CheckOutView extends javax.swing.JDialog {
                     btnGrpCheckOut.clearSelection();
                 }
                 btnAcknowledge.setEnabled(cboxVehicle.getSelectedIndex() != 0);
-
             }
         });
         rbtnStVagt.addActionListener(new ActionListener() {

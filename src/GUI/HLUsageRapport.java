@@ -1,5 +1,6 @@
 package GUI;
 
+import BE.BEAppearance;
 import BE.BEUsage;
 import BLL.BLLUsage;
 import java.awt.event.ActionEvent;
@@ -7,19 +8,22 @@ import java.awt.event.ActionListener;
 
 /**
  *
- * @author Jacob
+ * @author Team Kawabunga
  */
-public class HLOdinRapport extends javax.swing.JFrame {
+public class HLUsageRapport extends javax.swing.JFrame {
 
     BEUsage usage;
+    BEAppearance appear;
     BLLUsage bllUsage;
 
     /**
      * Creates new form HLOdinRapport HVILKEN PARAMETER???
+     * @param a
      */
-    public HLOdinRapport() {
+    public HLUsageRapport(BEAppearance a) {
+        bllUsage = BLLUsage.getInstance();
         initComponents();
-        initOtherComponents();
+        initOtherComponents(a);
         this.setTitle("FORBRUG TIL ODIN RAPPORT");
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -366,14 +370,15 @@ public class HLOdinRapport extends javax.swing.JFrame {
     /**
      *
      */
-    private void initOtherComponents() {
+    private void initOtherComponents(BEAppearance a) {
+        appear = a;
         btnAcknowledge.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                createReport(Usage());
+                createUsageReport(Usage());
                 dispose();
-                openErrorReport();
+                openErrorReport(appear);
             }
         });
     }
@@ -416,14 +421,14 @@ public class HLOdinRapport extends javax.swing.JFrame {
  * sends the information to the BLL with the BEUsage
  * @param u 
  */
-    private void createReport(BEUsage u) {
+    private void createUsageReport(BEUsage u) {
         bllUsage.createReport(u);
     }
 /**
  * Opens a new frame
  */
-    private void openErrorReport() {
-        HLErrorReport frame = new HLErrorReport();
+    private void openErrorReport(BEAppearance a) {
+        HLErrorReport frame = new HLErrorReport(a);
         frame.setVisible(true);
     }
 }

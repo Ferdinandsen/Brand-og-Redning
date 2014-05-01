@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Jacob
+ * @author Team Kawabunga
  */
 public class DALVehicle {
 
@@ -76,5 +76,4 @@ public class DALVehicle {
     public void setVehicles(ArrayList<BEVehicle> vehicles) {
         this.vehicles = vehicles;
     }
-
 }
