@@ -2,9 +2,8 @@ package BE;
 
 /**
  *
- * @author Shadowleet
+ * @author Team Kawabunga
  */
-
 public class BEZipCode {
     
     private int zipCode;

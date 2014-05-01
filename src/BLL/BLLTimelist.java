@@ -15,7 +15,7 @@ import java.util.TreeSet;
 
 /**
  *
- * @author Jacob
+ * @author Team Kawabunga
  */
 public class BLLTimelist {
 

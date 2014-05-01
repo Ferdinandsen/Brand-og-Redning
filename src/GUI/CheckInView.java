@@ -3,8 +3,6 @@ package GUI;
 import BE.BEFireman;
 import BLL.BLLFireman;
 import BLL.BLLTimelist;
-import DAL.DALFireman;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;

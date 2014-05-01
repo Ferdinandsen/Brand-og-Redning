@@ -7,6 +7,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
+/**
+ *
+ * @author Team Kawabunga
+ */
 public class FremmødeTableCellRenderer extends DefaultTableCellRenderer {
 
     ImageIcon warning;

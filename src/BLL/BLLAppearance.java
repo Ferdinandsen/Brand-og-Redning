@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  *
- * @author Shadowleet
+ * @author Team Kawabunga
  */
 public class BLLAppearance {
 

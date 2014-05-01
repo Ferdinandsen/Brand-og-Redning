@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 /**
  *
- * @author André
+ * @author Team Kawabunga
  */
 public class BETime {
 

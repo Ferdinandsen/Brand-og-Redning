@@ -2,7 +2,7 @@ package BE;
 
 /**
  *
- * @author Shadowleet
+ * @author Team Kawabunga
  */
 public class BEAppearance {
     private int id;

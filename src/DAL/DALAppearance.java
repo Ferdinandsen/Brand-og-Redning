@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Shadowleet
+ * @author Team Kawabunga
  */
 public class DALAppearance {
 

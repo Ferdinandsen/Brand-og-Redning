@@ -5,10 +5,9 @@ import DAL.DALFireman;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 /**
  *
- * @author Jakob
+ * @author Team Kawabunga
  */
 public class BLLFireman {
 
