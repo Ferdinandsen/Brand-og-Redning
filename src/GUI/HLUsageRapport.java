@@ -17,7 +17,7 @@ public class HLUsageRapport extends javax.swing.JFrame {
     BLLUsage bllUsage;
 
     /**
-     * Creates new form HLOdinRapport HVILKEN PARAMETER???
+     * Creates new form HLOdinRapport
      * @param a
      */
     public HLUsageRapport(BEAppearance a) {
