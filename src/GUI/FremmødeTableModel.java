@@ -1,10 +1,13 @@
 package GUI;
 
 import BE.BEAppearance;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
+/**
+ *
+ * @author Team Kawabunga
+ */
 public class FremmødeTableModel extends AbstractTableModel {
 
     /**
@@ -92,7 +95,6 @@ public class FremmødeTableModel extends AbstractTableModel {
                     return "X";
                 }
                 return "";
-
         }
         return null;
     }

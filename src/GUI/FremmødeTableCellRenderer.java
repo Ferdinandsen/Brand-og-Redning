@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -14,7 +13,6 @@ public class FremmødeTableCellRenderer extends DefaultTableCellRenderer {
 
     public FremmødeTableCellRenderer() {
 //         warning = new ImageIcon(new ImageIcon(getClass().getResource("/Images/warning.jpg")).getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
-                  
     }
 
     @Override
@@ -48,13 +46,9 @@ public class FremmødeTableCellRenderer extends DefaultTableCellRenderer {
                 cell.setForeground(Color.WHITE);
             }
             cell.setFont(f);
-
         } else {
             cell.setForeground(Color.BLACK);
         }
-
-
-
         if (table.convertColumnIndexToModel(column) == 2) // Salery Double
         {
         }

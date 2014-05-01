@@ -83,7 +83,6 @@ public class DALAppearance {
             for (BEVehicle veh : dalVehicle.getVehicles()) {
                 if (veh.getOdinnummer() == køtjRef) {
                     localVehicle = veh;
-
                 }
             }
 
@@ -109,8 +108,7 @@ public class DALAppearance {
             PreparedStatement ps = m_connection.prepareStatement(sql);
             ps.setBoolean(1, true);
             ps.setInt(2, appearance.getId());
-           appearance.setHlGodkendt(true);
+            appearance.setHlGodkendt(true);
             ps.execute();
-        
     }
 }

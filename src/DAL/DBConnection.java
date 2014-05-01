@@ -8,7 +8,6 @@ import java.sql.Connection;
  *
  * @author Shadowleet
  */
-
 public class DBConnection {
 
     private final Connection m_connection;

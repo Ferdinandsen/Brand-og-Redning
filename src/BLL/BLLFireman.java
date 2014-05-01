@@ -1,13 +1,10 @@
 package BLL;
 
 import BE.BEFireman;
-import BE.BETime;
 import DAL.DALFireman;
-import GUI.CheckInView;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
+
 
 /**
  *

@@ -3,6 +3,7 @@ package GUI;
 import BE.BEFireman;
 import BLL.BLLFireman;
 import BLL.BLLTimelist;
+import DAL.DALFireman;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,15 +17,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+/**
+ *
+ * @author Team Kawabunga
+ */
 public class CheckInView extends javax.swing.JFrame {
     
     BLLFireman bllFireman;
     BLLTimelist bllTimelist;
     ArrayList<BEFireman> allFiremen = new ArrayList<>();
-    int amount;
     JPanel main;
     int width = 5;
-    int height = amount / width;
+    int height = allFiremen.size() / width;
     
     public CheckInView() {
         bllTimelist = BLLTimelist.getInstance();
@@ -32,7 +36,6 @@ public class CheckInView extends javax.swing.JFrame {
         bllTimelist = BLLTimelist.getInstance();
         this.setUndecorated(true);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        amount = BEFireman.getAmount();
         getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         pack();
         setResizable(false);
@@ -107,7 +110,6 @@ public class CheckInView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private class firemanButton extends JButton {
-        
         String name;
         BEFireman localFireman;
         

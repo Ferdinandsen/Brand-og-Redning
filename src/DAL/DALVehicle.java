@@ -76,5 +76,4 @@ public class DALVehicle {
     public void setVehicles(ArrayList<BEVehicle> vehicles) {
         this.vehicles = vehicles;
     }
-
 }

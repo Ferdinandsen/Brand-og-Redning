@@ -5,13 +5,8 @@ import BE.BEVehicle;
 import DAL.DALAppearance;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -60,8 +55,6 @@ public class BLLAppearance {
 //            String hourAndMin = times2[0] + ":" + times2[1];
 //            int checkInHour = Integer.parseInt(times2[0]);
 //            int checkInMin = Integer.parseInt(times2[1]);
-
-
             String selectedTime[] = time.split(":");
             int selectedHour = Integer.parseInt(selectedTime[0]);
             int selectedMin = Integer.parseInt(selectedTime[1]);
@@ -71,25 +64,19 @@ public class BLLAppearance {
             long minutes = (checkMili - testMili) / 1000 / 60;
             if (minutes <= 10 && selectedItem == appearance.getVehicle()) { //dagene + tid (10min) passer!
 
-
-
-
                 newAppearances.add(appearance);
             }
         }
-
         return newAppearances;
     }
 
     public void confirmTeam() {
-        for (BEAppearance appearance : newAppearances){
+        for (BEAppearance appearance : newAppearances) {
             try {
                 dalAppearance.confirmTeam(appearance);
             } catch (SQLException ex) {
                 System.out.println("fejl i bllAppearance " + ex);
             }
         }
-       
-        
     }
 }

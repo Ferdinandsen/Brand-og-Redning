@@ -36,5 +36,4 @@ public class BLLReport {
            System.out.println("Fejl i report" + e);
        }
     }
-    
 }
