@@ -46,8 +46,9 @@ public class HLAfterAction1 extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 confirmTeam();
-//                HLErrorReport frame = new HLErrorReport(BLLAppearance.getInstance().getAppearances.get(0));
-//                frame.setVisible(true);
+                dispose();
+                HLErrorReport frame = new HLErrorReport(BLLAppearance.getInstance().newAppearances.get(0));
+                frame.setVisible(true);
             }
         });
         

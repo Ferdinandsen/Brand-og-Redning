@@ -14,15 +14,14 @@ import java.util.Date;
  */
 public class BLLAppearance {
 
-    ArrayList<BEAppearance> newAppearances;
+    public ArrayList<BEAppearance> newAppearances;
     DALAppearance dalAppearance;
     private static BLLAppearance m_instance = null;
-    public ArrayList<BEAppearance> getAppearances;
 
     private BLLAppearance() {
         try {
             dalAppearance = DALAppearance.getInstance();
-           // newAppearances = getAllAppearances();
+            newAppearances = getAllAppearances();
         } catch (SQLException e) {
             System.out.println("fejl i bllEmployee " + e);
         }
