@@ -2,6 +2,7 @@ package DAL;
 
 import BE.BEAddress;
 import BE.BEEmployee;
+import BE.BELogin;
 import BE.BEZipCode;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,12 +21,15 @@ public class DALEmployee {
     private ArrayList<BEZipCode> allZipCodes = new ArrayList<>();
     private ArrayList<BEAddress> allAddresses = new ArrayList<>();
     private ArrayList<BEEmployee> allEmployees = new ArrayList<>();
+    private ArrayList<BELogin> allLogins = new ArrayList<>();
 
     private DALEmployee() throws SQLException {
         m_connection = DBConnection.getInstance().getConnection();
         populateZip();
         populateAddress();
         populateEmployee();
+        populateLogins();
+
     }
 
     public static DALEmployee getInstance() throws SQLException {
@@ -45,8 +49,9 @@ public class DALEmployee {
             int medarbejderNo = result.getInt("medarbejderNo");
             String fornavn = result.getString("fornavn");
             String mellemnavn = result.getString("mellemnavn");
-            if (mellemnavn == (null))
+            if (mellemnavn == (null)) {
                 mellemnavn = "";
+            }
             String efternavn = result.getString("efternavn");
             String CPR = result.getString("CPR");
             String portræt = result.getString("portræt");
@@ -125,5 +130,50 @@ public class DALEmployee {
      */
     public ArrayList<BEAddress> getAllAddresses() {
         return allAddresses;
+    }
+
+    public ArrayList<BELogin> getAllLogins() {
+        return allLogins;
+    }
+
+    public boolean doesUserExist() throws SQLException {
+        String sql = "SELECT * FROM Login";
+
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.execute();
+        ResultSet result = ps.getResultSet();
+        while (result.next()) {
+            int postNummer = result.getInt("postnummer");
+            String bynavn = result.getString("bynavn");
+
+            BEZipCode zipCode = new BEZipCode(postNummer, bynavn);
+            getAllZipCodes().add(zipCode);
+        }
+        return false;
+
+    }
+
+    private void populateLogins() throws SQLException {
+        String sql = "SELECT * FROM Login";
+
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.execute();
+        ResultSet result = ps.getResultSet();
+        while (result.next()) {
+            int medarbejderRef = result.getInt("medarbejderRef");
+            String kode = result.getString("kode");
+            boolean admin = result.getBoolean("admin");
+            boolean kontor = result.getBoolean("kontor");
+            boolean holdleder = result.getBoolean("holdleder");
+
+            BEEmployee localEmployee = null;
+            for (BEEmployee emp : getAllEmployees()){
+                if (medarbejderRef == emp.getMedarbejderNo()){
+                    localEmployee = emp;
+                }
+            }
+            BELogin login = new BELogin(localEmployee, kode, admin, kontor, holdleder);
+            allLogins.add(login);
+        }
     }
 }
