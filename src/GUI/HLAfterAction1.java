@@ -1,36 +1,169 @@
 package GUI;
 
+import BE.BEAppearance;
 import BE.BEVehicle;
 import BLL.BLLTimelist;
+import BLL.BLLAppearance;
 import BLL.BLLVehicle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.table.TableColumn;
 
+/**
+ *
+ * @author Team Kawabunga
+ */
 public class HLAfterAction1 extends javax.swing.JFrame {
 
     BLLVehicle bllVehicle;
     BLLTimelist bllTime;
+    BLLAppearance bllAppearance;
+    private FremmødeTableModel model;
+    boolean startUp = true;
 
     public HLAfterAction1() {
-        bllVehicle = BLLVehicle.getInstance();
-        bllTime = BLLTimelist.getInstance();
         initComponents();
         initOtherComponents();
+
+        bllVehicle = BLLVehicle.getInstance();
+        bllTime = BLLTimelist.getInstance();
+        bllAppearance = BLLAppearance.getInstance();
+
         this.setTitle("Hl After Action 1");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 
         fillCboxKøretøj();
+        populateFremmødeTable();
+        addCellRenderer();
+        btnBekæft.setEnabled(oneTeamOrNot());
+        lblCount.setText("Fremmødt: " + model.getRowCount());
+
     }
 
     private void initOtherComponents() {
-       
+        btnBekæft.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                confirmTeam();
+                dispose();
+                HLUsageRapport frame = new HLUsageRapport(BLLAppearance.getInstance().newAppearances.get(0));
+                frame.setVisible(true);
+            }
+        });
+        
+        btnHent.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (isInformationFilled()) {
+                    model.setAppearanceList(bllAppearance.getAppearancesWithCriteria(jDateChooser.getDate(), txtTid.getText(), (BEVehicle) cboxKøretøj.getSelectedItem()));
+                    model.fireTableDataChanged();
+                    btnBekæft.setEnabled(oneTeamOrNot());
+                    lblCount.setText("Fremmødt: " + model.getRowCount());
+                }
+            }
+        });
+        
+        txtTid.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                if (txtTid.getText().length() == 2) {
+                    txtTid.setText(txtTid.getText() + ":");
+                }
+                char vChar = e.getKeyChar();
+                if (!(Character.isDigit(vChar) && txtTid.getText().length() != 5
+                        || (vChar == KeyEvent.VK_BACK_SPACE)
+                        || (vChar == KeyEvent.VK_DELETE))) {
+                    e.consume();
+                }
+                if (Character.isDigit(vChar) && txtTid.getText().length() == 0 && Integer.parseInt(String.valueOf(vChar)) > 2) {
+                    e.consume();
+                }
+                if (txtTid.getText().length() > 0 && txtTid.getText().charAt(0) == '2') {
+                    if (txtTid.getText().length() == 1 && Integer.parseInt(String.valueOf(vChar)) > 3) {
+                        e.consume();
+                    }
+                }
+                if (Character.isDigit(vChar) && txtTid.getText().length() == 3 && Integer.parseInt(String.valueOf(vChar)) > 5) {
+                    System.out.println("test");
+                    e.consume();
+                }
+                if (vChar == KeyEvent.VK_BACK_SPACE) {
+                    txtTid.setText("");
+                }
+            }
+        });
     }
-    private void showCalendar() {
-               
+
+    private void confirmTeam() {
+        bllAppearance.confirmTeam();
+        JOptionPane.showMessageDialog(this, "Holdet er nu bekræftet!");
     }
 
     private void fillCboxKøretøj() {
         for (BEVehicle veh : bllVehicle.GetVehicles()) {
             cboxKøretøj.addItem(veh);
+        }
+        cboxKøretøj.setSelectedIndex(-1);
+    }
+
+    private void populateFremmødeTable() {
+        model = new FremmødeTableModel(bllAppearance.getAllAppearances());
+        tblTider.setModel(model);
+        model.fireTableDataChanged();
+    }
+
+    private boolean isInformationFilled() {
+        if (jDateChooser.getDate() != null && txtTid.getText().trim().length() == 5 && cboxKøretøj.getSelectedIndex() != -1) {
+            return true;
+        }
+        JOptionPane.showMessageDialog(this, "Udfyld venligst al information");
+        return false;
+    }
+
+    private void addCellRenderer() {
+
+        FremmødeTableCellRenderer renderer = new FremmødeTableCellRenderer();
+
+        for (int col = 0; col < model.getColumnCount(); col++) {
+            renderer.setHorizontalAlignment(JLabel.CENTER);
+            TableColumn tc = tblTider.getColumnModel().getColumn(col);
+            tc.setCellRenderer(renderer);
+        }
+    }
+
+    private boolean oneTeamOrNot() {
+        int vehNo = 0;
+        if (startUp == true) {
+            for (BEAppearance appearance : bllAppearance.getAllAppearances()) {
+                if (vehNo == 0) {
+                    vehNo = appearance.getVehicle().getOdinnummer();
+                }
+                if (appearance.getVehicle().getOdinnummer() != vehNo) {
+                    startUp = false;
+                    return false;
+
+                }
+                vehNo = appearance.getVehicle().getOdinnummer();
+            }
+            startUp = false;
+            return true;
+        } else {
+            System.out.println("har hentet");
+            for (BEAppearance appearance : bllAppearance.getAppearancesWithCriteria(jDateChooser.getDate(), txtTid.getText(), (BEVehicle) cboxKøretøj.getSelectedItem())) {
+                if (vehNo == 0) {
+                    vehNo = appearance.getVehicle().getOdinnummer();
+                }
+                if (appearance.getVehicle().getOdinnummer() != vehNo) {
+                    return false;
+                }
+                vehNo = appearance.getVehicle().getOdinnummer();
+            }
+            return true;
         }
     }
 
@@ -38,7 +171,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
         lblDato = new javax.swing.JLabel();
         btnBekæft = new javax.swing.JButton();
         lblTid = new javax.swing.JLabel();
@@ -47,8 +179,9 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         tblTider = new javax.swing.JTable();
         lblKøretøj = new javax.swing.JLabel();
         cboxKøretøj = new javax.swing.JComboBox();
-        jTextField1 = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        txtTid = new javax.swing.JTextField();
+        jDateChooser = new com.toedter.calendar.JDateChooser();
+        lblCount = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,6 +216,8 @@ public class HLAfterAction1 extends javax.swing.JFrame {
 
         lblKøretøj.setText("Køretøj:");
 
+        lblCount.setText("Fremmødt:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,15 +225,15 @@ public class HLAfterAction1 extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblDato)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(107, 107, 107)
                         .addComponent(lblTid)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTid, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(24, 24, 24)
                         .addComponent(lblKøretøj)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -106,27 +241,33 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnHent, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblCount)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnBekæft, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblDato)
                         .addComponent(lblTid)
                         .addComponent(btnHent)
                         .addComponent(lblKøretøj)
                         .addComponent(cboxKøretøj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtTid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnBekæft)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBekæft))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(lblCount)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -136,13 +277,13 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     private javax.swing.JButton btnBekæft;
     private javax.swing.JButton btnHent;
     private javax.swing.JComboBox cboxKøretøj;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblCount;
     private javax.swing.JLabel lblDato;
     private javax.swing.JLabel lblKøretøj;
     private javax.swing.JLabel lblTid;
     private javax.swing.JTable tblTider;
+    private javax.swing.JTextField txtTid;
     // End of variables declaration//GEN-END:variables
 }
