@@ -19,8 +19,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     BLLTimelist bllTime;
     BLLAppearance bllAppearance;
     private FremmødeTableModel model;
-
-
+    boolean startUp = true;
 
     public HLAfterAction1() {
         initComponents();
@@ -133,16 +132,33 @@ public class HLAfterAction1 extends javax.swing.JFrame {
 
     private boolean oneTeamOrNot() {
         int vehNo = 0;
-        for (BEAppearance appearance : bllAppearance.getAllAppearances()) {
-            if (vehNo == 0) {
+        if (startUp == true) {
+            for (BEAppearance appearance : bllAppearance.getAllAppearances()) {
+                if (vehNo == 0) {
+                    vehNo = appearance.getVehicle().getOdinnummer();
+                }
+                if (appearance.getVehicle().getOdinnummer() != vehNo) {
+                    startUp = false;
+                    return false;
+
+                }
                 vehNo = appearance.getVehicle().getOdinnummer();
             }
-            if (appearance.getVehicle().getOdinnummer() != vehNo) {
-                return false;
+            startUp = false;
+            return true;
+        } else {
+            System.out.println("har hentet");
+            for (BEAppearance appearance : bllAppearance.getAppearancesWithCriteria(jDateChooser.getDate(), txtTid.getText(), (BEVehicle) cboxKøretøj.getSelectedItem())) {
+                if (vehNo == 0) {
+                    vehNo = appearance.getVehicle().getOdinnummer();
+                }
+                if (appearance.getVehicle().getOdinnummer() != vehNo) {
+                    return false;
+                }
+                vehNo = appearance.getVehicle().getOdinnummer();
             }
-            vehNo = appearance.getVehicle().getOdinnummer();
+            return true;
         }
-        return true;
     }
 
     @SuppressWarnings("unchecked")
