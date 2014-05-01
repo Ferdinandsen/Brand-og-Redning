@@ -30,7 +30,6 @@ public class DALAppearance {
         dalTime = DALTimelist.getInstance();
 
         populateAppearances();
-
     }
 
     public static DALAppearance getInstance() throws SQLException {
@@ -57,7 +56,6 @@ public class DALAppearance {
         ps.setBoolean(7, ch);
         ps.setBoolean(8, st);
         ps.execute();
-
 
     }
 
