@@ -1,16 +1,25 @@
 package GUI;
 
+import BE.BEError;
+import BLL.BLLReport;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author Shadowleet
  */
 public class HLErrorReport extends javax.swing.JFrame {
 
+    BLLReport bllreport;
+
     /**
      * Creates new form HLErrorReport
      */
-    public HLErrorReport() {
+    public HLErrorReport() {//BEAppearance a) {
+        bllreport = BLLReport.getInstance();
         initComponents();
+        initOtherComponents();//a
     }
 
     /**
@@ -24,12 +33,12 @@ public class HLErrorReport extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtError = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblDate = new javax.swing.JLabel();
+        lblKøtj = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        txtCourse = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -45,19 +54,19 @@ public class HLErrorReport extends javax.swing.JFrame {
 
         jLabel1.setText("Reparation/Køretøjsmangler - Branddragter til vask");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtError.setColumns(20);
+        txtError.setRows(5);
+        jScrollPane1.setViewportView(txtError);
 
         jLabel2.setText("FEJL:");
 
-        jLabel3.setText("DATO:");
+        lblDate.setText("DATO:");
 
-        jLabel4.setText("Køretøj:");
+        lblKøtj.setText("Køretøj:");
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        txtCourse.setColumns(20);
+        txtCourse.setRows(5);
+        jScrollPane2.setViewportView(txtCourse);
 
         jLabel5.setText("Evt. årsag:");
 
@@ -81,9 +90,9 @@ public class HLErrorReport extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel3)
+                            .addComponent(lblDate)
                             .addGap(45, 45, 45)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblKøtj, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jLabel5)
                         .addComponent(jLabel2)
                         .addGroup(layout.createSequentialGroup()
@@ -109,8 +118,8 @@ public class HLErrorReport extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                    .addComponent(lblDate)
+                    .addComponent(lblKøtj))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -146,8 +155,6 @@ public class HLErrorReport extends javax.swing.JFrame {
     private javax.swing.JButton btnAcknowledge;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -155,11 +162,38 @@ public class HLErrorReport extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel lblDate;
+    private javax.swing.JLabel lblKøtj;
+    private javax.swing.JTextArea txtCourse;
+    private javax.swing.JTextArea txtError;
     // End of variables declaration//GEN-END:variables
+
+    private void initOtherComponents() {//BEAppearance a 
+        btnAcknowledge.setText("Bekræft");
+        btnAcknowledge.setEnabled(true);
+        btnAcknowledge.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                bllreport.createErrorReport(errorAsBE());
+                dispose();
+            }
+        });
+        //OBS det er HL checkin tid der lige nu er styrrende
+//        lblDate.setText("" + a.getTime().getCheckIn());
+//        lblKøtj.setText("" + a.getVehicle().getOdinnummer());
+    }
+
+    private BEError errorAsBE() {
+
+        String error = txtError.getText();
+        String course = txtCourse.getText();
+        BEError be = new BEError(error, course);
+
+        return be;
+    }
 }
