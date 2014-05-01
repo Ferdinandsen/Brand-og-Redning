@@ -29,7 +29,6 @@ public class BLLReport {
     }
  public void createErrorReport(BEError be) {
        try{
-           System.out.println("test1");
            dalreport.createErrorReport(be);
        }
        catch(SQLException e){
