@@ -21,6 +21,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     private FremmødeTableModel model;
 
 
+
     public HLAfterAction1() {
         initComponents();
         initOtherComponents();
