@@ -2,11 +2,7 @@ package DAL;
 
 import BE.BEAppearance;
 import BE.BETime;
-import BE.BEEmployee;
 import BE.BEVehicle;
-import DAL.DALVehicle;
-import DAL.DALTimelist;
-import DAL.DALFireman;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,7 +30,6 @@ public class DALAppearance {
         dalTime = DALTimelist.getInstance();
 
         populateAppearances();
-
     }
 
     public static DALAppearance getInstance() throws SQLException {
@@ -62,12 +57,11 @@ public class DALAppearance {
         ps.setBoolean(8, st);
         ps.execute();
 
-
     }
 
     public void populateAppearances() throws SQLException {
 
-        String sql = "SELECT * FROM Fremmøde where køtjRef is not null";
+        String sql = "SELECT * FROM Fremmøde WHERE køtjRef is not null";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.execute();
@@ -85,9 +79,8 @@ public class DALAppearance {
 
             BEVehicle localVehicle = null;
             for (BEVehicle veh : dalVehicle.getVehicles()) {
-                    if (veh.getOdinnummer() == køtjRef) {
-                        localVehicle = veh;
-                    
+                if (veh.getOdinnummer() == køtjRef) {
+                    localVehicle = veh;
                 }
             }
 
@@ -97,7 +90,6 @@ public class DALAppearance {
                     localTime = time;
                 }
             }
-
             BEAppearance appearance = new BEAppearance(id, localVehicle, localTime, totalTid, evaNo, isGodkendt, holdleder, chauffør, stationsvagt);
             allAppearances.add(appearance);
         }

@@ -1,9 +1,5 @@
 package BE;
 
-import BE.BEEmployee;
-import BE.BEFireman;
-import BE.BETime;
-import BE.BEVehicle;
 public class BEAppearance {
     private int id;
     private BEVehicle vehicle;
@@ -16,6 +12,7 @@ public class BEAppearance {
     private boolean STvagt;
     
     public BEAppearance(int id, BEVehicle vehicle, BETime time, int totaltid, int evaNo, boolean isGodkendt, boolean holdleder, boolean chauffør, boolean STvagt){
+       
         this.id = id;
         this.vehicle = vehicle;
         this.time = time;
@@ -89,6 +86,5 @@ public class BEAppearance {
     public boolean isSTvagt() {
         return STvagt;
     }
-
-    
+   
 }
