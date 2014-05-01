@@ -1,5 +1,6 @@
 package GUI;
 
+import BE.BEAppearance;
 import BE.BEVehicle;
 import BLL.BLLTimelist;
 import BLL.BLLAppearance;
@@ -8,13 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableColumn;
@@ -25,6 +19,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     BLLTimelist bllTime;
     BLLAppearance bllAppearance;
     private FremmødeTableModel model;
+
 
     public HLAfterAction1() {
         initComponents();
@@ -40,16 +35,16 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         fillCboxKøretøj();
         populateFremmødeTable();
         addCellRenderer();
+        btnBekæft.setEnabled(oneTeamOrNot());
         lblCount.setText("Fremmødt: " + model.getRowCount());
 
     }
 
     private void initOtherComponents() {
         btnBekæft.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
-             confirmTeam();
+                confirmTeam();
             }
         });
         btnHent.addActionListener(new ActionListener() {
@@ -59,6 +54,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                 if (isInformationFilled()) {
                     model.setAppearanceList(bllAppearance.getAppearancesWithCriteria(jDateChooser.getDate(), txtTid.getText(), (BEVehicle) cboxKøretøj.getSelectedItem()));
                     model.fireTableDataChanged();
+                    btnBekæft.setEnabled(oneTeamOrNot());
                     lblCount.setText("Fremmødt: " + model.getRowCount());
                 }
             }
@@ -96,7 +92,8 @@ public class HLAfterAction1 extends javax.swing.JFrame {
             }
         });
     }
-    private void confirmTeam(){
+
+    private void confirmTeam() {
         bllAppearance.confirmTeam();
         JOptionPane.showMessageDialog(this, "Holdet er nu bekræftet!");
     }
@@ -131,6 +128,20 @@ public class HLAfterAction1 extends javax.swing.JFrame {
             TableColumn tc = tblTider.getColumnModel().getColumn(col);
             tc.setCellRenderer(renderer);
         }
+    }
+
+    private boolean oneTeamOrNot() {
+        int vehNo = 0;
+        for (BEAppearance appearance : bllAppearance.getAllAppearances()) {
+            if (vehNo == 0) {
+                vehNo = appearance.getVehicle().getOdinnummer();
+            }
+            if (appearance.getVehicle().getOdinnummer() != vehNo) {
+                return false;
+            }
+            vehNo = appearance.getVehicle().getOdinnummer();
+        }
+        return true;
     }
 
     @SuppressWarnings("unchecked")

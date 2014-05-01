@@ -40,7 +40,7 @@ public class DALAppearance {
     }
 
     public void endShift(BETime tm, BEVehicle veh, boolean hl, boolean ch, boolean st, int total) throws SQLException {
-        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         if (veh == null) {
@@ -53,8 +53,9 @@ public class DALAppearance {
         ps.setInt(4, -1);
         ps.setBoolean(5, false);
         ps.setBoolean(6, hl);
-        ps.setBoolean(7, ch);
-        ps.setBoolean(8, st);
+        ps.setBoolean(7, false);
+        ps.setBoolean(8, ch);
+        ps.setBoolean(9, st);
         ps.execute();
 
     }
