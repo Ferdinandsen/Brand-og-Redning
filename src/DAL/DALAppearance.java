@@ -58,7 +58,6 @@ public class DALAppearance {
         ps.setBoolean(9, ch);
         ps.setBoolean(10, st);
         ps.execute();
-
     }
 
     public void populateAppearances() throws SQLException {
@@ -94,7 +93,6 @@ public class DALAppearance {
                     localTime = time;
                 }
             }
-
             BEAppearance appearance = new BEAppearance(id, localVehicle, localTime, totalTid, evaNo, hlGodkendt, ilGodkendt, holdleder, chauffør, stationsvagt, type);
             allAppearances.add(appearance);
         }
