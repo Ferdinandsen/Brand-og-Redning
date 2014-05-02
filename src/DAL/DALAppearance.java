@@ -44,19 +44,19 @@ public class DALAppearance {
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         if (veh == null) {
-            ps.setString(1, null);
+            ps.setString(1, "0");
         } else {
             ps.setInt(1, veh.getOdinnummer());
         }
         ps.setInt(2, tm.getId());
-        ps.setInt(3, 0);
-        ps.setInt(4, total);
-        ps.setInt(5, -1);
-        ps.setBoolean(6, false);
-        ps.setBoolean(7, hl);
-        ps.setBoolean(8, false);
-        ps.setBoolean(9, ch);
-        ps.setBoolean(10, st);
+        ps.setInt(3, total);
+        ps.setInt(4, 0);
+        ps.setBoolean(5, false);
+        ps.setBoolean(6, hl);
+        ps.setBoolean(7, ch);
+        ps.setBoolean(8, st);
+        ps.setBoolean(9, false);
+        ps.setInt(10, 0);
         ps.execute();
 
     }
