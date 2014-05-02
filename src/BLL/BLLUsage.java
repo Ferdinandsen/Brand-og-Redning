@@ -1,12 +1,16 @@
 package BLL;
 
+import BE.BEMateriel;
 import BE.BEUsage;
 import DAL.DALUsage;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
- * @author Jacob
+ * @author Team Kawabunga
  */
 public class BLLUsage {
 
@@ -17,7 +21,7 @@ public class BLLUsage {
         try {
             dalusage = DALUsage.getInstance();
         } catch (SQLException e) {
-            System.out.println("Fejl i BLLKØTJ " + e);
+            System.out.println("Fejl i BLLUsage " + e);
         }
     }
 
@@ -27,8 +31,13 @@ public class BLLUsage {
         }
         return m_instance;
     }
-    
-    public void createReport(BEUsage u){
-        
+
+    public void createReport(BEUsage u) {
+
+        dalusage.createUsageReport(u);
     }
+
+    public ArrayList<BEMateriel> getAllMats() {
+         return dalusage.getMateriel();
+        }
 }

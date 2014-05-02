@@ -1,10 +1,13 @@
 package GUI;
 
 import BE.BEAppearance;
+import BE.BEMateriel;
 import BE.BEUsage;
 import BLL.BLLUsage;
+import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -12,18 +15,20 @@ import java.awt.event.ActionListener;
  */
 public class HLUsageRapport extends javax.swing.JFrame {
 
-    BEUsage usage;
+    BEUsage beusage;
     BEAppearance appear;
     BLLUsage bllUsage;
 
     /**
      * Creates new form HLOdinRapport
+     *
      * @param a
      */
     public HLUsageRapport(BEAppearance a) {
         bllUsage = BLLUsage.getInstance();
+        appear = a;
         initComponents();
-        initOtherComponents(a);
+        initOtherComponents();
         this.setTitle("FORBRUG TIL ODIN RAPPORT");
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -39,7 +44,7 @@ public class HLUsageRapport extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        lblHeader = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -88,7 +93,7 @@ public class HLUsageRapport extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("FORBRUG ");
+        lblHeader.setText("FORBRUG ");
 
         jLabel2.setText("HT rør");
 
@@ -130,26 +135,6 @@ public class HLUsageRapport extends javax.swing.JFrame {
 
         jLabel21.setText("Spændelågsflade");
 
-        txtLys.setText("jTextField11");
-
-        txtPulverslukker.setText("jTextField12");
-
-        txtKulsyreslukker.setText("jTextField13");
-
-        txtFlyde.setText("jTextField14");
-
-        txtKattegrus.setText("jTextField15");
-
-        txtAbsorbW.setText("jTextField16");
-
-        txtPresseninger.setText("jTextField17");
-
-        txtCobraslukker.setText("jTextField18");
-
-        txtMængde.setText("jTextField19");
-
-        txtSpænde.setText("jTextField20");
-
         btnAcknowledge.setText("Bekræft forbrug");
 
         jLabel22.setText("Liter");
@@ -165,48 +150,52 @@ public class HLUsageRapport extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnAcknowledge)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtFrigørelse, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtFlasker, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtStråleslanger, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtHTrør, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                                    .addComponent(txtBSlanger)
+                                    .addComponent(txtCSlanger)
+                                    .addComponent(txtOvertryk)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtRøgdykker, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtVand, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel2))
+                                .addGap(0, 125, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtSkum, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel2)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtFrigørelse, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel9)
-                                            .addComponent(jLabel10)
-                                            .addComponent(jLabel11))
-                                        .addGap(24, 24, 24)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtSkum, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtVand, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtOvertryk, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel22)
-                                    .addComponent(jLabel23)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7))
-                                .addGap(23, 23, 23)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtFlasker, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtRøgdykker, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCSlanger, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtBSlanger, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtStråleslanger, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtHTrør, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                            .addComponent(jLabel22)
+                            .addComponent(jLabel23))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12)
                             .addComponent(jLabel13)
@@ -220,31 +209,33 @@ public class HLUsageRapport extends javax.swing.JFrame {
                             .addComponent(jLabel21))
                         .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtSpænde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtMængde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCobraslukker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPresseninger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAbsorbW, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtKattegrus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFlyde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtKulsyreslukker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPulverslukker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtLys, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtFlyde, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtKulsyreslukker, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtPulverslukker, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtLys, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtSpænde, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMængde, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtAbsorbW, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtKattegrus, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtCobraslukker, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtPresseninger, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel24)
                     .addComponent(jLabel25))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(213, 213, 213)
-                .addComponent(jLabel1)
+                .addComponent(lblHeader)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addComponent(jLabel1)
+                .addComponent(lblHeader)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -320,7 +311,6 @@ public class HLUsageRapport extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcknowledge;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -345,6 +335,7 @@ public class HLUsageRapport extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel lblHeader;
     private javax.swing.JTextField txtAbsorbW;
     private javax.swing.JTextField txtBSlanger;
     private javax.swing.JTextField txtCSlanger;
@@ -370,63 +361,186 @@ public class HLUsageRapport extends javax.swing.JFrame {
     /**
      *
      */
-    private void initOtherComponents(BEAppearance a) {
-        appear = a;
+    private void initOtherComponents() {
+        lblHeader.setText("Indtast det brugte materiel");
         btnAcknowledge.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                createUsageReport(Usage());
+                usage();
                 dispose();
                 openErrorReport(appear);
             }
         });
     }
 
+    private boolean test(String s) {
+        return !s.isEmpty() && !Pattern.matches("[a-zA-Z]+", s);
+    }
+
     /**
      *
      * @return BEUsage with the added usage.
      */
-    private BEUsage Usage() {
+    private void usage() {
 
-        String htrør = txtHTrør.getText();
-        String stråle = txtStråleslanger.getText();
-        String bslanger = txtBSlanger.getText();
-        String cslanger = txtCSlanger.getText();
-        String røgdykker = txtRøgdykker.getText();
-        String flasker = txtFlasker.getText();
-        String frigør = txtFrigørelse.getText();
-        String overtryk = txtOvertryk.getText();
-        String lys = txtLys.getText();
-        String pulver = txtPulverslukker.getText();
-        String kulsyre = txtKulsyreslukker.getText();
-        String flyde = txtFlyde.getText();
-        String kattegrus = txtKattegrus.getText();
-        String absorb = txtAbsorbW.getText();
-        String press = txtPresseninger.getText();
-        String cobra = txtCobraslukker.getText();
-        String vand = txtVand.getText();
-        String skum = txtSkum.getText();
-        String mængde = txtMængde.getText();
-        String spænde = txtSpænde.getText();
+        int htrør = test(txtHTrør.getText()) ? Integer.parseInt(txtHTrør.getText()) : 0;
+        int stråle = test(txtStråleslanger.getText()) ? Integer.parseInt(txtStråleslanger.getText()) : 0;
+        int bslanger = test(txtBSlanger.getText()) ? Integer.parseInt(txtBSlanger.getText()) : 0;
+        int cslanger = test(txtCSlanger.getText()) ? Integer.parseInt(txtCSlanger.getText()) : 0;
+        int røgdykker = test(txtRøgdykker.getText()) ? Integer.parseInt(txtRøgdykker.getText()) : 0;
+        int flasker = test(txtFlasker.getText()) ? Integer.parseInt(txtFlasker.getText()) : 0;
+        int frigør = test(txtFrigørelse.getText()) ? Integer.parseInt(txtFrigørelse.getText()) : 0;
+        int overtryk = test(txtOvertryk.getText()) ? Integer.parseInt(txtOvertryk.getText()) : 0;
+        int lys = test(txtLys.getText()) ? Integer.parseInt(txtLys.getText()) : 0;
+        int pulver = test(txtPulverslukker.getText()) ? Integer.parseInt(txtPulverslukker.getText()) : 0;
+        int kulsyre = test(txtKulsyreslukker.getText()) ? Integer.parseInt(txtKulsyreslukker.getText()) : 0;
+        int flyde = test(txtFlyde.getText()) ? Integer.parseInt(txtFlyde.getText()) : 0;
+        int kattegrus = test(txtKattegrus.getText()) ? Integer.parseInt(txtKattegrus.getText()) : 0;
+        int absorb = test(txtAbsorbW.getText()) ? Integer.parseInt(txtAbsorbW.getText()) : 0;
+        int press = test(txtPresseninger.getText()) ? Integer.parseInt(txtPresseninger.getText()) : 0;
+        int cobra = test(txtCobraslukker.getText()) ? Integer.parseInt(txtCobraslukker.getText()) : 0;
+        int vand = test(txtVand.getText()) ? Integer.parseInt(txtVand.getText()) : 0;
+        int skum = test(txtSkum.getText()) ? Integer.parseInt(txtSkum.getText()) : 0;
+        int mængde = test(txtMængde.getText()) ? Integer.parseInt(txtMængde.getText()) : 0;
+        int spænde = test(txtSpænde.getText()) ? Integer.parseInt(txtSpænde.getText()) : 0;
 
-        BEUsage bu = new BEUsage(htrør, stråle, bslanger,
-                cslanger, røgdykker, flasker,
-                frigør, overtryk, lys, pulver,
-                kulsyre, flyde, kattegrus, absorb,
-                press, cobra, vand, skum, mængde, spænde);
-        return bu;
+        for (BEMateriel m : bllUsage.getAllMats()) {
+            if (m.getName().equals("HT rør")) {
+                if (htrør > 0) {
+                    BEUsage bu = new BEUsage(appear.getEvaNo(), m, htrør);
+                    createUsageReport(bu);
+                }
+            }
+            if (m.getName().equals("Strålerør")) {
+                if (stråle > 0) {
+                    BEUsage bu = new BEUsage(appear.getEvaNo(), m, stråle);
+                    createUsageReport(bu);
+                }
+            }
+            if (m.getName().equals("B-Slanger")) {
+                if (bslanger > 0) {
+                    BEUsage bu = new BEUsage(appear.getEvaNo(), m, bslanger);
+                    createUsageReport(bu);
+                }
+            }
+            if (m.getName().equals("C-Slanger")) {
+                if (cslanger > 0) {
+                    BEUsage bu = new BEUsage(appear.getEvaNo(), m, cslanger);
+                    createUsageReport(bu);
+                }
+            }
+            if (m.getName().equals("Røgdykkerapp.")) {
+                if (røgdykker > 0) {
+                    BEUsage bu = new BEUsage(appear.getEvaNo(), m, røgdykker);
+                    createUsageReport(bu);
+                }
+            }
+            if (m.getName().equals("Flasker(300 bar)")) {
+                if (flasker > 0) {
+                    BEUsage bu = new BEUsage(appear.getEvaNo(), m, flasker);
+                    createUsageReport(bu);
+                }
+            }
+            if (m.getName().equals("Frigørelsemateriel")) {
+                if (frigør > 0) {
+                    BEUsage bu = new BEUsage(appear.getEvaNo(), m, frigør);
+                    createUsageReport(bu);
+                }
+            }
+            if (m.getName().equals("Overtryksventiler")) {
+                if (overtryk > 0) {
+                    BEUsage bu = new BEUsage(appear.getEvaNo(), m, overtryk);
+                    createUsageReport(bu);
+                }
+            }
+            if (m.getName().equals("Lysmateriel")) {
+                if (lys > 0) {
+                    BEUsage bu = new BEUsage(appear.getEvaNo(), m, lys);
+                    createUsageReport(bu);
+                }
+            }
+            if (m.getName().equals("Pulverslukker")) {
+                if (pulver > 0) {
+                    BEUsage bu = new BEUsage(appear.getEvaNo(), m, pulver);
+                    createUsageReport(bu);
+                }
+            }
+            if (m.getName().equals("Kulsyreslukker")) {
+                if (kulsyre > 0) {
+                    BEUsage bu = new BEUsage(appear.getEvaNo(), m, kulsyre);
+                    createUsageReport(bu);
+                }
+            }
+            if (m.getName().equals("Flydespærringer")) {
+                if (flyde > 0) {
+                    BEUsage bu = new BEUsage(appear.getEvaNo(), m, flyde);
+                    createUsageReport(bu);
+                }
+            }
+            if (m.getName().equals("Absordan 'kattegrus'")) {
+                if (kattegrus > 0) {
+                    BEUsage bu = new BEUsage(appear.getEvaNo(), m, kattegrus);
+                    createUsageReport(bu);
+                }
+            }
+            if (m.getName().equals("Absobent W")) {
+                if (absorb > 0) {
+                    BEUsage bu = new BEUsage(appear.getEvaNo(), m, absorb);
+                    createUsageReport(bu);
+                }
+            }
+            if (m.getName().equals("Engangspressening")) {
+                if (press > 0) {
+                    BEUsage bu = new BEUsage(appear.getEvaNo(), m, press);
+                    createUsageReport(bu);
+                }
+            }
+            if (m.getName().equals("Cobraslukker")) {
+                if (cobra > 0) {
+                    BEUsage bu = new BEUsage(appear.getEvaNo(), m, cobra);
+                    createUsageReport(bu);
+                }
+            }
+            if (m.getName().equals("Vand")) {
+                if (vand > 0) {
+                    BEUsage bu = new BEUsage(appear.getEvaNo(), m, vand);
+                    createUsageReport(bu);
+                }
+            }
+            if (m.getName().equals("Skum")) {
+                if (skum > 0) {
+                    BEUsage bu = new BEUsage(appear.getEvaNo(), m, skum);
+                    createUsageReport(bu);
+                }
+            }
+            if (m.getName().equals("Opsamletmængde")) {
+                if (mængde > 0) {
+                    BEUsage bu = new BEUsage(appear.getEvaNo(), m, mængde);
+                    createUsageReport(bu);
+                }
+            }
+            if (m.getName().equals("Spændelågsflade")) {
+                if (spænde > 0) {
+                    BEUsage bu = new BEUsage(appear.getEvaNo(), m, spænde);
+                    createUsageReport(bu);
+                }
+            }
+        }
     }
-/**
- * sends the information to the BLL with the BEUsage
- * @param u 
- */
+
+    /**
+     * sends the information to the BLL with the BEUsage
+     *
+     * @param u
+     */
     private void createUsageReport(BEUsage u) {
         bllUsage.createReport(u);
     }
-/**
- * Opens a new frame
- */
+
+    /**
+     * Opens a new frame
+     */
     private void openErrorReport(BEAppearance a) {
         HLErrorReport frame = new HLErrorReport(a);
         frame.setVisible(true);
