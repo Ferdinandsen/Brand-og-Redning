@@ -56,7 +56,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                 if (cboxType.getSelectedIndex() != -1){
                 confirmTeam();
                 dispose();
-                HLErrorReport frame = new HLErrorReport(BLLAppearance.getInstance().newAppearances.get(0));
+                HLUsageRapport frame = new HLUsageRapport(BLLAppearance.getInstance().newAppearances.get(0));
                 frame.setVisible(true);
                 }
                 else
