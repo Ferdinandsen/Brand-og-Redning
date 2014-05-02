@@ -4,7 +4,6 @@ import BE.BEAppearance;
 import BE.BEMateriel;
 import BE.BEUsage;
 import BLL.BLLUsage;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.regex.Pattern;
