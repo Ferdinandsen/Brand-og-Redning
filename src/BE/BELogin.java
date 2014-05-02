@@ -5,11 +5,13 @@
 package BE;
 
 public class BELogin {
-private BEEmployee medarbejder;
-private String kode;
-private boolean admin;
-private boolean kontor;
-private boolean holdleder;
+
+    private BEEmployee medarbejder;
+    private String kode;
+    private boolean admin;
+    private boolean kontor;
+    private boolean holdleder;
+
     public BELogin(BEEmployee medarbejder, String kode, boolean admin, boolean kontor, boolean holdleder) {
         this.medarbejder = medarbejder;
         this.kode = kode;

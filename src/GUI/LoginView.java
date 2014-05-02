@@ -3,13 +3,16 @@ package GUI;
 import BLL.BLLEmployee;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author AndreThy
+ * @author Team Kawabunga
  */
 public class LoginView extends javax.swing.JFrame {
-BLLEmployee bllEmployee;
+
+    BLLEmployee bllEmployee;
+
     public LoginView() {
         initComponents();
         initOtherComponents();
@@ -36,8 +39,12 @@ BLLEmployee bllEmployee;
 
     private void login() {
         if (isInformationValid()) { //..
-            if (bllEmployee.doesUserExist(txtName.getText(), txtPassword.getPassword())){
+            if (bllEmployee.doesUserExist(txtName.getText(), txtPassword.getPassword())) {
                 System.out.println(txtName.getText() + " findes!");
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "Forkert kodeord!!!");
+                txtPassword.setText("");
             }
         }
     }
