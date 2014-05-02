@@ -70,9 +70,10 @@ public class BLLAppearance {
         return newAppearances;
     }
 
-    public void confirmTeam() {
+    public void confirmTeam(int type) {
         for (BEAppearance appearance : newAppearances) {
             try {
+                appearance.setType(type);
                 dalAppearance.confirmTeam(appearance);
             } catch (SQLException ex) {
                 System.out.println("fejl i bllAppearance " + ex);

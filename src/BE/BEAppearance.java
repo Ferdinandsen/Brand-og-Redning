@@ -15,11 +15,13 @@ public class BEAppearance {
     private boolean holdleder;
     private boolean chauffør;
     private boolean STvagt;
+        private int type;
     
-    public BEAppearance(int id, BEVehicle vehicle, BETime time, int totaltid, int evaNo, boolean hlGodkendt, boolean ilGodkendt, boolean holdleder, boolean chauffør, boolean STvagt){
+    public BEAppearance(int id, BEVehicle vehicle, BETime time, int totaltid, int evaNo, boolean hlGodkendt, boolean ilGodkendt, boolean holdleder, boolean chauffør, boolean STvagt, int type){
         this.id = id;
         this.vehicle = vehicle;
         this.time = time;
+        this.type = type;
         this.totalTid = totaltid;
         this.evaNo = evaNo;
         this.hlGodkendt = hlGodkendt;
@@ -174,5 +176,19 @@ public class BEAppearance {
      */
     public void setSTvagt(boolean STvagt) {
         this.STvagt = STvagt;
+    }
+
+    /**
+     * @return the type
+     */
+    public int getType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(int type) {
+        this.type = type;
     }
 }

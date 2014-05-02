@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -52,7 +52,11 @@
                       </Group>
                       <Component id="jScrollPane1" pref="280" max="32767" attributes="0"/>
                       <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnAcknowledge" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="btnNoError" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnAcknowledge" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -97,7 +101,10 @@
                   <Component id="txtWash" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="12" max="32767" attributes="0"/>
-              <Component id="btnAcknowledge" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnAcknowledge" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnNoError" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -192,6 +199,11 @@
     <Component class="javax.swing.JButton" name="btnAcknowledge">
       <Properties>
         <Property name="text" type="java.lang.String" value="Bekr&#xe6;ft"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnNoError">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ingen fejl"/>
       </Properties>
     </Component>
   </SubComponents>

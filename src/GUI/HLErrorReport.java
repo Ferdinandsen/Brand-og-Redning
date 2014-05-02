@@ -55,6 +55,7 @@ public class HLErrorReport extends javax.swing.JFrame {
         txtInDueTime = new javax.swing.JTextField();
         txtWash = new javax.swing.JTextField();
         btnAcknowledge = new javax.swing.JButton();
+        btnNoError = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,6 +87,8 @@ public class HLErrorReport extends javax.swing.JFrame {
 
         btnAcknowledge.setText("Bekræft");
 
+        btnNoError.setText("Ingen fejl");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -115,7 +118,10 @@ public class HLErrorReport extends javax.swing.JFrame {
                                 .addComponent(txtWash, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                         .addComponent(jScrollPane2)
-                        .addComponent(btnAcknowledge, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(btnNoError)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnAcknowledge))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -151,7 +157,9 @@ public class HLErrorReport extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(txtWash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(btnAcknowledge)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAcknowledge)
+                    .addComponent(btnNoError))
                 .addContainerGap())
         );
 
@@ -159,6 +167,7 @@ public class HLErrorReport extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcknowledge;
+    private javax.swing.JButton btnNoError;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -188,6 +197,15 @@ public class HLErrorReport extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 bllreport.createErrorReport(errorAsBE(), appear);
                 dispose();
+            }
+        });
+        btnNoError.setText("Ingen fejl");
+        btnNoError.setEnabled(true);
+        btnNoError.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+           dispose();
             }
         });
         //OBS det er HL checkin tid der lige nu er styrrende

@@ -40,7 +40,7 @@ public class DALAppearance {
     }
 
     public void endShift(BETime tm, BEVehicle veh, boolean hl, boolean ch, boolean st, int total) throws SQLException {
-        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         if (veh == null) {
@@ -49,13 +49,14 @@ public class DALAppearance {
             ps.setInt(1, veh.getOdinnummer());
         }
         ps.setInt(2, tm.getId());
-        ps.setInt(3, total);
-        ps.setInt(4, -1);
-        ps.setBoolean(5, false);
-        ps.setBoolean(6, hl);
-        ps.setBoolean(7, false);
-        ps.setBoolean(8, ch);
-        ps.setBoolean(9, st);
+        ps.setInt(3, 0);
+        ps.setInt(4, total);
+        ps.setInt(5, -1);
+        ps.setBoolean(6, false);
+        ps.setBoolean(7, hl);
+        ps.setBoolean(8, false);
+        ps.setBoolean(9, ch);
+        ps.setBoolean(10, st);
         ps.execute();
 
     }
@@ -73,6 +74,7 @@ public class DALAppearance {
             int tidsregistreringRef = result.getInt("tidsregistreringRef");
             int totalTid = result.getInt("totaltid");
             int evaNo = result.getInt("evaNo");
+            int type = result.getInt("kørselType");
             boolean hlGodkendt = result.getBoolean("hlGodkendt");
             boolean ilGodkendt = result.getBoolean("ilGodkendt");
             boolean holdleder = result.getBoolean("holdleder");
@@ -93,7 +95,7 @@ public class DALAppearance {
                 }
             }
 
-            BEAppearance appearance = new BEAppearance(id, localVehicle, localTime, totalTid, evaNo, hlGodkendt, ilGodkendt, holdleder, chauffør, stationsvagt);
+            BEAppearance appearance = new BEAppearance(id, localVehicle, localTime, totalTid, evaNo, hlGodkendt, ilGodkendt, holdleder, chauffør, stationsvagt, type);
             allAppearances.add(appearance);
         }
     }
@@ -103,11 +105,12 @@ public class DALAppearance {
     }
 
     public void confirmTeam(BEAppearance appearance) throws SQLException {
-            String sql = "UPDATE Fremmøde SET hlGodkendt = ? WHERE id = ?";
+            String sql = "UPDATE Fremmøde SET hlGodkendt = ?, type = ? WHERE id = ?";
 
             PreparedStatement ps = m_connection.prepareStatement(sql);
             ps.setBoolean(1, true);
-            ps.setInt(2, appearance.getId());
+            ps.setInt(2, appearance.getType());
+            ps.setInt(3, appearance.getId());
             appearance.setHlGodkendt(true);
             ps.execute();
     }
