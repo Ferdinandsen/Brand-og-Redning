@@ -68,12 +68,14 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         btnBekæft.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (cboxType.getSelectedIndex() != -1) {
-                    confirmTeam();
-                    dispose();
-                    HLUsageRapport frame = new HLUsageRapport(BLLAppearance.getInstance().newAppearances.get(0));
-                    frame.setVisible(true);
-                } else {
+                if (cboxType.getSelectedIndex() != -1){
+                confirmTeam();
+                dispose();
+                HLUsageReport frame = new HLUsageReport(BLLAppearance.getInstance().newAppearances.get(0));
+                frame.setVisible(true);
+                }
+                else
+                {
                     msgbox("Vælg venligst type!");
                 }
             }
