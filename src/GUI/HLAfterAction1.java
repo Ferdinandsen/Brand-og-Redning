@@ -123,6 +123,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         });
     }
 
+    
     private void confirmTeam() {
         bllAppearance.confirmTeam((int) cboxType.getSelectedItem());
         JOptionPane.showMessageDialog(this, "Holdet er nu bekræftet!");
