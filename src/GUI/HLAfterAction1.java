@@ -56,7 +56,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                 if (cboxType.getSelectedIndex() != -1){
                 confirmTeam();
                 dispose();
-                HLUsageRapport frame = new HLUsageRapport(BLLAppearance.getInstance().newAppearances.get(0));
+                HLUsageReport frame = new HLUsageReport(BLLAppearance.getInstance().newAppearances.get(0));
                 frame.setVisible(true);
                 }
                 else
@@ -161,7 +161,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                 if (appearance.getVehicle().getOdinnummer() != vehNo) {
                     startUp = false;
                     return false;
-
                 }
                 vehNo = appearance.getVehicle().getOdinnummer();
             }
