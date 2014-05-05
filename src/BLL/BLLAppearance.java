@@ -38,7 +38,7 @@ public class BLLAppearance {
         try {
             dalAppearance.populateAppearances();
         } catch (SQLException ex) {
-            System.out.println("fejl i bllAppearance " + ex);
+            System.out.println("fejl i bllAppearance1 " + ex);
         }
     }
 
@@ -80,7 +80,7 @@ public class BLLAppearance {
                 appearance.setType(type);
                 dalAppearance.confirmTeam(appearance);
             } catch (SQLException ex) {
-                System.out.println("fejl i bllAppearance " + ex);
+                System.out.println("fejl i bllAppearance2 " + ex);
             }
         }
     }
