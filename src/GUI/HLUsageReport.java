@@ -42,7 +42,7 @@ public class HLUsageReport extends javax.swing.JFrame {
         appear = a;
         bllusage = BLLUsage.getInstance();
         allMats = bllusage.getAllMats();
-        height = allMats.size() * 21;
+        height = allMats.size() * 25;
         this.setSize(width, height);
         this.setTitle("Holdleder Forbrugs Rapport");
         this.setLocationRelativeTo(null);
@@ -72,13 +72,26 @@ public class HLUsageReport extends javax.swing.JFrame {
         FlowLayout fl = new FlowLayout();
         p.setLayout(fl);
         JButton b = new JButton(("Bekræft"));
+        JButton c = new JButton(("Intet Forbrug"));
         p.add(b);
+        p.add(c);
         b.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 usage();
                 JOptionPane.showMessageDialog(null, "Du har nu registreret forbruget - tak!");
+                HLErrorReport frame = new HLErrorReport(appear);
+                frame.setVisible(true);
+                dispose();
+            }
+        });
+        c.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                HLErrorReport frame = new HLErrorReport(appear);
+                frame.setVisible(true);
                 dispose();
             }
         });
