@@ -46,7 +46,7 @@ public class BLLAppearance {
         return dalAppearance.getAppearances();
     }
 
-    public ArrayList<BEAppearance> getAppearancesWithCriteria(Date date, String time, BEVehicle selectedItem) {
+    public ArrayList<BEAppearance> getAppearancesWithCriteria(Date date, String time, BEVehicle selectedItem, int tolerance) {
         newAppearances = new ArrayList();
         for (BEAppearance appearance : getAllAppearances()) {
 
@@ -62,7 +62,7 @@ public class BLLAppearance {
             long testMili = test.getTime();
             long checkMili = appearance.getTime().getCheckIn().getTime();
             long minutes = (checkMili - testMili) / 1000 / 60;
-            if (minutes <= 10 && selectedItem == appearance.getVehicle()) { //dagene + tid (10min) passer!
+            if (minutes <= tolerance && selectedItem == appearance.getVehicle()) { //dagene + tid (10min) passer!
 
                 newAppearances.add(appearance);
             }

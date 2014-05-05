@@ -44,7 +44,7 @@ public class DALAppearance {
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         if (veh == null) {
-            ps.setString(1, "0");
+            ps.setString(1, null); //får fejl her, pga. intet køretøj findes med 0
         } else {
             ps.setInt(1, veh.getOdinnummer());
         }

@@ -51,7 +51,7 @@ public class BLLTimelist {
             BETime temptime = new BETime(fm, time(), null, false, false);
             daltime.createCheckInTimestamp(temptime);
         } catch (SQLException ex) {
-            System.out.println("kunne ikke lave timestamp" + ex);
+            System.out.println("kunne ikke lave timestamp " + ex);
         }
     }
 
@@ -68,12 +68,12 @@ public class BLLTimelist {
             daltime.createCheckOutTimestamp(localTime);
             localTime.setHasCheckedOut(true);
         } catch (SQLException ex) {
-            System.out.println("kunne ikke lave timestamp" + ex);
+            System.out.println("kunne ikke lave timestamp " + ex);
         }
         try {
             dalappearance.endShift(localTime, veh, hl, ch, st, total);
         } catch (SQLException e) {
-            System.out.println("kunne ikke oprette end shift" + e);
+            System.out.println("kunne ikke oprette end shift " + e);
         }
     }
 
