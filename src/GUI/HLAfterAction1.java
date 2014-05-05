@@ -1,6 +1,5 @@
 package GUI;
 
-import BE.BEAppearance;
 import BE.BEVehicle;
 import BLL.BLLTimelist;
 import BLL.BLLAppearance;

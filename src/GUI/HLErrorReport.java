@@ -5,6 +5,7 @@ import BE.BEError;
 import BLL.BLLReport;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -196,6 +197,9 @@ public class HLErrorReport extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 bllreport.createErrorReport(errorAsBE(), appear);
+                JOptionPane.showMessageDialog(null, "Fejl rapport sendt");
+                LoginView frame = new LoginView();
+                frame.setVisible(true);
                 dispose();
             }
         });
@@ -205,12 +209,11 @@ public class HLErrorReport extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-           dispose();
+                LoginView frame = new LoginView();
+                frame.setVisible(true);
+                dispose();
             }
         });
-        //OBS det er HL checkin tid der lige nu er styrrende
-//        lblDate.setText("" + a.getTime().getCheckIn());
-//        lblKøtj.setText("" + a.getVehicle().getOdinnummer());
     }
 
     private BEError errorAsBE() {

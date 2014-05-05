@@ -57,7 +57,7 @@ public class DALAppearance {
         ps.setBoolean(8, st);
         ps.setBoolean(9, false);
         ps.setInt(10, 0);
-        ps.setString(11, null);
+        ps.setString(11,null);
         ps.execute();
     }
 
