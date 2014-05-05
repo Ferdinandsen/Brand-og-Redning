@@ -5,6 +5,7 @@ import BE.BEError;
 import BLL.BLLReport;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -196,6 +197,7 @@ public class HLErrorReport extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 bllreport.createErrorReport(errorAsBE(), appear);
+                JOptionPane.showMessageDialog(null, "Fejl rapport sendt");
                 LoginView frame = new LoginView();
                 frame.setVisible(true);
                 dispose();
