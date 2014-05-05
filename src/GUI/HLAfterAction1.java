@@ -41,7 +41,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         fillCboxKøretøj();
         populateFremmødeTable();
         addCellRenderer();
-        btnBekæft.setEnabled(oneTeamOrNot());
+//        btnBekæft.setEnabled(oneTeamOrNot());
         lblCount.setText("Fremmødt: " + model.getRowCount());
 
     }
@@ -51,6 +51,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     }
 
     private void initOtherComponents() {
+        btnBekæft.setEnabled(true);
         txtTolerance.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char vChar = e.getKeyChar();
@@ -68,14 +69,12 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         btnBekæft.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (cboxType.getSelectedIndex() != -1){
-                confirmTeam();
-                dispose();
-                HLUsageReport frame = new HLUsageReport(BLLAppearance.getInstance().newAppearances.get(0));
-                frame.setVisible(true);
-                }
-                else
-                {
+                if (cboxType.getSelectedIndex() != -1) {
+                    confirmTeam();
+                    dispose();
+                    HLUsageReport frame = new HLUsageReport(BLLAppearance.getInstance().newAppearances.get(0));
+                    frame.setVisible(true);
+                } else {
                     msgbox("Vælg venligst type!");
                 }
             }
@@ -88,7 +87,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                 if (isInformationFilled()) {
                     model.setAppearanceList(bllAppearance.getAppearancesWithCriteria(jDateChooser.getDate(), txtTid.getText(), (BEVehicle) cboxKøretøj.getSelectedItem(), Integer.parseInt(txtTolerance.getText())));
                     model.fireTableDataChanged();
-                    btnBekæft.setEnabled(oneTeamOrNot());
+//                    btnBekæft.setEnabled(oneTeamOrNot());
                     lblCount.setText("Fremmødt: " + model.getRowCount());
                 }
             }
@@ -167,34 +166,42 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         }
     }
 
-    private boolean oneTeamOrNot() {
-        int vehNo = 0;
-        if (startUp == true) {
-            for (BEAppearance appearance : bllAppearance.getAllAppearances()) {
-                if (vehNo == 0) {
-                    vehNo = appearance.getVehicle().getOdinnummer();
-                }
-                if (appearance.getVehicle().getOdinnummer() != vehNo) {
-                    startUp = false;
-                    return false;
-                }
-                vehNo = appearance.getVehicle().getOdinnummer();
-            }
-            startUp = false;
-            return true;
-        } else {
-            for (BEAppearance appearance : bllAppearance.getAppearancesWithCriteria(jDateChooser.getDate(), txtTid.getText(), (BEVehicle) cboxKøretøj.getSelectedItem(), Integer.parseInt(txtTolerance.getText()))) {
-                if (vehNo == 0) {
-                    vehNo = appearance.getVehicle().getOdinnummer();
-                }
-                if (appearance.getVehicle().getOdinnummer() != vehNo) {
-                    return false;
-                }
-                vehNo = appearance.getVehicle().getOdinnummer();
-            }
-            return true;
-        }
-    }
+//    private boolean oneTeamOrNot() {
+//        int vehNo = 0;
+//        if (startUp == true) {
+//            for (BEAppearance appearance : bllAppearance.getAllAppearances()) {
+//                if (appearance.getVehicle() == null) {
+//                    startUp = false;
+//                    return false;
+//                }
+//                if (vehNo == 0) {
+//                    vehNo = appearance.getVehicle().getOdinnummer();
+//                }
+//                if (appearance.getVehicle().getOdinnummer() != vehNo) {
+//                    startUp = false;
+//                    return false;
+//                }
+//                vehNo = appearance.getVehicle().getOdinnummer();
+//            }
+//            startUp = false;
+//            return true;
+//        } else {
+//            for (BEAppearance appearance : bllAppearance.getAppearancesWithCriteria(jDateChooser.getDate(), txtTid.getText(), (BEVehicle) cboxKøretøj.getSelectedItem(), Integer.parseInt(txtTolerance.getText()))) {
+//                  if (appearance.getVehicle() == null) {
+//                    
+//                    return false;
+//                }
+//                if (vehNo == 0) {
+//                    vehNo = appearance.getVehicle().getOdinnummer();
+//                }
+//                if (appearance.getVehicle().getOdinnummer() != vehNo) {
+//                    return false;
+//                }
+//                vehNo = appearance.getVehicle().getOdinnummer();
+//            }
+//            return true;
+//        }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

@@ -1,5 +1,6 @@
 package BLL;
 
+import BE.BEEmployee;
 import BE.BELogin;
 import DAL.DALEmployee;
 import java.sql.SQLException;
@@ -12,6 +13,7 @@ import java.util.Arrays;
 public class BLLEmployee {
 
     DAL.DALEmployee dalEmployee;
+    DAL.DALLogin dalLogin;
     private static BLLEmployee m_instance = null;
 
     private BLLEmployee() {
@@ -53,4 +55,8 @@ public class BLLEmployee {
 
         return isCorrect;
     }
+
+//    public BELogin getLogin(String name) {
+//        
+//    }
 }

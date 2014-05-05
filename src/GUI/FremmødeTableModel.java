@@ -29,7 +29,7 @@ public class FremmødeTableModel extends AbstractTableModel {
      * the type definition for the columns
      */
     private Class[] classes = {
-        Integer.class,
+        String.class,
         String.class,
         String.class,
         String.class,
@@ -65,7 +65,7 @@ public class FremmødeTableModel extends AbstractTableModel {
         switch (col) {
             case 0:
                 if (a.getVehicle() == null) {
-                    return 0;
+                    return "-";
                 }
                 return a.getVehicle().getOdinnummer();
             case 1:
