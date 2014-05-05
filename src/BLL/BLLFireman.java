@@ -4,6 +4,8 @@ import BE.BEFireman;
 import DAL.DALFireman;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -27,6 +29,13 @@ public class BLLFireman {
             m_instance = new BLLFireman();
         }
         return m_instance;
+    }
+    public void update(){
+        try {
+            dalFireman.populateFiremen();
+        } catch (SQLException ex) {
+            System.out.println("fejl i DALFireman " + ex);
+        }
     }
 
     public ArrayList<BEFireman> getAllfiremen() {

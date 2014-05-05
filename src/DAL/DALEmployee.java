@@ -21,14 +21,13 @@ public class DALEmployee {
     private ArrayList<BEZipCode> allZipCodes = new ArrayList<>();
     private ArrayList<BEAddress> allAddresses = new ArrayList<>();
     private ArrayList<BEEmployee> allEmployees = new ArrayList<>();
-    private ArrayList<BELogin> allLogins = new ArrayList<>();
+
 
     private DALEmployee() throws SQLException {
         m_connection = DBConnection.getInstance().getConnection();
         populateZip();
         populateAddress();
         populateEmployee();
-        populateLogins();
 
     }
 
@@ -40,6 +39,7 @@ public class DALEmployee {
     }
 
     private void populateEmployee() throws SQLException {
+        allEmployees = new ArrayList<>();
         String sql = "SELECT * FROM Medarbejder";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
@@ -71,6 +71,7 @@ public class DALEmployee {
     }
 
     private void populateAddress() throws SQLException {
+        allAddresses = new ArrayList<>();
         String sql = "SELECT * FROM Adresse";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
@@ -97,6 +98,7 @@ public class DALEmployee {
     }
 
     private void populateZip() throws SQLException {
+        allZipCodes = new ArrayList<>();
         String sql = "SELECT * FROM Postnummer";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
@@ -132,9 +134,6 @@ public class DALEmployee {
         return allAddresses;
     }
 
-    public ArrayList<BELogin> getAllLogins() {
-        return allLogins;
-    }
 
     public boolean doesUserExist() throws SQLException {
         String sql = "SELECT * FROM Login";
@@ -153,27 +152,5 @@ public class DALEmployee {
 
     }
 
-    private void populateLogins() throws SQLException {
-        String sql = "SELECT * FROM Login";
-
-        PreparedStatement ps = m_connection.prepareStatement(sql);
-        ps.execute();
-        ResultSet result = ps.getResultSet();
-        while (result.next()) {
-            int medarbejderRef = result.getInt("medarbejderRef");
-            String kode = result.getString("kode");
-            boolean admin = result.getBoolean("admin");
-            boolean kontor = result.getBoolean("kontor");
-            boolean holdleder = result.getBoolean("holdleder");
-
-            BEEmployee localEmployee = null;
-            for (BEEmployee emp : getAllEmployees()){
-                if (medarbejderRef == emp.getMedarbejderNo()){
-                    localEmployee = emp;
-                }
-            }
-            BELogin login = new BELogin(localEmployee, kode, admin, kontor, holdleder);
-            allLogins.add(login);
-        }
-    }
+    
 }

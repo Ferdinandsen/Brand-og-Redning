@@ -1,5 +1,6 @@
 package GUI;
 
+import BE.BELogin;
 import BLL.BLLEmployee;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,15 +33,29 @@ public class LoginView extends javax.swing.JFrame {
         btnOk.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                login();
+                tryLogin();
             }
         });
     }
 
-    private void login() {
+    private void tryLogin() {
         if (isInformationValid()) { //..
             if (bllEmployee.doesUserExist(txtName.getText(), txtPassword.getPassword())) {
-                System.out.println(txtName.getText() + " findes!");
+                BELogin log = bllEmployee.getLogin(txtName.getText());
+                if (log.isHoldleder()){
+                   HLAfterAction1 hlView = new HLAfterAction1();
+                   hlView.setLocationRelativeTo(null);
+                   hlView.setVisible(true);
+                   dispose();
+                }
+                if (log.isAdmin()){
+                    System.out.println("admin");
+                }
+                if (log.isKontor()){
+                    System.out.println("kontor");
+                }
+                
+                
             }
             else {
                 JOptionPane.showMessageDialog(this, "Forkert kodeord!!!");

@@ -17,7 +17,7 @@ public class DALFireman {
 
     Connection m_connection;
     private static DALFireman m_instance = null;
-    private ArrayList<BEFireman> firemen = new ArrayList<>();
+    private ArrayList<BEFireman> firemen;
     DALEmployee dalEmployee = DALEmployee.getInstance();
 
     private DALFireman() throws SQLServerException, SQLException {
@@ -32,7 +32,8 @@ public class DALFireman {
         return m_instance;
     }
 
-    private void populateFiremen() throws SQLException {
+    public void populateFiremen() throws SQLException {
+        firemen = new ArrayList<>();
         String sql = "SELECT * FROM Deltidsbrandmand";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);

@@ -62,7 +62,11 @@ public class BLLAppearance {
             long testMili = test.getTime();
             long checkMili = appearance.getTime().getCheckIn().getTime();
             long minutes = (checkMili - testMili) / 1000 / 60;
-            if (minutes <= tolerance && selectedItem == appearance.getVehicle()) { //dagene + tid (10min) passer!
+            System.out.println(minutes);
+            System.out.println("tolerance: " + tolerance);
+            if (minutes >= 0 && minutes <= tolerance && null == appearance.getVehicle())
+                newAppearances.add(appearance);
+            if (minutes >= 0 && minutes <= tolerance && selectedItem == appearance.getVehicle()) { //dagene + tid (10min) passer!
 
                 newAppearances.add(appearance);
             }
