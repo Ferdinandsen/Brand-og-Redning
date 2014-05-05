@@ -16,7 +16,6 @@ import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -31,6 +30,7 @@ public class CheckInView extends javax.swing.JFrame {
     JPanel main;
     int width = 5;
     int height = allFiremen.size() / width;
+    int timesPrSec = 1 * 1000;
 
     public CheckInView() {
 
@@ -47,7 +47,7 @@ public class CheckInView extends javax.swing.JFrame {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         Timer timer = new Timer();
-        timer.schedule(new SayHello(this, allFireManButtons), 0, 3000);
+        timer.schedule(new SayHello(this, allFireManButtons), 0, timesPrSec);
 
     }
 
@@ -127,7 +127,6 @@ public class CheckInView extends javax.swing.JFrame {
             this.name = fireman.getMedarbjeder().getFornavn();
             this.setBackground(getColor());
             this.setText(name);
-            System.out.println("brandmanden er " + localFireman.isCheckedin());
         }
 
         private Color getColor() {
@@ -179,8 +178,6 @@ public class CheckInView extends javax.swing.JFrame {
                     }
                 }
             }
-            
-            System.out.println("opdateret");
         }
     }
 }
