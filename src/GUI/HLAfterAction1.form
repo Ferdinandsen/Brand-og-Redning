@@ -26,25 +26,27 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" pref="716" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="lblDato" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jDateChooser" min="-2" pref="154" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jDateChooser" min="-2" pref="96" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lblTid" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtTid" min="-2" pref="47" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="lblKøretøj" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="cboxKøretøj" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtTid" min="-2" pref="43" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="txtTolerance" min="-2" pref="32" max="-2" attributes="0"/>
-                      <EmptySpace pref="28" max="32767" attributes="0"/>
-                      <Component id="btnHent" min="-2" pref="218" max="-2" attributes="0"/>
+                      <Component id="txtTolerance" min="-2" pref="23" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblmin" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="lblEva" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="cboxEva" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnHent" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="lblCount" min="-2" max="-2" attributes="0"/>
@@ -69,11 +71,12 @@
                       <Component id="lblDato" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblTid" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnHent" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblKøretøj" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cboxKøretøj" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblEva" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cboxEva" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtTid" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtTolerance" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblmin" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jDateChooser" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -192,12 +195,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="lblK&#xf8;ret&#xf8;j">
+    <Component class="javax.swing.JLabel" name="lblEva">
       <Properties>
-        <Property name="text" type="java.lang.String" value="K&#xf8;ret&#xf8;j:"/>
+        <Property name="text" type="java.lang.String" value="EvaNr"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cboxK&#xf8;ret&#xf8;j">
+    <Component class="javax.swing.JComboBox" name="cboxEva">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
@@ -230,6 +233,11 @@
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
         <Property name="text" type="java.lang.String" value="Tolerance:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblmin">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="min."/>
       </Properties>
     </Component>
   </SubComponents>
