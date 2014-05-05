@@ -212,9 +212,6 @@ public class HLErrorReport extends javax.swing.JFrame {
                 dispose();
             }
         });
-        //OBS det er HL checkin tid der lige nu er styrrende
-//        lblDate.setText("" + a.getTime().getCheckIn());
-//        lblKøtj.setText("" + a.getVehicle().getOdinnummer());
     }
 
     private BEError errorAsBE() {
