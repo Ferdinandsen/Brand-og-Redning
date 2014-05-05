@@ -40,7 +40,7 @@ public class DALAppearance {
     }
 
     public void endShift(BETime tm, BEVehicle veh, boolean hl, boolean ch, boolean st, int total) throws SQLException {
-        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         if (veh == null) {
@@ -57,8 +57,8 @@ public class DALAppearance {
         ps.setBoolean(8, st);
         ps.setBoolean(9, false);
         ps.setInt(10, 0);
+        ps.setInt(11,0);
         ps.execute();
-
     }
 
     public void populateAppearances() throws SQLException {
@@ -94,7 +94,6 @@ public class DALAppearance {
                     localTime = time;
                 }
             }
-
             BEAppearance appearance = new BEAppearance(id, localVehicle, localTime, totalTid, evaNo, hlGodkendt, ilGodkendt, holdleder, chauffør, stationsvagt, type);
             allAppearances.add(appearance);
         }
