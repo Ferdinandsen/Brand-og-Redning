@@ -108,7 +108,7 @@ public class HLUsageReport extends javax.swing.JFrame {
         for (ForbrugPanel test : forbrug) {
             for (BEMateriel mat : allMats) {
                 if (mat.getName().equalsIgnoreCase(test.name)) {
-                    bu = new BEUsage(appear.getEvaNo(), mat, test.amount);
+                    bu = new BEUsage(appear.getEvaNo(), mat, test.getAmount());
                     createUsageReport(bu);
                 }
             }
@@ -163,7 +163,6 @@ public class HLUsageReport extends javax.swing.JFrame {
 
             name = m.getName();
             lbl.setText(name);
-            amount = Integer.parseInt(tf.getText());
 
             lbl.setPreferredSize(new Dimension(140, 20));
             tf.setPreferredSize(new Dimension(50, 20));
@@ -175,6 +174,9 @@ public class HLUsageReport extends javax.swing.JFrame {
 
         public JLabel getLBL() {
             return lbl;
+        }
+        public int getAmount(){
+            return Integer.parseInt(tf.getText());
         }
     }
 }
