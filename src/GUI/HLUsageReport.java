@@ -10,10 +10,13 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -75,6 +78,8 @@ public class HLUsageReport extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 usage();
+                JOptionPane.showMessageDialog(null, "Du har nu registreret forbruget - tak!");
+                dispose();
             }
         });
         return p;
@@ -86,12 +91,22 @@ public class HLUsageReport extends javax.swing.JFrame {
         JPanel p = new JPanel();
         for (BEMateriel mat : allMats) {
             ForbrugPanel panel = new ForbrugPanel(mat);
-
+            JTextField tf = panel.getTF();
+            tf.addKeyListener(new KeyAdapter() {
+                public void keyTyped(KeyEvent e) {
+                    char vChar = e.getKeyChar();
+                    if (!(Character.isDigit(vChar)
+                            || (vChar == KeyEvent.VK_BACK_SPACE)
+                            || (vChar == KeyEvent.VK_DELETE))) {
+                        e.consume();
+                    }
+                }
+            });
             GroupLayout layout = new GroupLayout(panel);
             layout.setAutoCreateGaps(true);
             layout.setAutoCreateContainerGaps(true);
             layout.setHorizontalGroup(layout.createSequentialGroup().addComponent(panel.getLBL()));
-            layout.setVerticalGroup(layout.createSequentialGroup().addComponent(panel.getTF()));
+            layout.setVerticalGroup(layout.createSequentialGroup().addComponent(tf));
             p.add(panel);
             forbrug.add(panel);
         }
@@ -107,7 +122,7 @@ public class HLUsageReport extends javax.swing.JFrame {
         BEUsage bu;
         for (ForbrugPanel test : forbrug) {
             for (BEMateriel mat : allMats) {
-                if (mat.getName().equalsIgnoreCase(test.name)) {
+                if (mat.getName().equalsIgnoreCase(test.name) && test.getAmount() !=0) {
                     bu = new BEUsage(appear.getEvaNo(), mat, test.getAmount());
                     createUsageReport(bu);
                 }
@@ -149,7 +164,7 @@ public class HLUsageReport extends javax.swing.JFrame {
     private class ForbrugPanel extends javax.swing.JPanel {
 
         String name;
-        int amount;
+        int amount = 0;
         JLabel lbl;
         JTextField tf;
 
@@ -175,8 +190,9 @@ public class HLUsageReport extends javax.swing.JFrame {
         public JLabel getLBL() {
             return lbl;
         }
-        public int getAmount(){
-            return Integer.parseInt(tf.getText());
+
+        public int getAmount() {
+            return !tf.getText().equals("") ? Integer.parseInt(tf.getText()) : 0;
         }
     }
 }
