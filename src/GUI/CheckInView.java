@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+
 /**
  *
  * @author Team Kawabunga
@@ -28,6 +29,7 @@ public class CheckInView extends javax.swing.JFrame {
     ArrayList<BEFireman> allFiremen = new ArrayList<>();
     ArrayList<firemanButton> allFireManButtons = new ArrayList<>();
     JPanel main;
+    int timePerSec = 1000 * 1;
     int width = 5;
     int height = allFiremen.size() / width;
     int timesPrSec = 1 * 1000;
@@ -45,7 +47,6 @@ public class CheckInView extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.add(main);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
         Timer timer = new Timer();
         timer.schedule(new SayHello(this, allFireManButtons), 0, timesPrSec);
 
@@ -84,7 +85,7 @@ public class CheckInView extends javax.swing.JFrame {
                         frame.setVisible(true);
                     }
                 }
-
+                
                 private void changebit(firemanButton fb) {
                     fb.changebit();
                 }
@@ -118,7 +119,6 @@ public class CheckInView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private class firemanButton extends JButton {
-
         String name;
         BEFireman localFireman;
 
@@ -145,7 +145,6 @@ public class CheckInView extends javax.swing.JFrame {
             localFireman.setIsCheckedin(!localFireman.isCheckedin());
             bllFireman.changeBit(localFireman);
             setColor();
-
         }
 
         public void updateLocalFireman(BEFireman fm) {
@@ -155,7 +154,6 @@ public class CheckInView extends javax.swing.JFrame {
     }
 
     class SayHello extends TimerTask {
-
         ArrayList<firemanButton> localFiremen;
         CheckInView test;
 
@@ -168,8 +166,6 @@ public class CheckInView extends javax.swing.JFrame {
         public void run() {
             bllTimelist.update();
             bllFireman.update();
-
-
 
             for (firemanButton btn : localFiremen) {
                 for (BEFireman fm : bllFireman.getAllfiremen()) {
