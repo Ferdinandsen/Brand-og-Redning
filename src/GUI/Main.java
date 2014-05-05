@@ -12,6 +12,7 @@ public class Main {
 //        CheckOutView main = new CheckOutView();
 //        HLErrorReport main = new HLErrorReport());
 //        LoginView main = new LoginView();
+//        HLForbrugRapport main = new HLForbrugRapport();
         main.setVisible(true);
     }
 }
