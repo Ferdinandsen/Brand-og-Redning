@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -37,6 +39,13 @@ public class BLLTimelist {
             m_instance = new BLLTimelist();
         }
         return m_instance;
+    }
+    public void update(){
+        try {
+            daltime.populateTimes();
+        } catch (SQLException ex) {
+            System.out.println("blabla");
+        }
     }
 
     private Timestamp time() {

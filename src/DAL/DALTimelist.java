@@ -19,7 +19,7 @@ public class DALTimelist {
     private Connection m_connection;
     private static DALTimelist m_instance = null;
     DALFireman dalFireman = DALFireman.getInstance();
-    private ArrayList<BETime> allTimes = new ArrayList<>();
+    private ArrayList<BETime> allTimes;
 
     private DALTimelist() throws SQLServerException, SQLException {
         m_connection = DBConnection.getInstance().getConnection();
@@ -33,7 +33,8 @@ public class DALTimelist {
         return m_instance;
     }
 
-    private void populateTimes() throws SQLException {
+    public void populateTimes() throws SQLException {
+        allTimes = new ArrayList<>();
         String sql = "SELECT * FROM Tidsregistrering";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);

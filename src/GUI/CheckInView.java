@@ -11,9 +11,12 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -24,14 +27,15 @@ public class CheckInView extends javax.swing.JFrame {
     BLLFireman bllFireman;
     BLLTimelist bllTimelist;
     ArrayList<BEFireman> allFiremen = new ArrayList<>();
+    ArrayList<firemanButton> allFireManButtons = new ArrayList<>();
     JPanel main;
     int width = 5;
     int height = allFiremen.size() / width;
 
     public CheckInView() {
+
         bllTimelist = BLLTimelist.getInstance();
         bllFireman = BLLFireman.getInstance();
-        bllTimelist = BLLTimelist.getInstance();
         this.setUndecorated(true);
         setResizable(false);
         getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
@@ -41,6 +45,10 @@ public class CheckInView extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.add(main);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+        Timer timer = new Timer();
+        timer.schedule(new SayHello(this, allFireManButtons), 0, 3000);
+
     }
 
     private JPanel getBorderLayout() {
@@ -58,7 +66,9 @@ public class CheckInView extends javax.swing.JFrame {
         p.setLayout(gl);
         allFiremen = bllFireman.getAllfiremen();
         for (BEFireman fireman : allFiremen) {
-            JButton b = new firemanButton(fireman);
+
+            firemanButton b = new firemanButton(fireman);
+
             b.setIcon(new ImageIcon(((new ImageIcon("images/" + fireman.getMedarbjeder().getPortræt())).getImage()).getScaledInstance(80, 60, java.awt.Image.SCALE_SMOOTH)));
             b.setFocusable(false);
             b.addActionListener(new ActionListener() {
@@ -74,10 +84,12 @@ public class CheckInView extends javax.swing.JFrame {
                         frame.setVisible(true);
                     }
                 }
+
                 private void changebit(firemanButton fb) {
                     fb.changebit();
                 }
             });
+            allFireManButtons.add(b);
             p.add(b);
         }
         return p;
@@ -115,6 +127,7 @@ public class CheckInView extends javax.swing.JFrame {
             this.name = fireman.getMedarbjeder().getFornavn();
             this.setBackground(getColor());
             this.setText(name);
+            System.out.println("brandmanden er " + localFireman.isCheckedin());
         }
 
         private Color getColor() {
@@ -133,6 +146,41 @@ public class CheckInView extends javax.swing.JFrame {
             localFireman.setIsCheckedin(!localFireman.isCheckedin());
             bllFireman.changeBit(localFireman);
             setColor();
+
+        }
+
+        public void updateLocalFireman(BEFireman fm) {
+            localFireman = fm;
+            this.setBackground(getColor());
+        }
+    }
+
+    class SayHello extends TimerTask {
+
+        ArrayList<firemanButton> localFiremen;
+        CheckInView test;
+
+        private SayHello(CheckInView aThis, ArrayList<firemanButton> firemen) {
+            localFiremen = firemen;
+            test = aThis;
+        }
+
+        @Override
+        public void run() {
+            bllTimelist.update();
+            bllFireman.update();
+
+
+
+            for (firemanButton btn : localFiremen) {
+                for (BEFireman fm : bllFireman.getAllfiremen()) {
+                    if (fm.getMedarbjeder().getMedarbejderNo() == btn.localFireman.getMedarbjeder().getMedarbejderNo()) {
+                        btn.updateLocalFireman(fm);
+                    }
+                }
+            }
+            
+            System.out.println("opdateret");
         }
     }
 }
