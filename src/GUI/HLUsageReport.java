@@ -5,7 +5,6 @@ import BE.BEMateriel;
 import BE.BEUsage;
 import BLL.BLLUsage;
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -30,11 +29,14 @@ public class HLUsageReport extends javax.swing.JFrame {
     private JPanel main;
     private int height;
     private int width = 450;
+    BEAppearance appear;
+    ArrayList<ForbrugPanel> forbrug = new ArrayList<>();
 
     /**
      * Creates new form HLErrorRapport
      */
     public HLUsageReport(BEAppearance a) {
+        appear = a;
         bllusage = BLLUsage.getInstance();
         allMats = bllusage.getAllMats();
         height = allMats.size() * 21;
@@ -50,7 +52,7 @@ public class HLUsageReport extends javax.swing.JFrame {
         JPanel p = new JPanel();
         p.setLayout(new BorderLayout());
         p.add(getGridLayout(), BorderLayout.CENTER);
-        p.add(getFlowLayoutSouth(),BorderLayout.SOUTH);
+        p.add(getFlowLayoutSouth(), BorderLayout.SOUTH);
         return p;
     }
 
@@ -61,7 +63,8 @@ public class HLUsageReport extends javax.swing.JFrame {
         p.add(getGroupLayout());
         return p;
     }
-    private JPanel getFlowLayoutSouth(){
+
+    private JPanel getFlowLayoutSouth() {
         JPanel p = new JPanel();
         FlowLayout fl = new FlowLayout();
         p.setLayout(fl);
@@ -71,7 +74,7 @@ public class HLUsageReport extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                usage();
             }
         });
         return p;
@@ -82,21 +85,15 @@ public class HLUsageReport extends javax.swing.JFrame {
         int modsize = allMats.size() % 2;
         JPanel p = new JPanel();
         for (BEMateriel mat : allMats) {
-            JPanel panel = new ForbrugPanel(mat);
-//            JLabel label = new JLabel(mat.getName());
-//            JTextField tf = new JTextField();
-//            label.setPreferredSize(new Dimension(140, 20));
-//            tf.setPreferredSize(new Dimension(50, 20));
+            ForbrugPanel panel = new ForbrugPanel(mat);
 
             GroupLayout layout = new GroupLayout(panel);
             layout.setAutoCreateGaps(true);
             layout.setAutoCreateContainerGaps(true);
-            /**
-             * MANGLER DET RIGTIGE COMPONENT! FRA FORBRUG? at "her"
-             */
-            layout.setHorizontalGroup(layout.createSequentialGroup().addComponent(label));
-            layout.setVerticalGroup(layout.createSequentialGroup().addComponent(tf));
+            layout.setHorizontalGroup(layout.createSequentialGroup().addComponent(panel.getLBL()));
+            layout.setVerticalGroup(layout.createSequentialGroup().addComponent(panel.getTF()));
             p.add(panel);
+            forbrug.add(panel);
         }
         if (modsize != 0) {
             JPanel panel = new JPanel();
@@ -104,6 +101,18 @@ public class HLUsageReport extends javax.swing.JFrame {
             p.add(panel);
         }
         return p;
+    }
+
+    private void usage() {
+        BEUsage bu;
+        for (ForbrugPanel test : forbrug) {
+            for (BEMateriel mat : allMats) {
+                if (mat.getName().equalsIgnoreCase(test.name)) {
+                    bu = new BEUsage(appear.getEvaNo(), mat, test.amount);
+                    createUsageReport(bu);
+                }
+            }
+        }
     }
 
     /**
@@ -133,15 +142,15 @@ public class HLUsageReport extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
-    private void createReport(BEUsage u){
-    bllusage.createReport(u);
-}
-    
+    private void createUsageReport(BEUsage u) {
+        bllusage.createReport(u);
+    }
+
     private class ForbrugPanel extends javax.swing.JPanel {
 
         String name;
         int amount;
-      public  JLabel lbl;
+        JLabel lbl;
         JTextField tf;
 
         /**
@@ -151,17 +160,20 @@ public class HLUsageReport extends javax.swing.JFrame {
 
             lbl = new JLabel();
             tf = new JTextField();
-            
+
             name = m.getName();
             lbl.setText(name);
-           
+            amount = Integer.parseInt(tf.getText());
+
             lbl.setPreferredSize(new Dimension(140, 20));
             tf.setPreferredSize(new Dimension(50, 20));
         }
-        public JTextField getTF(){
+
+        public JTextField getTF() {
             return tf;
         }
-        public JLabel getLBL(){
+
+        public JLabel getLBL() {
             return lbl;
         }
     }
