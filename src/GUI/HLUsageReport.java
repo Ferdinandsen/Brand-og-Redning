@@ -94,8 +94,8 @@ public class HLUsageReport extends javax.swing.JFrame {
             /**
              * MANGLER DET RIGTIGE COMPONENT! FRA FORBRUG? at "her"
              */
-            layout.setHorizontalGroup(layout.createSequentialGroup().addComponent(label));
-            layout.setVerticalGroup(layout.createSequentialGroup().addComponent(tf));
+//            layout.setHorizontalGroup(layout.createSequentialGroup().addComponent());
+//            layout.setVerticalGroup(layout.createSequentialGroup().addComponent(tf));
             p.add(panel);
         }
         if (modsize != 0) {
@@ -137,6 +137,13 @@ public class HLUsageReport extends javax.swing.JFrame {
     bllusage.createReport(u);
 }
     
+    private class textbox extends JTextField{
+
+      public textbox(){
+          this.setText(":::::");
+      }
+  
+    }
     private class ForbrugPanel extends javax.swing.JPanel {
 
         String name;
@@ -150,7 +157,7 @@ public class HLUsageReport extends javax.swing.JFrame {
         public ForbrugPanel(BEMateriel m) {
 
             lbl = new JLabel();
-            tf = new JTextField();
+            JTextField tf = new textbox();
             
             name = m.getName();
             lbl.setText(name);
@@ -158,7 +165,7 @@ public class HLUsageReport extends javax.swing.JFrame {
             lbl.setPreferredSize(new Dimension(140, 20));
             tf.setPreferredSize(new Dimension(50, 20));
         }
-        public JTextField getTF(){
+        public Component getTF(){
             return tf;
         }
         public JLabel getLBL(){

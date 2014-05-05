@@ -41,16 +41,19 @@ public class LoginView extends javax.swing.JFrame {
     private void tryLogin() {
         if (isInformationValid()) { //..
             if (bllEmployee.doesUserExist(txtName.getText(), txtPassword.getPassword())) {
-//                BELogin log = bllEmployee.getLogin(txtName.getText());
-//                if (log.isHoldleder()){
-//                    
-//                }
-//                if (log.isAdmin()){
-//                    
-//                }
-//                if (log.isKontor()){
-//                    
-//                }
+                BELogin log = bllEmployee.getLogin(txtName.getText());
+                if (log.isHoldleder()){
+                   HLAfterAction1 hlView = new HLAfterAction1();
+                   hlView.setLocationRelativeTo(null);
+                   hlView.setVisible(true);
+                   dispose();
+                }
+                if (log.isAdmin()){
+                    System.out.println("admin");
+                }
+                if (log.isKontor()){
+                    System.out.println("kontor");
+                }
                 
                 
             }

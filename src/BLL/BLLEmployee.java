@@ -1,8 +1,8 @@
 package BLL;
 
-import BE.BEEmployee;
 import BE.BELogin;
 import DAL.DALEmployee;
+import DAL.DALLogin;
 import java.sql.SQLException;
 import java.util.Arrays;
 
@@ -19,6 +19,7 @@ public class BLLEmployee {
     private BLLEmployee() {
         try {
             dalEmployee = DALEmployee.getInstance();
+            dalLogin = DALLogin.getInstance();
         } catch (SQLException e) {
             System.out.println("fejl i bllEmployee " + e);
         }
@@ -32,13 +33,14 @@ public class BLLEmployee {
     }
 
     public boolean doesUserExist(String name, char[] password) {
-        for (BELogin login : dalEmployee.getAllLogins()) {
+        for (BELogin login : dalLogin.getAllLogins()) {
             if (login.getMedarbejder().getFornavn().trim().equals(name.trim()) && isPasswordCorrect(password, login)) {
                 return true;
             }
         }
         return false;
     }
+    
 
     private boolean isPasswordCorrect(char[] password, BELogin login) {
         boolean isCorrect;
@@ -56,7 +58,11 @@ public class BLLEmployee {
         return isCorrect;
     }
 
-//    public BELogin getLogin(String name) {
-//        
-//    }
+    public BELogin getLogin(String name) {
+        for (BELogin login : dalLogin.getAllLogins()){
+            if (name.trim().equals(login.getMedarbejder().getFornavn().trim()))
+                return login;
+        }
+        return null;
+    }
 }
