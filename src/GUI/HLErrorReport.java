@@ -196,6 +196,8 @@ public class HLErrorReport extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 bllreport.createErrorReport(errorAsBE(), appear);
+                LoginView frame = new LoginView();
+                frame.setVisible(true);
                 dispose();
             }
         });
@@ -205,7 +207,9 @@ public class HLErrorReport extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-           dispose();
+                LoginView frame = new LoginView();
+                frame.setVisible(true);
+                dispose();
             }
         });
         //OBS det er HL checkin tid der lige nu er styrrende
