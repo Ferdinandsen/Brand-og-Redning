@@ -2,7 +2,6 @@ package DAL;
 
 import BE.BEAddress;
 import BE.BEEmployee;
-import BE.BELogin;
 import BE.BEZipCode;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

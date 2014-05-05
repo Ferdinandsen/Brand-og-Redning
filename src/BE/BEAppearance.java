@@ -6,24 +6,22 @@ package BE;
  */
 public class BEAppearance {
     private int id;
-    private BEVehicle vehicle;
+    private BEAlarmKøtj vehicle;
     private BETime time;
     private int totalTid;
-    private int evaNo;
     private boolean hlGodkendt;
     private boolean ilGodkendt;
     private boolean holdleder;
     private boolean chauffør;
     private boolean STvagt;
-        private int type;
+    private int type;
     
-    public BEAppearance(int id, BEVehicle vehicle, BETime time, int totaltid, int evaNo, boolean hlGodkendt, boolean ilGodkendt, boolean holdleder, boolean chauffør, boolean STvagt, int type){
+    public BEAppearance(int id, BETime time, int totaltid, boolean hlGodkendt, boolean ilGodkendt, boolean holdleder, boolean chauffør, boolean STvagt, int type, BEAlarmKøtj vehicle){
         this.id = id;
         this.vehicle = vehicle;
         this.time = time;
         this.type = type;
         this.totalTid = totaltid;
-        this.evaNo = evaNo;
         this.hlGodkendt = hlGodkendt;
         this.ilGodkendt = ilGodkendt;
         this.holdleder = holdleder;
@@ -41,7 +39,7 @@ public class BEAppearance {
     /**
      * @return the vehicle
      */
-    public BEVehicle getVehicle() {
+    public BEAlarmKøtj getVehicle() {
         return vehicle;
     }
 
@@ -57,13 +55,6 @@ public class BEAppearance {
      */
     public int getTotalTid() {
         return totalTid;
-    }
-
-    /**
-     * @return the evaNo
-     */
-    public int getEvaNo() {
-        return evaNo;
     }
 
     /**
@@ -104,7 +95,7 @@ public class BEAppearance {
     /**
      * @param vehicle the vehicle to set
      */
-    public void setVehicle(BEVehicle vehicle) {
+    public void setVehicle(BEAlarmKøtj vehicle) {
         this.vehicle = vehicle;
     }
 
@@ -122,12 +113,6 @@ public class BEAppearance {
         this.totalTid = totalTid;
     }
 
-    /**
-     * @param evaNo the evaNo to set
-     */
-    public void setEvaNo(int evaNo) {
-        this.evaNo = evaNo;
-    }
 
     /**
      * @return the hlGodkendt

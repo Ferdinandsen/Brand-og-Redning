@@ -136,7 +136,7 @@ public class HLUsageReport extends javax.swing.JFrame {
         for (ForbrugPanel test : forbrug) {
             for (BEMateriel mat : allMats) {
                 if (mat.getName().equalsIgnoreCase(test.name) && test.getAmount() !=0) {
-                    bu = new BEUsage(appear.getEvaNo(), mat, test.getAmount());
+                    bu = new BEUsage(appear.getVehicle().getAlarm().getEvaNo(), mat, test.getAmount());
                     createUsageReport(bu);
                 }
             }

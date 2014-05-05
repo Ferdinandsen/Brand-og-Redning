@@ -67,7 +67,7 @@ public class FremmødeTableModel extends AbstractTableModel {
                 if (a.getVehicle() == null) {
                     return "-";
                 }
-                return a.getVehicle().getOdinnummer();
+                return a.getVehicle().getVeh().getOdinnummer();
             case 1:
                 return a.getTime().getFireman().getMedarbjeder().getFornavn();
             case 2:

@@ -1,5 +1,6 @@
 package DAL;
 
+import BE.BEAlarmKøtj;
 import BE.BEAppearance;
 import BE.BETime;
 import BE.BEVehicle;
@@ -22,12 +23,14 @@ public class DALAppearance {
     private DALVehicle dalVehicle;
     private DALTimelist dalTime;
     private DALFireman dalFireman;
+    DALALarm dalAlarm;
 
     private DALAppearance() throws SQLServerException, SQLException {
         m_connection = DBConnection.getInstance().getConnection();
         dalFireman = DALFireman.getInstance();
         dalVehicle = DALVehicle.getInstance();
         dalTime = DALTimelist.getInstance();
+        dalAlarm = DALALarm.getInstance();
 
         populateAppearances();
     }
@@ -70,7 +73,7 @@ public class DALAppearance {
         ResultSet result = ps.getResultSet();
         while (result.next()) {
             int id = result.getInt("id");
-            int køtjRef = result.getInt("køtjRef");
+          
             int tidsregistreringRef = result.getInt("tidsregistreringRef");
             int totalTid = result.getInt("totaltid");
             int evaNo = result.getInt("evaNo");
@@ -80,10 +83,10 @@ public class DALAppearance {
             boolean holdleder = result.getBoolean("holdleder");
             boolean chauffør = result.getBoolean("chauffør");
             boolean stationsvagt = result.getBoolean("stationsvagt");
-
-            BEVehicle localVehicle = null;
-            for (BEVehicle veh : dalVehicle.getVehicles()) {
-                if (veh.getOdinnummer() == køtjRef) {
+            int alarmKøtjRef = result.getInt("alarmkøtjRef");
+            BEAlarmKøtj localVehicle = null;
+            for (BEAlarmKøtj veh : dalAlarm.getAllAlarmKøtj()) {
+                if (veh.getId() == alarmKøtjRef) {
                     localVehicle = veh;
                 }
             }
@@ -94,7 +97,7 @@ public class DALAppearance {
                     localTime = time;
                 }
             }
-            BEAppearance appearance = new BEAppearance(id, localVehicle, localTime, totalTid, evaNo, hlGodkendt, ilGodkendt, holdleder, chauffør, stationsvagt, type);
+            BEAppearance appearance = new BEAppearance(id, localTime, totalTid, hlGodkendt, ilGodkendt, holdleder, chauffør, stationsvagt, type, localVehicle);
             allAppearances.add(appearance);
         }
     }

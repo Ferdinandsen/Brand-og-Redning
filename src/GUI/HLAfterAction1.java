@@ -1,6 +1,8 @@
 package GUI;
 
+import BE.BEAlarm;
 import BE.BEVehicle;
+import BLL.BLLAlarm;
 import BLL.BLLTimelist;
 import BLL.BLLAppearance;
 import BLL.BLLVehicle;
@@ -21,6 +23,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     BLLVehicle bllVehicle;
     BLLTimelist bllTime;
     BLLAppearance bllAppearance;
+    BLLAlarm bllAlarm;
     private FremmødeTableModel model;
     boolean startUp = true;
 
@@ -28,6 +31,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         initComponents();
         initOtherComponents();
 
+        bllAlarm = BLLAlarm.getInstance();
         bllVehicle = BLLVehicle.getInstance();
         bllTime = BLLTimelist.getInstance();
         bllAppearance = BLLAppearance.getInstance();
@@ -84,7 +88,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 if (isInformationFilled()) {
-                    model.setAppearanceList(bllAppearance.getAppearancesWithCriteria(jDateChooser.getDate(), txtTid.getText(), (BEVehicle) cboxEva.getSelectedItem(), Integer.parseInt(txtTolerance.getText())));
+                    model.setAppearanceList(bllAppearance.getAppearancesWithCriteria(jDateChooser.getDate(), txtTid.getText(), (BEAlarm) cboxEva.getSelectedItem(), Integer.parseInt(txtTolerance.getText())));
                     model.fireTableDataChanged();
 //                    btnBekæft.setEnabled(oneTeamOrNot());
                     lblCount.setText("Fremmødt: " + model.getRowCount());
@@ -122,7 +126,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         });
     }
 
-    
     private void confirmTeam() {
         bllAppearance.confirmTeam((int) cboxType.getSelectedItem());
         JOptionPane.showMessageDialog(this, "Holdet er nu bekræftet!");
@@ -135,8 +138,8 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     }
 
     private void fillCboxEva() {
-        for (BEVehicle veh : bllVehicle.GetVehicles()) {
-            cboxEva.addItem(veh);
+        for (BEAlarm alarm : bllAlarm.getAllAlarms()) {
+            cboxEva.addItem(alarm);
         }
         cboxEva.setSelectedIndex(-1);
     }
@@ -201,8 +204,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
 //            }
 //            return true;
 //        }
-    
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -324,11 +325,11 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnBekæft)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(cboxType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel1))))
+                                .addComponent(jLabel1))
+                            .addComponent(btnBekæft)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(7, 7, 7)
                         .addComponent(lblCount)))
