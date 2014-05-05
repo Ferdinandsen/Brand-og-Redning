@@ -16,7 +16,7 @@ import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 /**
  *
@@ -35,7 +35,7 @@ public class CheckInView extends javax.swing.JFrame {
     int timesPrSec = 1 * 1000;
 
     public CheckInView() {
-
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         bllTimelist = BLLTimelist.getInstance();
         bllFireman = BLLFireman.getInstance();
         this.setUndecorated(true);
@@ -46,9 +46,9 @@ public class CheckInView extends javax.swing.JFrame {
         this.setTitle("Fireman check in screen");
         this.setLocationRelativeTo(null);
         this.add(main);
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
         Timer timer = new Timer();
-        timer.schedule(new SayHello(this, allFireManButtons), 0, timesPrSec);
+        timer.schedule(new UpdateGUI(this, allFireManButtons), 0, timesPrSec);
 
     }
 
@@ -85,7 +85,7 @@ public class CheckInView extends javax.swing.JFrame {
                         frame.setVisible(true);
                     }
                 }
-                
+
                 private void changebit(firemanButton fb) {
                     fb.changebit();
                 }
@@ -119,6 +119,7 @@ public class CheckInView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private class firemanButton extends JButton {
+
         String name;
         BEFireman localFireman;
 
@@ -153,11 +154,12 @@ public class CheckInView extends javax.swing.JFrame {
         }
     }
 
-    class SayHello extends TimerTask {
+    class UpdateGUI extends TimerTask {
+
         ArrayList<firemanButton> localFiremen;
         CheckInView test;
 
-        private SayHello(CheckInView aThis, ArrayList<firemanButton> firemen) {
+        private UpdateGUI(CheckInView aThis, ArrayList<firemanButton> firemen) {
             localFiremen = firemen;
             test = aThis;
         }
