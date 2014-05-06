@@ -6,7 +6,7 @@ package BE;
  */
 public class BEAppearance {
     private int id;
-    private BEAlarmKøtj vehicle;
+    private BEAlarmKøtj alarmVehicle;
     private BETime time;
     private int totalTid;
     private boolean hlGodkendt;
@@ -18,7 +18,7 @@ public class BEAppearance {
     
     public BEAppearance(int id, BETime time, int totaltid, boolean hlGodkendt, boolean ilGodkendt, boolean holdleder, boolean chauffør, boolean STvagt, int type, BEAlarmKøtj vehicle){
         this.id = id;
-        this.vehicle = vehicle;
+        this.alarmVehicle = vehicle;
         this.time = time;
         this.type = type;
         this.totalTid = totaltid;
@@ -39,8 +39,8 @@ public class BEAppearance {
     /**
      * @return the vehicle
      */
-    public BEAlarmKøtj getVehicle() {
-        return vehicle;
+    public BEAlarmKøtj getAlarmVehicle() {
+        return alarmVehicle;
     }
 
     /**
@@ -95,8 +95,8 @@ public class BEAppearance {
     /**
      * @param vehicle the vehicle to set
      */
-    public void setVehicle(BEAlarmKøtj vehicle) {
-        this.vehicle = vehicle;
+    public void setAlarmVehicle(BEAlarmKøtj vehicle) {
+        this.alarmVehicle = vehicle;
     }
 
     /**

@@ -139,4 +139,10 @@ public class BEEmployee {
     public void setIsFriviligBrand(boolean isFriviligBrand) {
         this.isFriviligBrand = isFriviligBrand;
     }
+
+    @Override
+    public String toString() {
+        return fornavn + " " + efternavn; //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }

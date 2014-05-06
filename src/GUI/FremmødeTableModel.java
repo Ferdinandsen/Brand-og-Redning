@@ -64,10 +64,10 @@ public class FremmødeTableModel extends AbstractTableModel {
         BEAppearance a = appearances.get(row);
         switch (col) {
             case 0:
-                if (a.getVehicle() == null) {
+                if (a.getAlarmVehicle() == null) {
                     return "-";
                 }
-                return a.getVehicle().getVeh().getOdinnummer();
+                return a.getAlarmVehicle().getVeh().getOdinnummer();
             case 1:
                 return a.getTime().getFireman().getMedarbjeder().getFornavn();
             case 2:

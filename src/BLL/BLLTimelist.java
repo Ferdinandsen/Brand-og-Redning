@@ -1,6 +1,6 @@
 package BLL;
 
-import BE.BEVehicle;
+import BE.BEAlarmKøtj;
 import DAL.DALTimelist;
 import BE.BEFireman;
 import BE.BETime;
@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TreeSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -44,7 +42,7 @@ public class BLLTimelist {
         try {
             daltime.populateTimes();
         } catch (SQLException ex) {
-            System.out.println("blabla");
+            System.out.println("blabla" +ex);
         }
     }
 
@@ -64,7 +62,7 @@ public class BLLTimelist {
         }
     }
 
-    public void createEndShift(BEFireman fireman, BEVehicle veh, boolean hl, boolean ch, boolean st) {
+    public void createEndShift(BEFireman fireman, BEAlarmKøtj veh, boolean hl, boolean ch, boolean st) {
         BETime localTime = null;
         for (BETime theTime : daltime.getAllTimes()) {
             if (theTime.getFireman().getMedarbjeder().getMedarbejderNo() == fireman.getMedarbjeder().getMedarbejderNo() && theTime.getCheckOut() == null) {

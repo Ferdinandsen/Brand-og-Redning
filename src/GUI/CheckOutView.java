@@ -1,7 +1,8 @@
 package GUI;
 
+import BE.BEAlarmKøtj;
 import BE.BEFireman;
-import BE.BEVehicle;
+import BLL.BLLAlarm;
 import BLL.BLLFireman;
 import BLL.BLLTimelist;
 import BLL.BLLVehicle;
@@ -20,6 +21,7 @@ public class CheckOutView extends javax.swing.JDialog {
     BLLVehicle bllvehicle;
     BLLTimelist blltime;
     BEFireman localFireman;
+    BLLAlarm bllAlarm;
 
     /**
      * Creates new form CheckOutView
@@ -29,7 +31,7 @@ public class CheckOutView extends javax.swing.JDialog {
         blltime = BLLTimelist.getInstance();
         bllFireman = BLLFireman.getInstance();
         bllvehicle = BLLVehicle.getInstance();
-        blltime = BLLTimelist.getInstance();
+        bllAlarm = BLLAlarm.getInstance();
         localFireman = fireman;
         initComponents();
         initOtherComponents();
@@ -155,18 +157,18 @@ public class CheckOutView extends javax.swing.JDialog {
     }
 
     private void fillCboxVehicle() {
-        for (BEVehicle car : bllvehicle.GetVehicles()) {
+        for (BEAlarmKøtj car : bllAlarm.getAllApprovedAlarmKøtj()) {
             cboxVehicle.addItem(car);
         }
     }
 
     private void endShift() {
-        BEVehicle veh = null;
+        BEAlarmKøtj veh = null;
         boolean hl = false;
         boolean ch = false;
         boolean st = false;
         if (cboxVehicle.getSelectedIndex() != 0) {
-            veh = (BEVehicle) cboxVehicle.getSelectedItem();
+            veh = (BEAlarmKøtj) cboxVehicle.getSelectedItem();
         }
         if (rbtnHoldleder.isSelected()) {
             hl = true;

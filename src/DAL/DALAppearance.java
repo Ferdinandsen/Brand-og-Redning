@@ -3,7 +3,6 @@ package DAL;
 import BE.BEAlarmKøtj;
 import BE.BEAppearance;
 import BE.BETime;
-import BE.BEVehicle;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,25 +41,23 @@ public class DALAppearance {
         return m_instance;
     }
 
-    public void endShift(BETime tm, BEVehicle veh, boolean hl, boolean ch, boolean st, int total) throws SQLException {
-        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+    public void endShift(BETime tm, BEAlarmKøtj veh, boolean hl, boolean ch, boolean st, int total) throws SQLException {
+        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setInt(1, tm.getId());
+        ps.setInt(2, total);
+        ps.setBoolean(3, false);
+        ps.setBoolean(4, hl);
+        ps.setBoolean(5, ch);
+        ps.setBoolean(6, st);
+        ps.setBoolean(7, false);
+        ps.setInt(8, 0);
         if (veh == null) {
-            ps.setString(1, null); //får fejl her, pga. intet køretøj findes med 0
+            ps.setString(9, null);
         } else {
-            ps.setInt(1, veh.getOdinnummer());
+            ps.setInt(9, veh.getId());
         }
-        ps.setInt(2, tm.getId());
-        ps.setInt(3, total);
-        ps.setInt(4, 0);
-        ps.setBoolean(5, false);
-        ps.setBoolean(6, hl);
-        ps.setBoolean(7, ch);
-        ps.setBoolean(8, st);
-        ps.setBoolean(9, false);
-        ps.setInt(10, 0);
-        ps.setString(11,null);
         ps.execute();
     }
 
@@ -73,10 +70,8 @@ public class DALAppearance {
         ResultSet result = ps.getResultSet();
         while (result.next()) {
             int id = result.getInt("id");
-          
             int tidsregistreringRef = result.getInt("tidsregistreringRef");
             int totalTid = result.getInt("totaltid");
-            int evaNo = result.getInt("evaNo");
             int type = result.getInt("kørselType");
             boolean hlGodkendt = result.getBoolean("hlGodkendt");
             boolean ilGodkendt = result.getBoolean("ilGodkendt");
@@ -90,7 +85,6 @@ public class DALAppearance {
                     localVehicle = veh;
                 }
             }
-
             BETime localTime = null;
             for (BETime time : dalTime.getAllTimes()) {
                 if (time.getId() == tidsregistreringRef) {
@@ -107,13 +101,14 @@ public class DALAppearance {
     }
 
     public void confirmTeam(BEAppearance appearance) throws SQLException {
-            String sql = "UPDATE Fremmøde SET hlGodkendt = ?, kørselType = ? WHERE id = ?";
+        String sql = "UPDATE Fremmøde SET hlGodkendt = ?, kørselType = ?, alarmKøtjRef = ? WHERE id = ?";
 
-            PreparedStatement ps = m_connection.prepareStatement(sql);
-            ps.setBoolean(1, true);
-            ps.setInt(2, appearance.getType());
-            ps.setInt(3, appearance.getId());
-            appearance.setHlGodkendt(true);
-            ps.execute();
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setBoolean(1, true);
+        ps.setInt(2, appearance.getType());
+        ps.setInt(3, appearance.getAlarmVehicle().getId());
+        ps.setInt(4, appearance.getId());
+        appearance.setHlGodkendt(true);
+        ps.execute();
     }
 }

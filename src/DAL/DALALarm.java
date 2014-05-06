@@ -21,6 +21,7 @@ public class DALALarm {
     private static DALALarm m_instance = null;
     ArrayList<BEAlarm> allAlarms;
     ArrayList<BEAlarmKøtj> allVeh;
+    ArrayList<BEAlarmKøtj> allVehWithApproved;
     DALVehicle dalVehicle;
 
     private DALALarm() throws SQLServerException, SQLException {
@@ -48,7 +49,7 @@ public class DALALarm {
             int eva = result.getInt("evaNo");
             Timestamp tid = result.getTimestamp("tid");
             String desc = result.getString("beskrivelse");
-
+       
             BEAlarm alarm = new BEAlarm(eva, tid, desc);
             allAlarms.add(alarm);
         }
@@ -69,6 +70,7 @@ public class DALALarm {
             int id = result.getInt("id");
             int evaNoRef = result.getInt("evaNoRef");
             int køtjRef = result.getInt("køtjRef");
+            boolean confirm = result.getBoolean("teamConfirmed");
 
             BEVehicle localVehicle = null;
             for (BEVehicle veh : dalVehicle.getVehicles()) {
@@ -76,7 +78,6 @@ public class DALALarm {
                     localVehicle = veh;
                 }
             }
-
             BEAlarm localAlarm = null;
             for (BEAlarm alarm : allAlarms) {
                 if (alarm.getEvaNo() == evaNoRef) {
@@ -84,7 +85,7 @@ public class DALALarm {
                 }
             }
 
-            BEAlarmKøtj veh = new BEAlarmKøtj(id, localAlarm, localVehicle);
+            BEAlarmKøtj veh = new BEAlarmKøtj(id, localAlarm, localVehicle, confirm);
             allVeh.add(veh);
         }
     }

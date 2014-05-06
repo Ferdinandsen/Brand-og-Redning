@@ -62,7 +62,6 @@ public class BEAlarm {
 
     @Override
     public String toString() {
-    return "" + EvaNo; 
+        return "" + getEvaNo();
     }
-       
 }

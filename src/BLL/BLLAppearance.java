@@ -1,6 +1,7 @@
 package BLL;
 
 import BE.BEAlarm;
+import BE.BEAlarmKøtj;
 import BE.BEAppearance;
 import BE.BEVehicle;
 import DAL.DALAppearance;
@@ -8,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,10 +20,12 @@ public class BLLAppearance {
 
     public ArrayList<BEAppearance> newAppearances;
     DALAppearance dalAppearance;
+    private BLLAlarm bllAlarm;
     private static BLLAppearance m_instance = null;
 
     private BLLAppearance() {
         try {
+            bllAlarm = BLLAlarm.getInstance();
             dalAppearance = DALAppearance.getInstance();
             newAppearances = getAllAppearances();
         } catch (SQLException e) {
@@ -63,24 +68,39 @@ public class BLLAppearance {
             long testMili = test.getTime();
             long checkMili = appearance.getTime().getCheckIn().getTime();
             long minutes = (checkMili - testMili) / 1000 / 60;
-            if (minutes >= 0 && minutes <= tolerance && null == appearance.getVehicle().getAlarm())
-                newAppearances.add(appearance);
-            if (minutes >= 0 && minutes <= tolerance && selectedItem == appearance.getVehicle().getAlarm()) { //dagene + tid (10min) passer!
-
+            if (minutes >= 0 && minutes <= tolerance) { //dagene + tid (10min) passer!
                 newAppearances.add(appearance);
             }
         }
         return newAppearances;
     }
 
-    public void confirmTeam(int type) {
+    public void confirmTeam(int type, BEAlarm alarm) throws Exception {
         for (BEAppearance appearance : newAppearances) {
             try {
                 appearance.setType(type);
+                if (appearance.getAlarmVehicle() == null){
+                    appearance.setAlarmVehicle(getAlarmKøretøjByAlarm(alarm));
+                }
+                else{
+                    if (appearance.getAlarmVehicle().getAlarm() != alarm){
+                        throw new Exception("Dette hold er ikke muligt at bekræfte. Fejlen sker ved denne person: " + appearance.getTime().getFireman().getMedarbjeder());
+                    }
+                }
+                appearance.getAlarmVehicle().setIsConfirmed(true);
                 dalAppearance.confirmTeam(appearance);
             } catch (SQLException ex) {
                 System.out.println("fejl i bllAppearance2 " + ex);
+//            } catch (Exception ex) {
+//                System.out.println(ex);
             }
         }
+    }
+    private BEAlarmKøtj getAlarmKøretøjByAlarm(BEAlarm alarm){
+        for (BEAlarmKøtj alkt : bllAlarm.getAllAlarmKøtj()){
+            if (alkt.getAlarm() == alarm)
+                return alkt;
+        }
+        return null;
     }
 }

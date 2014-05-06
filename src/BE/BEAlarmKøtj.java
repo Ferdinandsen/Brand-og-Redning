@@ -5,15 +5,17 @@ package BE;
  * @author Team Kawabunga
  */
 public class BEAlarmKøtj {
-    
+
     private int id;
     private BEAlarm alarm;
     private BEVehicle veh;
-    
-    public BEAlarmKøtj(int id, BEAlarm alarm, BEVehicle veh){
+    private boolean isConfirmed;
+
+    public BEAlarmKøtj(int id, BEAlarm alarm, BEVehicle veh, boolean confirm) {
         this.id = id;
         this.alarm = alarm;
         this.veh = veh;
+        isConfirmed = confirm;
     }
 
     /**
@@ -57,4 +59,25 @@ public class BEAlarmKøtj {
     public void setVeh(BEVehicle veh) {
         this.veh = veh;
     }
+
+    @Override
+    public String toString() {
+        String[] test = getAlarm().getTime().toString().split(" ");
+        return "" + getVeh().getOdinnummer() + " - " + test[1].substring(0, 5);
+    }
+
+    /**
+     * @return the isConfirmed
+     */
+    public boolean isIsConfirmed() {
+        return isConfirmed;
+    }
+
+    /**
+     * @param isConfirmed the isConfirmed to set
+     */
+    public void setIsConfirmed(boolean isConfirmed) {
+        this.isConfirmed = isConfirmed;
+    }
+
 }
