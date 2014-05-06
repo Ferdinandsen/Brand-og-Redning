@@ -1,7 +1,6 @@
 package BLL;
 
 import BE.BEAlarm;
-import BE.BEAlarmKøtj;
 import DAL.DALALarm;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,17 +29,5 @@ public class BLLAlarm {
     
     public ArrayList<BEAlarm> getAllAlarms () {
         return dalalarm.getAllAlarms();
-    }
-    public ArrayList<BEAlarmKøtj> getAllAlarmKøtj(){
-        return dalalarm.getAllAlarmKøtj();
-    }
-    public ArrayList<BEAlarmKøtj> getAllApprovedAlarmKøtj(){
-        ArrayList<BEAlarmKøtj> test = new ArrayList<>();
-        for(BEAlarmKøtj be : getAllAlarmKøtj()){
-            if (!be.isIsConfirmed()){
-                test.add(be);
-            }
-        }
-        return test;
     }
 }

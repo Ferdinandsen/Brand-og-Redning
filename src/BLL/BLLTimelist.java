@@ -1,6 +1,5 @@
 package BLL;
 
-import BE.BEAlarmKøtj;
 import DAL.DALTimelist;
 import BE.BEFireman;
 import BE.BETime;

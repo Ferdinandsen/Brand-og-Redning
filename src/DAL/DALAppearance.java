@@ -1,7 +1,6 @@
 package DAL;
 
 import BE.BEAlarm;
-import BE.BEAlarmKøtj;
 import BE.BEAppearance;
 import BE.BETime;
 import BE.BEVehicle;

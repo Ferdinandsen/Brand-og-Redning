@@ -1,16 +1,12 @@
 package BLL;
 
 import BE.BEAlarm;
-import BE.BEAlarmKøtj;
 import BE.BEAppearance;
-import BE.BEVehicle;
 import DAL.DALAppearance;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -89,16 +85,7 @@ public class BLLAppearance {
                 dalAppearance.confirmTeam(appearance);
             } catch (SQLException ex) {
                 System.out.println("fejl i bllAppearance2 " + ex);
-//            } catch (Exception ex) {
-//                System.out.println(ex);
             }
         }
     }
-//    private BEAlarmKøtj getAlarmKøretøjByAlarm(BEAlarm alarm){
-//        for (BEAlarmKøtj alkt : bllAlarm.getAllAlarmKøtj()){
-//            if (alkt.getAlarm() == alarm)
-//                return alkt;
-//        }
-//        return null;
-//    }
 }
