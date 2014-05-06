@@ -2,6 +2,7 @@ package GUI;
 
 import BE.BEAlarmKøtj;
 import BE.BEFireman;
+import BE.BEVehicle;
 import BLL.BLLAlarm;
 import BLL.BLLFireman;
 import BLL.BLLTimelist;
@@ -28,6 +29,7 @@ public class CheckOutView extends javax.swing.JDialog {
     /**
      * Creates new form CheckOutView
      *
+     * @param fireman
      */
     public CheckOutView(BEFireman fireman) {
         blltime = BLLTimelist.getInstance();
@@ -165,18 +167,18 @@ public class CheckOutView extends javax.swing.JDialog {
     }
 
     private void fillCboxVehicle() {
-        for (BEAlarmKøtj car : bllAlarm.getAllApprovedAlarmKøtj()) {
+        for (BEVehicle car : bllvehicle.GetVehicles()) {
             cboxVehicle.addItem(car);
         }
     }
 
     private void endShift() {
-        BEAlarmKøtj veh = null;
+        BEVehicle veh = null;
         boolean hl = false;
         boolean ch = false;
         boolean st = false;
         if (cboxVehicle.getSelectedIndex() != 0) {
-            veh = (BEAlarmKøtj) cboxVehicle.getSelectedItem();
+            veh = (BEVehicle) cboxVehicle.getSelectedItem();
         }
         if (rbtnHoldleder.isSelected()) {
             hl = true;

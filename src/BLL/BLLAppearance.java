@@ -79,15 +79,13 @@ public class BLLAppearance {
         for (BEAppearance appearance : newAppearances) {
             try {
                 appearance.setType(type);
-                if (appearance.getAlarmVehicle() == null){
-                    appearance.setAlarmVehicle(getAlarmKøretøjByAlarm(alarm));
-                }
-                else{
-                    if (appearance.getAlarmVehicle().getAlarm() != alarm){
+                if (appearance.getAlarm() == null) {
+                    appearance.setAlarm(alarm);
+                } else {
+                    if (appearance.getAlarm() != alarm) {
                         throw new Exception("Dette hold er ikke muligt at bekræfte. Fejlen sker ved denne person: " + appearance.getTime().getFireman().getMedarbjeder());
                     }
                 }
-                appearance.getAlarmVehicle().setIsConfirmed(true);
                 dalAppearance.confirmTeam(appearance);
             } catch (SQLException ex) {
                 System.out.println("fejl i bllAppearance2 " + ex);
@@ -96,11 +94,11 @@ public class BLLAppearance {
             }
         }
     }
-    private BEAlarmKøtj getAlarmKøretøjByAlarm(BEAlarm alarm){
-        for (BEAlarmKøtj alkt : bllAlarm.getAllAlarmKøtj()){
-            if (alkt.getAlarm() == alarm)
-                return alkt;
-        }
-        return null;
-    }
+//    private BEAlarmKøtj getAlarmKøretøjByAlarm(BEAlarm alarm){
+//        for (BEAlarmKøtj alkt : bllAlarm.getAllAlarmKøtj()){
+//            if (alkt.getAlarm() == alarm)
+//                return alkt;
+//        }
+//        return null;
+//    }
 }
