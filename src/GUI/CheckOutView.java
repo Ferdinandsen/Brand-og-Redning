@@ -1,6 +1,5 @@
 package GUI;
 
-import BE.BEAlarmKøtj;
 import BE.BEFireman;
 import BE.BEVehicle;
 import BLL.BLLAlarm;
