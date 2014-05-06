@@ -33,6 +33,7 @@ public class CheckInView extends javax.swing.JFrame {
     int width = 5;
     int height = allFiremen.size() / width;
     int timesPrSec = 1 * 1000;
+    Timer timer;
 
     public CheckInView() {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -47,8 +48,8 @@ public class CheckInView extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.add(main);
 
-        Timer timer = new Timer();
-        timer.schedule(new UpdateGUI(this, allFireManButtons), 0, timesPrSec);
+        timer = new Timer();
+        timer.schedule(new UpdateGUI(allFireManButtons), 0, timesPrSec);
 
     }
 
@@ -67,7 +68,6 @@ public class CheckInView extends javax.swing.JFrame {
         p.setLayout(gl);
         allFiremen = bllFireman.getAllfiremen();
         for (BEFireman fireman : allFiremen) {
-
             firemanButton b = new firemanButton(fireman);
 
             b.setIcon(new ImageIcon(((new ImageIcon("images/" + fireman.getMedarbjeder().getPortræt())).getImage()).getScaledInstance(80, 60, java.awt.Image.SCALE_SMOOTH)));
@@ -82,8 +82,13 @@ public class CheckInView extends javax.swing.JFrame {
                     } else { // hvis han skal til at logge ud
                         CheckOutView frame = new CheckOutView(fb.localFireman);
                         frame.setModal(true);
+                        timer.cancel();
                         frame.setVisible(true);
                     }
+                    fb.setColor();
+                  
+                    timer.purge();
+//                    timer.schedule(new UpdateGUI( allFireManButtons), 0, timesPrSec);
                 }
 
                 private void changebit(firemanButton fb) {
@@ -145,7 +150,7 @@ public class CheckInView extends javax.swing.JFrame {
         public void changebit() {
             localFireman.setIsCheckedin(!localFireman.isCheckedin());
             bllFireman.changeBit(localFireman);
-            setColor();
+//            setColor();
         }
 
         public void updateLocalFireman(BEFireman fm) {
@@ -157,11 +162,9 @@ public class CheckInView extends javax.swing.JFrame {
     class UpdateGUI extends TimerTask {
 
         ArrayList<firemanButton> localFiremen;
-        CheckInView test;
 
-        private UpdateGUI(CheckInView aThis, ArrayList<firemanButton> firemen) {
+        private UpdateGUI(ArrayList<firemanButton> firemen) {
             localFiremen = firemen;
-            test = aThis;
         }
 
         @Override
