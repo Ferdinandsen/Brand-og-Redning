@@ -6,7 +6,7 @@ package BE;
  */
 public class BEAppearance {
     private int id;
-    private BEAlarmKøtj alarmVehicle;
+    private BEAlarm alarm;
     private BETime time;
     private int totalTid;
     private boolean hlGodkendt;
@@ -15,10 +15,12 @@ public class BEAppearance {
     private boolean chauffør;
     private boolean STvagt;
     private int type;
+    private BEVehicle veh;
     
-    public BEAppearance(int id, BETime time, int totaltid, boolean hlGodkendt, boolean ilGodkendt, boolean holdleder, boolean chauffør, boolean STvagt, int type, BEAlarmKøtj vehicle){
+    public BEAppearance(int id, BETime time, int totaltid, boolean hlGodkendt, boolean ilGodkendt, 
+            boolean holdleder, boolean chauffør, boolean STvagt, int type, BEAlarm alarm, BEVehicle veh){
         this.id = id;
-        this.alarmVehicle = vehicle;
+        this.alarm = alarm;
         this.time = time;
         this.type = type;
         this.totalTid = totaltid;
@@ -27,6 +29,7 @@ public class BEAppearance {
         this.holdleder = holdleder;
         this.chauffør = chauffør;
         this.STvagt = STvagt;
+        this.veh = veh;
     }
 
     /**
@@ -39,8 +42,8 @@ public class BEAppearance {
     /**
      * @return the vehicle
      */
-    public BEAlarmKøtj getAlarmVehicle() {
-        return alarmVehicle;
+    public BEAlarm getAlarm() {
+        return alarm;
     }
 
     /**
@@ -95,8 +98,8 @@ public class BEAppearance {
     /**
      * @param vehicle the vehicle to set
      */
-    public void setAlarmVehicle(BEAlarmKøtj vehicle) {
-        this.alarmVehicle = vehicle;
+    public void setAlarm(BEAlarm vehicle) {
+        this.alarm = vehicle;
     }
 
     /**
@@ -175,5 +178,19 @@ public class BEAppearance {
      */
     public void setType(int type) {
         this.type = type;
+    }
+
+    /**
+     * @return the veh
+     */
+    public BEVehicle getVeh() {
+        return veh;
+    }
+
+    /**
+     * @param veh the veh to set
+     */
+    public void setVeh(BEVehicle veh) {
+        this.veh = veh;
     }
 }

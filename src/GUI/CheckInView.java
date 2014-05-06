@@ -84,11 +84,11 @@ public class CheckInView extends javax.swing.JFrame {
                         frame.setModal(true);
                         timer.cancel();
                         frame.setVisible(true);
+                        timer.purge();
+                        timer = new Timer();
+                        timer.schedule(new UpdateGUI(allFireManButtons), 0, timesPrSec);
                     }
                     fb.setColor();
-                    timer.purge();
-                    timer = new Timer();
-                    timer.schedule(new UpdateGUI(allFireManButtons), 0, timesPrSec);
                 }
 
                 private void changebit(firemanButton fb) {
