@@ -10,6 +10,8 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -50,6 +52,15 @@ public class CheckInView extends javax.swing.JFrame {
 
         timer = new Timer();
         timer.schedule(new UpdateGUI(allFireManButtons), 0, timesPrSec);
+
+        this.addWindowListener(new WindowAdapter() {
+
+            public void windowClosing(WindowEvent ev) {
+              
+                    System.exit(0);
+            }
+
+        });
 
     }
 

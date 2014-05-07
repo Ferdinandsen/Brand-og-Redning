@@ -34,7 +34,7 @@ public class BLLEmployee {
 
     public boolean doesUserExist(String name, char[] password) {
         for (BELogin login : dalLogin.getAllLogins()) {
-            if (login.getMedarbejder().getFornavn().trim().equals(name.trim()) && isPasswordCorrect(password, login)) {
+            if (login.getMedarbejder().getFornavn().trim().equalsIgnoreCase(name.trim()) && isPasswordCorrect(password, login)) {
                 return true;
             }
         }
