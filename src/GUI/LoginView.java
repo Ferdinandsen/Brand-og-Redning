@@ -4,6 +4,8 @@ import BE.BELogin;
 import BLL.BLLEmployee;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,6 +26,24 @@ public class LoginView extends javax.swing.JFrame {
     }
 
     private void initOtherComponents() {
+        txtName.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                    char vChar = e.getKeyChar();
+                    if (vChar == KeyEvent.VK_ENTER) {
+                        tryLogin();
+                    }
+                }
+            });
+        
+        txtPassword.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                    char vChar = e.getKeyChar();
+                    if (vChar == KeyEvent.VK_ENTER) {
+                        tryLogin();
+                    }
+                }
+            });
+
         btnCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -36,14 +56,14 @@ public class LoginView extends javax.swing.JFrame {
                 tryLogin();
             }
         });
-    }
+    };
 
     private void tryLogin() {
         if (isInformationValid()) { //..
             if (bllEmployee.doesUserExist(txtName.getText(), txtPassword.getPassword())) {
                 BELogin log = bllEmployee.getLogin(txtName.getText());
                 if (log.isHoldleder()){
-                   HLAfterAction1 hlView = new HLAfterAction1();
+                   HLAfterAction1 hlView = HLAfterAction1.getInstance();
                    hlView.setLocationRelativeTo(null);
                    hlView.setVisible(true);
                    dispose();

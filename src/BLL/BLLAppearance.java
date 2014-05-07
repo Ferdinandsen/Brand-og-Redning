@@ -86,4 +86,14 @@ public class BLLAppearance {
         }
     }
 
+    public void update(){
+        try {
+            dalAppearance.populateAppearances();
+        } catch (SQLException ex) {
+            System.out.println("blabla" +ex);
+        }
+    }
+
+    
+
 }

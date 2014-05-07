@@ -2,6 +2,8 @@ package GUI;
 
 import BE.BEAppearance;
 import BE.BEError;
+import BE.BEVehicle;
+import BLL.BLLVehicle;
 import BLL.BLLReport;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,17 +14,17 @@ import javax.swing.JOptionPane;
  * @author Team Kawabunga
  */
 public class HLErrorReport extends javax.swing.JFrame {
-
+BLLVehicle bllVehicle;
     BLLReport bllreport;
-    BEAppearance appear;
-
     /**
      * Creates new form HLErrorReport
      */
-    public HLErrorReport(BEAppearance a) {
+    public HLErrorReport() {
+        bllVehicle = BLLVehicle.getInstance();
         bllreport = BLLReport.getInstance();
         initComponents();
-        initOtherComponents(a);
+        initOtherComponents();
+        fillCboxKøretøj();
         this.setTitle("Reparation/Køretøjsmangler");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -42,7 +44,6 @@ public class HLErrorReport extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtError = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
-        lblDate = new javax.swing.JLabel();
         lblKøtj = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtCourse = new javax.swing.JTextArea();
@@ -56,7 +57,8 @@ public class HLErrorReport extends javax.swing.JFrame {
         txtInDueTime = new javax.swing.JTextField();
         txtWash = new javax.swing.JTextField();
         btnAcknowledge = new javax.swing.JButton();
-        btnNoError = new javax.swing.JButton();
+        btnDone = new javax.swing.JButton();
+        cboxKøretøj = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,8 +69,6 @@ public class HLErrorReport extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtError);
 
         jLabel2.setText("FEJL:");
-
-        lblDate.setText("DATO:");
 
         lblKøtj.setText("Køretøj:");
 
@@ -88,7 +88,7 @@ public class HLErrorReport extends javax.swing.JFrame {
 
         btnAcknowledge.setText("Bekræft");
 
-        btnNoError.setText("Ingen fejl");
+        btnDone.setText("Færdig / Ingen fejl");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,12 +97,10 @@ public class HLErrorReport extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(20, Short.MAX_VALUE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblDate)
-                            .addGap(45, 45, 45)
-                            .addComponent(lblKøtj, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jLabel5)
                         .addComponent(jLabel2)
                         .addGroup(layout.createSequentialGroup()
@@ -117,13 +115,18 @@ public class HLErrorReport extends javax.swing.JFrame {
                                 .addComponent(txtUrgent)
                                 .addComponent(txtInDueTime)
                                 .addComponent(txtWash, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
                         .addComponent(jScrollPane2)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(btnNoError)
+                            .addComponent(btnAcknowledge)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnAcknowledge))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnDone)
+                            .addContainerGap()))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblKøtj, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboxKøretøj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,8 +134,8 @@ public class HLErrorReport extends javax.swing.JFrame {
                 .addComponent(lblHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDate)
-                    .addComponent(lblKøtj))
+                    .addComponent(lblKøtj)
+                    .addComponent(cboxKøretøj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -157,10 +160,10 @@ public class HLErrorReport extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(txtWash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAcknowledge)
-                    .addComponent(btnNoError))
+                    .addComponent(btnDone))
                 .addContainerGap())
         );
 
@@ -168,7 +171,8 @@ public class HLErrorReport extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcknowledge;
-    private javax.swing.JButton btnNoError;
+    private javax.swing.JButton btnDone;
+    private javax.swing.JComboBox cboxKøretøj;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -177,7 +181,6 @@ public class HLErrorReport extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblHeader;
     private javax.swing.JLabel lblKøtj;
     private javax.swing.JTextArea txtCourse;
@@ -187,8 +190,14 @@ public class HLErrorReport extends javax.swing.JFrame {
     private javax.swing.JTextField txtUrgent;
     private javax.swing.JTextField txtWash;
     // End of variables declaration//GEN-END:variables
-    private void initOtherComponents(BEAppearance a) {
-        appear = a;
+
+    private void fillCboxKøretøj(){
+     for (BEVehicle veh : bllVehicle.GetVehicles()){
+         cboxKøretøj.addItem(veh);
+     }
+     cboxKøretøj.setSelectedIndex(-1);
+ }
+    private void initOtherComponents() {
         lblHeader.setText("Reparation/Køretøjsmangler");
         btnAcknowledge.setText("Bekræft");
         btnAcknowledge.setEnabled(true);
@@ -196,16 +205,26 @@ public class HLErrorReport extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                bllreport.createErrorReport(errorAsBE(), appear);
+                if (!txtError.getText().isEmpty() && cboxKøretøj.getSelectedIndex() != -1){
+                bllreport.createErrorReport(errorAsBE(), (BEVehicle)cboxKøretøj.getSelectedItem());
                 JOptionPane.showMessageDialog(null, "Fejl rapport sendt");
-                LoginView frame = new LoginView();
-                frame.setVisible(true);
-                dispose();
+                cboxKøretøj.setSelectedIndex(-1);
+                txtError.setText("");
+                txtCourse.setText("");
+                txtInDueTime.setText("");
+                txtOutofOrder.setText("");
+                txtUrgent.setText("");
+                txtWash.setText("");
+                }
+                else
+                {
+                    msgbox("Indtast venligst en fejl");
+                }
             }
         });
-        btnNoError.setText("Ingen fejl");
-        btnNoError.setEnabled(true);
-        btnNoError.addActionListener(new ActionListener() {
+        btnDone.setText("Færdig / Ingen fejl");
+        btnDone.setEnabled(true);
+        btnDone.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -215,6 +234,9 @@ public class HLErrorReport extends javax.swing.JFrame {
                 dispose();
             }
         });
+    }
+    private void msgbox(String message){
+        JOptionPane.showMessageDialog(this, message);
     }
 
     private BEError errorAsBE() {

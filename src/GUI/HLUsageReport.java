@@ -82,7 +82,7 @@ public class HLUsageReport extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 usage();
                 JOptionPane.showMessageDialog(null, "Du har nu registreret forbruget - tak!");
-                HLErrorReport frame = new HLErrorReport(appear);
+                HLErrorReport frame = new HLErrorReport();
                 frame.setVisible(true);
                 dispose();
             }
@@ -91,7 +91,7 @@ public class HLUsageReport extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                HLErrorReport frame = new HLErrorReport(appear);
+                HLErrorReport frame = new HLErrorReport();
                 frame.setVisible(true);
                 dispose();
             }
@@ -127,7 +127,7 @@ public class HLUsageReport extends javax.swing.JFrame {
         for (ForbrugPanel test : forbrug) {
             for (BEMateriel mat : allMats) {
                 if (mat.getName().equalsIgnoreCase(test.name) && test.getAmount() != 0) {
-                    bu = new BEUsage(appear.getAlarm().getEvaNo(), mat, test.getAmount());
+                    bu = new BEUsage(appear.getAlarm(), mat, test.getAmount());
                     createUsageReport(bu);
                 }
             }

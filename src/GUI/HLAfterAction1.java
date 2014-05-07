@@ -5,6 +5,7 @@ import BLL.BLLAlarm;
 import BLL.BLLTimelist;
 import BLL.BLLAppearance;
 import BLL.BLLVehicle;
+import com.sun.org.apache.bcel.internal.generic.InstructionConstants;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -24,12 +25,11 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     BLLAppearance bllAppearance;
     BLLAlarm bllAlarm;
     private FremmødeTableModel model;
-    boolean startUp = true;
+    private static HLAfterAction1 m_instance = null;
 
-    public HLAfterAction1() {
+    private HLAfterAction1() {
         initComponents();
         initOtherComponents();
-
         bllAlarm = BLLAlarm.getInstance();
         bllVehicle = BLLVehicle.getInstance();
         bllTime = BLLTimelist.getInstance();
@@ -43,6 +43,26 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         populateFremmødeTable();
         addCellRenderer();
 //        btnBekæft.setEnabled(oneTeamOrNot());
+        lblCount.setText("Fremmødt: " + model.getRowCount());
+
+    }
+
+    public static HLAfterAction1 getInstance() {
+        if (m_instance == null) {
+            m_instance = new HLAfterAction1();
+        } else {
+            m_instance.update();
+        }
+        return m_instance;
+    }
+
+    private void update() {
+        bllVehicle.update();
+        bllTime.update();
+        bllAppearance.update();
+        model.setAppearanceList(bllAppearance.getAllAppearances());
+        model.fireTableDataChanged();
+//                    btnBekæft.setEnabled(oneTeamOrNot());
         lblCount.setText("Fremmødt: " + model.getRowCount());
 
     }
@@ -71,9 +91,12 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         btnBekæft.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (cboxType.getSelectedIndex() != -1 && txtTid.getText().length() != 4 && jDateChooser.getDate() != null && model.getRowCount() != 0) {
+                if (cboxType.getSelectedIndex() != -1 && txtTid.getText().length() != 4 && jDateChooser.getDate() != null && model.getRowCount() != 0 && !txtFremmøde.getText().isEmpty()) {
                     confirmTeam();
                     msgbox("Holdet er nu bekræftet!");
+                    txtFremmøde.setText("");
+                    txtTid.setText("");
+                    jDateChooser.setDate(null);
                     HLUsageReport frame = new HLUsageReport(BLLAppearance.getInstance().newAppearances.get(0));
                     frame.setVisible(true);
                     dispose();
@@ -88,9 +111,9 @@ public class HLAfterAction1 extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 if (isInformationFilled()) {
+                    update();
                     model.setAppearanceList(bllAppearance.getAppearancesWithCriteria(jDateChooser.getDate(), txtTid.getText(), Integer.parseInt(txtTolerance.getText())));
                     model.fireTableDataChanged();
-//                    btnBekæft.setEnabled(oneTeamOrNot());
                     lblCount.setText("Fremmødt: " + model.getRowCount());
                 }
             }
@@ -134,7 +157,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         } catch (Exception ex) {
             msgbox(ex.getMessage());
         }
-       
+
     }
 
     private void fillCboxType() {
@@ -168,41 +191,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         }
     }
 
-//    private boolean oneTeamOrNot() {
-//        int vehNo = 0;
-//        if (startUp == true) {
-//            for (BEAppearance appearance : bllAppearance.getAllAppearances()) {
-//                if (appearance.getVehicle() == null) {
-//                    startUp = false;
-//                    return false;
-//                }
-//                if (vehNo == 0) {
-//                    vehNo = appearance.getVehicle().getOdinnummer();
-//                }
-//                if (appearance.getVehicle().getOdinnummer() != vehNo) {
-//                    startUp = false;
-//                    return false;
-//                }
-//                vehNo = appearance.getVehicle().getOdinnummer();
-//            }
-//            startUp = false;
-//            return true;
-//        } else {
-//            for (BEAppearance appearance : bllAppearance.getAppearancesWithCriteria(jDateChooser.getDate(), txtTid.getText(), (BEVehicle) cboxKøretøj.getSelectedItem(), Integer.parseInt(txtTolerance.getText()))) {
-//                  if (appearance.getVehicle() == null) {
-//                    
-//                    return false;
-//                }
-//                if (vehNo == 0) {
-//                    vehNo = appearance.getVehicle().getOdinnummer();
-//                }
-//                if (appearance.getVehicle().getOdinnummer() != vehNo) {
-//                    return false;
-//                }
-//                vehNo = appearance.getVehicle().getOdinnummer();
-//            }
-//            return true;
-//        }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

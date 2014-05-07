@@ -64,7 +64,7 @@ public class DALAppearance {
     }
 
     public void populateAppearances() throws SQLException {
-
+        allAppearances = new ArrayList<>();
         String sql = "SELECT * FROM Fremmøde WHERE hlGodkendt = 'false'";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);

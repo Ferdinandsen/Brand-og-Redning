@@ -35,8 +35,7 @@ public class DALUsage {
      String sql = "INSERT INTO Forbrug VALUES (?,?,?)";
      
      PreparedStatement ps = getM_connection().prepareStatement(sql);
-     
-     ps.setInt(1,u.getEvano());
+     ps.setInt(1,u.getAlarm().getId());
      ps.setInt(2,u.getMateriel().getId());
      ps.setInt(3,u.getAmount());
      ps.execute();
