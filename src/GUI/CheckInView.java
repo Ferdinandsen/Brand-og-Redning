@@ -38,7 +38,7 @@ public class CheckInView extends javax.swing.JFrame {
     Timer timer;
 
     public CheckInView() {
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         bllTimelist = BLLTimelist.getInstance();
         bllFireman = BLLFireman.getInstance();
         this.setUndecorated(true);
@@ -53,14 +53,7 @@ public class CheckInView extends javax.swing.JFrame {
         timer = new Timer();
         timer.schedule(new UpdateGUI(allFireManButtons), 0, timesPrSec);
 
-        this.addWindowListener(new WindowAdapter() {
-
-            public void windowClosing(WindowEvent ev) {
-              
-                    System.exit(0);
-            }
-
-        });
+        
 
     }
 
