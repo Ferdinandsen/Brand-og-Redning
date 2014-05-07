@@ -32,7 +32,7 @@ public class DALVehicle {
 
     public void populateVehicle() throws SQLException {
        vehicles = new ArrayList<>();
-        String sql = "SELECT * FROM KØTJ";
+        String sql = "SELECT * FROM KØTJ ORDER by odinNo";
 
         PreparedStatement ps = getM_connection().prepareStatement(sql);
         ps.execute();
