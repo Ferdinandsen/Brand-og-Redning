@@ -71,7 +71,7 @@ public class BLLAppearance {
         return newAppearances;
     }
 
-    public void confirmTeam(int type, String fremmøde) throws Exception {
+    public void confirmTeam(int type, String fremmøde, BEAlarm alarm) throws Exception {
         for (BEAppearance appearance : newAppearances) {
             try {
                 appearance.setType(type);
