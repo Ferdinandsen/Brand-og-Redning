@@ -71,12 +71,12 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         btnBekæft.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (cboxType.getSelectedIndex() != -1 && confirmTeam()) {
+                if (cboxType.getSelectedIndex() != -1 && confirmTeam() && txtTid.getText().length() != 5 && jDateChooser.getDate() != null && model.getRowCount() != 0) {
                     dispose();
                     HLUsageReport frame = new HLUsageReport(BLLAppearance.getInstance().newAppearances.get(0));
                     frame.setVisible(true);
                 } else {
-                    msgbox("Vælg venligst type og EVA nr.!");
+                    msgbox("Udfyld venligst al information!");
                 }
             }
         });
@@ -126,8 +126,9 @@ public class HLAfterAction1 extends javax.swing.JFrame {
 
     private boolean confirmTeam() {
         try {
-            bllAppearance.confirmTeam((int) cboxType.getSelectedItem(), txtFremmøde.getText());
-            bllAlarm.createAlarm();
+            BEAlarm alarm = bllAlarm.createAlarm(jDateChooser.getDate(), txtTid.getText(), txtFremmøde.getText());
+            bllAppearance.confirmTeam((int) cboxType.getSelectedItem(), alarm);
+           
         } catch (Exception ex) {
             return false;
         }

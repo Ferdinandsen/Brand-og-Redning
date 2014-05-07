@@ -8,14 +8,18 @@ import java.sql.Timestamp;
  */
 public class BEAlarm {
 
+    private int id;
     private int EvaNo;
     private Timestamp time;
     private String desc;
+    private boolean done;
 
-    public BEAlarm(int eva, Timestamp time, String desc) {
+    public BEAlarm(int id, int eva, Timestamp time, String desc, boolean done) {
+        this.id = id;
         EvaNo = eva;
         this.time = time;
         this.desc = desc;
+        this.done = done;
     }
 
     /**
@@ -63,5 +67,33 @@ public class BEAlarm {
     @Override
     public String toString() {
         return "" + getEvaNo();
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the done
+     */
+    public boolean isDone() {
+        return done;
+    }
+
+    /**
+     * @param done the done to set
+     */
+    public void setDone(boolean done) {
+        this.done = done;
     }
 }

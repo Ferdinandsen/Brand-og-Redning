@@ -2,6 +2,7 @@ package BLL;
 
 import BE.BEAlarm;
 import BE.BEAppearance;
+import DAL.DALALarm;
 import DAL.DALAppearance;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -16,12 +17,14 @@ public class BLLAppearance {
 
     public ArrayList<BEAppearance> newAppearances;
     DALAppearance dalAppearance;
+    DALALarm dalAlarm;
     private BLLAlarm bllAlarm;
     private static BLLAppearance m_instance = null;
 
     private BLLAppearance() {
         try {
             bllAlarm = BLLAlarm.getInstance();
+            dalAlarm = DALALarm.getInstance();
             dalAppearance = DALAppearance.getInstance();
             newAppearances = getAllAppearances();
         } catch (SQLException e) {
@@ -71,21 +74,16 @@ public class BLLAppearance {
         return newAppearances;
     }
 
-    public void confirmTeam(int type, String fremmøde, BEAlarm alarm) throws Exception {
+    public void confirmTeam(int type, BEAlarm alarm) throws Exception {
         for (BEAppearance appearance : newAppearances) {
             try {
                 appearance.setType(type);
-                if (appearance.getAlarm() == null) {
-                    appearance.setAlarm(alarm);
-                } else {
-                    if (appearance.getAlarm() != alarm) {
-                        throw new Exception("Dette hold er ikke muligt at bekræfte. Fejlen sker ved denne person: " + appearance.getTime().getFireman().getMedarbjeder());
-                    }
-                }
+                appearance.setAlarm(alarm);
                 dalAppearance.confirmTeam(appearance);
             } catch (SQLException ex) {
                 System.out.println("fejl i bllAppearance2 " + ex);
             }
         }
     }
+
 }

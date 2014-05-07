@@ -116,7 +116,7 @@ public class DALAppearance {
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setBoolean(1, true);
         ps.setInt(2, appearance.getType());
-        ps.setInt(3, appearance.getAlarm().getEvaNo());
+        ps.setInt(3, appearance.getAlarm().getId());
         ps.setInt(4, appearance.getId());
         appearance.setHlGodkendt(true);
         ps.execute();
