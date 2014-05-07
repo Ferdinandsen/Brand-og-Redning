@@ -7,7 +7,6 @@ import java.sql.Timestamp;
  * @author Team Kawabunga
  */
 public class BEAlarm {
-
     private int id;
     private int EvaNo;
     private Timestamp time;

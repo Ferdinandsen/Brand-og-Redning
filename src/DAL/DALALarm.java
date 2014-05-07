@@ -15,7 +15,6 @@ import java.util.Date;
  * @author Team Kawabunga
  */
 public class DALALarm {
-
     private Connection m_connection;
     private static DALALarm m_instance = null;
     ArrayList<BEAlarm> allAlarms;

@@ -5,7 +5,6 @@ package BE;
  * @author Team Kawabunga
  */
 public class BEMateriel {
-    
     private int id;
     private String name;
     private static int amount;

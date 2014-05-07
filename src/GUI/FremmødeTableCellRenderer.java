@@ -12,13 +12,11 @@ import javax.swing.table.DefaultTableCellRenderer;
  * @author Team Kawabunga
  */
 public class FremmødeTableCellRenderer extends DefaultTableCellRenderer {
-
     ImageIcon warning;
 
     public FremmødeTableCellRenderer() {
 //         warning = new ImageIcon(new ImageIcon(getClass().getResource("/Images/warning.jpg")).getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
     }
-
     @Override
     public Component getTableCellRendererComponent(JTable table,
             Object obj,
@@ -43,7 +41,6 @@ public class FremmødeTableCellRenderer extends DefaultTableCellRenderer {
 //            res.setIcon(warning);
 //            return res;
         }
-
         if (isSelected) {
             cell.setBackground(Color.DARK_GRAY);
             if (table.convertColumnIndexToModel(column) != 5) {

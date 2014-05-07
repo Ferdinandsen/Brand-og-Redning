@@ -9,7 +9,6 @@ import java.sql.Connection;
  * @author Team Kawabunga
  */
 public class DBConnection {
-
     private final Connection m_connection;
     private static DAL.DBConnection m_instance = null;
     

@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
  * @author Team Kawabunga
  */
 public class LoginView extends javax.swing.JFrame {
-
     BLLEmployee bllEmployee;
 
     public LoginView() {
@@ -60,8 +59,6 @@ public class LoginView extends javax.swing.JFrame {
         });
     }
 
-    ;
-
     private void tryLogin() {
         if (isInformationValid()) { //..
             if (bllEmployee.doesUserExist(txtName.getText(), txtPassword.getPassword())) {
@@ -73,10 +70,10 @@ public class LoginView extends javax.swing.JFrame {
                     dispose();
                 }
                 if (log.isAdmin()) {
-                    System.out.println("admin");
+//                    System.out.println("admin");
                 }
                 if (log.isKontor()) {
-                    System.out.println("kontor");
+//                    System.out.println("kontor");
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Forkert kodeord!!!");

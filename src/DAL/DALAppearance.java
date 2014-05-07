@@ -16,7 +16,6 @@ import java.util.ArrayList;
  * @author Team Kawabunga
  */
 public class DALAppearance {
-
     private Connection m_connection;
     private static DALAppearance m_instance = null;
     private ArrayList<BEAppearance> allAppearances = new ArrayList<>();

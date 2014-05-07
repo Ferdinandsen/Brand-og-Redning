@@ -5,7 +5,6 @@ package BE;
  * @author Team Kawabunga
  */
 public class BEFireman {
-
     private BEEmployee medarbjeder;
     private boolean holdleder;
     private boolean chaffør;

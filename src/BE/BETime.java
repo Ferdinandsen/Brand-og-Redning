@@ -7,7 +7,6 @@ import java.sql.Timestamp;
  * @author Team Kawabunga
  */
 public class BETime {
-
     private int id;
     private BEFireman fireman;
     private Timestamp checkIn;

@@ -11,7 +11,6 @@ import java.util.Date;
  * @author Team Kawabunga
  */
 public class BLLAlarm {
-
     private static BLLAlarm m_instance = null;
     DALALarm dalalarm;
 
@@ -42,6 +41,4 @@ public class BLLAlarm {
         }
         return null;
     }
-
-   
 }

@@ -197,6 +197,7 @@ BLLVehicle bllVehicle;
      }
      cboxKøretøj.setSelectedIndex(-1);
  }
+    
     private void initOtherComponents() {
         lblHeader.setText("Reparation/Køretøjsmangler");
         btnAcknowledge.setText("Bekræft");
@@ -225,7 +226,6 @@ BLLVehicle bllVehicle;
         btnDone.setText("Færdig / Ingen fejl");
         btnDone.setEnabled(true);
         btnDone.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 LoginView frame = new LoginView();
@@ -235,6 +235,7 @@ BLLVehicle bllVehicle;
             }
         });
     }
+    
     private void msgbox(String message){
         JOptionPane.showMessageDialog(this, message);
     }

@@ -5,7 +5,6 @@ package BE;
  * @author Team Kawabunga
  */
 public class BEZipCode {
-    
     private int zipCode;
     private String city;
 

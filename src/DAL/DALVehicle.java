@@ -13,7 +13,6 @@ import java.util.ArrayList;
  * @author Team Kawabunga
  */
 public class DALVehicle {
-
     private Connection m_connection;
     private static DALVehicle m_instance = null;
     private ArrayList<BEVehicle> vehicles = new ArrayList<>();

@@ -15,7 +15,6 @@ import java.util.ArrayList;
  * @author Team Kawabunga
  */
 public class DALTimelist {
-
     private Connection m_connection;
     private static DALTimelist m_instance = null;
     DALFireman dalFireman = DALFireman.getInstance();

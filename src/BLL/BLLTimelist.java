@@ -18,7 +18,6 @@ import java.util.TreeSet;
  * @author Team Kawabunga
  */
 public class BLLTimelist {
-
     DAL.DALTimelist daltime;
     DAL.DALAppearance dalappearance;
     private static BLLTimelist m_instance = null;

@@ -18,7 +18,6 @@ import javax.swing.table.TableColumn;
  * @author Team Kawabunga
  */
 public class HLAfterAction1 extends javax.swing.JFrame {
-
     BLLVehicle bllVehicle;
     BLLTimelist bllTime;
     BLLAppearance bllAppearance;
@@ -37,13 +36,12 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         this.setTitle("HL - Bekræft hold");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+       
         fillCboxType();
-
         populateFremmødeTable();
         addCellRenderer();
 //        btnBekæft.setEnabled(oneTeamOrNot());
         lblCount.setText("Fremmødt: " + model.getRowCount());
-
     }
 
     public static HLAfterAction1 getInstance() {
@@ -63,7 +61,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         model.fireTableDataChanged();
 //                    btnBekæft.setEnabled(oneTeamOrNot());
         lblCount.setText("Fremmødt: " + model.getRowCount());
-
     }
 
     private void msgbox(String message) {
