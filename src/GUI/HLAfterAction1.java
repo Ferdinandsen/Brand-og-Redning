@@ -35,7 +35,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         bllTime = BLLTimelist.getInstance();
         bllAppearance = BLLAppearance.getInstance();
 
-        this.setTitle("Hl After Action 1");
+        this.setTitle("HL - Bekræft hold");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         fillCboxType();
@@ -71,10 +71,12 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         btnBekæft.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (cboxType.getSelectedIndex() != -1 && confirmTeam() && txtTid.getText().length() != 5 && jDateChooser.getDate() != null && model.getRowCount() != 0) {
-                    dispose();
+                if (cboxType.getSelectedIndex() != -1 && txtTid.getText().length() != 4 && jDateChooser.getDate() != null && model.getRowCount() != 0) {
+                    confirmTeam();
+                    msgbox("Holdet er nu bekræftet!");
                     HLUsageReport frame = new HLUsageReport(BLLAppearance.getInstance().newAppearances.get(0));
                     frame.setVisible(true);
+                    dispose();
                 } else {
                     msgbox("Udfyld venligst al information!");
                 }
@@ -124,16 +126,15 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         });
     }
 
-    private boolean confirmTeam() {
+    private void confirmTeam() {
         try {
             BEAlarm alarm = bllAlarm.createAlarm(jDateChooser.getDate(), txtTid.getText(), txtFremmøde.getText());
             bllAppearance.confirmTeam((int) cboxType.getSelectedItem(), alarm);
-           
+
         } catch (Exception ex) {
-            return false;
+            msgbox(ex.getMessage());
         }
-        JOptionPane.showMessageDialog(this, "Holdet er nu bekræftet!");
-        return true;
+       
     }
 
     private void fillCboxType() {
