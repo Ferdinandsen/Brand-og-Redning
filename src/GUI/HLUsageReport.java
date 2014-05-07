@@ -104,16 +104,7 @@ public class HLUsageReport extends javax.swing.JFrame {
         JPanel p = new JPanel();
         for (BEMateriel mat : allMats) {
             ForbrugPanel panel = new ForbrugPanel(mat);
-            final JTextField tf = panel.getTF();
-            tf.addKeyListener(new KeyAdapter() {
-                public void keyTyped(KeyEvent e) {
-                    char vChar = e.getKeyChar();
-                    if (!(Character.isDigit(vChar)) || tf.getText().length() >= 6)
-                            {
-                        e.consume();
-                    }
-                }
-});
+            JTextField tf = panel.getTF();
             GroupLayout layout = new GroupLayout(panel);
             layout.setAutoCreateGaps(true);
             layout.setAutoCreateContainerGaps(true);
@@ -193,7 +184,15 @@ public class HLUsageReport extends javax.swing.JFrame {
 
             lbl.setPreferredSize(new Dimension(140, 20));
             tf.setPreferredSize(new Dimension(50, 20));
-            
+            tf.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyTyped(KeyEvent e) {
+                    char vChar = e.getKeyChar();
+                    if (!(Character.isDigit(vChar)) || tf.getText().length() >=6) {
+                        e.consume();
+                    }
+                }
+            });
         }
 
         public JTextField getTF() {

@@ -230,6 +230,7 @@ BLLVehicle bllVehicle;
             public void actionPerformed(ActionEvent e) {
                 LoginView frame = new LoginView();
                 frame.setVisible(true);
+                JOptionPane.showMessageDialog(null,"Tak for bekræftigelse");
                 dispose();
             }
         });
