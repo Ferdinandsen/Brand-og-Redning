@@ -105,16 +105,6 @@ public class HLUsageReport extends javax.swing.JFrame {
         for (BEMateriel mat : allMats) {
             ForbrugPanel panel = new ForbrugPanel(mat);
             JTextField tf = panel.getTF();
-            tf.addKeyListener(new KeyAdapter() {
-                public void keyTyped(KeyEvent e) {
-                    char vChar = e.getKeyChar();
-                    if (!(Character.isDigit(vChar)
-                            || (vChar == KeyEvent.VK_BACK_SPACE)
-                            || (vChar == KeyEvent.VK_DELETE))) {
-                        e.consume();
-                    }
-                }
-            });
             GroupLayout layout = new GroupLayout(panel);
             layout.setAutoCreateGaps(true);
             layout.setAutoCreateContainerGaps(true);
@@ -135,7 +125,7 @@ public class HLUsageReport extends javax.swing.JFrame {
         BEUsage bu;
         for (ForbrugPanel test : forbrug) {
             for (BEMateriel mat : allMats) {
-                if (mat.getName().equalsIgnoreCase(test.name) && test.getAmount() !=0) {
+                if (mat.getName().equalsIgnoreCase(test.name) && test.getAmount() != 0) {
                     bu = new BEUsage(appear.getAlarm().getEvaNo(), mat, test.getAmount());
                     createUsageReport(bu);
                 }
@@ -194,6 +184,15 @@ public class HLUsageReport extends javax.swing.JFrame {
 
             lbl.setPreferredSize(new Dimension(140, 20));
             tf.setPreferredSize(new Dimension(50, 20));
+            tf.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyTyped(KeyEvent e) {
+                    char vChar = e.getKeyChar();
+                    if (!(Character.isDigit(vChar)) || tf.getText().length() >=6) {
+                        e.consume();
+                    }
+                }
+            });
         }
 
         public JTextField getTF() {
