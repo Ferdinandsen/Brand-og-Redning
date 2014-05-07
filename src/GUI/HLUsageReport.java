@@ -49,6 +49,7 @@ public class HLUsageReport extends javax.swing.JFrame {
         main = getBorderLayout();
         this.add(main);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setResizable(false);
     }
 
     private JPanel getBorderLayout() {
