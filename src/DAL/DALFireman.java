@@ -14,7 +14,6 @@ import java.util.ArrayList;
  * @author Team Kawabunga
  */
 public class DALFireman {
-
     Connection m_connection;
     private static DALFireman m_instance = null;
     private ArrayList<BEFireman> firemen;

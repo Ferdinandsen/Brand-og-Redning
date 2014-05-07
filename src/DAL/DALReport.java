@@ -1,6 +1,5 @@
 package DAL;
 
-import BE.BEAppearance;
 import BE.BEError;
 import BE.BEVehicle;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
@@ -13,13 +12,11 @@ import java.sql.SQLException;
  * @author Team Kawabunga
  */
 public class DALReport {
-    
     private Connection m_connection;
     private static DALReport m_instance;
     
     private DALReport() throws SQLException, SQLServerException {
         m_connection = DBConnection.getInstance().getConnection();
-
         // populateDalReport();
     }
     

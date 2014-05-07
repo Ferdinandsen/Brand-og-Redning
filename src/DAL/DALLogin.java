@@ -13,7 +13,6 @@ import java.util.ArrayList;
  * @author Team Kawabunga
  */
 public class DALLogin {
-
     Connection m_connection;
     private static DALLogin m_instance = null;
     private DALEmployee dalEmployee;
@@ -23,7 +22,6 @@ public class DALLogin {
         m_connection = DBConnection.getInstance().getConnection();
         dalEmployee = DALEmployee.getInstance();
         populateLogins();
-        
     }
     public static DALLogin getInstance() throws SQLException {
         if (m_instance == null) {

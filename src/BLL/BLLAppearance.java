@@ -14,7 +14,6 @@ import java.util.Date;
  * @author Team Kawabunga
  */
 public class BLLAppearance {
-
     public ArrayList<BEAppearance> newAppearances;
     DALAppearance dalAppearance;
     DALALarm dalAlarm;
@@ -93,7 +92,4 @@ public class BLLAppearance {
             System.out.println("blabla" +ex);
         }
     }
-
-    
-
 }

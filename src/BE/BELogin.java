@@ -5,7 +5,6 @@ package BE;
  * @author Team Kawabunga
  */
 public class BELogin {
-
     private BEEmployee medarbejder;
     private String kode;
     private boolean admin;

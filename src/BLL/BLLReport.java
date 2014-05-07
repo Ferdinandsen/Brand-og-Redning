@@ -1,6 +1,5 @@
 package BLL;
 
-import BE.BEAppearance;
 import BE.BEError;
 import BE.BEVehicle;
 import DAL.DALReport;
@@ -11,7 +10,6 @@ import java.sql.SQLException;
  * @author Team Kawabunga
  */
 public class BLLReport {
-
     DAL.DALReport dalreport;
     private static BLLReport m_instance = null;
     

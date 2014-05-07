@@ -14,7 +14,6 @@ import java.util.ArrayList;
  * @author Team Kawabunga
  */
 public class DALEmployee {
-
     Connection m_connection;
     private static DALEmployee m_instance = null;
     private ArrayList<BEZipCode> allZipCodes = new ArrayList<>();
@@ -27,7 +26,6 @@ public class DALEmployee {
         populateZip();
         populateAddress();
         populateEmployee();
-
     }
 
     public static DALEmployee getInstance() throws SQLException {
@@ -133,7 +131,6 @@ public class DALEmployee {
         return allAddresses;
     }
 
-
     public boolean doesUserExist() throws SQLException {
         String sql = "SELECT * FROM Login";
 
@@ -148,8 +145,5 @@ public class DALEmployee {
             getAllZipCodes().add(zipCode);
         }
         return false;
-
     }
-
-    
 }

@@ -22,7 +22,6 @@ import javax.swing.JPanel;
  * @author Team Kawabunga
  */
 public class CheckInView extends javax.swing.JFrame {
-
     BLLFireman bllFireman;
     BLLTimelist bllTimelist;
     ArrayList<BEFireman> allFiremen = new ArrayList<>();
@@ -46,12 +45,8 @@ public class CheckInView extends javax.swing.JFrame {
         this.setTitle("Fireman check in screen");
         this.setLocationRelativeTo(null);
         this.add(main);
-
         timer = new Timer();
         timer.schedule(new UpdateGUI(allFireManButtons), 0, timesPrSec);
-
-        
-
     }
 
     private JPanel getBorderLayout() {
@@ -70,14 +65,13 @@ public class CheckInView extends javax.swing.JFrame {
         allFiremen = bllFireman.getAllfiremen();
         for (BEFireman fireman : allFiremen) {
             firemanButton b = new firemanButton(fireman);
-
             b.setIcon(new ImageIcon(((new ImageIcon("images/" + fireman.getMedarbjeder().getPortræt())).getImage()).getScaledInstance(80, 60, java.awt.Image.SCALE_SMOOTH)));
             b.setFocusable(false);
             b.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     firemanButton fb = (firemanButton) e.getSource();
-                    changebit(fb);
+                    fb.changebit();
                     if (fb.localFireman.isCheckedin()) { //hvis han skal til at logge ind
                         bllTimelist.createCheckInTimestamp(fb.localFireman);
                     } else { // hvis han skal til at logge ud
@@ -90,10 +84,6 @@ public class CheckInView extends javax.swing.JFrame {
                         timer.schedule(new UpdateGUI(allFireManButtons), 0, timesPrSec);
                     }
                     fb.setColor();
-                }
-
-                private void changebit(firemanButton fb) {
-                    fb.changebit();
                 }
             });
             allFireManButtons.add(b);
@@ -125,7 +115,6 @@ public class CheckInView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private class firemanButton extends JButton {
-
         String name;
         BEFireman localFireman;
 

@@ -5,7 +5,6 @@ package BE;
  * @author Team Kawabunga
  */
 public class BEUsage {
-
     private int id;
     private BEAlarm alarm;
     private BEMateriel materiel;
@@ -31,8 +30,6 @@ public class BEUsage {
     public void setId(int id) {
         this.id = id;
     }
-
-   
 
     /**
      * @return the materiel

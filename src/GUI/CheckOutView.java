@@ -18,7 +18,6 @@ import java.awt.event.WindowEvent;
  * @author Team Kawabunga
  */
 public class CheckOutView extends javax.swing.JDialog {
-
     BLLFireman bllFireman;
     BLLVehicle bllvehicle;
     BLLTimelist blltime;
@@ -146,7 +145,6 @@ public class CheckOutView extends javax.swing.JDialog {
             }
         });
         cboxVehicle.addItemListener(new ItemListener() {
-
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (rbtnStVagt.isSelected() && cboxVehicle.getSelectedIndex() != 0) {
@@ -156,7 +154,6 @@ public class CheckOutView extends javax.swing.JDialog {
             }
         });
         rbtnStVagt.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 cboxVehicle.setSelectedIndex(0);

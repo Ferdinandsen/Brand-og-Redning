@@ -5,7 +5,6 @@ import BLL.BLLAlarm;
 import BLL.BLLTimelist;
 import BLL.BLLAppearance;
 import BLL.BLLVehicle;
-import com.sun.org.apache.bcel.internal.generic.InstructionConstants;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -19,7 +18,6 @@ import javax.swing.table.TableColumn;
  * @author Team Kawabunga
  */
 public class HLAfterAction1 extends javax.swing.JFrame {
-
     BLLVehicle bllVehicle;
     BLLTimelist bllTime;
     BLLAppearance bllAppearance;
@@ -38,13 +36,12 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         this.setTitle("HL - Bekræft hold");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+       
         fillCboxType();
-
         populateFremmødeTable();
         addCellRenderer();
 //        btnBekæft.setEnabled(oneTeamOrNot());
         lblCount.setText("Fremmødt: " + model.getRowCount());
-
     }
 
     public static HLAfterAction1 getInstance() {
@@ -64,7 +61,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         model.fireTableDataChanged();
 //                    btnBekæft.setEnabled(oneTeamOrNot());
         lblCount.setText("Fremmødt: " + model.getRowCount());
-
     }
 
     private void msgbox(String message) {
@@ -75,6 +71,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         txtTolerance.setText("10");
         btnBekæft.setEnabled(true);
         txtTolerance.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyTyped(KeyEvent e) {
                 char vChar = e.getKeyChar();
                 if (!(Character.isDigit(vChar)) || txtTolerance.getText().length() >= 3) {
@@ -118,6 +115,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         });
 
         txtTid.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyTyped(KeyEvent e) {
                 if (txtTid.getText().length() == 2) {
                     txtTid.setText(txtTid.getText() + ":");
@@ -154,7 +152,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         } catch (Exception ex) {
             msgbox(ex.getMessage());
         }
-
     }
 
     private void fillCboxType() {

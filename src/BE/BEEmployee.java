@@ -144,5 +144,4 @@ public class BEEmployee {
     public String toString() {
         return fornavn + " " + efternavn; //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

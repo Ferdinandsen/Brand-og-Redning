@@ -14,14 +14,13 @@ import java.util.ArrayList;
  * @author Team Kawabunga
  */
 public class DALUsage {
-
     private Connection m_connection;
     private static DALUsage m_instance = null;
     private ArrayList<BEMateriel> materiel = new ArrayList<>();
 
     private DALUsage() throws SQLServerException, SQLException {
         m_connection = DBConnection.getInstance().getConnection();
-        getAllMats();
+        populateMats();
     }
 
     public static DALUsage getInstance() throws SQLException {
@@ -41,7 +40,7 @@ public class DALUsage {
      ps.execute();
     }
 
-    public void getAllMats() throws SQLException {
+    public void populateMats() throws SQLException {
         String sql = "SELECT * FROM Brandmateriel";
 
         PreparedStatement ps = getM_connection().prepareStatement(sql);

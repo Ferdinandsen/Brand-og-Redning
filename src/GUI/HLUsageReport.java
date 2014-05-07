@@ -25,7 +25,6 @@ import javax.swing.JTextField;
  * @author Shadowleet
  */
 public class HLUsageReport extends javax.swing.JFrame {
-
     BLLUsage bllusage;
     BEMateriel m;
     ArrayList<BEMateriel> allMats = new ArrayList<>();
@@ -77,7 +76,6 @@ public class HLUsageReport extends javax.swing.JFrame {
         p.add(b);
         p.add(c);
         b.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 usage();
@@ -166,7 +164,6 @@ public class HLUsageReport extends javax.swing.JFrame {
     }
 
     private class ForbrugPanel extends javax.swing.JPanel {
-
         String name;
         int amount = 0;
         JLabel lbl;
@@ -176,7 +173,7 @@ public class HLUsageReport extends javax.swing.JFrame {
          * Creates new form ForbrugPanel
          */
         public ForbrugPanel(BEMateriel m) {
-
+            
             lbl = new JLabel();
             tf = new JTextField();
 

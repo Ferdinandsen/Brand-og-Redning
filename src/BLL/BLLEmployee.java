@@ -11,7 +11,6 @@ import java.util.Arrays;
  * @author Team Kawabunga
  */
 public class BLLEmployee {
-
     DAL.DALEmployee dalEmployee;
     DAL.DALLogin dalLogin;
     private static BLLEmployee m_instance = null;
@@ -50,7 +49,6 @@ public class BLLEmployee {
         } else {
             isCorrect = Arrays.equals(password, correctPassword);
         }
-
         //Fjerner koden fra hukommelsen, så man ikke kan dumpe den
         Arrays.fill(correctPassword, '0');
 
