@@ -40,7 +40,6 @@ public class BLLEmployee {
         }
         return false;
     }
-    
 
     private boolean isPasswordCorrect(char[] password, BELogin login) {
         boolean isCorrect;
@@ -59,9 +58,10 @@ public class BLLEmployee {
     }
 
     public BELogin getLogin(String name) {
-        for (BELogin login : dalLogin.getAllLogins()){
-            if (name.trim().equalsIgnoreCase(login.getMedarbejder().getFornavn().trim()))
+        for (BELogin login : dalLogin.getAllLogins()) {
+            if (name.trim().equalsIgnoreCase(login.getMedarbejder().getFornavn().trim())) {
                 return login;
+            }
         }
         return null;
     }

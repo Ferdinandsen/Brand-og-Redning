@@ -69,10 +69,8 @@ public class LoginView extends javax.swing.JFrame {
                    dispose();
                 }
                 if (log.isAdmin()){
-                    System.out.println("admin");
                 }
                 if (log.isKontor()){
-                    System.out.println("kontor");
                 }
                 
                 

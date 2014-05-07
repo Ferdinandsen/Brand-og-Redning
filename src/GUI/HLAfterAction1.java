@@ -137,7 +137,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                     }
                 }
                 if (Character.isDigit(vChar) && txtTid.getText().length() == 3 && Integer.parseInt(String.valueOf(vChar)) > 5) {
-                    System.out.println("test");
                     e.consume();
                 }
                 if (vChar == KeyEvent.VK_BACK_SPACE) {
