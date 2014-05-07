@@ -1,9 +1,9 @@
 package BLL;
 
-import BE.BEAlarmKøtj;
 import DAL.DALTimelist;
 import BE.BEFireman;
 import BE.BETime;
+import BE.BEVehicle;
 import DAL.DALAppearance;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -62,7 +62,7 @@ public class BLLTimelist {
         }
     }
 
-    public void createEndShift(BEFireman fireman, BEAlarmKøtj veh, boolean hl, boolean ch, boolean st) {
+    public void createEndShift(BEFireman fireman, BEVehicle veh, boolean hl, boolean ch, boolean st) {
         BETime localTime = null;
         for (BETime theTime : daltime.getAllTimes()) {
             if (theTime.getFireman().getMedarbjeder().getMedarbejderNo() == fireman.getMedarbjeder().getMedarbejderNo() && theTime.getCheckOut() == null) {

@@ -1,8 +1,9 @@
 package DAL;
 
-import BE.BEAlarmKøtj;
+import BE.BEAlarm;
 import BE.BEAppearance;
 import BE.BETime;
+import BE.BEVehicle;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -41,8 +42,8 @@ public class DALAppearance {
         return m_instance;
     }
 
-    public void endShift(BETime tm, BEAlarmKøtj veh, boolean hl, boolean ch, boolean st, int total) throws SQLException {
-        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?)";
+    public void endShift(BETime tm, BEVehicle veh, boolean hl, boolean ch, boolean st, int total) throws SQLException {
+        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setInt(1, tm.getId());
@@ -53,10 +54,11 @@ public class DALAppearance {
         ps.setBoolean(6, st);
         ps.setBoolean(7, false);
         ps.setInt(8, 0);
+        ps.setString(9, null);
         if (veh == null) {
-            ps.setString(9, null);
+            ps.setString(10, null);
         } else {
-            ps.setInt(9, veh.getId());
+            ps.setInt(10, veh.getOdinnummer());
         }
         ps.execute();
     }
@@ -78,11 +80,12 @@ public class DALAppearance {
             boolean holdleder = result.getBoolean("holdleder");
             boolean chauffør = result.getBoolean("chauffør");
             boolean stationsvagt = result.getBoolean("stationsvagt");
-            int alarmKøtjRef = result.getInt("alarmkøtjRef");
-            BEAlarmKøtj localVehicle = null;
-            for (BEAlarmKøtj veh : dalAlarm.getAllAlarmKøtj()) {
-                if (veh.getId() == alarmKøtjRef) {
-                    localVehicle = veh;
+            int alarmRef = result.getInt("alarmRef");
+            int vehRef = result.getInt("køtjRef");
+            BEAlarm localAlarm = null;
+            for (BEAlarm alarm : dalAlarm.getAllAlarms()) {
+                if (alarm.getEvaNo() == alarmRef) {
+                    localAlarm = alarm;
                 }
             }
             BETime localTime = null;
@@ -91,7 +94,14 @@ public class DALAppearance {
                     localTime = time;
                 }
             }
-            BEAppearance appearance = new BEAppearance(id, localTime, totalTid, hlGodkendt, ilGodkendt, holdleder, chauffør, stationsvagt, type, localVehicle);
+            BEVehicle localVeh = null;
+            for (BEVehicle veh : dalVehicle.getVehicles()) {
+                if (veh.getOdinnummer() == vehRef) {
+                    localVeh = veh;
+                }
+            }
+
+            BEAppearance appearance = new BEAppearance(id, localTime, totalTid, hlGodkendt, ilGodkendt, holdleder, chauffør, stationsvagt, type, localAlarm, localVeh);
             allAppearances.add(appearance);
         }
     }
@@ -106,7 +116,7 @@ public class DALAppearance {
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setBoolean(1, true);
         ps.setInt(2, appearance.getType());
-        ps.setInt(3, appearance.getAlarmVehicle().getId());
+        ps.setInt(3, appearance.getAlarm().getEvaNo());
         ps.setInt(4, appearance.getId());
         appearance.setHlGodkendt(true);
         ps.execute();
