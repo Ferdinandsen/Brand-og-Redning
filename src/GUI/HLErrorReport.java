@@ -211,6 +211,7 @@ public class HLErrorReport extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 LoginView frame = new LoginView();
                 frame.setVisible(true);
+                JOptionPane.showMessageDialog(null,"Tak for bekræftigelse");
                 dispose();
             }
         });
