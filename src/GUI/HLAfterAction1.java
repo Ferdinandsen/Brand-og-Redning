@@ -41,7 +41,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         fillCboxType();
-        fillCboxEva();
 
         populateFremmødeTable();
         addCellRenderer();
@@ -55,6 +54,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     }
 
     private void initOtherComponents() {
+        txtTolerance.setText("10");
         btnBekæft.setEnabled(true);
         txtTolerance.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
@@ -73,7 +73,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         btnBekæft.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (cboxType.getSelectedIndex() != -1 && cboxEva.getSelectedIndex() != -1 && confirmTeam()) {
+                if (cboxType.getSelectedIndex() != -1 && confirmTeam()) {
                     dispose();
                     HLUsageReport frame = new HLUsageReport(BLLAppearance.getInstance().newAppearances.get(0));
                     frame.setVisible(true);
@@ -88,7 +88,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 if (isInformationFilled()) {
-                    model.setAppearanceList(bllAppearance.getAppearancesWithCriteria(jDateChooser.getDate(), txtTid.getText(), (BEAlarm) cboxEva.getSelectedItem(), Integer.parseInt(txtTolerance.getText())));
+                    model.setAppearanceList(bllAppearance.getAppearancesWithCriteria(jDateChooser.getDate(), txtTid.getText(), Integer.parseInt(txtTolerance.getText())));
                     model.fireTableDataChanged();
 //                    btnBekæft.setEnabled(oneTeamOrNot());
                     lblCount.setText("Fremmødt: " + model.getRowCount());
@@ -124,24 +124,12 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                 }
             }
         });
-
-        cboxEva.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                BEAlarm test = (BEAlarm) cboxEva.getSelectedItem();
-                if (cboxEva.getSelectedIndex() == -1) {
-                    lblEvaDesc.setText("Beskrivelse: ");
-                } else {
-                    lblEvaDesc.setText(test.getDesc());
-                }
-            }
-        });
     }
 
     private boolean confirmTeam() {
         try {
-            bllAppearance.confirmTeam((int) cboxType.getSelectedItem(), (BEAlarm) cboxEva.getSelectedItem());
+            bllAppearance.confirmTeam((int) cboxType.getSelectedItem(), txtFremmøde.getText());
+            bllAlarm.createAlarm();
         } catch (Exception ex) {
             return false;
         }
@@ -153,13 +141,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         cboxType.addItem(1);
         cboxType.addItem(2);
         cboxType.setSelectedIndex(-1);
-    }
-
-    private void fillCboxEva() {
-        for (BEAlarm alarm : bllAlarm.getAllAlarms()) {
-            cboxEva.addItem(alarm);
-        }
-        cboxEva.setSelectedIndex(-1);
     }
 
     private void populateFremmødeTable() {
@@ -232,8 +213,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         btnHent = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTider = new javax.swing.JTable();
-        lblEva = new javax.swing.JLabel();
-        cboxEva = new javax.swing.JComboBox();
+        lblFremmøde = new javax.swing.JLabel();
         txtTid = new javax.swing.JTextField();
         jDateChooser = new com.toedter.calendar.JDateChooser();
         lblCount = new javax.swing.JLabel();
@@ -242,7 +222,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         txtTolerance = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         lblmin = new javax.swing.JLabel();
-        lblEvaDesc = new javax.swing.JLabel();
+        txtFremmøde = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -275,7 +255,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblTider);
 
-        lblEva.setText("EvaNr");
+        lblFremmøde.setText("Fremmøde ved:");
 
         lblCount.setText("Fremmødt:");
 
@@ -284,8 +264,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         jLabel2.setText("Tolerance:");
 
         lblmin.setText("min.");
-
-        lblEvaDesc.setText("Beskrivelse:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -319,12 +297,10 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cboxType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(lblEva)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cboxEva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblEvaDesc)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblFremmøde)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFremmøde)
+                        .addGap(18, 18, 18)
                         .addComponent(btnBekæft, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(25, 25, 25))
         );
@@ -349,12 +325,11 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblFremmøde)
+                        .addComponent(txtFremmøde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cboxType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblEva)
-                            .addComponent(cboxEva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblEvaDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel1))
                     .addComponent(btnBekæft))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -364,7 +339,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBekæft;
     private javax.swing.JButton btnHent;
-    private javax.swing.JComboBox cboxEva;
     private javax.swing.JComboBox cboxType;
     private com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JLabel jLabel1;
@@ -372,11 +346,11 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCount;
     private javax.swing.JLabel lblDato;
-    private javax.swing.JLabel lblEva;
-    private javax.swing.JLabel lblEvaDesc;
+    private javax.swing.JLabel lblFremmøde;
     private javax.swing.JLabel lblTid;
     private javax.swing.JLabel lblmin;
     private javax.swing.JTable tblTider;
+    private javax.swing.JTextField txtFremmøde;
     private javax.swing.JTextField txtTid;
     private javax.swing.JTextField txtTolerance;
     // End of variables declaration//GEN-END:variables

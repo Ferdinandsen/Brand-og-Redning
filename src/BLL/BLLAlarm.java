@@ -43,4 +43,8 @@ public class BLLAlarm {
         }
         return test;
     }
+
+    public void createAlarm() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -52,7 +52,7 @@ public class BLLAppearance {
         return dalAppearance.getAppearances();
     }
 
-    public ArrayList<BEAppearance> getAppearancesWithCriteria(Date date, String time, BEAlarm selectedItem, int tolerance) {
+    public ArrayList<BEAppearance> getAppearancesWithCriteria(Date date, String time, int tolerance) {
         newAppearances = new ArrayList();
         for (BEAppearance appearance : getAllAppearances()) {
 
@@ -75,24 +75,15 @@ public class BLLAppearance {
         return newAppearances;
     }
 
-    public void confirmTeam(int type, BEAlarm alarm) throws Exception {
+    public void confirmTeam(int type, String fremmøde) throws Exception {
         for (BEAppearance appearance : newAppearances) {
             try {
                 appearance.setType(type);
-                if (appearance.getAlarmVehicle() == null){
-                    appearance.setAlarmVehicle(getAlarmKøretøjByAlarm(alarm));
-                }
-                else{
-                    if (appearance.getAlarmVehicle().getAlarm() != alarm){
-                        throw new Exception("Dette hold er ikke muligt at bekræfte. Fejlen sker ved denne person: " + appearance.getTime().getFireman().getMedarbjeder());
-                    }
-                }
                 appearance.getAlarmVehicle().setIsConfirmed(true);
                 dalAppearance.confirmTeam(appearance);
             } catch (SQLException ex) {
                 System.out.println("fejl i bllAppearance2 " + ex);
-//            } catch (Exception ex) {
-//                System.out.println(ex);
+            
             }
         }
     }

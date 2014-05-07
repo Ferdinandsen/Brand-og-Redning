@@ -53,12 +53,10 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cboxType" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="lblEva" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="cboxEva" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lblEvaDesc" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="lblFremmøde" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txtFremmøde" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnBekæft" min="-2" pref="178" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -89,13 +87,12 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="lblFremmøde" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtFremmøde" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="cboxType" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="3" groupAlignment="3" attributes="0">
-                          <Component id="lblEva" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cboxEva" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblEvaDesc" alignment="3" min="-2" pref="18" max="-2" attributes="0"/>
-                      </Group>
                   </Group>
                   <Component id="btnBekæft" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -196,16 +193,9 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="lblEva">
+    <Component class="javax.swing.JLabel" name="lblFremm&#xf8;de">
       <Properties>
-        <Property name="text" type="java.lang.String" value="EvaNr"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="cboxEva">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
-        </Property>
+        <Property name="text" type="java.lang.String" value="Fremm&#xf8;de ved:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtTid">
@@ -241,10 +231,7 @@
         <Property name="text" type="java.lang.String" value="min."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblEvaDesc">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Beskrivelse:"/>
-      </Properties>
+    <Component class="javax.swing.JTextField" name="txtFremm&#xf8;de">
     </Component>
   </SubComponents>
 </Form>

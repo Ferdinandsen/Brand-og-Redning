@@ -101,7 +101,7 @@ public class DALAppearance {
     }
 
     public void confirmTeam(BEAppearance appearance) throws SQLException {
-        String sql = "UPDATE Fremmøde SET hlGodkendt = ?, kørselType = ?, alarmKøtjRef = ? WHERE id = ?";
+        String sql = "UPDATE Fremmøde SET hlGodkendt = ?, kørselType = ?, alarmRef = ? WHERE id = ?";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setBoolean(1, true);
