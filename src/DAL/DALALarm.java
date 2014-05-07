@@ -1,7 +1,6 @@
 package DAL;
 
 import BE.BEAlarm;
-import BE.BEVehicle;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

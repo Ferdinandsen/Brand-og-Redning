@@ -2,7 +2,7 @@ package BE;
 
 /**
  *
- * @author Jacob
+ * @author Team Kawabunga
  */
 public class BEUsage {
 

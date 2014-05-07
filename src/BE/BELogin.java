@@ -1,9 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package BE;
 
+/**
+ *
+ * @author Team Kawabunga
+ */
 public class BELogin {
 
     private BEEmployee medarbejder;
