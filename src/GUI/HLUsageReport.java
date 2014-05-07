@@ -81,7 +81,7 @@ public class HLUsageReport extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 usage();
                 JOptionPane.showMessageDialog(null, "Du har nu registreret forbruget - tak!");
-                HLErrorReport frame = new HLErrorReport(appear);
+                HLErrorReport frame = new HLErrorReport();
                 frame.setVisible(true);
                 dispose();
             }
@@ -90,7 +90,7 @@ public class HLUsageReport extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                HLErrorReport frame = new HLErrorReport(appear);
+                HLErrorReport frame = new HLErrorReport();
                 frame.setVisible(true);
                 dispose();
             }
@@ -104,17 +104,16 @@ public class HLUsageReport extends javax.swing.JFrame {
         JPanel p = new JPanel();
         for (BEMateriel mat : allMats) {
             ForbrugPanel panel = new ForbrugPanel(mat);
-            JTextField tf = panel.getTF();
+            final JTextField tf = panel.getTF();
             tf.addKeyListener(new KeyAdapter() {
                 public void keyTyped(KeyEvent e) {
                     char vChar = e.getKeyChar();
-                    if (!(Character.isDigit(vChar)
-                            || (vChar == KeyEvent.VK_BACK_SPACE)
-                            || (vChar == KeyEvent.VK_DELETE))) {
+                    if (!(Character.isDigit(vChar)) || tf.getText().length() >= 6)
+                            {
                         e.consume();
                     }
                 }
-            });
+});
             GroupLayout layout = new GroupLayout(panel);
             layout.setAutoCreateGaps(true);
             layout.setAutoCreateContainerGaps(true);
@@ -135,8 +134,8 @@ public class HLUsageReport extends javax.swing.JFrame {
         BEUsage bu;
         for (ForbrugPanel test : forbrug) {
             for (BEMateriel mat : allMats) {
-                if (mat.getName().equalsIgnoreCase(test.name) && test.getAmount() !=0) {
-                    bu = new BEUsage(appear.getAlarm().getEvaNo(), mat, test.getAmount());
+                if (mat.getName().equalsIgnoreCase(test.name) && test.getAmount() != 0) {
+                    bu = new BEUsage(appear.getAlarm(), mat, test.getAmount());
                     createUsageReport(bu);
                 }
             }
@@ -194,6 +193,7 @@ public class HLUsageReport extends javax.swing.JFrame {
 
             lbl.setPreferredSize(new Dimension(140, 20));
             tf.setPreferredSize(new Dimension(50, 20));
+            
         }
 
         public JTextField getTF() {

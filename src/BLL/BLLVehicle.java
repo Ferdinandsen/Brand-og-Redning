@@ -32,4 +32,12 @@ public class BLLVehicle {
     public ArrayList<BEVehicle> GetVehicles() {
         return dalvehicle.getVehicles();
     }
+
+    public void update(){
+        try {
+            dalvehicle.populateVehicle();
+        } catch (SQLException ex) {
+            System.out.println("blabla" +ex);
+        }
+    }
 }

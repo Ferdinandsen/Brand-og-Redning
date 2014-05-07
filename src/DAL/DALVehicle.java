@@ -30,7 +30,8 @@ public class DALVehicle {
         return m_instance;
     }
 
-    private void populateVehicle() throws SQLException {
+    public void populateVehicle() throws SQLException {
+       vehicles = new ArrayList<>();
         String sql = "SELECT * FROM KØTJ";
 
         PreparedStatement ps = getM_connection().prepareStatement(sql);

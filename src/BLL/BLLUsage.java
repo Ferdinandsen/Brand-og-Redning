@@ -33,8 +33,9 @@ public class BLLUsage {
     public void createReport(BEUsage u) {
         try {
             dalusage.createUsageReport(u);
+
         } catch (SQLException ex) {
-            System.out.println("Fejl i BLLUsage " + ex);
+            System.out.println("Fejl i BLLUsage createReport " + ex);
         }
     }
 

@@ -43,7 +43,7 @@ public class LoginView extends javax.swing.JFrame {
             if (bllEmployee.doesUserExist(txtName.getText(), txtPassword.getPassword())) {
                 BELogin log = bllEmployee.getLogin(txtName.getText());
                 if (log.isHoldleder()){
-                   HLAfterAction1 hlView = new HLAfterAction1();
+                   HLAfterAction1 hlView = HLAfterAction1.getInstance();
                    hlView.setLocationRelativeTo(null);
                    hlView.setVisible(true);
                    dispose();

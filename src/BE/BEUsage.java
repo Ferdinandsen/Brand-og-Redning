@@ -7,13 +7,13 @@ package BE;
 public class BEUsage {
 
     private int id;
-    private int evano;
+    private BEAlarm alarm;
     private BEMateriel materiel;
     private int amount;
 
-    public BEUsage(int evano, BEMateriel materiel, int amount) {
+    public BEUsage(BEAlarm alarm, BEMateriel materiel, int amount) {
         
-        this.evano = evano;
+        this.alarm = alarm;
         this.materiel = materiel;
         this.amount = amount;
     }
@@ -32,19 +32,7 @@ public class BEUsage {
         this.id = id;
     }
 
-    /**
-     * @return the evano
-     */
-    public int getEvano() {
-        return evano;
-    }
-
-    /**
-     * @param evano the evano to set
-     */
-    public void setEvano(int evano) {
-        this.evano = evano;
-    }
+   
 
     /**
      * @return the materiel
@@ -72,5 +60,19 @@ public class BEUsage {
      */
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    /**
+     * @return the alarm
+     */
+    public BEAlarm getAlarm() {
+        return alarm;
+    }
+
+    /**
+     * @param alarm the alarm to set
+     */
+    public void setAlarm(BEAlarm alarm) {
+        this.alarm = alarm;
     }
 }
