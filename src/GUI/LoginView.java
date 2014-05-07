@@ -27,22 +27,24 @@ public class LoginView extends javax.swing.JFrame {
 
     private void initOtherComponents() {
         txtName.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyTyped(KeyEvent e) {
-                    char vChar = e.getKeyChar();
-                    if (vChar == KeyEvent.VK_ENTER) {
-                        tryLogin();
-                    }
+                char vChar = e.getKeyChar();
+                if (vChar == KeyEvent.VK_ENTER) {
+                    tryLogin();
                 }
-            });
-        
+            }
+        });
+
         txtPassword.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyTyped(KeyEvent e) {
-                    char vChar = e.getKeyChar();
-                    if (vChar == KeyEvent.VK_ENTER) {
-                        tryLogin();
-                    }
+                char vChar = e.getKeyChar();
+                if (vChar == KeyEvent.VK_ENTER) {
+                    tryLogin();
                 }
-            });
+            }
+        });
 
         btnCancel.addActionListener(new ActionListener() {
             @Override
@@ -56,28 +58,27 @@ public class LoginView extends javax.swing.JFrame {
                 tryLogin();
             }
         });
-    };
+    }
+
+    ;
 
     private void tryLogin() {
         if (isInformationValid()) { //..
             if (bllEmployee.doesUserExist(txtName.getText(), txtPassword.getPassword())) {
                 BELogin log = bllEmployee.getLogin(txtName.getText());
-                if (log.isHoldleder()){
-                   HLAfterAction1 hlView = HLAfterAction1.getInstance();
-                   hlView.setLocationRelativeTo(null);
-                   hlView.setVisible(true);
-                   dispose();
+                if (log.isHoldleder()) {
+                    HLAfterAction1 hlView = HLAfterAction1.getInstance();
+                    hlView.setLocationRelativeTo(null);
+                    hlView.setVisible(true);
+                    dispose();
                 }
-                if (log.isAdmin()){
+                if (log.isAdmin()) {
                     System.out.println("admin");
                 }
-                if (log.isKontor()){
+                if (log.isKontor()) {
                     System.out.println("kontor");
                 }
-                
-                
-            }
-            else {
+            } else {
                 JOptionPane.showMessageDialog(this, "Forkert kodeord!!!");
                 txtPassword.setText("");
             }
@@ -85,10 +86,7 @@ public class LoginView extends javax.swing.JFrame {
     }
 
     private boolean isInformationValid() {
-        if (txtName.getText().length() != 0 && txtPassword.getText().length() != 0) {
-            return true;
-        }
-        return false;
+        return txtName.getText().length() != 0 && txtPassword.getText().length() != 0;
     }
 
     @SuppressWarnings("unchecked")
