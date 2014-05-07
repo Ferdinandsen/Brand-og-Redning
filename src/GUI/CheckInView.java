@@ -10,6 +10,8 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -36,7 +38,7 @@ public class CheckInView extends javax.swing.JFrame {
     Timer timer;
 
     public CheckInView() {
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         bllTimelist = BLLTimelist.getInstance();
         bllFireman = BLLFireman.getInstance();
         this.setUndecorated(true);
@@ -50,6 +52,8 @@ public class CheckInView extends javax.swing.JFrame {
 
         timer = new Timer();
         timer.schedule(new UpdateGUI(allFireManButtons), 0, timesPrSec);
+
+        
 
     }
 
