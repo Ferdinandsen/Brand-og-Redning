@@ -60,7 +60,7 @@ public class BLLEmployee {
 
     public BELogin getLogin(String name) {
         for (BELogin login : dalLogin.getAllLogins()){
-            if (name.trim().equals(login.getMedarbejder().getFornavn().trim()))
+            if (name.trim().equalsIgnoreCase(login.getMedarbejder().getFornavn().trim()))
                 return login;
         }
         return null;

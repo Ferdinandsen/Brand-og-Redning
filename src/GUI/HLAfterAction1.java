@@ -77,9 +77,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         txtTolerance.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char vChar = e.getKeyChar();
-                if (!(Character.isDigit(vChar)
-                        || (vChar == KeyEvent.VK_BACK_SPACE)
-                        || (vChar == KeyEvent.VK_DELETE))) {
+                if (!(Character.isDigit(vChar)) || txtTolerance.getText().length() >= 3) {
                     e.consume();
                 }
                 if (vChar == KeyEvent.VK_BACK_SPACE) {
@@ -272,7 +270,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtTolerance, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTolerance, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblmin)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
