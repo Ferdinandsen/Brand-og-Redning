@@ -9,14 +9,12 @@ import java.sql.Timestamp;
 public class BETime {
     private int id;
     private BEFireman fireman;
-    private Timestamp checkIn;
     private Timestamp checkOut;
     private boolean hasCheckedOut;
     private boolean complete;
     
-   public BETime(BEFireman fireman, Timestamp checkIn, Timestamp checkOut,boolean hasCheckedOut,boolean complete){
+   public BETime(BEFireman fireman, Timestamp checkOut,boolean hasCheckedOut,boolean complete){
         this.fireman = fireman;
-        this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.hasCheckedOut = hasCheckedOut;
         this.complete = complete;  
@@ -25,7 +23,6 @@ public class BETime {
     public BETime(int id,BEFireman fireman, Timestamp checkIn, Timestamp checkOut,boolean hasCheckedOut,boolean complete){
         this.id = id;
         this.fireman = fireman;
-        this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.hasCheckedOut = hasCheckedOut;
         this.complete = complete;  
@@ -47,16 +44,11 @@ public class BETime {
     /**
      * @return the checkIn
      */
-    public Timestamp getCheckIn() {
-        return checkIn;
-    }
+
 
     /**
      * @param checkIn the checkIn to set
      */
-    public void setCheckIn(Timestamp checkIn) {
-        this.checkIn = checkIn;
-    }
 
     /**
      * @return the checkOut

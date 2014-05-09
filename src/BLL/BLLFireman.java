@@ -39,11 +39,11 @@ public class BLLFireman {
         return dalFireman.getAllFiremen();
     }
 
-    public void changeBit(BEFireman fireman) {
-        try {
-            dalFireman.changeBit(fireman);
-        } catch (SQLException ex) {
-            System.out.println("kunne ikke changeBit" + ex);
-        }
-    }
+//    public void changeBit(BEFireman fireman) {
+//        try {
+//            dalFireman.changeBit(fireman);
+//        } catch (SQLException ex) {
+//            System.out.println("kunne ikke changeBit" + ex);
+//        }
+//    }
 }

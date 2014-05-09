@@ -42,7 +42,7 @@ public class CheckOutView extends javax.swing.JDialog {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e){
-                localFireman.setIsCheckedin(true);
+               
             }
         });
         this.setResizable(false);

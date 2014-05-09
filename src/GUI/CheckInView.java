@@ -22,6 +22,7 @@ import javax.swing.JPanel;
  * @author Team Kawabunga
  */
 public class CheckInView extends javax.swing.JFrame {
+
     BLLFireman bllFireman;
     BLLTimelist bllTimelist;
     ArrayList<BEFireman> allFiremen = new ArrayList<>();
@@ -42,7 +43,7 @@ public class CheckInView extends javax.swing.JFrame {
         getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         pack();
         main = getBorderLayout();
-        this.setTitle("Fireman check in screen");
+        this.setTitle("Fireman Alarm");
         this.setLocationRelativeTo(null);
         this.add(main);
         timer = new Timer();
@@ -71,19 +72,14 @@ public class CheckInView extends javax.swing.JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     firemanButton fb = (firemanButton) e.getSource();
-                    fb.changebit();
-                    if (fb.localFireman.isCheckedin()) { //hvis han skal til at logge ind
-                        bllTimelist.createCheckInTimestamp(fb.localFireman);
-                    } else { // hvis han skal til at logge ud
-                        CheckOutView frame = new CheckOutView(fb.localFireman);
-                        frame.setModal(true);
-                        timer.cancel();
-                        frame.setVisible(true);
-                        timer.purge();
-                        timer = new Timer();
-                        timer.schedule(new UpdateGUI(allFireManButtons), 0, timesPrSec);
-                    }
-                    fb.setColor();
+
+                    CheckOutView frame = new CheckOutView(fb.localFireman);
+                    frame.setModal(true);
+                    timer.cancel();
+                    frame.setVisible(true);
+                    timer.purge();
+                    timer = new Timer();
+                    timer.schedule(new UpdateGUI(allFireManButtons), 0, timesPrSec);
                 }
             });
             allFireManButtons.add(b);
@@ -115,6 +111,7 @@ public class CheckInView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private class firemanButton extends JButton {
+
         String name;
         BEFireman localFireman;
 
@@ -126,20 +123,12 @@ public class CheckInView extends javax.swing.JFrame {
         }
 
         private Color getColor() {
-            if (localFireman.isCheckedin()) {
-                return Color.RED;
-            }
             return Color.GREEN;
         }
 
-        private void setColor() {
-            this.setBackground(getColor());
-            repaint();
-        }
-
         public void changebit() {
-            localFireman.setIsCheckedin(!localFireman.isCheckedin());
-            bllFireman.changeBit(localFireman);
+//        localFireman.setIsCheckedin(!localFireman.isCheckedin());
+//        bllFireman.changeBit(localFireman);
 //            setColor();
         }
 

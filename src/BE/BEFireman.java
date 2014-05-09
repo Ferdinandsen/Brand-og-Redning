@@ -8,15 +8,13 @@ public class BEFireman {
     private BEEmployee medarbjeder;
     private boolean holdleder;
     private boolean chaffør;
-    private boolean isCheckedIn;
     private String name;
 
-    public BEFireman(BEEmployee medarbejderRef, boolean holdleder, boolean chauffør, boolean isCheckIn) {
+    public BEFireman(BEEmployee medarbejderRef, boolean holdleder, boolean chauffør) {
 
         medarbjeder = medarbejderRef;
         this.holdleder = holdleder;
         this.chaffør = chauffør;
-        this.isCheckedIn = isCheckIn;
     }
 
     /**
@@ -64,16 +62,6 @@ public class BEFireman {
     /**
      * @return the isCheckedin
      */
-    public boolean isCheckedin() {
-        return isCheckedIn;
-    }
-
-    /**
-     * @param isCheckedin the isCheckedin to set
-     */
-    public void setIsCheckedin(boolean isCheckedin) {
-        this.isCheckedIn = isCheckedin;
-    }
 
     /**
      * @return the name
@@ -92,17 +80,11 @@ public class BEFireman {
     @Override
     public String toString() {
         if (getMedarbjeder().getMellemnavn().equals("")) {
-            if (isCheckedIn) {
-                return getMedarbjeder().getFornavn() + " " + getMedarbjeder().getEfternavn() + " (CHECKED IN)";
-            }
-            return getName();
+                return getMedarbjeder().getFornavn() + " " + getMedarbjeder().getEfternavn();
         }
         else
         {
-            if (isCheckedIn) {
                 return getMedarbjeder().getFornavn() + " " + getMedarbjeder().getMellemnavn() + " " + getMedarbjeder().getEfternavn() + " (CHECKED IN)";
-            }
-            return getName();
         }
     }
 }

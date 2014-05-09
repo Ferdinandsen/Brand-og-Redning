@@ -43,7 +43,6 @@ public class DALFireman {
             int medarbejderRef = result.getInt("medarbejderRef");
             boolean holdleder = result.getBoolean("holdleder");
             boolean chauffør = result.getBoolean("chauffør");
-            boolean isCheckIn = result.getBoolean("isCheckIn");
             BEEmployee localEmployee = null;
 
             for (BEEmployee employee : dalEmployee.getAllEmployees()) {
@@ -52,7 +51,7 @@ public class DALFireman {
                 }
             }
 
-            BEFireman fireman = new BEFireman(localEmployee, holdleder, chauffør, isCheckIn);
+            BEFireman fireman = new BEFireman(localEmployee, holdleder, chauffør);
             firemen.add(fireman);
         }
     }
@@ -61,12 +60,12 @@ public class DALFireman {
         return firemen;
     }
 
-    public void changeBit(BEFireman fireman) throws SQLException {
-        String sql = "UPDATE Deltidsbrandmand SET isCheckIn = ? WHERE medarbejderRef = ?";
-
-        PreparedStatement ps = m_connection.prepareStatement(sql);
-        ps.setBoolean(1, fireman.isCheckedin());
-        ps.setInt(2, fireman.getMedarbjeder().getMedarbejderNo());
-        ps.execute();
-    }
+//    public void changeBit(BEFireman fireman) throws SQLException {
+//        String sql = "UPDATE Deltidsbrandmand SET isCheckIn = ? WHERE medarbejderRef = ?";
+//
+//        PreparedStatement ps = m_connection.prepareStatement(sql);
+//        ps.setBoolean(1, fireman.isCheckedin());
+//        ps.setInt(2, fireman.getMedarbjeder().getMedarbejderNo());
+//        ps.execute();
+//    }
 }
