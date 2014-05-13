@@ -2,7 +2,6 @@ package GUI;
 
 import BE.BEFireman;
 import BLL.BLLFireman;
-import BLL.BLLTimelist;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -24,7 +23,6 @@ import javax.swing.JPanel;
 public class CheckInView extends javax.swing.JFrame {
 
     BLLFireman bllFireman;
-    BLLTimelist bllTimelist;
     ArrayList<BEFireman> allFiremen = new ArrayList<>();
     ArrayList<firemanButton> allFireManButtons = new ArrayList<>();
     JPanel main;
@@ -32,11 +30,10 @@ public class CheckInView extends javax.swing.JFrame {
     int width = 5;
     int height = allFiremen.size() / width;
     int timesPrSec = 1 * 1000;
-    Timer timer;
+//    Timer timer;
 
     public CheckInView() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        bllTimelist = BLLTimelist.getInstance();
         bllFireman = BLLFireman.getInstance();
         this.setUndecorated(true);
         setResizable(false);
@@ -46,8 +43,8 @@ public class CheckInView extends javax.swing.JFrame {
         this.setTitle("Fireman Alarm");
         this.setLocationRelativeTo(null);
         this.add(main);
-        timer = new Timer();
-        timer.schedule(new UpdateGUI(allFireManButtons), 0, timesPrSec);
+//        timer = new Timer();
+//        timer.schedule(new UpdateGUI(allFireManButtons), 0, timesPrSec);
     }
 
     private JPanel getBorderLayout() {
@@ -74,12 +71,14 @@ public class CheckInView extends javax.swing.JFrame {
                     firemanButton fb = (firemanButton) e.getSource();
 
                     CheckOutView frame = new CheckOutView(fb.localFireman);
+                  
                     frame.setModal(true);
-                    timer.cancel();
+                    
+//                    timer.cancel();
                     frame.setVisible(true);
-                    timer.purge();
-                    timer = new Timer();
-                    timer.schedule(new UpdateGUI(allFireManButtons), 0, timesPrSec);
+//                    timer.purge();
+//                    timer = new Timer();
+//                    timer.schedule(new UpdateGUI(allFireManButtons), 0, timesPrSec);
                 }
             });
             allFireManButtons.add(b);
@@ -138,26 +137,25 @@ public class CheckInView extends javax.swing.JFrame {
         }
     }
 
-    class UpdateGUI extends TimerTask {
-
-        ArrayList<firemanButton> localFiremen;
-
-        private UpdateGUI(ArrayList<firemanButton> firemen) {
-            localFiremen = firemen;
-        }
-
-        @Override
-        public void run() {
-            bllTimelist.update();
-            bllFireman.update();
-
-            for (firemanButton btn : localFiremen) {
-                for (BEFireman fm : bllFireman.getAllfiremen()) {
-                    if (fm.getMedarbjeder().getMedarbejderNo() == btn.localFireman.getMedarbjeder().getMedarbejderNo()) {
-                        btn.updateLocalFireman(fm);
-                    }
-                }
-            }
-        }
-    }
+//    class UpdateGUI extends TimerTask {
+//
+//        ArrayList<firemanButton> localFiremen;
+//
+//        private UpdateGUI(ArrayList<firemanButton> firemen) {
+//            localFiremen = firemen;
+//        }
+//
+//        @Override
+//        public void run() {
+//            bllFireman.update();
+//
+//            for (firemanButton btn : localFiremen) {
+//                for (BEFireman fm : bllFireman.getAllfiremen()) {
+//                    if (fm.getMedarbjeder().getMedarbejderNo() == btn.localFireman.getMedarbjeder().getMedarbejderNo()) {
+//                        btn.updateLocalFireman(fm);
+//                    }
+//                }
+//            }
+//        }
+//    }
 }

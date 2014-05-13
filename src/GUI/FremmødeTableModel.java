@@ -33,7 +33,6 @@ public class FremmødeTableModel extends AbstractTableModel {
         String.class,
         String.class,
         String.class,
-        String.class,
         Integer.class,
         String.class,
         String.class,
@@ -69,28 +68,25 @@ public class FremmødeTableModel extends AbstractTableModel {
                 }
                 return a.getVeh().getOdinnummer();
             case 1:
-                return a.getTime().getFireman().getMedarbjeder().getFornavn();
+                return a.getFireman().getMedarbjeder().getFornavn();
             case 2:
-                return a.getTime().getFireman().getMedarbjeder().getEfternavn();
+                return a.getFireman().getMedarbjeder().getEfternavn();
             case 3:
-                String[] checkInTime = a.getTime().getCheckIn().toString().split(" ");
-                return checkInTime[1];
-            case 4:
-                String[] checkOutTime = a.getTime().getCheckOut().toString().split(" ");
+                String[] checkOutTime = a.getCheckOut().toString().split(" ");
                 return checkOutTime[1];
-            case 5:
+            case 4:
                 return a.getTotalTid();
-            case 6:
+            case 5:
                 if (a.isHoldleder()) {
                     return "X";
                 }
                 return "";
-            case 7:
+            case 6:
                 if (a.isChauffør()) {
                     return "X";
                 }
                 return "";
-            case 8:
+            case 7:
                 if (a.isSTvagt()) {
                     return "X";
                 }

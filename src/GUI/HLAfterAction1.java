@@ -2,7 +2,6 @@ package GUI;
 
 import BE.BEAlarm;
 import BLL.BLLAlarm;
-import BLL.BLLTimelist;
 import BLL.BLLAppearance;
 import BLL.BLLVehicle;
 import java.awt.event.ActionEvent;
@@ -19,7 +18,6 @@ import javax.swing.table.TableColumn;
  */
 public class HLAfterAction1 extends javax.swing.JFrame {
     BLLVehicle bllVehicle;
-    BLLTimelist bllTime;
     BLLAppearance bllAppearance;
     BLLAlarm bllAlarm;
     private FremmødeTableModel model;
@@ -30,7 +28,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         initOtherComponents();
         bllAlarm = BLLAlarm.getInstance();
         bllVehicle = BLLVehicle.getInstance();
-        bllTime = BLLTimelist.getInstance();
         bllAppearance = BLLAppearance.getInstance();
 
         this.setTitle("HL - Bekræft hold");
@@ -55,7 +52,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
 
     private void update() {
         bllVehicle.update();
-        bllTime.update();
         bllAppearance.update();
         model.setAppearanceList(bllAppearance.getAllAppearances());
         model.fireTableDataChanged();
@@ -146,8 +142,8 @@ public class HLAfterAction1 extends javax.swing.JFrame {
 
     private void confirmTeam() {
         try {
-            BEAlarm alarm = bllAlarm.createAlarm(jDateChooser.getDate(), txtTid.getText(), txtFremmøde.getText());
-            bllAppearance.confirmTeam((int) cboxType.getSelectedItem(), alarm);
+           // BEAlarm alarm = bllAlarm.createAlarm(jDateChooser.getDate(), txtTid.getText(), txtFremmøde.getText());
+          //  bllAppearance.confirmTeam((int) cboxType.getSelectedItem(), alarm);
 
         } catch (Exception ex) {
             msgbox(ex.getMessage());

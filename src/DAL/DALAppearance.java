@@ -2,13 +2,14 @@ package DAL;
 
 import BE.BEAlarm;
 import BE.BEAppearance;
-import BE.BETime;
+import BE.BEFireman;
 import BE.BEVehicle;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
@@ -20,7 +21,6 @@ public class DALAppearance {
     private static DALAppearance m_instance = null;
     private ArrayList<BEAppearance> allAppearances = new ArrayList<>();
     private DALVehicle dalVehicle;
-    private DALTimelist dalTime;
     private DALFireman dalFireman;
     DALALarm dalAlarm;
 
@@ -28,7 +28,6 @@ public class DALAppearance {
         m_connection = DBConnection.getInstance().getConnection();
         dalFireman = DALFireman.getInstance();
         dalVehicle = DALVehicle.getInstance();
-        dalTime = DALTimelist.getInstance();
         dalAlarm = DALALarm.getInstance();
 
         populateAppearances();
@@ -41,23 +40,24 @@ public class DALAppearance {
         return m_instance;
     }
 
-    public void endShift(BETime tm, BEVehicle veh, boolean hl, boolean ch, boolean st, int total) throws SQLException {
-        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?)";
+    public void endShift(BEAlarm alarm, BEFireman fireman, BEVehicle veh, boolean hl, boolean ch, boolean st, int total, Timestamp time) throws SQLException {
+        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
-        ps.setInt(1, tm.getId());
+        ps.setInt(1, fireman.getMedarbjeder().getMedarbejderNo());
         ps.setInt(2, total);
-        ps.setBoolean(3, false);
-        ps.setBoolean(4, hl);
-        ps.setBoolean(5, ch);
-        ps.setBoolean(6, st);
-        ps.setBoolean(7, false);
-        ps.setInt(8, 0);
+        ps.setTimestamp(3, time);
+        ps.setBoolean(4, false);
+        ps.setBoolean(5, hl);
+        ps.setBoolean(6, ch);
+        ps.setBoolean(7, st);
+        ps.setBoolean(8, false);
         ps.setString(9, null);
+        ps.setInt(10, alarm.getId());
         if (veh == null) {
-            ps.setString(10, null);
+            ps.setString(11, null);
         } else {
-            ps.setInt(10, veh.getOdinnummer());
+            ps.setInt(11, veh.getOdinnummer());
         }
         ps.execute();
     }
@@ -71,7 +71,8 @@ public class DALAppearance {
         ResultSet result = ps.getResultSet();
         while (result.next()) {
             int id = result.getInt("id");
-            int tidsregistreringRef = result.getInt("tidsregistreringRef");
+            int deltidsbrandmandRef = result.getInt("deltidsbrandmandRef");
+            Timestamp checkOut = result.getTimestamp("checkOutTime");
             int totalTid = result.getInt("totaltid");
             int type = result.getInt("kørselType");
             boolean hlGodkendt = result.getBoolean("hlGodkendt");
@@ -83,14 +84,14 @@ public class DALAppearance {
             int vehRef = result.getInt("køtjRef");
             BEAlarm localAlarm = null;
             for (BEAlarm alarm : dalAlarm.getAllAlarms()) {
-                if (alarm.getEvaNo() == alarmRef) {
+                if (alarm.getId()== alarmRef) {
                     localAlarm = alarm;
                 }
             }
-            BETime localTime = null;
-            for (BETime time : dalTime.getAllTimes()) {
-                if (time.getId() == tidsregistreringRef) {
-                    localTime = time;
+            BEFireman localFireman = null;
+            for (BEFireman fireman : dalFireman.getAllFiremen()) {
+                if (fireman.getMedarbjeder().getMedarbejderNo() == deltidsbrandmandRef) {
+                    localFireman = fireman;
                 }
             }
             BEVehicle localVeh = null;
@@ -100,7 +101,7 @@ public class DALAppearance {
                 }
             }
 
-            BEAppearance appearance = new BEAppearance(id, localTime, totalTid, hlGodkendt, ilGodkendt, holdleder, chauffør, stationsvagt, type, localAlarm, localVeh);
+            BEAppearance appearance = new BEAppearance(id, localFireman, checkOut, totalTid, hlGodkendt, ilGodkendt, holdleder, chauffør, stationsvagt, type, localAlarm, localVeh);
             allAppearances.add(appearance);
         }
     }

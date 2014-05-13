@@ -1,5 +1,7 @@
 package BE;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author Team Kawabunga
@@ -7,7 +9,8 @@ package BE;
 public class BEAppearance {
     private int id;
     private BEAlarm alarm;
-    private BETime time;
+    private BEFireman fireman;
+    private Timestamp checkOut;
     private int totalTid;
     private boolean hlGodkendt;
     private boolean ilGodkendt;
@@ -17,11 +20,12 @@ public class BEAppearance {
     private int type;
     private BEVehicle veh;
     
-    public BEAppearance(int id, BETime time, int totaltid, boolean hlGodkendt, boolean ilGodkendt, 
+    public BEAppearance(int id, BEFireman fireman, Timestamp checkOut, int totaltid, boolean hlGodkendt, boolean ilGodkendt, 
             boolean holdleder, boolean chauffør, boolean STvagt, int type, BEAlarm alarm, BEVehicle veh){
         this.id = id;
         this.alarm = alarm;
-        this.time = time;
+        this.fireman = fireman;
+        this.checkOut = checkOut;
         this.type = type;
         this.totalTid = totaltid;
         this.hlGodkendt = hlGodkendt;
@@ -49,8 +53,8 @@ public class BEAppearance {
     /**
      * @return the time
      */
-    public BETime getTime() {
-        return time;
+    public BEFireman getFireman() {
+        return fireman;
     }
 
     /**
@@ -105,8 +109,8 @@ public class BEAppearance {
     /**
      * @param time the time to set
      */
-    public void setTime(BETime time) {
-        this.time = time;
+    public void setFireman(BEFireman fireman) {
+        this.fireman = fireman;
     }
 
     /**
@@ -192,5 +196,19 @@ public class BEAppearance {
      */
     public void setVeh(BEVehicle veh) {
         this.veh = veh;
+    }
+
+    /**
+     * @return the checkOut
+     */
+    public Timestamp getCheckOut() {
+        return checkOut;
+    }
+
+    /**
+     * @param checkOut the checkOut to set
+     */
+    public void setCheckOut(Timestamp checkOut) {
+        this.checkOut = checkOut;
     }
 }

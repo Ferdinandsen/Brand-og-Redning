@@ -2,11 +2,14 @@ package BLL;
 
 import BE.BEAlarm;
 import BE.BEAppearance;
+import BE.BEFireman;
+import BE.BEVehicle;
 import DAL.DALALarm;
 import DAL.DALAppearance;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -14,6 +17,7 @@ import java.util.Date;
  * @author Team Kawabunga
  */
 public class BLLAppearance {
+
     public ArrayList<BEAppearance> newAppearances;
     DALAppearance dalAppearance;
     DALALarm dalAlarm;
@@ -64,13 +68,52 @@ public class BLLAppearance {
             int selectedMin = Integer.parseInt(selectedTime[1]);
             Timestamp test = new Timestamp(date.getYear(), date.getMonth(), date.getDate(), selectedHour, selectedMin, 0, 0);
             long testMili = test.getTime();
-            long checkMili = appearance.getTime().getCheckIn().getTime();
+            long checkMili = 1000000000000L;//appearance.getTime().getCheckIn().getTime();
             long minutes = (checkMili - testMili) / 1000 / 60;
             if (minutes >= 0 && minutes <= tolerance) { //dagene + tid (10min) passer!
                 newAppearances.add(appearance);
             }
         }
         return newAppearances;
+    }
+
+    private Timestamp time() {
+        Calendar calendar = Calendar.getInstance();
+        java.util.Date now = calendar.getTime();
+        Timestamp currentTime = new java.sql.Timestamp(now.getTime());
+        return currentTime;
+    }
+
+    public void createEndShift(BEAlarm alarm, BEFireman fireman, BEVehicle veh, boolean hl, boolean ch, boolean st) {
+        Timestamp time = time();
+        int total = calculateTotalTime(alarm, time);
+
+        try {
+            dalAppearance.endShift(alarm, fireman, veh, hl, ch, st, total, time);
+        } catch (SQLException e) {
+            System.out.println("kunne ikke oprette end shift " + e);
+        }
+    }
+
+    private int calculateTotalTime(BEAlarm alarm, Timestamp ts) {
+        Timestamp ci = alarm.getTime();
+        Timestamp co = ts;
+
+        long total = (co.getTime() - ci.getTime());
+        long second = total / 1000 % 60;
+        long minute = total / (1000 * 60) % 60;
+        long hour = total / (60 * 60 * 1000) % 24;
+        if (second > 0) {
+            minute++;
+        }
+        if (minute > 0) {
+            hour++;
+        }
+        if (hour < 2) {
+            hour = 2;
+        }
+        int d = Integer.parseInt("" + hour);
+        return d;
     }
 
     public void confirmTeam(int type, BEAlarm alarm) throws Exception {
@@ -85,11 +128,11 @@ public class BLLAppearance {
         }
     }
 
-    public void update(){
+    public void update() {
         try {
             dalAppearance.populateAppearances();
         } catch (SQLException ex) {
-            System.out.println("blabla" +ex);
+            System.out.println("blabla" + ex);
         }
     }
 }

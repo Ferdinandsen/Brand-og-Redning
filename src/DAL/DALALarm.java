@@ -42,12 +42,13 @@ public class DALALarm {
         ResultSet result = ps.getResultSet();
         while (result.next()) {
             int id = result.getInt("id");
-            int eva = result.getInt("evaNo");
-            Timestamp tid = result.getTimestamp("tid");
+            String title = result.getString("title");
             String desc = result.getString("beskrivelse");
+            String station = result.getString("station");
+            Timestamp tid = result.getTimestamp("tid");
             boolean done = result.getBoolean("done");
 
-            BEAlarm alarm = new BEAlarm(id, eva, tid, desc, done);
+            BEAlarm alarm = new BEAlarm(id, title, desc, station, tid, done);
             allAlarms.add(alarm);
         }
     }
@@ -56,30 +57,30 @@ public class DALALarm {
         return allAlarms;
     }
 
-    public BEAlarm createAlarm(Date date, String fremmøde, String time) throws SQLException {
-        String sql = "INSERT INTO Alarm VALUES (?,?,?,?)select @@identity";
-
-        PreparedStatement ps = m_connection.prepareStatement(sql);
-        String[] parts = time.split(":");
-        int selectedHour = Integer.parseInt(parts[0]);
-        int selectedMin = Integer.parseInt(parts[1]);
-        Timestamp ts = new Timestamp(date.getYear(), date.getMonth(), date.getDate(), selectedHour, selectedMin, 0, 0);
-
-        ps.setString(1, null);
-        ps.setTimestamp(2, ts);
-        ps.setBoolean(3, false);
-        ps.setString(4, fremmøde);
-        ps.execute();
-        
-        ResultSet rs = ps.getGeneratedKeys();
-        int id = 0;
-        if (rs.next()){
-            id = rs.getInt(1);
-        }
-        BEAlarm alarm = new BEAlarm(id, 0, ts, fremmøde, false);
-        allAlarms.add(alarm);
-        return alarm;
-
-    }
+//    public BEAlarm createAlarm(Date date, String fremmøde, String time) throws SQLException {
+//        String sql = "INSERT INTO Alarm VALUES (?,?,?,?)select @@identity";
+//
+//        PreparedStatement ps = m_connection.prepareStatement(sql);
+//        String[] parts = time.split(":");
+//        int selectedHour = Integer.parseInt(parts[0]);
+//        int selectedMin = Integer.parseInt(parts[1]);
+//        Timestamp ts = new Timestamp(date.getYear(), date.getMonth(), date.getDate(), selectedHour, selectedMin, 0, 0);
+//
+//        ps.setString(1, null);
+//        ps.setTimestamp(2, ts);
+//        ps.setBoolean(3, false);
+//        ps.setString(4, fremmøde);
+//        ps.execute();
+//        
+//        ResultSet rs = ps.getGeneratedKeys();
+//        int id = 0;
+//        if (rs.next()){
+//            id = rs.getInt(1);
+//        }
+//        BEAlarm alarm = new BEAlarm(id, 0, ts, fremmøde, false);
+//        allAlarms.add(alarm);
+//        return alarm;
+//
+//    }
 }
 

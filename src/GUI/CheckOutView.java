@@ -1,28 +1,32 @@
 package GUI;
 
+import BE.BEAlarm;
 import BE.BEFireman;
 import BE.BEVehicle;
 import BLL.BLLAlarm;
+import BLL.BLLAppearance;
 import BLL.BLLFireman;
-import BLL.BLLTimelist;
 import BLL.BLLVehicle;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
  * @author Team Kawabunga
  */
 public class CheckOutView extends javax.swing.JDialog {
+
     BLLFireman bllFireman;
     BLLVehicle bllvehicle;
-    BLLTimelist blltime;
     BEFireman localFireman;
     BLLAlarm bllAlarm;
+    BLLAppearance bllAppearance;
 
     /**
      * Creates new form CheckOutView
@@ -30,24 +34,27 @@ public class CheckOutView extends javax.swing.JDialog {
      * @param fireman
      */
     public CheckOutView(BEFireman fireman) {
-        blltime = BLLTimelist.getInstance();
+        this.setUndecorated(true);
         bllFireman = BLLFireman.getInstance();
         bllvehicle = BLLVehicle.getInstance();
         bllAlarm = BLLAlarm.getInstance();
+        bllAppearance = BLLAppearance.getInstance();
         localFireman = fireman;
         initComponents();
         initOtherComponents();
         this.setTitle("CHECK UD");
-        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        this.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e){
-               
-            }
-        });
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+
+//         
+        ComboBoxRenderer renderer = new ComboBoxRenderer();
+        cboxAlarm.setRenderer(renderer);
+        cboxVehicle.setRenderer(renderer);
+
         fillCboxVehicle();
+        fillCboxAlarm();
+
     }
 
     /**
@@ -60,72 +67,137 @@ public class CheckOutView extends javax.swing.JDialog {
     private void initComponents() {
 
         btnGrpCheckOut = new javax.swing.ButtonGroup();
+        pnlFrame = new javax.swing.JPanel();
+        btnClose = new javax.swing.JButton();
+        cboxAlarm = new javax.swing.JComboBox();
         cboxVehicle = new javax.swing.JComboBox();
         rbtnHoldleder = new javax.swing.JRadioButton();
         rbtnChauffør = new javax.swing.JRadioButton();
         rbtnStVagt = new javax.swing.JRadioButton();
         btnAcknowledge = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        pnlFrame.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        btnClose.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnClose.setText("X");
+
+        cboxAlarm.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ingen alarm valgt" }));
+        cboxAlarm.setMinimumSize(new java.awt.Dimension(113, 20));
+        cboxAlarm.setPreferredSize(new java.awt.Dimension(113, 20));
+
         cboxVehicle.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Intet køretøj valgt" }));
 
+        rbtnHoldleder.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         rbtnHoldleder.setText("Holdleder");
+        rbtnHoldleder.setMaximumSize(new java.awt.Dimension(200, 23));
 
+        rbtnChauffør.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         rbtnChauffør.setText("Chauffør");
 
+        rbtnStVagt.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         rbtnStVagt.setText("ST Vagt");
 
         btnAcknowledge.setText("Bekræft");
+
+        btnReset.setText("Nulstil");
+
+        javax.swing.GroupLayout pnlFrameLayout = new javax.swing.GroupLayout(pnlFrame);
+        pnlFrame.setLayout(pnlFrameLayout);
+        pnlFrameLayout.setHorizontalGroup(
+            pnlFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFrameLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFrameLayout.createSequentialGroup()
+                .addContainerGap(163, Short.MAX_VALUE)
+                .addGroup(pnlFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rbtnStVagt, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rbtnHoldleder, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rbtnChauffør, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(125, 125, 125))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFrameLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cboxVehicle, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cboxAlarm, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAcknowledge, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        pnlFrameLayout.setVerticalGroup(
+            pnlFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFrameLayout.createSequentialGroup()
+                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(cboxAlarm, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cboxVehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rbtnHoldleder, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(rbtnChauffør, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(rbtnStVagt, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAcknowledge, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(cboxVehicle, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(rbtnStVagt, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rbtnHoldleder, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rbtnChauffør, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAcknowledge, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(35, Short.MAX_VALUE))
+            .addComponent(pnlFrame, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(cboxVehicle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(rbtnHoldleder)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbtnChauffør)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbtnStVagt)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAcknowledge)
-                .addContainerGap(33, Short.MAX_VALUE))
+            .addComponent(pnlFrame, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcknowledge;
+    private javax.swing.JButton btnClose;
     private javax.swing.ButtonGroup btnGrpCheckOut;
+    private javax.swing.JButton btnReset;
+    private javax.swing.JComboBox cboxAlarm;
     private javax.swing.JComboBox cboxVehicle;
+    private javax.swing.JPanel pnlFrame;
     private javax.swing.JRadioButton rbtnChauffør;
     private javax.swing.JRadioButton rbtnHoldleder;
     private javax.swing.JRadioButton rbtnStVagt;
     // End of variables declaration//GEN-END:variables
 
     private void initOtherComponents() {
+        btnReset.setBackground(Color.LIGHT_GRAY);
+        btnAcknowledge.setBackground(Color.YELLOW);
+        btnClose.setBackground(Color.RED);
         btnAcknowledge.setText("Bekræft");
         btnAcknowledge.setEnabled(false);
 
         btnGrpCheckOut.add(rbtnStVagt);
         btnGrpCheckOut.add(rbtnChauffør);
         btnGrpCheckOut.add(rbtnHoldleder);
+        rbtnChauffør.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnAcknowledge.setEnabled(cboxVehicle.getSelectedIndex() != 0 && cboxAlarm.getSelectedIndex() != 0);
+            }
+        });
+        rbtnHoldleder.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnAcknowledge.setEnabled(cboxVehicle.getSelectedIndex() != 0 && cboxAlarm.getSelectedIndex() != 0);
+            }
+        });
 
         rbtnHoldleder.setEnabled(false);
         if (localFireman.isHoldleder()) {
@@ -137,10 +209,38 @@ public class CheckOutView extends javax.swing.JDialog {
         }
         rbtnStVagt.setEnabled(true);
 
+        btnAcknowledge.addChangeListener(new ChangeListener() {
+
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (btnAcknowledge.isEnabled()) {
+
+                } else {
+
+                }
+            }
+        });
+        btnReset.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnGrpCheckOut.clearSelection();
+                cboxAlarm.setSelectedIndex(0);
+                cboxVehicle.setSelectedIndex(0);
+                btnAcknowledge.setEnabled(false);
+            }
+        });
         btnAcknowledge.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 endShift();
+                dispose();
+            }
+        });
+        btnClose.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
@@ -150,14 +250,24 @@ public class CheckOutView extends javax.swing.JDialog {
                 if (rbtnStVagt.isSelected() && cboxVehicle.getSelectedIndex() != 0) {
                     btnGrpCheckOut.clearSelection();
                 }
-                btnAcknowledge.setEnabled(cboxVehicle.getSelectedIndex() != 0);
+                btnAcknowledge.setEnabled(cboxVehicle.getSelectedIndex() != 0 && cboxAlarm.getSelectedIndex() != 0);
+
+            }
+        });
+        cboxAlarm.addItemListener(new ItemListener() {
+
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+
+                btnAcknowledge.setEnabled((cboxAlarm.getSelectedIndex() != 0 && cboxVehicle.getSelectedIndex() != 0) || cboxAlarm.getSelectedIndex() != 0 && rbtnStVagt.isSelected());
+
             }
         });
         rbtnStVagt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cboxVehicle.setSelectedIndex(0);
-                btnAcknowledge.setEnabled(rbtnStVagt.isSelected());
+                btnAcknowledge.setEnabled(rbtnStVagt.isSelected() && cboxAlarm.getSelectedIndex() != 0);
             }
         });
     }
@@ -166,6 +276,18 @@ public class CheckOutView extends javax.swing.JDialog {
         for (BEVehicle car : bllvehicle.GetVehicles()) {
             cboxVehicle.addItem(car);
         }
+    }
+
+    private void fillCboxAlarm() {
+        for (BEAlarm alarm : bllAlarm.getAllAlarms()) {
+            cboxAlarm.addItem(alarm);
+        }
+
+    }
+
+    private BEAlarm getAlarm() {
+        return (BEAlarm) cboxAlarm.getSelectedItem();
+
     }
 
     private void endShift() {
@@ -185,6 +307,6 @@ public class CheckOutView extends javax.swing.JDialog {
         if (rbtnStVagt.isSelected()) {
             st = true;
         }
-        blltime.createEndShift(localFireman, veh, hl, ch, st);
+        bllAppearance.createEndShift(getAlarm(), localFireman, veh, hl, ch, st);
     }
 }

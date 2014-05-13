@@ -7,34 +7,26 @@ import java.sql.Timestamp;
  * @author Team Kawabunga
  */
 public class BEAlarm {
+
     private int id;
-    private int EvaNo;
-    private Timestamp time;
+    private String title;
     private String desc;
+    private String station;
+    private Timestamp time;
     private boolean done;
 
-    public BEAlarm(int id, int eva, Timestamp time, String desc, boolean done) {
+    public BEAlarm(int id, String title, String desc, String station, Timestamp time, boolean done) {
         this.id = id;
-        EvaNo = eva;
-        this.time = time;
+        this.title = title;
         this.desc = desc;
+        this.station = station;
+        this.time = time;
         this.done = done;
     }
 
     /**
      * @return the EvaNo
      */
-    public int getEvaNo() {
-        return EvaNo;
-    }
-
-    /**
-     * @param EvaNo the EvaNo to set
-     */
-    public void setEvaNo(int EvaNo) {
-        this.EvaNo = EvaNo;
-    }
-
     /**
      * @return the time
      */
@@ -65,7 +57,7 @@ public class BEAlarm {
 
     @Override
     public String toString() {
-        return "" + getEvaNo();
+        return getDesc();
     }
 
     /**
@@ -95,4 +87,33 @@ public class BEAlarm {
     public void setDone(boolean done) {
         this.done = done;
     }
+
+    /**
+     * @return the title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * @param title the title to set
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    /**
+     * @return the station
+     */
+    public String getStation() {
+        return station;
+    }
+
+    /**
+     * @param station the station to set
+     */
+    public void setStation(String station) {
+        this.station = station;
+    }
+
 }

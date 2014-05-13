@@ -33,12 +33,12 @@ public class BLLAlarm {
         return dalalarm.getAllAlarms();
     }
 
-    public BEAlarm createAlarm(Date date, String time, String fremmøde) {
-        try {
-            return dalalarm.createAlarm(date, fremmøde, time);
-        } catch (SQLException ex) {
-            System.out.println("fejl i bllAlarm " + ex);
-        }
-        return null;
-    }
+//    public BEAlarm createAlarm(Date date, String time, String fremmøde) {
+//        try {
+//            return dalalarm.createAlarm(date, fremmøde, time);
+//        } catch (SQLException ex) {
+//            System.out.println("fejl i bllAlarm " + ex);
+//        }
+//        return null;
+//    }
 }
