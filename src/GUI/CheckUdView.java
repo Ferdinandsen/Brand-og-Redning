@@ -172,12 +172,6 @@ public class CheckUdView extends javax.swing.JFrame {
             this.setBackground(getColor());
             repaint();
         }
-
-//        public void changebit() {
-//            localFireman.setIsCheckedin(!localFireman.isCheckedin());
-//            bllFireman.changeBit(localFireman);
-////            setColor();
-//        }
         public void updateLocalFireman(BEFireman lfm) {
             localFireman = lfm;
             this.setBackground(getColor());
