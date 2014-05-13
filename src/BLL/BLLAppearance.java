@@ -65,11 +65,13 @@ public class BLLAppearance {
 //            int checkInMin = Integer.parseInt(times2[1]);
             String selectedTime[] = time.split(":");
             int selectedHour = Integer.parseInt(selectedTime[0]);
+            
             int selectedMin = Integer.parseInt(selectedTime[1]);
             Timestamp ts = new Timestamp(date.getYear(), date.getMonth(), date.getDate(), selectedHour, selectedMin, 0, 0);
             long testMili = ts.getTime();
             long checkMili = appearance.getAlarm().getTime().getTime();//appearance.getTime().getCheckIn().getTime();
             long minutes = (checkMili - testMili) / 1000 / 60;
+            System.out.println(minutes);
             if (minutes >= 0 && minutes <= tolerance) { //dagene + tid (10min) passer!
                 newAppearances.add(appearance);
             }
