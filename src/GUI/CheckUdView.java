@@ -8,9 +8,13 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
@@ -59,8 +63,9 @@ public class CheckUdView extends javax.swing.JFrame {
         flayout.setHgap(30); // definer afstanden imellem grupperne
         JPanel p = new JPanel(flayout);
         p.setBorder(BorderFactory.createLineBorder(Color.red));
-        for (int i = 0; i < 4; i++) {
+        for (int i = 1; i <= 4; i++) {
             JPanel panel = new JPanel();
+            JLabel label = new JLabel("Hold:" + i);
             GridLayout glayout = new GridLayout(8, 1);
             glayout.setVgap(10);
             panel.setPreferredSize(new Dimension(width / 5, height));
@@ -68,9 +73,21 @@ public class CheckUdView extends javax.swing.JFrame {
             for (BEFireman fm : allFiremen) {
                 panel.setBackground(getColorTeam(i));
                 JButton b = new firemanButton(fm);
+                b.setIcon(new ImageIcon(((new ImageIcon("images/" + fm.getMedarbjeder().getPortræt())).getImage()).getScaledInstance(80, 60, java.awt.Image.SCALE_SMOOTH)));
+                b.setFocusable(false);
+                b.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        CheckUdView.firemanButton fb = (CheckUdView.firemanButton) e.getSource();
+                        CheckOutView frame = new CheckOutView(fb.localFireman);
+                        frame.setModal(true);
+                        frame.setVisible(true);
+                    }
+                });
                 if (fm.getTeam() == amount) {
                     panel.add(b);
                 }
+                panel.add(label);
             }
             panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             p.add(panel);
@@ -110,14 +127,15 @@ public class CheckUdView extends javax.swing.JFrame {
         Color myColor = Color.red;
         switch (i) {
             case 1:
-                myColor = Color.white;
+                myColor = Color.red;
                 break;
             case 2:
-                myColor = Color.blue;
+                myColor = Color.white;
                 break;
             case 3:
-                myColor = Color.yellow;
+                myColor = Color.blue;
                 break;
+            case 4: myColor = Color.yellow;
         }
         return myColor;
     }
