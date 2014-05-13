@@ -9,12 +9,14 @@ public class BEFireman {
     private boolean holdleder;
     private boolean chaffør;
     private String name;
+    private int team;
 
-    public BEFireman(BEEmployee medarbejderRef, boolean holdleder, boolean chauffør) {
+    public BEFireman(BEEmployee medarbejderRef, boolean holdleder, boolean chauffør,int team) {
 
         medarbjeder = medarbejderRef;
         this.holdleder = holdleder;
         this.chaffør = chauffør;
+        this.team = team;
     }
 
     /**
@@ -86,5 +88,19 @@ public class BEFireman {
         {
                 return getMedarbjeder().getFornavn() + " " + getMedarbjeder().getMellemnavn() + " " + getMedarbjeder().getEfternavn() + " (CHECKED IN)";
         }
+    }
+
+    /**
+     * @return the team
+     */
+    public int getTeam() {
+        return team;
+    }
+
+    /**
+     * @param team the team to set
+     */
+    public void setTeam(int team) {
+        this.team = team;
     }
 }
