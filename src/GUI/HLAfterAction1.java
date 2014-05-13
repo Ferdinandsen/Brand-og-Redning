@@ -17,6 +17,7 @@ import javax.swing.table.TableColumn;
  * @author Team Kawabunga
  */
 public class HLAfterAction1 extends javax.swing.JFrame {
+
     BLLVehicle bllVehicle;
     BLLAppearance bllAppearance;
     BLLAlarm bllAlarm;
@@ -33,8 +34,9 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         this.setTitle("HL - Bekræft hold");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-       
+
         fillCboxType();
+        fillCboxAlarm();
         populateFremmødeTable();
         addCellRenderer();
 //        btnBekæft.setEnabled(oneTeamOrNot());
@@ -82,11 +84,11 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         btnBekæft.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (cboxType.getSelectedIndex() != -1 && txtTid.getText().length() != 4 && jDateChooser.getDate() != null && model.getRowCount() != 0 && !txtFremmøde.getText().isEmpty()) {
+                if (cboxType.getSelectedIndex() != -1 && /*txtTid.getText().length() != 4 && */ jDateChooser.getDate() != null && model.getRowCount() != 0 && !txtFremmøde.getText().isEmpty()) {
                     confirmTeam();
                     msgbox("Holdet er nu bekræftet!");
                     txtFremmøde.setText("");
-                    txtTid.setText("");
+//                    txtTid.setText("");
                     jDateChooser.setDate(null);
                     HLUsageReport frame = new HLUsageReport(BLLAppearance.getInstance().newAppearances.get(0));
                     frame.setVisible(true);
@@ -103,47 +105,47 @@ public class HLAfterAction1 extends javax.swing.JFrame {
 
                 if (isInformationFilled()) {
                     update();
-                    model.setAppearanceList(bllAppearance.getAppearancesWithCriteria(jDateChooser.getDate(), txtTid.getText(), Integer.parseInt(txtTolerance.getText())));
+                    model.setAppearanceList(bllAppearance.getAppearancesWithCriteria(jDateChooser.getDate(), cboxAlarm.getSelectedItem().toString(), Integer.parseInt(txtTolerance.getText())));
                     model.fireTableDataChanged();
                     lblCount.setText("Fremmødt: " + model.getRowCount());
                 }
             }
         });
 
-        txtTid.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                if (txtTid.getText().length() == 2) {
-                    txtTid.setText(txtTid.getText() + ":");
-                }
-                char vChar = e.getKeyChar();
-                if (!(Character.isDigit(vChar) && txtTid.getText().length() != 5
-                        || (vChar == KeyEvent.VK_BACK_SPACE)
-                        || (vChar == KeyEvent.VK_DELETE))) {
-                    e.consume();
-                }
-                if (Character.isDigit(vChar) && txtTid.getText().length() == 0 && Integer.parseInt(String.valueOf(vChar)) > 2) {
-                    e.consume();
-                }
-                if (txtTid.getText().length() > 0 && txtTid.getText().charAt(0) == '2') {
-                    if (txtTid.getText().length() == 1 && Integer.parseInt(String.valueOf(vChar)) > 3) {
-                        e.consume();
-                    }
-                }
-                if (Character.isDigit(vChar) && txtTid.getText().length() == 3 && Integer.parseInt(String.valueOf(vChar)) > 5) {
-                    e.consume();
-                }
-                if (vChar == KeyEvent.VK_BACK_SPACE) {
-                    txtTid.setText("");
-                }
-            }
-        });
+//        txtTid.addKeyListener(new KeyAdapter() {
+//            @Override
+//            public void keyTyped(KeyEvent e) {
+//                if (txtTid.getText().length() == 2) {
+//                    txtTid.setText(txtTid.getText() + ":");
+//                }
+//                char vChar = e.getKeyChar();
+//                if (!(Character.isDigit(vChar) && txtTid.getText().length() != 5
+//                        || (vChar == KeyEvent.VK_BACK_SPACE)
+//                        || (vChar == KeyEvent.VK_DELETE))) {
+//                    e.consume();
+//                }
+//                if (Character.isDigit(vChar) && txtTid.getText().length() == 0 && Integer.parseInt(String.valueOf(vChar)) > 2) {
+//                    e.consume();
+//                }
+//                if (txtTid.getText().length() > 0 && txtTid.getText().charAt(0) == '2') {
+//                    if (txtTid.getText().length() == 1 && Integer.parseInt(String.valueOf(vChar)) > 3) {
+//                        e.consume();
+//                    }
+//                }
+//                if (Character.isDigit(vChar) && txtTid.getText().length() == 3 && Integer.parseInt(String.valueOf(vChar)) > 5) {
+//                    e.consume();
+//                }
+//                if (vChar == KeyEvent.VK_BACK_SPACE) {
+//                    txtTid.setText("");
+//                }
+//            }
+//        });
     }
 
     private void confirmTeam() {
         try {
-           // BEAlarm alarm = bllAlarm.createAlarm(jDateChooser.getDate(), txtTid.getText(), txtFremmøde.getText());
-          //  bllAppearance.confirmTeam((int) cboxType.getSelectedItem(), alarm);
+            // BEAlarm alarm = bllAlarm.createAlarm(jDateChooser.getDate(), txtTid.getText(), txtFremmøde.getText());
+            //  bllAppearance.confirmTeam((int) cboxType.getSelectedItem(), alarm);
 
         } catch (Exception ex) {
             msgbox(ex.getMessage());
@@ -163,7 +165,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     }
 
     private boolean isInformationFilled() {
-        if (jDateChooser.getDate() != null && txtTid.getText().trim().length() == 5) {
+        if (jDateChooser.getDate() != null /*&& txtTid.getText().trim().length() == 5*/) {
             return true;
         }
         JOptionPane.showMessageDialog(this, "Udfyld venligst al information");
@@ -181,18 +183,24 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         }
     }
 
+    private void fillCboxAlarm() {
+        for (BEAlarm alarm : bllAlarm.getAllAlarms()) {
+            cboxAlarm.addItem(alarm.getTimeString());
+        }
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         lblDato = new javax.swing.JLabel();
         btnBekæft = new javax.swing.JButton();
-        lblTid = new javax.swing.JLabel();
+        lblAlarm = new javax.swing.JLabel();
         btnHent = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTider = new javax.swing.JTable();
         lblFremmøde = new javax.swing.JLabel();
-        txtTid = new javax.swing.JTextField();
         jDateChooser = new com.toedter.calendar.JDateChooser();
         lblCount = new javax.swing.JLabel();
         cboxType = new javax.swing.JComboBox();
@@ -201,6 +209,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         lblmin = new javax.swing.JLabel();
         txtFremmøde = new javax.swing.JTextField();
+        cboxAlarm = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -208,7 +217,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
 
         btnBekæft.setText("Bekræft hold");
 
-        lblTid.setText("Tid:");
+        lblAlarm.setText("Alarm");
 
         btnHent.setText("Hent");
 
@@ -256,10 +265,10 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblTid)
+                        .addComponent(lblAlarm)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTid, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cboxAlarm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtTolerance, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -289,12 +298,12 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblDato)
-                        .addComponent(lblTid)
+                        .addComponent(lblAlarm)
                         .addComponent(btnHent)
-                        .addComponent(txtTid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtTolerance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2)
-                        .addComponent(lblmin))
+                        .addComponent(lblmin)
+                        .addComponent(cboxAlarm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -317,19 +326,20 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBekæft;
     private javax.swing.JButton btnHent;
+    private javax.swing.JComboBox cboxAlarm;
     private javax.swing.JComboBox cboxType;
     private com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblAlarm;
     private javax.swing.JLabel lblCount;
     private javax.swing.JLabel lblDato;
     private javax.swing.JLabel lblFremmøde;
-    private javax.swing.JLabel lblTid;
     private javax.swing.JLabel lblmin;
     private javax.swing.JTable tblTider;
     private javax.swing.JTextField txtFremmøde;
-    private javax.swing.JTextField txtTid;
     private javax.swing.JTextField txtTolerance;
     // End of variables declaration//GEN-END:variables
+
 }

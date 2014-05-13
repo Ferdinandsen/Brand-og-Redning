@@ -18,7 +18,7 @@ public class FremmødeTableModel extends AbstractTableModel {
         "Køretøj",
         "Fornavn",
         "Efternavn",
-        "Check ind",
+        "Alarm tid",
         "Check ud",
         "Timer",
         "Holdleder",
@@ -29,14 +29,15 @@ public class FremmødeTableModel extends AbstractTableModel {
      * the type definition for the columns
      */
     private Class[] classes = {
-        String.class,
-        String.class,
-        String.class,
-        String.class,
-        Integer.class,
-        String.class,
-        String.class,
-        String.class
+        String.class, //Køretøj
+        String.class,//Fornavn
+        String.class, //Efternavn
+        String.class, //alarm tidspunkt
+        Integer.class, // Check ud tidspunktet
+        String.class, //Antal timer
+        String.class, //Holdleder
+        String.class, //chauffør
+        String.class //ST vagt
     };
 
     /**
@@ -72,21 +73,25 @@ public class FremmødeTableModel extends AbstractTableModel {
             case 2:
                 return a.getFireman().getMedarbjeder().getEfternavn();
             case 3:
+                String[] alarmTime = a.getAlarm().getTime().toString().split(" ");
+                return alarmTime[1];
+            case 4:
                 String[] checkOutTime = a.getCheckOut().toString().split(" ");
                 return checkOutTime[1];
-            case 4:
-                return a.getTotalTid();
             case 5:
+               return a.getTotalTid();
+            case 6:
                 if (a.isHoldleder()) {
                     return "X";
                 }
                 return "";
-            case 6:
+            case 7:
                 if (a.isChauffør()) {
                     return "X";
                 }
                 return "";
-            case 7:
+
+            case 8:
                 if (a.isSTvagt()) {
                     return "X";
                 }

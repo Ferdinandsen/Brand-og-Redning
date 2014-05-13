@@ -8,7 +8,6 @@ import BLL.BLLAppearance;
 import BLL.BLLFireman;
 import BLL.BLLVehicle;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -176,7 +175,7 @@ public class CheckOutView extends javax.swing.JDialog {
 
     private void initOtherComponents() {
         btnReset.setBackground(Color.LIGHT_GRAY);
-        btnAcknowledge.setBackground(Color.YELLOW);
+        btnAcknowledge.setBackground(new Color(255,255,102));
         btnClose.setBackground(Color.RED);
         btnAcknowledge.setText("Bekræft");
         btnAcknowledge.setEnabled(false);
@@ -215,9 +214,9 @@ public class CheckOutView extends javax.swing.JDialog {
             @Override
             public void stateChanged(ChangeEvent e) {
                 if (btnAcknowledge.isEnabled()) {
-
+                    btnAcknowledge.setBackground(new Color(255,255,0));
                 } else {
-
+                    btnAcknowledge.setBackground(new Color(255,255,102));
                 }
             }
         });

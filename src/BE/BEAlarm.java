@@ -33,6 +33,12 @@ public class BEAlarm {
     public Timestamp getTime() {
         return time;
     }
+    public String getTimeString(){
+        String alarm[] = time.toString().split(" ");
+        String[] fixedAlarm1 = alarm[1].split(":");
+        String finalAlarm = fixedAlarm1[0] + ":" + fixedAlarm1[1];
+        return finalAlarm;
+    }
 
     /**
      * @param time the time to set
