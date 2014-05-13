@@ -191,6 +191,7 @@ public class CheckOutView extends javax.swing.JDialog {
                 btnAcknowledge.setEnabled(cboxVehicle.getSelectedIndex() != 0 && cboxAlarm.getSelectedIndex() != 0);
             }
         });
+        //dd
         rbtnHoldleder.addActionListener(new ActionListener() {
 
             @Override
