@@ -15,7 +15,7 @@ public class FremmødeTableCellRenderer extends DefaultTableCellRenderer {
     ImageIcon warning;
 
     public FremmødeTableCellRenderer() {
-//         warning = new ImageIcon(new ImageIcon(getClass().getResource("/Images/warning.jpg")).getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
+        
     }
     @Override
     public Component getTableCellRendererComponent(JTable table,
@@ -31,10 +31,10 @@ public class FremmødeTableCellRenderer extends DefaultTableCellRenderer {
         Font f = new Font(Font.SANS_SERIF, Font.BOLD, 13);
         Font total = new Font(Font.SANS_SERIF, Font.BOLD, 15);
 
-        if (table.convertColumnIndexToModel(column) == 5) // Name String
+        if (table.convertColumnIndexToModel(column) == 5)
         {
             cell.setFont(total);
-//            cell.setBackground(Color.YELLOW);
+
             cell.setForeground(Color.WHITE);
                
 //            JLabel res = new JLabel(obj.toString());
@@ -50,9 +50,7 @@ public class FremmødeTableCellRenderer extends DefaultTableCellRenderer {
         } else {
             cell.setForeground(Color.BLACK);
         }
-        if (table.convertColumnIndexToModel(column) == 2) // Salery Double
-        {
-        }
+       
         return cell;
     }
 }
