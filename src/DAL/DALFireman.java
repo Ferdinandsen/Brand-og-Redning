@@ -43,6 +43,7 @@ public class DALFireman {
             int medarbejderRef = result.getInt("medarbejderRef");
             boolean holdleder = result.getBoolean("holdleder");
             boolean chauffør = result.getBoolean("chauffør");
+            int team = result.getInt("team");
             BEEmployee localEmployee = null;
 
             for (BEEmployee employee : dalEmployee.getAllEmployees()) {
@@ -51,7 +52,7 @@ public class DALFireman {
                 }
             }
 
-            BEFireman fireman = new BEFireman(localEmployee, holdleder, chauffør);
+            BEFireman fireman = new BEFireman(localEmployee, holdleder, chauffør,team);
             firemen.add(fireman);
         }
     }
