@@ -42,7 +42,7 @@ public class FremmødeTableModel extends AbstractTableModel {
 
     /**
      *
-     * @param allCustomers
+     * @param allAppearances
      */
     public FremmødeTableModel(ArrayList<BEAppearance> allAppearances) {
         appearances = allAppearances;

@@ -60,7 +60,7 @@ public class LoginView extends javax.swing.JFrame {
     }
 
     private void tryLogin() {
-        if (isInformationValid()) { //..
+        if (isInformationValid()) { 
             if (bllEmployee.doesUserExist(txtName.getText(), txtPassword.getPassword())) {
                 BELogin log = bllEmployee.getLogin(txtName.getText());
                 if (log.isHoldleder()) {

@@ -93,10 +93,29 @@ public class BLLTimelist {
         Timestamp co = localTime.getCheckOut();
 
         long total = (co.getTime() - ci.getTime());
-
         long second = total / 1000 % 60;
         long minute = total / (1000 * 60) % 60;
         long hour = total / (60 * 60 * 1000) % 24;
+        if (second > 0) {
+            minute++;
+        }
+        if (minute > 0) {
+            hour++;
+        }
+        if (hour < 2) {
+            hour = 2;
+        }
+        int d = Integer.parseInt("" + hour);
+        return d;
+    }
+    public int totestCalculateTotalTime(Timestamp ci, Timestamp co){
+
+
+        long total = (co.getTime() - ci.getTime());
+        long second = total / 1000 % 60;
+        long minute = total / (1000 * 60) % 60;
+        long hour = total / (60 * 60 * 1000);
+
         if (second > 0) {
             minute++;
         }
