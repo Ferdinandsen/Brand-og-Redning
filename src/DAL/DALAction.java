@@ -77,7 +77,6 @@ public class DALAction {
                     localalarm = alarm;
                 }
             }
-
             BEAction action = new BEAction(localappear, tid, locallogin, desc, alarmType, gruppeNo, detek, localalarm, ilGodkendt);
             allActions.add(action);
         }
@@ -88,7 +87,7 @@ public class DALAction {
     }
 
     public void createAction(BELogin log, Timestamp time, BEAppearance appearance, int kørselstype, BEAlarm alarm, String comment) throws SQLException {
-        String sql = "INSERT INTO Action VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Action VALUES (?,?,?,?,?,?,?,?)";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setInt(1, appearance.getId());
@@ -100,6 +99,6 @@ public class DALAction {
         ps.setString(6, "detektorNo");//mangler at blive sat i HLAFTERACTION!!!
         ps.setInt(7, alarm.getId());
         ps.setBoolean(8, false); // IL GODKENDT
-               ps.execute();
+        ps.execute();
     }
 }

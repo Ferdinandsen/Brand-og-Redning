@@ -12,10 +12,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import sun.util.locale.BaseLocale;
 
 /**
  *
@@ -137,18 +133,21 @@ public class BLLAppearance {
                 appearance.setType(kørselstype);
                 appearance.setAlarm(alarm);
                 dalAppearance.confirmTeam(appearance);
-                createAction(log, time, appearance,kørselstype, alarm, comment);
+                createAction(log, time, appearance, kørselstype, alarm, comment);
             } catch (SQLException ex) {
                 System.out.println("fejl i confirmTeam" + ex);
             }
         }
     }
-private void createAction(BELogin log, Timestamp time, BEAppearance appearance , int kørselstype, BEAlarm alarm, String comment){
+
+    private void createAction(BELogin log, Timestamp time, BEAppearance appearance, int kørselstype, BEAlarm alarm, String comment) {
         try {
             dalAction.createAction(log, time, appearance, kørselstype, alarm, comment);
         } catch (SQLException ex) {
-            System.out.println("fej i createAction " + ex); }
-}
+            System.out.println("fej i createAction " + ex);
+        }
+    }
+
     public void update() {
         try {
             dalAppearance.populateAppearances();
@@ -157,11 +156,11 @@ private void createAction(BELogin log, Timestamp time, BEAppearance appearance ,
         }
     }
 
-    public void updateAppearanceTotal(BEAppearance appearance,int total) {
+    public void updateAppearanceTotal(BEAppearance appearance, int total) {
         try {
             dalAppearance.updateTime(appearance, total);
         } catch (SQLException ex) {
-                System.out.println("fejl i updateAppearanceTotal " + ex);
+            System.out.println("fejl i updateAppearanceTotal " + ex);
         }
     }
 }

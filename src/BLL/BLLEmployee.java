@@ -11,6 +11,7 @@ import java.util.Arrays;
  * @author Team Kawabunga
  */
 public class BLLEmployee {
+
     DAL.DALEmployee dalEmployee;
     DAL.DALLogin dalLogin;
     private static BLLEmployee m_instance = null;

@@ -14,6 +14,7 @@ import java.util.ArrayList;
  * @author Team Kawabunga
  */
 public class DALUsage {
+
     private Connection m_connection;
     private static DALUsage m_instance = null;
     private ArrayList<BEMateriel> materiel = new ArrayList<>();
@@ -31,13 +32,13 @@ public class DALUsage {
     }
 
     public void createUsageReport(BEUsage u) throws SQLException {
-     String sql = "INSERT INTO Forbrug VALUES (?,?,?)";
-     
-     PreparedStatement ps = getM_connection().prepareStatement(sql);
-     ps.setInt(1,u.getAlarm().getId());
-     ps.setInt(2,u.getMateriel().getId());
-     ps.setInt(3,u.getAmount());
-     ps.execute();
+        String sql = "INSERT INTO Forbrug VALUES (?,?,?)";
+
+        PreparedStatement ps = getM_connection().prepareStatement(sql);
+        ps.setInt(1, u.getAlarm().getId());
+        ps.setInt(2, u.getMateriel().getId());
+        ps.setInt(3, u.getAmount());
+        ps.execute();
     }
 
     public void populateMats() throws SQLException {
@@ -73,7 +74,7 @@ public class DALUsage {
     /**
      * @return the materiel
      */
-    public ArrayList<BEMateriel> getMateriel(){
+    public ArrayList<BEMateriel> getMateriel() {
         return materiel;
     }
 

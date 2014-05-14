@@ -14,12 +14,12 @@ import java.util.ArrayList;
  * @author Team Kawabunga
  */
 public class DALEmployee {
+
     Connection m_connection;
     private static DALEmployee m_instance = null;
     private ArrayList<BEZipCode> allZipCodes = new ArrayList<>();
     private ArrayList<BEAddress> allAddresses = new ArrayList<>();
     private ArrayList<BEEmployee> allEmployees = new ArrayList<>();
-
 
     private DALEmployee() throws SQLException {
         m_connection = DBConnection.getInstance().getConnection();
@@ -110,6 +110,22 @@ public class DALEmployee {
         }
     }
 
+    public boolean doesUserExist() throws SQLException {
+        String sql = "SELECT * FROM Login";
+
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.execute();
+        ResultSet result = ps.getResultSet();
+        while (result.next()) {
+            int postNummer = result.getInt("postnummer");
+            String bynavn = result.getString("bynavn");
+
+            BEZipCode zipCode = new BEZipCode(postNummer, bynavn);
+            getAllZipCodes().add(zipCode);
+        }
+        return false;
+    }
+
     /**
      * @return the allEmployess
      */
@@ -129,21 +145,5 @@ public class DALEmployee {
      */
     public ArrayList<BEAddress> getAllAddresses() {
         return allAddresses;
-    }
-
-    public boolean doesUserExist() throws SQLException {
-        String sql = "SELECT * FROM Login";
-
-        PreparedStatement ps = m_connection.prepareStatement(sql);
-        ps.execute();
-        ResultSet result = ps.getResultSet();
-        while (result.next()) {
-            int postNummer = result.getInt("postnummer");
-            String bynavn = result.getString("bynavn");
-
-            BEZipCode zipCode = new BEZipCode(postNummer, bynavn);
-            getAllZipCodes().add(zipCode);
-        }
-        return false;
     }
 }

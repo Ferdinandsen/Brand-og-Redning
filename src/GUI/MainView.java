@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package GUI;
 
 import BE.BELogin;
@@ -15,7 +10,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Jakob
+ * @author Team Kawabunga
  */
 public class MainView extends javax.swing.JFrame {
 
@@ -31,6 +26,10 @@ public class MainView extends javax.swing.JFrame {
         initComponents();
         initLogInComponents();
         initOtherComponets();
+        this.setTitle("Velkommen til Brand og Redning Esbjerg");
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     /**
@@ -205,7 +204,7 @@ public class MainView extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                HLAfterAction1 main = HLAfterAction1.getInstance(log);
+                HLAfterAction main = HLAfterAction.getInstance(log);
                 main.setVisible(true);
             }
         });
@@ -268,11 +267,10 @@ public class MainView extends javax.swing.JFrame {
     }
 
     private void tryLogin() {
-        
         if (btnLogIn.isEnabled()) {
             if (isInformationValid()) {
                 if (bllEmployee.doesUserExist(txtName.getText(), txtPassword.getPassword())) {
-                    BELogin log = bllEmployee.getLogin(txtName.getText());
+                    log = bllEmployee.getLogin(txtName.getText());
                     lblLogIn.setText("Logget ind som: " + log.getMedarbejder().toString());
                     btnLogIn.setEnabled(false);
                     btnLogOut.setEnabled(true);

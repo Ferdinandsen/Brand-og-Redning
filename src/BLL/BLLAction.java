@@ -28,7 +28,8 @@ public class BLLAction {
         }
         return m_instance;
     }
-    public ArrayList<BEAction> getAllActions(){
+
+    public ArrayList<BEAction> getAllActions() {
         return dalaction.getAllActions();
     }
 }

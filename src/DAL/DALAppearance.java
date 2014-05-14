@@ -103,7 +103,6 @@ public class DALAppearance {
                     localVeh = veh;
                 }
             }
-
             BEAppearance appearance = new BEAppearance(id, localFireman, checkIn, checkOut, totalTid, hlGodkendt, ilGodkendt, holdleder, chauffør, stationsvagt, type, localAlarm, localVeh);
             allAppearances.add(appearance);
         }
@@ -134,6 +133,5 @@ public class DALAppearance {
         ps.setInt(3, total);
         ps.setInt(4, appearance.getId());
         ps.execute();
-
     }
 }

@@ -5,13 +5,13 @@ package BE;
  * @author Team Kawabunga
  */
 public class BEMateriel {
+
     private int id;
     private String name;
     private static int amount;
-    
-    
-    public BEMateriel(int id, String name){
-        
+
+    public BEMateriel(int id, String name) {
+
         this.id = id;
         this.name = name;
         amount++;

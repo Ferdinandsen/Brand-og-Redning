@@ -1,7 +1,6 @@
 package GUI;
 
 import BE.BEAlarm;
-import BE.BEAppearance;
 import BE.BEMateriel;
 import BE.BEUsage;
 import BLL.BLLUsage;
@@ -26,6 +25,7 @@ import javax.swing.JTextField;
  * @author Shadowleet
  */
 public class HLUsageReport extends javax.swing.JFrame {
+
     BLLUsage bllusage;
     BEMateriel m;
     ArrayList<BEMateriel> allMats = new ArrayList<>();
@@ -37,6 +37,8 @@ public class HLUsageReport extends javax.swing.JFrame {
 
     /**
      * Creates new form HLErrorRapport
+     *
+     * @param a
      */
     public HLUsageReport(BEAlarm a) {
         alarm = a;
@@ -51,7 +53,7 @@ public class HLUsageReport extends javax.swing.JFrame {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
     }
-    
+
     private JPanel getBorderLayout() {
         JPanel p = new JPanel();
         p.setLayout(new BorderLayout());
@@ -84,12 +86,10 @@ public class HLUsageReport extends javax.swing.JFrame {
                 dispose();
             }
         });
-        c.addActionListener(new ActionListener() {
 
+        c.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                HLErrorReport frame = new HLErrorReport();
-                frame.setVisible(true);
                 dispose();
             }
         });
@@ -163,6 +163,7 @@ public class HLUsageReport extends javax.swing.JFrame {
     }
 
     private class ForbrugPanel extends javax.swing.JPanel {
+
         String name;
         int amount = 0;
         JLabel lbl;
@@ -175,17 +176,15 @@ public class HLUsageReport extends javax.swing.JFrame {
             
             lbl = new JLabel();
             tf = new JTextField();
-
             name = m.getName();
             lbl.setText(name);
-
             lbl.setPreferredSize(new Dimension(140, 20));
             tf.setPreferredSize(new Dimension(50, 20));
             tf.addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyTyped(KeyEvent e) {
                     char vChar = e.getKeyChar();
-                    if (!(Character.isDigit(vChar)) || tf.getText().length() >=6) {
+                    if (!(Character.isDigit(vChar)) || tf.getText().length() >= 6) {
                         e.consume();
                     }
                 }

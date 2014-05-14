@@ -5,13 +5,14 @@ package BE;
  * @author Team Kawabunga
  */
 public class BEFireman {
+
     private BEEmployee medarbjeder;
     private boolean holdleder;
     private boolean chaffør;
     private String name;
     private int team;
 
-    public BEFireman(BEEmployee medarbejderRef, boolean holdleder, boolean chauffør,int team) {
+    public BEFireman(BEEmployee medarbejderRef, boolean holdleder, boolean chauffør, int team) {
 
         medarbjeder = medarbejderRef;
         this.holdleder = holdleder;
@@ -64,7 +65,6 @@ public class BEFireman {
     /**
      * @return the isCheckedin
      */
-
     /**
      * @return the name
      */
@@ -82,11 +82,9 @@ public class BEFireman {
     @Override
     public String toString() {
         if (getMedarbjeder().getMellemnavn().equals("")) {
-                return getMedarbjeder().getFornavn() + " " + getMedarbjeder().getEfternavn();
-        }
-        else
-        {
-                return getMedarbjeder().getFornavn() + " " + getMedarbjeder().getMellemnavn() + " " + getMedarbjeder().getEfternavn() + " (CHECKED IN)";
+            return getMedarbjeder().getFornavn() + " " + getMedarbjeder().getEfternavn();
+        } else {
+            return getMedarbjeder().getFornavn() + " " + getMedarbjeder().getMellemnavn() + " " + getMedarbjeder().getEfternavn() + " (CHECKED IN)";
         }
     }
 

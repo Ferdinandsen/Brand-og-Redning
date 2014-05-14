@@ -68,7 +68,6 @@ public class CheckInView extends javax.swing.JFrame {
         for (int i = 1; i <= bllFireman.getHighestTeamNumber(); i++) {
             JPanel panel = new JPanel();
             JLabel label = new JLabel("Hold: " + i);
-
             Font f = new Font(Font.SANS_SERIF, Font.BOLD, 24);
             label.setFont(f);
             GridLayout glayout = new GridLayout(9, 1);
@@ -86,7 +85,6 @@ public class CheckInView extends javax.swing.JFrame {
                     public void actionPerformed(ActionEvent e) {
                         CheckInView.firemanButton fb = (CheckInView.firemanButton) e.getSource();
                         CheckOutView frame = new CheckOutView(fb.localFireman);
-                        frame.setModal(true);
                         frame.setVisible(true);
                     }
                 });
@@ -176,15 +174,9 @@ public class CheckInView extends javax.swing.JFrame {
             return myColor;
         }
 
-        private void setColor() {
-            this.setBackground(getColor());
-            repaint();
-        }
-
         public void updateLocalFireman(BEFireman lfm) {
             localFireman = lfm;
             this.setBackground(getColor());
         }
-
     }
 }

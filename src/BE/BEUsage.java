@@ -5,13 +5,14 @@ package BE;
  * @author Team Kawabunga
  */
 public class BEUsage {
+
     private int id;
     private BEAlarm alarm;
     private BEMateriel materiel;
     private int amount;
 
     public BEUsage(BEAlarm alarm, BEMateriel materiel, int amount) {
-        
+
         this.alarm = alarm;
         this.materiel = materiel;
         this.amount = amount;

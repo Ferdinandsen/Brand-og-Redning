@@ -18,16 +18,16 @@ import javax.swing.table.TableColumn;
  *
  * @author Team Kawabunga
  */
-public class HLAfterAction1 extends javax.swing.JFrame {
+public class HLAfterAction extends javax.swing.JFrame {
 
     BLLVehicle bllVehicle;
     BLLAppearance bllAppearance;
     BLLAlarm bllAlarm;
     BELogin localLog;
     private FremmødeTableModel model;
-    private static HLAfterAction1 m_instance = null;
+    private static HLAfterAction m_instance = null;
 
-    private HLAfterAction1(BELogin log) {
+    private HLAfterAction(BELogin log) {
         localLog = log;
         initComponents();
         initOtherComponents();
@@ -43,13 +43,12 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         addCellRenderer();
         fillCboxType();
         fillCboxAlarm();
-//        btnBekæft.setEnabled(oneTeamOrNot());
         lblCount.setText("Fremmødt: " + model.getRowCount());
     }
 
-    public static HLAfterAction1 getInstance(BELogin log) {
+    public static HLAfterAction getInstance(BELogin log) {
         if (m_instance == null) {
-            m_instance = new HLAfterAction1(log);
+            m_instance = new HLAfterAction(log);
         } else {
             m_instance.update();
         }
@@ -67,9 +66,9 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     private void msgbox(String message) {
         JOptionPane.showMessageDialog(this, message);
     }
-    private void updateTable(){
-       model.fireTableDataChanged();
-     
+
+    private void updateTable() {
+        model.fireTableDataChanged();
         System.out.println("tabellen opdateret");
     }
 
@@ -79,27 +78,24 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         btnChangeTime.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(""+ tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
+                System.out.println("" + tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
                 System.out.println(bllAppearance.getAllAppearances().size());
                 BEAppearance appearance = bllAppearance.getAllAppearances().get(tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
-                
                 ChangeTimeView ctView = new ChangeTimeView(appearance);
                 ctView.setModal(true);
                 ctView.setLocationRelativeTo(null);
                 ctView.setVisible(true);
-               updateTable();
+                updateTable();
             }
         });
         cboxAlarm.addItemListener(new ItemListener() {
 
             @Override
             public void itemStateChanged(ItemEvent e) {
-
                 if (cboxAlarm.getSelectedIndex() != -1) {
                     if (cboxAlarm.getSelectedIndex() != 0 && cboxAlarm.getSelectedIndex() != -1) {
                         update();
                         model.setAppearanceList(bllAppearance.getAppearancesWithCriteria((BEAlarm) cboxAlarm.getSelectedItem()));
-
                         BEAlarm alarm = null;
                         for (BEAlarm theAlarm : bllAlarm.getAllAlarms()) {
                             String[] theAlarmString = cboxAlarm.getSelectedItem().toString().split(" - ");
@@ -139,7 +135,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
 
     private void confirmTeam() {
         try {
-            bllAppearance.confirmTeam(localLog,(int) cboxType.getSelectedItem(), (BEAlarm) cboxAlarm.getSelectedItem(), txtComment.getText());
+            bllAppearance.confirmTeam(localLog, (int) cboxType.getSelectedItem(), (BEAlarm) cboxAlarm.getSelectedItem(), txtComment.getText());
         } catch (Exception ex) {
             msgbox("dd" + ex);
         }
@@ -157,11 +153,9 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         model.fireTableDataChanged();
     }
 
-
     private void addCellRenderer() {
 
         FremmødeTableCellRenderer renderer = new FremmødeTableCellRenderer();
-
         for (int col = 0; col < model.getColumnCount(); col++) {
             renderer.setHorizontalAlignment(JLabel.CENTER);
             TableColumn tc = tblTider.getColumnModel().getColumn(col);
@@ -174,7 +168,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         for (BEAlarm alarm : bllAlarm.getAllAlarms()) {
             cboxAlarm.addItem(alarm);
         }
-
     }
 
     @SuppressWarnings("unchecked")
@@ -312,5 +305,4 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     private javax.swing.JTextField txtComment;
     private javax.swing.JTextField txtFremmøde;
     // End of variables declaration//GEN-END:variables
-
 }

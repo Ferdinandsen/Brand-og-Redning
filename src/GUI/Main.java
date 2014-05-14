@@ -7,12 +7,11 @@ package GUI;
 public class Main {
 
     public static void main(String[] args) {
-        MainView main = new MainView();
+         CheckInView main = new CheckInView();
+//        MainView main = new MainView();
 //        HLAfterAction1 main = HLAfterAction1.getInstance();
-//        CheckUdView main = new CheckUdView();
-//        CheckOutView main = new CheckOutView();
+//        CheckOutView main = new CheckOutView(null);
 //        HLErrorReport main = new HLErrorReport());
-//        LoginView main = new LoginView();
         main.setVisible(true);
     }
 }
