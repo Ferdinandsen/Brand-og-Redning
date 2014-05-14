@@ -5,6 +5,7 @@ package BE;
  * @author Team Kawabunga
  */
 public class BEVehicle {
+
     private int odinnummer;
     private String licensplate;
     private String mark;

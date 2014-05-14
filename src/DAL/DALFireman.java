@@ -51,7 +51,6 @@ public class DALFireman {
                     localEmployee = employee;
                 }
             }
-
             BEFireman fireman = new BEFireman(localEmployee, holdleder, chauffør,team);
             firemen.add(fireman);
         }

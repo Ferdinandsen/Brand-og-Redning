@@ -1,6 +1,5 @@
 package GUI;
 
-import BE.BEAlarm;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -15,15 +14,15 @@ import javax.swing.ListCellRenderer;
  */
 class ComboBoxRenderer extends JLabel
         implements ListCellRenderer {
+
     DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
-    
+
     public ComboBoxRenderer() {
         setOpaque(true);
         setHorizontalAlignment(CENTER);
         setVerticalAlignment(CENTER);
         defaultRenderer.setPreferredSize(new Dimension(100, 50));
         defaultRenderer.setHorizontalAlignment(CENTER);
-
     }
 
     /*
@@ -33,17 +32,14 @@ class ComboBoxRenderer extends JLabel
      */
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel lbl = (JLabel)defaultRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        JLabel lbl = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         if (index != -1) {
             //Component cell = getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             lbl.setText(value.toString());
-            
             if (index % 2 != 0) {
                 lbl.setBackground(new Color(229, 220, 220));
             }
-            
         }
         return lbl;
     }
-
 }

@@ -20,6 +20,7 @@ import org.xml.sax.SAXException;
  * @author Team Kawabunga
  */
 public class BLLAlarm {
+
     private static BLLAlarm m_instance = null;
     DALALarm dalalarm;
 

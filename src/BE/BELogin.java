@@ -5,6 +5,7 @@ package BE;
  * @author Team Kawabunga
  */
 public class BELogin {
+
     private BEEmployee medarbejder;
     private String kode;
     private boolean admin;
@@ -12,6 +13,7 @@ public class BELogin {
     private boolean holdleder;
 
     public BELogin(BEEmployee medarbejder, String kode, boolean admin, boolean kontor, boolean holdleder) {
+
         this.medarbejder = medarbejder;
         this.kode = kode;
         this.admin = admin;
@@ -27,7 +29,7 @@ public class BELogin {
     }
 
     /**
-     * @param medarbejderRef the medarbejderRef to set
+     * @param medarbejder
      */
     public void setMedarbejder(BEEmployee medarbejder) {
         this.medarbejder = medarbejder;

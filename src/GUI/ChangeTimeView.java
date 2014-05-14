@@ -44,6 +44,7 @@ public class ChangeTimeView extends javax.swing.JDialog {
                 confirm();
             }
         });
+        
         btnCancel.addActionListener(new ActionListener() {
 
             @Override
@@ -51,6 +52,7 @@ public class ChangeTimeView extends javax.swing.JDialog {
                 dispose();
             }
         });
+        
         txtCheckIn.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -77,22 +79,19 @@ public class ChangeTimeView extends javax.swing.JDialog {
                 if (vChar == KeyEvent.VK_BACK_SPACE) {
                     txtCheckIn.setText("");
                 }
-
             }
         });
+        
         txtCheckIn.addFocusListener(new FocusListener() {
 
             @Override
             public void focusGained(FocusEvent e) {
             }
-
             @Override
             public void focusLost(FocusEvent e) {
-
                 if (txtCheckIn.getText().length() == 5 && txtCheckUd.getText().length() == 5) {
                     calculateHours();
                 }
-
                 if (txtCheckIn.getText().length() != 5) {
                     txtCheckIn.requestFocus();
                 }
@@ -125,7 +124,6 @@ public class ChangeTimeView extends javax.swing.JDialog {
                 if (vChar == KeyEvent.VK_BACK_SPACE) {
                     txtCheckUd.setText("");
                 }
-
             }
         });
 
@@ -133,15 +131,12 @@ public class ChangeTimeView extends javax.swing.JDialog {
 
             @Override
             public void focusGained(FocusEvent e) {
-
             }
-
             @Override
             public void focusLost(FocusEvent e) {
                 if (txtCheckIn.getText().length() == 5 && txtCheckUd.getText().length() == 5) {
                     calculateHours();
                 }
-
                 if (txtCheckUd.getText().length() != 5) {
                     txtCheckUd.requestFocus();
                 }

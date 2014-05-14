@@ -5,6 +5,7 @@ package BE;
  * @author Team Kawabunga
  */
 public class BEAddress {
+
     private int ID;
     private String streetName;
     private int streetNumber;
@@ -13,19 +14,20 @@ public class BEAddress {
     private BEZipCode zip;
 
     public BEAddress(int id, String streetname, int streetNumber, int floor, String apartment, BEZipCode zip) {
-       this.ID = id;
-       this.streetName = streetname;
-       this.streetNumber = streetNumber;
-       this.floor = floor;
-       this.apartmnet = apartment;
-       this.zip = zip;
+        this.ID = id;
+        this.streetName = streetname;
+        this.streetNumber = streetNumber;
+        this.floor = floor;
+        this.apartmnet = apartment;
+        this.zip = zip;
     }
+
     public BEAddress(String streetname, int streetNumber, int floor, String apartment, BEZipCode zip) {
-       this.streetName = streetname;
-       this.streetNumber = streetNumber;
-       this.floor = floor;
-       this.apartmnet = apartment;
-       this.zip = zip;
+        this.streetName = streetname;
+        this.streetNumber = streetNumber;
+        this.floor = floor;
+        this.apartmnet = apartment;
+        this.zip = zip;
     }
 
     /**
@@ -34,7 +36,8 @@ public class BEAddress {
     public int getId() {
         return ID;
     }
-    public int getStreetNumber(){
+
+    public int getStreetNumber() {
         return streetNumber;
     }
 
@@ -58,7 +61,8 @@ public class BEAddress {
     public String getApartment() {
         return apartmnet;
     }
-    public BEZipCode getZipCode(){
+
+    public BEZipCode getZipCode() {
         return getZip();
     }
 

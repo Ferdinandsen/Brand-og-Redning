@@ -5,15 +5,16 @@ package BE;
  * @author Team Kawabunga
  */
 public class BEError {
+
     private String error;
     private String course;
     private String outoforder;
     private String urgent;
     private String induetime;
     private String wash;
-    
-    public BEError(String error, String course,String outoforder, String urgent, String induetime, String wash) {
-       
+
+    public BEError(String error, String course, String outoforder, String urgent, String induetime, String wash) {
+
         this.error = error;
         this.course = course;
         this.outoforder = outoforder;

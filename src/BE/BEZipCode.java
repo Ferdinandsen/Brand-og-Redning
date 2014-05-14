@@ -5,12 +5,13 @@ package BE;
  * @author Team Kawabunga
  */
 public class BEZipCode {
+
     private int zipCode;
     private String city;
 
     public BEZipCode(int zipCode, String city) {
-       this.zipCode = zipCode;
-       this.city = city;
+        this.zipCode = zipCode;
+        this.city = city;
     }
 
     /**

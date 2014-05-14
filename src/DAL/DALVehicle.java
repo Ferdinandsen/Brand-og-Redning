@@ -13,6 +13,7 @@ import java.util.ArrayList;
  * @author Team Kawabunga
  */
 public class DALVehicle {
+
     private Connection m_connection;
     private static DALVehicle m_instance = null;
     private ArrayList<BEVehicle> vehicles = new ArrayList<>();
@@ -30,7 +31,7 @@ public class DALVehicle {
     }
 
     public void populateVehicle() throws SQLException {
-       vehicles = new ArrayList<>();
+        vehicles = new ArrayList<>();
         String sql = "SELECT * FROM KØTJ ORDER by odinNo";
 
         PreparedStatement ps = getM_connection().prepareStatement(sql);

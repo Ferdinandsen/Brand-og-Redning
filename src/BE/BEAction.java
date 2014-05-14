@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * @author Team Kawabunga
  */
 public class BEAction {
-    
+
     private BEAppearance appearance;
     private Timestamp godkendtTid;
     private BELogin login;
@@ -20,7 +20,7 @@ public class BEAction {
 
     public BEAction(BEAppearance appearance, Timestamp godkendtTid,
             BELogin login, String bemærkninger, String alarmType,
-            String gruppNo,String detektorNo, BEAlarm alarm, boolean ilGodkendt) {
+            String gruppNo, String detektorNo, BEAlarm alarm, boolean ilGodkendt) {
         this.appearance = appearance;
         this.godkendtTid = godkendtTid;
         this.login = login;
@@ -158,5 +158,5 @@ public class BEAction {
     public void setAlarm(BEAlarm alarm) {
         this.alarm = alarm;
     }
-    
+
 }

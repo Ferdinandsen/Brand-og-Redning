@@ -72,17 +72,33 @@ public class DALAction {
                 }
             }
             BEAlarm localalarm = null;
-            for (BEAlarm alarm : dalAlarm.getAllAlarms()){
-                if(alarmRef == alarm.getId()){
+            for (BEAlarm alarm : dalAlarm.getAllAlarms()) {
+                if (alarmRef == alarm.getId()) {
                     localalarm = alarm;
                 }
             }
-
             BEAction action = new BEAction(localappear, tid, locallogin, desc, alarmType, gruppeNo, detek, localalarm, ilGodkendt);
             allActions.add(action);
         }
     }
-    public ArrayList<BEAction> getAllActions(){
+
+    public ArrayList<BEAction> getAllActions() {
         return allActions;
+    }
+
+    public void createAction(BELogin log, Timestamp time, BEAppearance appearance, int kørselstype, BEAlarm alarm, String comment) throws SQLException {
+        String sql = "INSERT INTO Action VALUES (?,?,?,?,?,?,?,?)";
+
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setInt(1, appearance.getId());
+        ps.setTimestamp(2, time);
+        ps.setInt(3, log.getMedarbejder().getMedarbejderNo());
+        ps.setString(4, comment);
+        ps.setString(5, "alarmtype");//mangler at blive sat i HLAFTERACTION!!!
+        ps.setString(6, "gruppeNo");// mangler at blive sat i HLAFTERACTION!!!
+        ps.setString(6, "detektorNo");//mangler at blive sat i HLAFTERACTION!!!
+        ps.setInt(7, alarm.getId());
+        ps.setBoolean(8, false); // IL GODKENDT
+        ps.execute();
     }
 }

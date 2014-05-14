@@ -13,22 +13,25 @@ import java.util.ArrayList;
  * @author Team Kawabunga
  */
 public class DALLogin {
+
     Connection m_connection;
     private static DALLogin m_instance = null;
     private DALEmployee dalEmployee;
-        private ArrayList<BELogin> allLogins = new ArrayList<>();
+    private ArrayList<BELogin> allLogins = new ArrayList<>();
 
     private DALLogin() throws SQLException {
         m_connection = DBConnection.getInstance().getConnection();
         dalEmployee = DALEmployee.getInstance();
         populateLogins();
     }
+
     public static DALLogin getInstance() throws SQLException {
         if (m_instance == null) {
             m_instance = new DALLogin();
         }
         return m_instance;
     }
+
     private void populateLogins() throws SQLException {
         String sql = "SELECT * FROM Login";
 
@@ -43,8 +46,8 @@ public class DALLogin {
             boolean holdleder = result.getBoolean("holdleder");
 
             BEEmployee localEmployee = null;
-            for (BEEmployee emp : dalEmployee.getAllEmployees()){
-                if (medarbejderRef == emp.getMedarbejderNo()){
+            for (BEEmployee emp : dalEmployee.getAllEmployees()) {
+                if (medarbejderRef == emp.getMedarbejderNo()) {
                     localEmployee = emp;
                 }
             }
@@ -52,7 +55,8 @@ public class DALLogin {
             allLogins.add(login);
         }
     }
-        public ArrayList<BELogin> getAllLogins() {
+
+    public ArrayList<BELogin> getAllLogins() {
         return allLogins;
     }
 }

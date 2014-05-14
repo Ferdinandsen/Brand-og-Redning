@@ -1,51 +1,35 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package GUI;
 
-import BE.BEAlarm;
 import BE.BELogin;
-import BLL.BLLAlarm;
 import BLL.BLLEmployee;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author Jakob
+ * @author Team Kawabunga
  */
 public class MainView extends javax.swing.JFrame {
 
-    BLLAlarm bllAlarm;
     BLLEmployee bllEmployee;
-    DefaultListModel model = new DefaultListModel();
+    BELogin log;
 
     /**
      * Creates new form MainView
      */
     public MainView() {
         this.setResizable(false);
-        try {
-            bllAlarm = BLLAlarm.getInstance();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Kunne ikke oprette forbindelse. Ingen alarmer vil blive vist");
-        }
-        
         bllEmployee = BLLEmployee.getInstance();
         initComponents();
         initLogInComponents();
         initOtherComponets();
-
-        ActionListRenderer renderer = new ActionListRenderer();
-        lstActions.setCellRenderer(renderer);
-        fillListActions();
-        lstActions.setModel(model);
+        this.setTitle("Velkommen til Brand og Redning Esbjerg");
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     /**
@@ -58,8 +42,6 @@ public class MainView extends javax.swing.JFrame {
 
         lblLogIn = new javax.swing.JLabel();
         panelFeed = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        lstActions = new javax.swing.JList();
         btnErrorReport = new javax.swing.JButton();
         btnConfirmApp = new javax.swing.JButton();
         btnIL = new javax.swing.JButton();
@@ -81,17 +63,15 @@ public class MainView extends javax.swing.JFrame {
         panelFeed.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         panelFeed.setName(""); // NOI18N
 
-        jScrollPane1.setViewportView(lstActions);
-
         javax.swing.GroupLayout panelFeedLayout = new javax.swing.GroupLayout(panelFeed);
         panelFeed.setLayout(panelFeedLayout);
         panelFeedLayout.setHorizontalGroup(
             panelFeedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
+            .addGap(0, 493, Short.MAX_VALUE)
         );
         panelFeedLayout.setVerticalGroup(
             panelFeedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+            .addGap(0, 306, Short.MAX_VALUE)
         );
 
         btnErrorReport.setText("Fejl rapport");
@@ -206,20 +186,12 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JButton btnSalery;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblLogIn;
-    private javax.swing.JList lstActions;
     private javax.swing.JPanel panelFeed;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtNote;
     private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
-
-    private void fillListActions() {
-        for (BEAlarm alarm : bllAlarm.getAllTestAlarms()) {
-            model.addElement(alarm);
-        }
-    }
 
     private void initOtherComponets() {
         txtNote.setEditable(false);
@@ -232,7 +204,7 @@ public class MainView extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                HLAfterAction1 main = HLAfterAction1.getInstance();
+                HLAfterAction main = HLAfterAction.getInstance(log);
                 main.setVisible(true);
             }
         });
@@ -298,7 +270,7 @@ public class MainView extends javax.swing.JFrame {
         if (btnLogIn.isEnabled()) {
             if (isInformationValid()) {
                 if (bllEmployee.doesUserExist(txtName.getText(), txtPassword.getPassword())) {
-                    BELogin log = bllEmployee.getLogin(txtName.getText());
+                    log = bllEmployee.getLogin(txtName.getText());
                     lblLogIn.setText("Logget ind som: " + log.getMedarbejder().toString());
                     btnLogIn.setEnabled(false);
                     btnLogOut.setEnabled(true);

@@ -49,15 +49,14 @@ public class CheckOutView extends javax.swing.JDialog {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        this.setModal(true);
 
-//         
         ComboBoxRenderer renderer = new ComboBoxRenderer();
         cboxAlarm.setRenderer(renderer);
         cboxVehicle.setRenderer(renderer);
 
         fillCboxVehicle();
         fillCboxAlarm();
-
     }
 
     /**
@@ -179,7 +178,7 @@ public class CheckOutView extends javax.swing.JDialog {
 
     private void initOtherComponents() {
         btnReset.setBackground(Color.LIGHT_GRAY);
-        btnAcknowledge.setBackground(new Color(255,255,102));
+        btnAcknowledge.setBackground(new Color(255, 255, 102));
         btnClose.setBackground(Color.RED);
         btnAcknowledge.setText("Bekræft");
         btnAcknowledge.setEnabled(false);
@@ -192,7 +191,6 @@ public class CheckOutView extends javax.swing.JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 btnAcknowledge.setEnabled(cboxVehicle.getSelectedIndex() != 0 && cboxAlarm.getSelectedIndex() != 0);
-            
             }
         });
         //dd
@@ -219,9 +217,9 @@ public class CheckOutView extends javax.swing.JDialog {
             @Override
             public void stateChanged(ChangeEvent e) {
                 if (btnAcknowledge.isEnabled()) {
-                    btnAcknowledge.setBackground(new Color(255,255,0));
+                    btnAcknowledge.setBackground(new Color(255, 255, 0));
                 } else {
-                    btnAcknowledge.setBackground(new Color(255,255,102));
+                    btnAcknowledge.setBackground(new Color(255, 255, 102));
                 }
             }
         });
@@ -256,7 +254,6 @@ public class CheckOutView extends javax.swing.JDialog {
                     btnGrpCheckOut.clearSelection();
                 }
                 btnAcknowledge.setEnabled(cboxVehicle.getSelectedIndex() != 0 && cboxAlarm.getSelectedIndex() != 0);
-
             }
         });
         cboxAlarm.addItemListener(new ItemListener() {
@@ -265,7 +262,6 @@ public class CheckOutView extends javax.swing.JDialog {
             public void itemStateChanged(ItemEvent e) {
 
                 btnAcknowledge.setEnabled((cboxAlarm.getSelectedIndex() != 0 && cboxVehicle.getSelectedIndex() != 0) || cboxAlarm.getSelectedIndex() != 0 && rbtnStVagt.isSelected());
-
             }
         });
         rbtnStVagt.addActionListener(new ActionListener() {
@@ -287,12 +283,10 @@ public class CheckOutView extends javax.swing.JDialog {
         for (BEAlarm alarm : bllAlarm.getAllAlarms()) {
             cboxAlarm.addItem(alarm);
         }
-
     }
 
     private BEAlarm getAlarm() {
         return (BEAlarm) cboxAlarm.getSelectedItem();
-
     }
 
     private void endShift() {

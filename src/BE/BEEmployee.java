@@ -5,6 +5,7 @@ package BE;
  * @author Team Kawabunga
  */
 public class BEEmployee {
+
     private int medarbejderNo;
     private String fornavn;
     private String mellemnavn;
@@ -13,11 +14,11 @@ public class BEEmployee {
     private String portræt;
     private BEAddress adressRef;
     private boolean isFriviligBrand;
-    
-    public BEEmployee(int medarbejderNo, String fornavn, String mellemnavn, 
-            String efternavn, String cpr, String portræt, BEAddress adressRef, 
-            boolean isFriviligBrand){
-        
+
+    public BEEmployee(int medarbejderNo, String fornavn, String mellemnavn,
+            String efternavn, String cpr, String portræt, BEAddress adressRef,
+            boolean isFriviligBrand) {
+
         this.medarbejderNo = medarbejderNo;
         this.fornavn = fornavn;
         this.mellemnavn = mellemnavn;
