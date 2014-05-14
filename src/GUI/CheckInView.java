@@ -4,16 +4,21 @@ import BE.BEFireman;
 import BLL.BLLFireman;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.TimerTask;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 /**
  *
@@ -23,69 +28,85 @@ public class CheckInView extends javax.swing.JFrame {
 
     BLLFireman bllFireman;
     ArrayList<BEFireman> allFiremen = new ArrayList<>();
-    ArrayList<firemanButton> allFireManButtons = new ArrayList<>();
-    JPanel main;
-    int timePerSec = 1000 * 1;
-    int width = 5;
-    int height = allFiremen.size() / width;
-    int timesPrSec = 1 * 1000;
-//    Timer timer;
+    private JPanel main;
+    private int width;
+    private int height;
 
+    /**
+     * Creates new form CheckUD
+     */
     public CheckInView() {
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         bllFireman = BLLFireman.getInstance();
         this.setUndecorated(true);
+        this.setResizable(false);
         setResizable(false);
+        this.setTitle("CHECK UD SCREEN");
         getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         pack();
+        width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        height = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
         main = getBorderLayout();
-        this.setTitle("Fireman Alarm");
-        this.setLocationRelativeTo(null);
         this.add(main);
-//        timer = new Timer();
-//        timer.schedule(new UpdateGUI(allFireManButtons), 0, timesPrSec);
     }
 
     private JPanel getBorderLayout() {
         JPanel p = new JPanel();
-        p.setLayout(new BorderLayout());
-        p.add(getGridLayout(), BorderLayout.CENTER);
+        BorderLayout blayout = new BorderLayout();
+        p.setLayout(blayout);
+        p.add(getPanelLayout(), BorderLayout.CENTER);
         return p;
     }
 
-    private Component getGridLayout() {
-        JPanel p = new JPanel();
-        GridLayout gl = new GridLayout(width, height - 1);
-        gl.setVgap(40);
-        gl.setHgap(20);
-        p.setLayout(gl);
+    private JPanel getPanelLayout() {
+        int amount = 1;
         allFiremen = bllFireman.getAllfiremen();
-        for (BEFireman fireman : allFiremen) {
-            firemanButton b = new firemanButton(fireman);
-            b.setIcon(new ImageIcon(((new ImageIcon("images/" + fireman.getMedarbjeder().getPortræt())).getImage()).getScaledInstance(80, 60, java.awt.Image.SCALE_SMOOTH)));
-            b.setFocusable(false);
-            b.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    firemanButton fb = (firemanButton) e.getSource();
+        FlowLayout flayout = new FlowLayout();
+        flayout.setHgap(30); // definer afstanden imellem grupperne
+        JPanel p = new JPanel(flayout);
+        p.setBackground(new Color(164, 164, 164));
+        for (int i = 1; i <= bllFireman.getHighestTeamNumber(); i++) {
+            JPanel panel = new JPanel();
+            JLabel label = new JLabel("Hold: " + i);
 
-                    CheckOutView frame = new CheckOutView(fb.localFireman);
-                  
-                    frame.setModal(true);
-                    
-//                    timer.cancel();
-                    frame.setVisible(true);
-//                    timer.purge();
-//                    timer = new Timer();
-//                    timer.schedule(new UpdateGUI(allFireManButtons), 0, timesPrSec);
+            Font f = new Font(Font.SANS_SERIF, Font.BOLD, 24);
+            label.setFont(f);
+            GridLayout glayout = new GridLayout(9, 1);
+            glayout.setVgap(10);
+            panel.setPreferredSize(new Dimension(width / (bllFireman.getHighestTeamNumber() + 1), height));
+            panel.setLayout(glayout);
+            for (BEFireman fm : allFiremen) {
+                panel.setBackground(getColorTeam(i));
+                JButton b = new firemanButton(fm);
+                b.setHorizontalAlignment(SwingConstants.LEFT);
+                b.setIcon(new ImageIcon(((new ImageIcon("images/" + fm.getMedarbjeder().getPortræt())).getImage()).getScaledInstance(70, 80, java.awt.Image.SCALE_SMOOTH)));
+                b.setFocusable(false);
+                b.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        CheckInView.firemanButton fb = (CheckInView.firemanButton) e.getSource();
+                        CheckOutView frame = new CheckOutView(fb.localFireman);
+                        frame.setModal(true);
+                        frame.setVisible(true);
+                    }
+                });
+                if (fm.getTeam() == amount) {
+                    panel.add(b);
                 }
-            });
-            allFireManButtons.add(b);
-            p.add(b);
+                panel.add(label);
+            }
+            panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            p.add(panel);
+            amount++;
         }
         return p;
     }
 
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -108,53 +129,62 @@ public class CheckInView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
+    private Color getColorTeam(int i) {
+        Color myColor = Color.red;
+        switch (i) {
+            case 1:
+                myColor = new Color(255, 51, 51);
+                break;
+            case 2:
+                myColor = Color.lightGray;
+                break;
+            case 3:
+                myColor = new Color(0, 128, 255);
+                break;
+            case 4:
+                myColor = new Color(248, 215, 0);
+                break;
+        }
+        return myColor;
+    }
+
     private class firemanButton extends JButton {
 
         String name;
         BEFireman localFireman;
 
-        public firemanButton(BEFireman fireman) {
-            localFireman = fireman;
-            this.name = fireman.getMedarbjeder().getFornavn();
+        public firemanButton(BEFireman fm) {
+            localFireman = fm;
+            this.name = fm.getMedarbjeder().getFornavn() + " " + fm.getMedarbjeder().getEfternavn();
             this.setBackground(getColor());
             this.setText(name);
         }
 
         private Color getColor() {
-            return Color.GREEN;
+            Color myColor = new Color(255, 255, 102);
+            switch (localFireman.getTeam()) {
+                case 1:
+                    myColor = new Color(255, 99, 71);
+                    break;
+                case 2:
+                    myColor = new Color(245, 245, 220);
+                    break;
+                case 3:
+                    myColor = new Color(173, 216, 230);
+                    break;
+            }
+            return myColor;
         }
 
-        public void changebit() {
-//        localFireman.setIsCheckedin(!localFireman.isCheckedin());
-//        bllFireman.changeBit(localFireman);
-//            setColor();
+        private void setColor() {
+            this.setBackground(getColor());
+            repaint();
         }
 
-        public void updateLocalFireman(BEFireman fm) {
-            localFireman = fm;
+        public void updateLocalFireman(BEFireman lfm) {
+            localFireman = lfm;
             this.setBackground(getColor());
         }
-    }
 
-//    class UpdateGUI extends TimerTask {
-//
-//        ArrayList<firemanButton> localFiremen;
-//
-//        private UpdateGUI(ArrayList<firemanButton> firemen) {
-//            localFiremen = firemen;
-//        }
-//
-//        @Override
-//        public void run() {
-//            bllFireman.update();
-//
-//            for (firemanButton btn : localFiremen) {
-//                for (BEFireman fm : bllFireman.getAllfiremen()) {
-//                    if (fm.getMedarbjeder().getMedarbejderNo() == btn.localFireman.getMedarbjeder().getMedarbejderNo()) {
-//                        btn.updateLocalFireman(fm);
-//                    }
-//                }
-//            }
-//        }
-//    }
+    }
 }
