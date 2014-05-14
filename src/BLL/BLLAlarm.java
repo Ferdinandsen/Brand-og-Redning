@@ -4,7 +4,6 @@ import BE.BEAlarm;
 import DAL.DALALarm;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
@@ -18,7 +17,7 @@ public class BLLAlarm {
         try {
             dalalarm = DALALarm.getInstance();
         } catch (SQLException e) {
-            System.out.println("fejl i bllEmployee " + e);
+            System.out.println("fejl i bllAlarm " + e);
         }
     }
 

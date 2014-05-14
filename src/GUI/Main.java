@@ -14,6 +14,8 @@ public class Main {
 //        HLErrorReport main = new HLErrorReport());
 //        LoginView main = new LoginView();
 //        HLUsageReport main = new HLUsageReport(null);
+        
+        ILIndsats main = new ILIndsats(null);
         main.setVisible(true);
     }
 }

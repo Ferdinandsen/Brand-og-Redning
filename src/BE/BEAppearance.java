@@ -7,6 +7,7 @@ import java.sql.Timestamp;
  * @author Team Kawabunga
  */
 public class BEAppearance {
+
     private int id;
     private BEAlarm alarm;
     private BEFireman fireman;
@@ -19,9 +20,10 @@ public class BEAppearance {
     private boolean STvagt;
     private int type;
     private BEVehicle veh;
-    
-    public BEAppearance(int id, BEFireman fireman, Timestamp checkOut, int totaltid, boolean hlGodkendt, boolean ilGodkendt, 
-            boolean holdleder, boolean chauffør, boolean STvagt, int type, BEAlarm alarm, BEVehicle veh){
+
+    public BEAppearance(int id, BEFireman fireman, Timestamp checkOut, int totaltid, boolean hlGodkendt, boolean ilGodkendt,
+            boolean holdleder, boolean chauffør, boolean STvagt, int type, BEAlarm alarm, BEVehicle veh) {
+       
         this.id = id;
         this.alarm = alarm;
         this.fireman = fireman;
@@ -120,7 +122,6 @@ public class BEAppearance {
         this.totalTid = totalTid;
     }
 
-
     /**
      * @return the hlGodkendt
      */
@@ -203,6 +204,12 @@ public class BEAppearance {
      */
     public Timestamp getCheckOut() {
         return checkOut;
+    }
+    public String getCheckOutString(){
+        String checkOutString[] = checkOut.toString().split(" ");
+        String[] fixedAlarm1 = checkOutString[1].split(":");
+        String finalAlarm = fixedAlarm1[0] + ":" + fixedAlarm1[1];
+        return finalAlarm;
     }
 
     /**
