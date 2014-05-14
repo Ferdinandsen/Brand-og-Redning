@@ -17,6 +17,7 @@ import java.util.ArrayList;
  * @author Team Kawabunga
  */
 public class DALAppearance {
+
     private Connection m_connection;
     private static DALAppearance m_instance = null;
     private ArrayList<BEAppearance> allAppearances = new ArrayList<>();
@@ -84,7 +85,7 @@ public class DALAppearance {
             int vehRef = result.getInt("køtjRef");
             BEAlarm localAlarm = null;
             for (BEAlarm alarm : dalAlarm.getAllAlarms()) {
-                if (alarm.getId()== alarmRef) {
+                if (alarm.getId() == alarmRef) {
                     localAlarm = alarm;
                 }
             }
@@ -112,11 +113,11 @@ public class DALAppearance {
 
     public void confirmTeam(BEAppearance appearance) throws SQLException {
         String sql = "UPDATE Fremmøde SET hlGodkendt = ?, kørselType = ?, alarmRef = ? WHERE id = ?";
-
+        System.out.println("dal");
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setBoolean(1, true);
         ps.setInt(2, appearance.getType());
-        ps.setInt(3, appearance.getAlarm().getId());
+            ps.setInt(3, appearance.getAlarm().getId());
         ps.setInt(4, appearance.getId());
         appearance.setHlGodkendt(true);
         ps.execute();

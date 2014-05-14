@@ -28,27 +28,6 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane1" alignment="0" pref="716" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="lblDato" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jDateChooser" min="-2" pref="96" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lblAlarm" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="cboxAlarm" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="txtTolerance" min="-2" pref="31" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblmin" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnHent" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="lblCount" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cboxType" min="-2" max="-2" attributes="0"/>
@@ -59,6 +38,17 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnBekæft" min="-2" pref="178" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblCount" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lblAlarm" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="cboxAlarm" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
           </Group>
@@ -68,17 +58,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblDato" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblAlarm" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnHent" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtTolerance" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblmin" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cboxAlarm" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jDateChooser" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="cboxAlarm" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblAlarm" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="245" max="-2" attributes="0"/>
@@ -102,11 +84,6 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="lblDato">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Dato:"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JButton" name="btnBek&#xe6;ft">
       <Properties>
         <Property name="text" type="java.lang.String" value="Bekr&#xe6;ft hold"/>
@@ -115,11 +92,6 @@
     <Component class="javax.swing.JLabel" name="lblAlarm">
       <Properties>
         <Property name="text" type="java.lang.String" value="Alarm"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnHent">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Hent"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -198,8 +170,6 @@
         <Property name="text" type="java.lang.String" value="Fremm&#xf8;de ved:"/>
       </Properties>
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser">
-    </Component>
     <Component class="javax.swing.JLabel" name="lblCount">
       <Properties>
         <Property name="text" type="java.lang.String" value="Fremm&#xf8;dt:"/>
@@ -215,18 +185,6 @@
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
         <Property name="text" type="java.lang.String" value="Type:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtTolerance">
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Tolerance:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblmin">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="min."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtFremm&#xf8;de">

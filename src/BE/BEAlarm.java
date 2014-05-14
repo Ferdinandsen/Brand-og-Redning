@@ -63,7 +63,7 @@ public class BEAlarm {
 
     @Override
     public String toString() {
-        return getDesc();
+        return getDesc() + " - " + getTimeString();
     }
 
     /**
