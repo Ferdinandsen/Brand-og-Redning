@@ -191,10 +191,7 @@ public class CheckOutView extends javax.swing.JDialog {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (rbtnChauffør.isSelected()){
-                    btnGrpCheckOut.clearSelection();
-                }
-                btnAcknowledge.setEnabled(cboxVehicle.getSelectedIndex() != 0 && cboxAlarm.getSelectedIndex() != 0 && rbtnChauffør.isSelected());
+                btnAcknowledge.setEnabled(cboxVehicle.getSelectedIndex() != 0 && cboxAlarm.getSelectedIndex() != 0);
             
             }
         });
@@ -203,10 +200,7 @@ public class CheckOutView extends javax.swing.JDialog {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (rbtnHoldleder.isSelected()){
-                    btnGrpCheckOut.clearSelection();
-                }
-                btnAcknowledge.setEnabled(cboxVehicle.getSelectedIndex() != 0 && cboxAlarm.getSelectedIndex() != 0 && rbtnHoldleder.isSelected());
+                btnAcknowledge.setEnabled(cboxVehicle.getSelectedIndex() != 0 && cboxAlarm.getSelectedIndex() != 0);
             }
         });
 
@@ -277,11 +271,8 @@ public class CheckOutView extends javax.swing.JDialog {
         rbtnStVagt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (rbtnStVagt.isSelected()){
-                    btnGrpCheckOut.clearSelection();
-                }
                 cboxVehicle.setSelectedIndex(0);
-                btnAcknowledge.setEnabled(rbtnStVagt.isSelected() && cboxAlarm.getSelectedIndex() != 0 && rbtnStVagt.isSelected());
+                btnAcknowledge.setEnabled(rbtnStVagt.isSelected() && cboxAlarm.getSelectedIndex() != 0);
             }
         });
     }

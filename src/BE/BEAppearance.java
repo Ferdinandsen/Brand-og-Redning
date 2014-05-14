@@ -205,6 +205,12 @@ public class BEAppearance {
     public Timestamp getCheckOut() {
         return checkOut;
     }
+    public String getCheckOutString(){
+        String checkOutString[] = checkOut.toString().split(" ");
+        String[] fixedAlarm1 = checkOutString[1].split(":");
+        String finalAlarm = fixedAlarm1[0] + ":" + fixedAlarm1[1];
+        return finalAlarm;
+    }
 
     /**
      * @param checkOut the checkOut to set
