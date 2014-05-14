@@ -82,4 +82,7 @@ public class DALAction {
             allActions.add(action);
         }
     }
+    public ArrayList<BEAction> getAllActions(){
+        return allActions;
+    }
 }

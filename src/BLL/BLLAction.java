@@ -1,7 +1,9 @@
 package BLL;
 
+import BE.BEAction;
 import DAL.DALAction;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -25,5 +27,8 @@ public class BLLAction {
             m_instance = new BLLAction();
         }
         return m_instance;
+    }
+    public ArrayList<BEAction> getAllActions(){
+        return dalaction.getAllActions();
     }
 }
