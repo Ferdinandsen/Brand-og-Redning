@@ -7,9 +7,8 @@ package GUI;
 public class Main {
 
     public static void main(String[] args) {
-//        CheckInView main = new CheckInView();
-//        HLAfterAction1 main = HLAfterAction1.getInstance();
-        CheckUdView main = new CheckUdView();
+        HLAfterAction1 main = HLAfterAction1.getInstance();
+//        CheckUdView main = new CheckUdView();
 //        CheckOutView main = new CheckOutView();
 //        HLErrorReport main = new HLErrorReport());
 //        LoginView main = new LoginView();

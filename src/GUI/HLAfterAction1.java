@@ -6,8 +6,8 @@ import BLL.BLLAppearance;
 import BLL.BLLVehicle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableColumn;
@@ -34,11 +34,11 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         this.setTitle("HL - Bekræft hold");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-
-        fillCboxType();
-        fillCboxAlarm();
+        cboxAlarm.setSelectedIndex(-1);
         populateFremmødeTable();
         addCellRenderer();
+        fillCboxType();
+        fillCboxAlarm();
 //        btnBekæft.setEnabled(oneTeamOrNot());
         lblCount.setText("Fremmødt: " + model.getRowCount());
     }
@@ -57,7 +57,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         bllAppearance.update();
         model.setAppearanceList(bllAppearance.getAllAppearances());
         model.fireTableDataChanged();
-//                    btnBekæft.setEnabled(oneTeamOrNot());
         lblCount.setText("Fremmødt: " + model.getRowCount());
     }
 
@@ -66,89 +65,64 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     }
 
     private void initOtherComponents() {
-        txtTolerance.setText("10");
+        txtFremmøde.setEditable(false);
         btnBekæft.setEnabled(true);
-        txtTolerance.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char vChar = e.getKeyChar();
-                if (!(Character.isDigit(vChar)) || txtTolerance.getText().length() >= 3) {
-                    e.consume();
-                }
-                if (vChar == KeyEvent.VK_BACK_SPACE) {
-                    txtTolerance.setText("");
-                }
-            }
-        });
+        cboxAlarm.addItemListener(new ItemListener() {
 
-        btnBekæft.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                if (cboxType.getSelectedIndex() != -1 && /*txtTid.getText().length() != 4 && */ jDateChooser.getDate() != null && model.getRowCount() != 0 && !txtFremmøde.getText().isEmpty()) {
-                    confirmTeam();
-                    msgbox("Holdet er nu bekræftet!");
-                    txtFremmøde.setText("");
-//                    txtTid.setText("");
-                    jDateChooser.setDate(null);
-                    HLUsageReport frame = new HLUsageReport(BLLAppearance.getInstance().newAppearances.get(0));
-                    frame.setVisible(true);
-                    dispose();
-                } else {
-                    msgbox("Udfyld venligst al information!");
-                }
-            }
-        });
+            public void itemStateChanged(ItemEvent e) {
 
-        btnHent.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+                if (cboxAlarm.getSelectedIndex() != -1) {
+                    if (cboxAlarm.getSelectedIndex() != 0 && cboxAlarm.getSelectedIndex() != -1) {
+                        update();
+                        model.setAppearanceList(bllAppearance.getAppearancesWithCriteria((BEAlarm) cboxAlarm.getSelectedItem()));
 
-                if (isInformationFilled()) {
-                    update();
-                    model.setAppearanceList(bllAppearance.getAppearancesWithCriteria(jDateChooser.getDate(), cboxAlarm.getSelectedItem().toString(), Integer.parseInt(txtTolerance.getText())));
+                        BEAlarm alarm = null;
+                        for (BEAlarm theAlarm : bllAlarm.getAllAlarms()) {
+                            String[] theAlarmString = cboxAlarm.getSelectedItem().toString().split(" - ");
+                            if (theAlarm.getDesc().equals(theAlarmString[0])) {
+                                alarm = theAlarm;
+                                break;
+                            }
+
+                        }
+                        txtFremmøde.setText(alarm.getDesc());
+                    } else {
+                        model.setAppearanceList(bllAppearance.getAllAppearances());
+                        txtFremmøde.setText("");
+                    }
                     model.fireTableDataChanged();
                     lblCount.setText("Fremmødt: " + model.getRowCount());
+
                 }
             }
-        });
+        }
+        );
 
-//        txtTid.addKeyListener(new KeyAdapter() {
-//            @Override
-//            public void keyTyped(KeyEvent e) {
-//                if (txtTid.getText().length() == 2) {
-//                    txtTid.setText(txtTid.getText() + ":");
-//                }
-//                char vChar = e.getKeyChar();
-//                if (!(Character.isDigit(vChar) && txtTid.getText().length() != 5
-//                        || (vChar == KeyEvent.VK_BACK_SPACE)
-//                        || (vChar == KeyEvent.VK_DELETE))) {
-//                    e.consume();
-//                }
-//                if (Character.isDigit(vChar) && txtTid.getText().length() == 0 && Integer.parseInt(String.valueOf(vChar)) > 2) {
-//                    e.consume();
-//                }
-//                if (txtTid.getText().length() > 0 && txtTid.getText().charAt(0) == '2') {
-//                    if (txtTid.getText().length() == 1 && Integer.parseInt(String.valueOf(vChar)) > 3) {
-//                        e.consume();
-//                    }
-//                }
-//                if (Character.isDigit(vChar) && txtTid.getText().length() == 3 && Integer.parseInt(String.valueOf(vChar)) > 5) {
-//                    e.consume();
-//                }
-//                if (vChar == KeyEvent.VK_BACK_SPACE) {
-//                    txtTid.setText("");
-//                }
-//            }
-//        });
+        btnBekæft.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (cboxType.getSelectedIndex() != -1 && model.getRowCount() != 0 && cboxAlarm.getSelectedIndex() != 0) {
+                            confirmTeam();
+                            msgbox("Holdet er nu bekræftet!");
+                            HLUsageReport frame = new HLUsageReport(BLLAppearance.getInstance().newAppearances.get(0));
+                            frame.setVisible(true);
+                            dispose();
+                        } else {
+                            msgbox("Udfyld venligst al information!");
+                        }
+                    }
+                }
+        );
+
     }
 
     private void confirmTeam() {
         try {
-            // BEAlarm alarm = bllAlarm.createAlarm(jDateChooser.getDate(), txtTid.getText(), txtFremmøde.getText());
-            //  bllAppearance.confirmTeam((int) cboxType.getSelectedItem(), alarm);
-
+            bllAppearance.confirmTeam((int) cboxType.getSelectedItem(), (BEAlarm) cboxAlarm.getSelectedItem());
         } catch (Exception ex) {
-            msgbox(ex.getMessage());
+            msgbox("dd" + ex);
         }
     }
 
@@ -165,11 +139,8 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     }
 
     private boolean isInformationFilled() {
-        if (jDateChooser.getDate() != null /*&& txtTid.getText().trim().length() == 5*/) {
-            return true;
-        }
-        JOptionPane.showMessageDialog(this, "Udfyld venligst al information");
-        return false;
+
+        return true;
     }
 
     private void addCellRenderer() {
@@ -184,8 +155,9 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     }
 
     private void fillCboxAlarm() {
+        cboxAlarm.addItem("Ingen alarm");
         for (BEAlarm alarm : bllAlarm.getAllAlarms()) {
-            cboxAlarm.addItem(alarm.getTimeString());
+            cboxAlarm.addItem(alarm);
         }
 
     }
@@ -194,32 +166,22 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblDato = new javax.swing.JLabel();
         btnBekæft = new javax.swing.JButton();
         lblAlarm = new javax.swing.JLabel();
-        btnHent = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTider = new javax.swing.JTable();
         lblFremmøde = new javax.swing.JLabel();
-        jDateChooser = new com.toedter.calendar.JDateChooser();
         lblCount = new javax.swing.JLabel();
         cboxType = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
-        txtTolerance = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        lblmin = new javax.swing.JLabel();
         txtFremmøde = new javax.swing.JTextField();
         cboxAlarm = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblDato.setText("Dato:");
-
         btnBekæft.setText("Bekræft hold");
 
         lblAlarm.setText("Alarm");
-
-        btnHent.setText("Hent");
 
         tblTider.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -248,10 +210,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
 
         jLabel1.setText("Type:");
 
-        jLabel2.setText("Tolerance:");
-
-        lblmin.setText("min.");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -261,25 +219,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblDato)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblAlarm)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cboxAlarm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtTolerance, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblmin)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnHent))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblCount)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cboxType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -288,23 +227,24 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtFremmøde)
                         .addGap(18, 18, 18)
-                        .addComponent(btnBekæft, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnBekæft, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCount)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblAlarm)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cboxAlarm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblDato)
-                        .addComponent(lblAlarm)
-                        .addComponent(btnHent)
-                        .addComponent(txtTolerance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)
-                        .addComponent(lblmin)
-                        .addComponent(cboxAlarm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboxAlarm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAlarm))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7)
@@ -325,21 +265,15 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBekæft;
-    private javax.swing.JButton btnHent;
     private javax.swing.JComboBox cboxAlarm;
     private javax.swing.JComboBox cboxType;
-    private com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAlarm;
     private javax.swing.JLabel lblCount;
-    private javax.swing.JLabel lblDato;
     private javax.swing.JLabel lblFremmøde;
-    private javax.swing.JLabel lblmin;
     private javax.swing.JTable tblTider;
     private javax.swing.JTextField txtFremmøde;
-    private javax.swing.JTextField txtTolerance;
     // End of variables declaration//GEN-END:variables
 
 }
