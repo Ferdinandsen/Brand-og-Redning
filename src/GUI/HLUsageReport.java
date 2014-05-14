@@ -1,5 +1,6 @@
 package GUI;
 
+import BE.BEAlarm;
 import BE.BEAppearance;
 import BE.BEMateriel;
 import BE.BEUsage;
@@ -31,14 +32,14 @@ public class HLUsageReport extends javax.swing.JFrame {
     private JPanel main;
     private int height;
     private int width = 450;
-    BEAppearance appear;
+    BEAlarm alarm;
     ArrayList<ForbrugPanel> forbrug = new ArrayList<>();
 
     /**
      * Creates new form HLErrorRapport
      */
-    public HLUsageReport(BEAppearance a) {
-        appear = a;
+    public HLUsageReport(BEAlarm a) {
+        alarm = a;
         bllusage = BLLUsage.getInstance();
         allMats = bllusage.getAllMats();
         height = allMats.size() * 25;
@@ -50,7 +51,7 @@ public class HLUsageReport extends javax.swing.JFrame {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
     }
-
+    
     private JPanel getBorderLayout() {
         JPanel p = new JPanel();
         p.setLayout(new BorderLayout());
@@ -80,8 +81,6 @@ public class HLUsageReport extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 usage();
                 JOptionPane.showMessageDialog(null, "Du har nu registreret forbruget - tak!");
-                HLErrorReport frame = new HLErrorReport();
-                frame.setVisible(true);
                 dispose();
             }
         });
@@ -125,7 +124,7 @@ public class HLUsageReport extends javax.swing.JFrame {
         for (ForbrugPanel test : forbrug) {
             for (BEMateriel mat : allMats) {
                 if (mat.getName().equalsIgnoreCase(test.name) && test.getAmount() != 0) {
-                    bu = new BEUsage(appear.getAlarm(), mat, test.getAmount());
+                    bu = new BEUsage(alarm, mat, test.getAmount());
                     createUsageReport(bu);
                 }
             }

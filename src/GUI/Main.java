@@ -7,7 +7,8 @@ package GUI;
 public class Main {
 
     public static void main(String[] args) {
-        HLAfterAction1 main = HLAfterAction1.getInstance();
+        MainView main = new MainView();
+//        HLAfterAction1 main = HLAfterAction1.getInstance();
 //        CheckUdView main = new CheckUdView();
 //        CheckOutView main = new CheckOutView();
 //        HLErrorReport main = new HLErrorReport());
