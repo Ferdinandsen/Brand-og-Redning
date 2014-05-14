@@ -1,24 +1,27 @@
 package GUI;
 
-import BE.BEAppearance;
+import BE.BEAction;
 
 /**
  *
  * @author Team Kawabunga
  */
 public class ILIndsats extends javax.swing.JFrame {
-private BEAppearance appear;
+
+    private BEAction action;
+
     /**
      * Creates new form ILIndsats
      */
-    public ILIndsats(BEAppearance a) {
-        appear = a;
+    public ILIndsats(BEAction a) {
+        action = a;
         initComponents();
-//        initOtherComponents();
+        //        initOtherComponents();
         this.setTitle("Indsatsleders indsats rapport");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        getInfo();
     }
 
     /**
@@ -310,7 +313,13 @@ private BEAppearance appear;
     private void initOtherComponents() {
 
     }
-    private void getInfo(){
-       
+
+    private void getInfo() {
+        txtPAlarmTid.setText(action.getAppearance().getAlarm().getTimeString());
+        txtPDesc.setText(action.getAppearance().getAlarm().getDesc());
+        txtPKørselType.setText("" + action.getAppearance().getType());
+        txtPAlarmType.setText(action.getAlarmType());
+        txtPGrpNo.setText(action.getGruppeNo());
+        txtPDetNo.setText(action.getDetektorNo());
     }
 }
