@@ -6,6 +6,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -63,9 +64,12 @@ public class CheckUdView extends javax.swing.JFrame {
         flayout.setHgap(30); // definer afstanden imellem grupperne
         JPanel p = new JPanel(flayout);
         p.setBorder(BorderFactory.createLineBorder(Color.red));
-        for (int i = 1; i <= 4; i++) {
+        p.setBackground(new Color(164, 164, 164));
+        for (int i = 1; i <= bllFireman.getHighestTeamNumber(); i++) {
             JPanel panel = new JPanel();
-            JLabel label = new JLabel("Hold:" + i);
+            JLabel label = new JLabel("Hold: " + i);
+            Font f = new Font(Font.SANS_SERIF, Font.BOLD, 24);
+            label.setFont(f);
             GridLayout glayout = new GridLayout(8, 1);
             glayout.setVgap(10);
             panel.setPreferredSize(new Dimension(width / 5, height));
@@ -73,7 +77,7 @@ public class CheckUdView extends javax.swing.JFrame {
             for (BEFireman fm : allFiremen) {
                 panel.setBackground(getColorTeam(i));
                 JButton b = new firemanButton(fm);
-                b.setIcon(new ImageIcon(((new ImageIcon("images/" + fm.getMedarbjeder().getPortræt())).getImage()).getScaledInstance(80, 60, java.awt.Image.SCALE_SMOOTH)));
+                b.setIcon(new ImageIcon(((new ImageIcon("images/" + fm.getMedarbjeder().getPortræt())).getImage()).getScaledInstance(70, 80, java.awt.Image.SCALE_SMOOTH)));
                 b.setFocusable(false);
                 b.addActionListener(new ActionListener() {
                     @Override
@@ -130,12 +134,14 @@ public class CheckUdView extends javax.swing.JFrame {
                 myColor = Color.red;
                 break;
             case 2:
-                myColor = Color.white;
+                myColor = Color.lightGray;
                 break;
             case 3:
                 myColor = Color.blue;
                 break;
-            case 4: myColor = Color.yellow;
+            case 4:
+                myColor = Color.yellow;
+                break;
         }
         return myColor;
     }
@@ -147,7 +153,7 @@ public class CheckUdView extends javax.swing.JFrame {
 
         public firemanButton(BEFireman fm) {
             localFireman = fm;
-            this.name = fm.getMedarbjeder().getFornavn();
+            this.name = fm.getMedarbjeder().getFornavn() + " " + fm.getMedarbjeder().getEfternavn();
             this.setBackground(getColor());
             this.setText(name);
         }
@@ -172,9 +178,11 @@ public class CheckUdView extends javax.swing.JFrame {
             this.setBackground(getColor());
             repaint();
         }
+
         public void updateLocalFireman(BEFireman lfm) {
             localFireman = lfm;
             this.setBackground(getColor());
         }
+        
     }
 }

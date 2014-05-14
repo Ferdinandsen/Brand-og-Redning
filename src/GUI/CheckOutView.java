@@ -41,6 +41,10 @@ public class CheckOutView extends javax.swing.JDialog {
         localFireman = fireman;
         initComponents();
         initOtherComponents();
+        pnlFrame.setBackground(new Color(164, 164, 164));
+        rbtnChauffør.setBackground(new Color(164, 164, 164));
+        rbtnHoldleder.setBackground(new Color(164, 164, 164));
+        rbtnStVagt.setBackground(new Color(164, 164, 164));
         this.setTitle("CHECK UD");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);

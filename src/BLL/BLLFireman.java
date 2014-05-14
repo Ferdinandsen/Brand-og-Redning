@@ -10,6 +10,7 @@ import java.util.ArrayList;
  * @author Team Kawabunga
  */
 public class BLLFireman {
+
     DALFireman dalFireman;
     private static BLLFireman m_instance = null;
 
@@ -27,7 +28,8 @@ public class BLLFireman {
         }
         return m_instance;
     }
-    public void update(){
+
+    public void update() {
         try {
             dalFireman.populateFiremen();
         } catch (SQLException ex) {
@@ -46,4 +48,13 @@ public class BLLFireman {
 //            System.out.println("kunne ikke changeBit" + ex);
 //        }
 //    }
+    public int getHighestTeamNumber() {
+        int number = 0;
+        for (BEFireman fireman : getAllfiremen()) {
+            if (fireman.getTeam() >= number) {
+                number = fireman.getTeam();
+            }
+        }
+        return number;
+    }
 }

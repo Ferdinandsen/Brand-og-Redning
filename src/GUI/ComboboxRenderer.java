@@ -39,7 +39,7 @@ class ComboBoxRenderer extends JLabel
             lbl.setText(value.toString());
             
             if (index % 2 != 0) {
-                lbl.setBackground(Color.LIGHT_GRAY);
+                lbl.setBackground(new Color(229, 220, 220));
             }
             
         }
