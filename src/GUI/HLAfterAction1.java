@@ -195,7 +195,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         txtComment = new javax.swing.JTextField();
         btnChangeTime = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnBekæft.setText("Bekræft hold");
 

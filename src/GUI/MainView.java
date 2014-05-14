@@ -26,6 +26,7 @@ public class MainView extends javax.swing.JFrame {
      * Creates new form MainView
      */
     public MainView() {
+        this.setResizable(false);
         bllEmployee = BLLEmployee.getInstance();
         initComponents();
         initLogInComponents();
@@ -46,7 +47,7 @@ public class MainView extends javax.swing.JFrame {
         btnConfirmApp = new javax.swing.JButton();
         btnIL = new javax.swing.JButton();
         btnSalery = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtNote = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
         btnLogOut = new javax.swing.JButton();
         txtName = new javax.swing.JTextField();
@@ -56,7 +57,7 @@ public class MainView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblLogIn.setText("Loggede ind Som");
+        lblLogIn.setText("Logget ind som:");
 
         panelFeed.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 51, 0)));
         panelFeed.setAutoscrolls(true);
@@ -74,15 +75,15 @@ public class MainView extends javax.swing.JFrame {
             .addGap(0, 306, Short.MAX_VALUE)
         );
 
-        btnErrorReport.setText("Fejl report");
+        btnErrorReport.setText("Fejl rapport");
 
-        btnConfirmApp.setText("Fremmøde Bekræft");
+        btnConfirmApp.setText("Bekræft Fremmmøder");
 
         btnIL.setText("IndsatsLeder");
 
         btnSalery.setText("LØN **");
 
-        jTextField1.setText("Husk Der er Øvelse d. 21/6 Kl13.00");
+        txtNote.setText("Husk Der er Øvelse d. 21/6 Kl13.00");
 
         btnLogOut.setText("Log af");
 
@@ -98,22 +99,22 @@ public class MainView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnSalery, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnIL, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnSalery, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                                .addComponent(panelFeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                .addComponent(btnIL, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(panelFeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblLogIn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNote, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblLogIn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -132,11 +133,11 @@ public class MainView extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
                                     .addComponent(txtPassword))))
-                        .addContainerGap(22, Short.MAX_VALUE))
+                        .addContainerGap(20, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnErrorReport, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnConfirmApp))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnConfirmApp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnErrorReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -144,9 +145,9 @@ public class MainView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(132, 132, 132)
+                        .addGap(156, 156, 156)
                         .addComponent(btnIL, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(76, 76, 76)
+                        .addGap(52, 52, 52)
                         .addComponent(btnSalery, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -171,13 +172,12 @@ public class MainView extends javax.swing.JFrame {
                         .addGap(59, 59, 59)
                         .addComponent(panelFeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNote, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirmApp;
     private javax.swing.JButton btnErrorReport;
@@ -187,15 +187,16 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JButton btnSalery;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblLogIn;
     private javax.swing.JPanel panelFeed;
     private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtNote;
     private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
 
     private void initOtherComponets() {
-        lblLogIn.setText("ikke logget på");
+        txtNote.setEditable(false);
+        lblLogIn.setText("Ikke logget på");
         btnConfirmApp.setEnabled(false);
         btnIL.setEnabled(false);
         btnSalery.setEnabled(false);
@@ -253,7 +254,7 @@ public class MainView extends javax.swing.JFrame {
                 btnConfirmApp.setEnabled(false);
                 btnIL.setEnabled(false);
                 btnSalery.setEnabled(false);
-                lblLogIn.setText("ikke logget på");
+                lblLogIn.setText("Ikke logget på");
                 clearlogintxt();
                 btnLogIn.setEnabled(true);
                 btnLogOut.setEnabled(false);
@@ -271,8 +272,8 @@ public class MainView extends javax.swing.JFrame {
         if (btnLogIn.isEnabled()) {
             if (isInformationValid()) {
                 if (bllEmployee.doesUserExist(txtName.getText(), txtPassword.getPassword())) {
-                    log = bllEmployee.getLogin(txtName.getText());
-                    lblLogIn.setText(log.getMedarbejder().toString());
+                    BELogin log = bllEmployee.getLogin(txtName.getText());
+                    lblLogIn.setText("Logget ind som: " + log.getMedarbejder().toString());
                     btnLogIn.setEnabled(false);
                     btnLogOut.setEnabled(true);
                     clearlogintxt();

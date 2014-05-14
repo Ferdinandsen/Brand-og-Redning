@@ -25,29 +25,29 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
+                              <Component id="btnSalery" min="-2" pref="125" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="jTextField1" min="-2" pref="495" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnIL" min="-2" pref="125" max="-2" attributes="0"/>
-                                  <Component id="btnSalery" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="8" max="32767" attributes="0"/>
-                              <Component id="panelFeed" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="btnIL" min="-2" pref="125" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="panelFeed" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="lblLogIn" min="-2" pref="95" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="txtNote" alignment="1" min="-2" pref="495" max="-2" attributes="0"/>
+                          <Component id="lblLogIn" alignment="1" min="-2" pref="183" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
@@ -73,12 +73,12 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="22" max="32767" attributes="0"/>
+                      <EmptySpace pref="20" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnErrorReport" min="-2" pref="125" max="-2" attributes="0"/>
-                          <Component id="btnConfirmApp" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btnConfirmApp" max="32767" attributes="0"/>
+                          <Component id="btnErrorReport" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
@@ -91,9 +91,9 @@
           <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="156" max="-2" attributes="0"/>
                       <Component id="btnIL" min="-2" pref="38" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                       <Component id="btnSalery" min="-2" pref="38" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -125,7 +125,7 @@
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTextField1" min="-2" pref="79" max="-2" attributes="0"/>
+              <Component id="txtNote" min="-2" pref="79" max="-2" attributes="0"/>
               <EmptySpace pref="26" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -134,7 +134,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="lblLogIn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Loggede ind Som"/>
+        <Property name="text" type="java.lang.String" value="Logget ind som:"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="panelFeed">
@@ -168,12 +168,12 @@
     </Container>
     <Component class="javax.swing.JButton" name="btnErrorReport">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Fejl report"/>
+        <Property name="text" type="java.lang.String" value="Fejl rapport"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnConfirmApp">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Fremm&#xf8;de Bekr&#xe6;ft"/>
+        <Property name="text" type="java.lang.String" value="Bekr&#xe6;ft Fremmm&#xf8;der"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnIL">
@@ -186,7 +186,7 @@
         <Property name="text" type="java.lang.String" value="L&#xd8;N **"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="txtNote">
       <Properties>
         <Property name="text" type="java.lang.String" value="Husk Der er &#xd8;velse d. 21/6 Kl13.00"/>
       </Properties>
