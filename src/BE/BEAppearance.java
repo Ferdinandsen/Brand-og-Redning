@@ -10,6 +10,7 @@ public class BEAppearance {
     private int id;
     private BEAlarm alarm;
     private BEFireman fireman;
+     private Timestamp checkIn;
     private Timestamp checkOut;
     private int totalTid;
     private boolean hlGodkendt;
@@ -20,11 +21,12 @@ public class BEAppearance {
     private int type;
     private BEVehicle veh;
     
-    public BEAppearance(int id, BEFireman fireman, Timestamp checkOut, int totaltid, boolean hlGodkendt, boolean ilGodkendt, 
+    public BEAppearance(int id, BEFireman fireman,Timestamp checkIn, Timestamp checkOut, int totaltid, boolean hlGodkendt, boolean ilGodkendt, 
             boolean holdleder, boolean chauffør, boolean STvagt, int type, BEAlarm alarm, BEVehicle veh){
         this.id = id;
         this.alarm = alarm;
         this.fireman = fireman;
+        this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.type = type;
         this.totalTid = totaltid;
@@ -205,7 +207,7 @@ public class BEAppearance {
         return checkOut;
     }
     public String getCheckOutString(){
-        String checkOutString[] = checkOut.toString().split(" ");
+        String checkOutString[] = getCheckOut().toString().split(" ");
         String[] fixedAlarm1 = checkOutString[1].split(":");
         String finalAlarm = fixedAlarm1[0] + ":" + fixedAlarm1[1];
         return finalAlarm;
@@ -216,5 +218,19 @@ public class BEAppearance {
      */
     public void setCheckOut(Timestamp checkOut) {
         this.checkOut = checkOut;
+    }
+
+    /**
+     * @return the checkIn
+     */
+    public Timestamp getCheckIn() {
+        return checkIn;
+    }
+
+    /**
+     * @param checkIn the checkIn to set
+     */
+    public void setCheckIn(Timestamp checkIn) {
+        this.checkIn = checkIn;
     }
 }

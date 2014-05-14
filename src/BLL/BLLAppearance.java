@@ -11,6 +11,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -140,6 +142,14 @@ public class BLLAppearance {
             dalAppearance.populateAppearances();
         } catch (SQLException ex) {
             System.out.println("blabla" + ex);
+        }
+    }
+
+    public void updateAppearanceTotal(BEAppearance appearance,int total) {
+        try {
+            dalAppearance.updateTime(appearance, total);
+        } catch (SQLException ex) {
+                System.out.println("fejl i updateAppearanceTotal " + ex);
         }
     }
 }

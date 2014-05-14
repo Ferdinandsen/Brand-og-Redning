@@ -2,7 +2,7 @@ package GUI;
 
 import BE.BEAppearance;
 import BLL.BLLAppearance;
-import BLL.BLLFireman;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -13,6 +13,8 @@ import java.sql.Timestamp;
 
 public class ChangeTimeView extends javax.swing.JDialog {
 
+    boolean checkInIsCorrect = false;
+    boolean checkOutIsCorrect = false;
     BLLAppearance bllAppearance;
     BEAppearance localAppearance;
 
@@ -39,6 +41,7 @@ public class ChangeTimeView extends javax.swing.JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 calculateHours();
+                confirm();
             }
         });
         btnCancel.addActionListener(new ActionListener() {
@@ -49,15 +52,34 @@ public class ChangeTimeView extends javax.swing.JDialog {
             }
         });
         txtCheckIn.addKeyListener(new KeyAdapter() {
-                @Override
-                public void keyTyped(KeyEvent e) {
-                    char vChar = e.getKeyChar();
-                    if (!(Character.isDigit(vChar)) || txtCheckIn.getText().length() >=5) {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (txtCheckIn.getText().length() == 2) {
+                    txtCheckIn.setText(txtCheckIn.getText() + ":");
+                }
+                char vChar = e.getKeyChar();
+                if (!(Character.isDigit(vChar) && txtCheckIn.getText().length() != 5
+                        || (vChar == KeyEvent.VK_BACK_SPACE)
+                        || (vChar == KeyEvent.VK_DELETE))) {
+                    e.consume();
+                }
+                if (Character.isDigit(vChar) && txtCheckIn.getText().length() == 0 && Integer.parseInt(String.valueOf(vChar)) > 2) {
+                    e.consume();
+                }
+                if (txtCheckIn.getText().length() > 0 && txtCheckIn.getText().charAt(0) == '2') {
+                    if (txtCheckIn.getText().length() == 1 && Integer.parseInt(String.valueOf(vChar)) > 3) {
                         e.consume();
                     }
-//                    if (vChar == e.getKe)
                 }
-            });
+                if (Character.isDigit(vChar) && txtCheckIn.getText().length() == 3 && Integer.parseInt(String.valueOf(vChar)) > 5) {
+                    e.consume();
+                }
+                if (vChar == KeyEvent.VK_BACK_SPACE) {
+                    txtCheckIn.setText("");
+                }
+
+            }
+        });
         txtCheckIn.addFocusListener(new FocusListener() {
 
             @Override
@@ -66,7 +88,44 @@ public class ChangeTimeView extends javax.swing.JDialog {
 
             @Override
             public void focusLost(FocusEvent e) {
-                calculateHours();
+
+                if (txtCheckIn.getText().length() == 5 && txtCheckUd.getText().length() == 5) {
+                    calculateHours();
+                }
+
+                if (txtCheckIn.getText().length() != 5) {
+                    txtCheckIn.requestFocus();
+                }
+            }
+        });
+
+        txtCheckUd.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (txtCheckUd.getText().length() == 2) {
+                    txtCheckUd.setText(txtCheckUd.getText() + ":");
+                }
+                char vChar = e.getKeyChar();
+                if (!(Character.isDigit(vChar) && txtCheckUd.getText().length() != 5
+                        || (vChar == KeyEvent.VK_BACK_SPACE)
+                        || (vChar == KeyEvent.VK_DELETE))) {
+                    e.consume();
+                }
+                if (Character.isDigit(vChar) && txtCheckUd.getText().length() == 0 && Integer.parseInt(String.valueOf(vChar)) > 2) {
+                    e.consume();
+                }
+                if (txtCheckUd.getText().length() > 0 && txtCheckUd.getText().charAt(0) == '2') {
+                    if (txtCheckUd.getText().length() == 1 && Integer.parseInt(String.valueOf(vChar)) > 3) {
+                        e.consume();
+                    }
+                }
+                if (Character.isDigit(vChar) && txtCheckUd.getText().length() == 3 && Integer.parseInt(String.valueOf(vChar)) > 5) {
+                    e.consume();
+                }
+                if (vChar == KeyEvent.VK_BACK_SPACE) {
+                    txtCheckUd.setText("");
+                }
+
             }
         });
 
@@ -79,7 +138,13 @@ public class ChangeTimeView extends javax.swing.JDialog {
 
             @Override
             public void focusLost(FocusEvent e) {
-                calculateHours();
+                if (txtCheckIn.getText().length() == 5 && txtCheckUd.getText().length() == 5) {
+                    calculateHours();
+                }
+
+                if (txtCheckUd.getText().length() != 5) {
+                    txtCheckUd.requestFocus();
+                }
             }
         });
     }
@@ -104,6 +169,27 @@ public class ChangeTimeView extends javax.swing.JDialog {
             hour = 2;
         }
         lblTotal.setText(String.valueOf(hour));
+    }
+
+    private void confirm() {
+        String[] splittedCheckIn = txtCheckIn.getText().split(":");
+        String[] splittedCheckOut = txtCheckUd.getText().split(":");
+
+        int checkInHour = Integer.parseInt(splittedCheckIn[0]);
+        int checkInMinute = Integer.parseInt(splittedCheckIn[1]);
+
+        int checkOutHour = Integer.parseInt(splittedCheckOut[0]);
+        int checkOutMinute = Integer.parseInt(splittedCheckOut[1]);
+
+        Timestamp newCheckIn = new Timestamp(localAppearance.getCheckIn().getYear(), localAppearance.getCheckIn().getMonth(), localAppearance.getCheckIn().getDate(), checkInHour, checkInMinute, localAppearance.getCheckIn().getSeconds(), localAppearance.getCheckIn().getNanos());
+        Timestamp newCheckOut = new Timestamp(localAppearance.getCheckOut().getYear(), localAppearance.getCheckOut().getMonth(), localAppearance.getCheckOut().getDate(), checkOutHour, checkOutMinute, localAppearance.getCheckOut().getSeconds(), localAppearance.getCheckOut().getNanos());
+
+        localAppearance.setCheckIn(newCheckIn);
+        localAppearance.setCheckOut(newCheckOut);
+        localAppearance.setTotalTid(Integer.parseInt(lblTotal.getText()));
+        bllAppearance.updateAppearanceTotal(localAppearance, Integer.parseInt(lblTotal.getText()));
+        System.out.println("den er nu opdaretet");
+        dispose();
     }
 
     @SuppressWarnings("unchecked")

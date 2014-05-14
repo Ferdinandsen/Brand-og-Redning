@@ -64,20 +64,27 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     private void msgbox(String message) {
         JOptionPane.showMessageDialog(this, message);
     }
+    private void updateTable(){
+       model.fireTableDataChanged();
+     
+        System.out.println("tabellen opdateret");
+    }
 
     private void initOtherComponents() {
         txtFremmøde.setEditable(false);
         btnBekæft.setEnabled(true);
         btnChangeTime.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                System.out.println(""+ tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
+                System.out.println(bllAppearance.getAllAppearances().size());
                 BEAppearance appearance = bllAppearance.getAllAppearances().get(tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
+                
                 ChangeTimeView ctView = new ChangeTimeView(appearance);
                 ctView.setModal(true);
                 ctView.setLocationRelativeTo(null);
                 ctView.setVisible(true);
+               updateTable();
             }
         });
         cboxAlarm.addItemListener(new ItemListener() {
@@ -151,10 +158,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         model.fireTableDataChanged();
     }
 
-    private boolean isInformationFilled() {
-
-        return true;
-    }
 
     private void addCellRenderer() {
 
