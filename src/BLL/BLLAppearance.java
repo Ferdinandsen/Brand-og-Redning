@@ -123,16 +123,14 @@ public class BLLAppearance {
         return d;
     }
 
-    public void confirmTeam(int type, BEAlarm alarm) throws Exception {
+    public void confirmTeam(int kørselstype, BEAlarm alarm) throws Exception {
         for (BEAppearance appearance : newAppearances) {
             try {
-                appearance.setType(type);
-     
-                    appearance.setAlarm(alarm);
-
+                appearance.setType(kørselstype);
+                appearance.setAlarm(alarm);
                 dalAppearance.confirmTeam(appearance);
             } catch (SQLException ex) {
-                System.out.println("fejl i bllAppearance2 " + ex);
+                System.out.println("fejl i confirmTeam" + ex);
             }
         }
     }

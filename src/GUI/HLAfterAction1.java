@@ -104,7 +104,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                                 alarm = theAlarm;
                                 break;
                             }
-
                         }
                         txtFremmøde.setText(alarm.getDesc());
                     } else {
@@ -113,7 +112,6 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                     }
                     model.fireTableDataChanged();
                     lblCount.setText("Fremmødt: " + model.getRowCount());
-
                 }
             }
         }
@@ -126,16 +124,14 @@ public class HLAfterAction1 extends javax.swing.JFrame {
                         if (cboxType.getSelectedIndex() != -1 && model.getRowCount() != 0 && cboxAlarm.getSelectedIndex() != 0) {
                             confirmTeam();
                             msgbox("Holdet er nu bekræftet!");
-                            HLUsageReport frame = new HLUsageReport(BLLAppearance.getInstance().newAppearances.get(0));
+                            HLUsageReport frame = new HLUsageReport((BEAlarm) cboxAlarm.getSelectedItem());
                             frame.setVisible(true);
                             dispose();
                         } else {
                             msgbox("Udfyld venligst al information!");
                         }
                     }
-                }
-        );
-
+                });
     }
 
     private void confirmTeam() {

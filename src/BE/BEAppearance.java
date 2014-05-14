@@ -7,6 +7,7 @@ import java.sql.Timestamp;
  * @author Team Kawabunga
  */
 public class BEAppearance {
+
     private int id;
     private BEAlarm alarm;
     private BEFireman fireman;
@@ -121,7 +122,6 @@ public class BEAppearance {
     public void setTotalTid(int totalTid) {
         this.totalTid = totalTid;
     }
-
 
     /**
      * @return the hlGodkendt

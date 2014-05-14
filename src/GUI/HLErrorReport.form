@@ -26,42 +26,37 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="lblHeader" min="-2" pref="277" max="-2" attributes="0"/>
-                      <EmptySpace pref="20" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="lblHeader" min="-2" pref="277" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" pref="297" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="txtOutofOrder" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtUrgent" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtInDueTime" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtWash" alignment="0" pref="145" max="32767" attributes="0"/>
+                          <EmptySpace min="31" pref="31" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txtOutofOrder" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtUrgent" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtInDueTime" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtWash" alignment="0" pref="145" max="32767" attributes="0"/>
+                                  <Component id="btnAcknowledge" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="txtMadeBy" alignment="1" min="-2" pref="145" max="-2" attributes="0"/>
                           </Group>
-                      </Group>
-                      <Component id="jScrollPane1" pref="297" max="32767" attributes="0"/>
-                      <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="btnAcknowledge" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnDone" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="lblKøtj" min="-2" pref="48" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cboxKøretøj" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -104,11 +99,13 @@
                   <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                   <Component id="txtWash" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnAcknowledge" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnDone" alignment="3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtMadeBy" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace type="unrelated" max="32767" attributes="0"/>
+              <Component id="btnAcknowledge" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -200,17 +197,19 @@
         <Property name="text" type="java.lang.String" value="Bekr&#xe6;ft"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnDone">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="F&#xe6;rdig / Ingen fejl"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JComboBox" name="cboxK&#xf8;ret&#xf8;j">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Udfyldt af :"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtMadeBy">
     </Component>
   </SubComponents>
 </Form>
