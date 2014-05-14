@@ -36,7 +36,7 @@ public class DALLogin {
         ps.execute();
         ResultSet result = ps.getResultSet();
         while (result.next()) {
-            int medarbejderRef = result.getInt("medarbejderRef");
+                        int medarbejderRef = result.getInt("medarbejderRef");
             String kode = result.getString("kode");
             boolean admin = result.getBoolean("admin");
             boolean kontor = result.getBoolean("kontor");

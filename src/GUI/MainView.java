@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 public class MainView extends javax.swing.JFrame {
 
     BLLEmployee bllEmployee;
+    BELogin log;
 
     /**
      * Creates new form MainView
@@ -203,7 +204,7 @@ public class MainView extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                HLAfterAction1 main = HLAfterAction1.getInstance();
+                HLAfterAction1 main = HLAfterAction1.getInstance(log);
                 main.setVisible(true);
             }
         });
@@ -266,10 +267,11 @@ public class MainView extends javax.swing.JFrame {
     }
 
     private void tryLogin() {
+        
         if (btnLogIn.isEnabled()) {
             if (isInformationValid()) {
                 if (bllEmployee.doesUserExist(txtName.getText(), txtPassword.getPassword())) {
-                    BELogin log = bllEmployee.getLogin(txtName.getText());
+                    log = bllEmployee.getLogin(txtName.getText());
                     lblLogIn.setText(log.getMedarbejder().toString());
                     btnLogIn.setEnabled(false);
                     btnLogOut.setEnabled(true);

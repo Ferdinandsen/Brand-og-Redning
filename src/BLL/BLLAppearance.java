@@ -3,8 +3,10 @@ package BLL;
 import BE.BEAlarm;
 import BE.BEAppearance;
 import BE.BEFireman;
+import BE.BELogin;
 import BE.BEVehicle;
 import DAL.DALALarm;
+import DAL.DALAction;
 import DAL.DALAppearance;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -13,6 +15,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sun.util.locale.BaseLocale;
 
 /**
  *
@@ -23,12 +26,16 @@ public class BLLAppearance {
     public ArrayList<BEAppearance> newAppearances;
     DALAppearance dalAppearance;
     DALALarm dalAlarm;
+    DALAction dalAction;
     private BLLAlarm bllAlarm;
+    private BLLAction bllAction;
     private static BLLAppearance m_instance = null;
 
     private BLLAppearance() {
         try {
+            bllAction = BLLAction.getInstance();
             bllAlarm = BLLAlarm.getInstance();
+            dalAction = DALAction.getInstance();
             dalAlarm = DALALarm.getInstance();
             dalAppearance = DALAppearance.getInstance();
             newAppearances = getAllAppearances();
@@ -123,18 +130,25 @@ public class BLLAppearance {
         return d;
     }
 
-    public void confirmTeam(int kørselstype, BEAlarm alarm) throws Exception {
+    public void confirmTeam(BELogin log, int kørselstype, BEAlarm alarm, String comment) throws Exception {
+        Timestamp time = time();
         for (BEAppearance appearance : newAppearances) {
             try {
                 appearance.setType(kørselstype);
                 appearance.setAlarm(alarm);
                 dalAppearance.confirmTeam(appearance);
+                createAction(log, time, appearance,kørselstype, alarm, comment);
             } catch (SQLException ex) {
                 System.out.println("fejl i confirmTeam" + ex);
             }
         }
     }
-
+private void createAction(BELogin log, Timestamp time, BEAppearance appearance , int kørselstype, BEAlarm alarm, String comment){
+        try {
+            dalAction.createAction(log, time, appearance, kørselstype, alarm, comment);
+        } catch (SQLException ex) {
+            System.out.println("fej i createAction " + ex); }
+}
     public void update() {
         try {
             dalAppearance.populateAppearances();

@@ -2,6 +2,7 @@ package GUI;
 
 import BE.BEAlarm;
 import BE.BEAppearance;
+import BE.BELogin;
 import BLL.BLLAlarm;
 import BLL.BLLAppearance;
 import BLL.BLLVehicle;
@@ -22,10 +23,12 @@ public class HLAfterAction1 extends javax.swing.JFrame {
     BLLVehicle bllVehicle;
     BLLAppearance bllAppearance;
     BLLAlarm bllAlarm;
+    BELogin localLog;
     private FremmødeTableModel model;
     private static HLAfterAction1 m_instance = null;
 
-    private HLAfterAction1() {
+    private HLAfterAction1(BELogin log) {
+        localLog = log;
         initComponents();
         initOtherComponents();
         bllAlarm = BLLAlarm.getInstance();
@@ -44,9 +47,9 @@ public class HLAfterAction1 extends javax.swing.JFrame {
         lblCount.setText("Fremmødt: " + model.getRowCount());
     }
 
-    public static HLAfterAction1 getInstance() {
+    public static HLAfterAction1 getInstance(BELogin log) {
         if (m_instance == null) {
-            m_instance = new HLAfterAction1();
+            m_instance = new HLAfterAction1(log);
         } else {
             m_instance.update();
         }
@@ -136,7 +139,7 @@ public class HLAfterAction1 extends javax.swing.JFrame {
 
     private void confirmTeam() {
         try {
-            bllAppearance.confirmTeam((int) cboxType.getSelectedItem(), (BEAlarm) cboxAlarm.getSelectedItem());
+            bllAppearance.confirmTeam(localLog,(int) cboxType.getSelectedItem(), (BEAlarm) cboxAlarm.getSelectedItem(), txtComment.getText());
         } catch (Exception ex) {
             msgbox("dd" + ex);
         }
