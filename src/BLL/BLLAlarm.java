@@ -2,8 +2,18 @@ package BLL;
 
 import BE.BEAlarm;
 import DAL.DALALarm;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -16,10 +26,12 @@ public class BLLAlarm {
     private BLLAlarm() {
         try {
             dalalarm = DALALarm.getInstance();
-        } catch (SQLException e) {
-            System.out.println("fejl i bllAlarm " + e);
+        
+        } catch (SQLException ex) {
+            System.out.println("fejl i dalAlarm: " + ex.getMessage());
         }
     }
+    
 
     public static BLLAlarm getInstance() {
         if (m_instance == null) {
@@ -30,6 +42,9 @@ public class BLLAlarm {
 
     public ArrayList<BEAlarm> getAllAlarms() {
         return dalalarm.getAllAlarms();
+    }
+    public ArrayList<BEAlarm> getAllTestAlarms(){
+        return dalalarm.getAllTestAlarms();
     }
 
 //    public BEAlarm createAlarm(Date date, String time, String fremmøde) {

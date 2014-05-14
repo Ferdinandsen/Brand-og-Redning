@@ -1,28 +1,80 @@
 package DAL;
 
 import BE.BEAlarm;
+import BLL.BLLAlarm;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  *
  * @author Team Kawabunga
  */
 public class DALALarm {
+
     private Connection m_connection;
     private static DALALarm m_instance = null;
+    BLLAlarm bllAlarm;
     ArrayList<BEAlarm> allAlarms;
+    ArrayList<BEAlarm> testAllAlarms;
     DALVehicle dalVehicle;
 
     private DALALarm() throws SQLServerException, SQLException {
+       
         m_connection = DBConnection.getInstance().getConnection();
         dalVehicle = DALVehicle.getInstance();
+        getXmlAlarms();
         populateAlarm();
+    }
+    private String getValue(String tag, Element element) {
+        NodeList nodes = element.getElementsByTagName(tag).item(0).getChildNodes();
+        Node node = (Node) nodes.item(0);
+        return node.getNodeValue();
+    }
+
+    private void getXmlAlarms() {
+        testAllAlarms = new ArrayList<>();
+        try {
+            URL url = new URL("https://www.odin.dk/RSS/RSS.aspx?beredskabsID=2d58cb9b-3219-42f7-885d-3905cec3c40e");
+            InputStream stream = url.openStream();
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(stream);
+            doc.getDocumentElement().normalize();
+
+            NodeList nodes = doc.getElementsByTagName("item");
+
+            for (int i = 0; i < nodes.getLength(); i++) {
+                Node node = nodes.item(i);
+
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) node;
+                    BEAlarm alarm = new BEAlarm(getValue("title", element), getValue("description", element), getValue("comments", element));
+                    testAllAlarms.add(alarm);
+                }
+            }
+        } catch (IOException | ParserConfigurationException | SAXException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public ArrayList<BEAlarm> getAllTestAlarms() {
+        return testAllAlarms;
     }
 
     public static DALALarm getInstance() throws SQLException {
@@ -82,4 +134,3 @@ public class DALALarm {
 //
 //    }
 }
-

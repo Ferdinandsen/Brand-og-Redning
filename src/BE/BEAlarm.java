@@ -13,6 +13,7 @@ public class BEAlarm {
     private String desc;
     private String station;
     private Timestamp time;
+    private String timeString;
     private boolean done;
 
     public BEAlarm(int id, String title, String desc, String station, Timestamp time, boolean done) {
@@ -22,6 +23,11 @@ public class BEAlarm {
         this.station = station;
         this.time = time;
         this.done = done;
+    }
+    public BEAlarm(String title, String desc, String timeString) {
+        this.title = title;
+        this.desc = desc;
+        this.timeString = timeString;
     }
 
     /**
@@ -34,7 +40,7 @@ public class BEAlarm {
         return time;
     }
     public String getTimeString(){
-        String alarm[] = time.toString().split(" ");
+        String alarm[] = getTime().toString().split(" ");
         String[] fixedAlarm1 = alarm[1].split(":");
         String finalAlarm = fixedAlarm1[0] + ":" + fixedAlarm1[1];
         return finalAlarm;
@@ -63,7 +69,7 @@ public class BEAlarm {
 
     @Override
     public String toString() {
-        return getDesc() + " - " + getTimeString();
+        return getDesc(); //+ " - " + getTimeString();
     }
 
     /**
@@ -120,6 +126,13 @@ public class BEAlarm {
      */
     public void setStation(String station) {
         this.station = station;
+    }
+
+    /**
+     * @param timeString the timeString to set
+     */
+    public void setTimeString(String timeString) {
+        this.timeString = timeString;
     }
 
 }
