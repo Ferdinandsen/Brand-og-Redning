@@ -1,16 +1,24 @@
 package GUI;
 
+import BE.BEAppearance;
+
 /**
  *
  * @author Team Kawabunga
  */
 public class ILIndsats extends javax.swing.JFrame {
-
+private BEAppearance appear;
     /**
      * Creates new form ILIndsats
      */
-    public ILIndsats() {
+    public ILIndsats(BEAppearance a) {
+        appear = a;
         initComponents();
+//        initOtherComponents();
+        this.setTitle("Indsatsleders indsats rapport");
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -51,13 +59,13 @@ public class ILIndsats extends javax.swing.JFrame {
         jScrollPane11 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         lblHLBem = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        lblAlarmTid = new javax.swing.JLabel();
+        lblDesc = new javax.swing.JLabel();
+        lblEva = new javax.swing.JLabel();
+        lblKørselType = new javax.swing.JLabel();
+        lblAlarmType = new javax.swing.JLabel();
+        lblGrpNo = new javax.swing.JLabel();
+        lblDetekNo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,26 +106,20 @@ public class ILIndsats extends javax.swing.JFrame {
         btnUsage.setForeground(new java.awt.Color(255, 102, 0));
         btnUsage.setText("Bekræft Forbrug");
 
-        txtPDesc.setText("Beskrivelse");
         jScrollPane4.setViewportView(txtPDesc);
 
-        txtPAlarmTid.setText("Alarm tid");
         jScrollPane5.setViewportView(txtPAlarmTid);
 
-        txtPEvaNo.setText("EvaNo");
+        txtPEvaNo.setToolTipText("");
         jScrollPane6.setViewportView(txtPEvaNo);
 
-        txtPKørselType.setText("Kørsels type");
         jScrollPane7.setViewportView(txtPKørselType);
 
-        txtPAlarmType.setText("Alarm type");
         txtPAlarmType.setToolTipText("");
         jScrollPane8.setViewportView(txtPAlarmType);
 
-        txtPGrpNo.setText("GruppeNo");
         jScrollPane9.setViewportView(txtPGrpNo);
 
-        txtPDetNo.setText("Detector No");
         jScrollPane10.setViewportView(txtPDetNo);
 
         jLabel1.setText("Bemærkninger");
@@ -129,19 +131,19 @@ public class ILIndsats extends javax.swing.JFrame {
 
         lblHLBem.setText("HL bemærkninger:");
 
-        jLabel2.setText("Alarm tid:");
+        lblAlarmTid.setText("Alarm tid:");
 
-        jLabel3.setText("Beskrivelse:");
+        lblDesc.setText("Beskrivelse:");
 
-        jLabel4.setText("EvaNo:");
+        lblEva.setText("EvaNo:");
 
-        jLabel5.setText("Kørsels type:");
+        lblKørselType.setText("Kørsels type:");
 
-        jLabel6.setText("Alarm type:");
+        lblAlarmType.setText("Alarm type:");
 
-        jLabel7.setText("GruppeNo");
+        lblGrpNo.setText("GruppeNo");
 
-        jLabel8.setText("DetektorNo");
+        lblDetekNo.setText("DetektorNo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -183,34 +185,34 @@ public class ILIndsats extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
+                                .addComponent(lblAlarmTid)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
+                                .addComponent(lblEva)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5))
+                            .addComponent(lblDesc)
+                            .addComponent(lblKørselType))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6)
+                                .addComponent(lblAlarmType)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel7)
+                                .addComponent(lblGrpNo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8)
+                                .addComponent(lblDetekNo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -224,20 +226,20 @@ public class ILIndsats extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                            .addComponent(lblAlarmTid)
+                            .addComponent(lblDesc))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6)
+                            .addComponent(lblEva)
+                            .addComponent(lblAlarmType)
                             .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)
+                            .addComponent(lblGrpNo)
                             .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel8)
+                    .addComponent(lblKørselType)
+                    .addComponent(lblDetekNo)
                     .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,13 +276,6 @@ public class ILIndsats extends javax.swing.JFrame {
     private javax.swing.JButton btnUpdate;
     private javax.swing.JButton btnUsage;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
@@ -292,8 +287,15 @@ public class ILIndsats extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JLabel lblAlarmTid;
+    private javax.swing.JLabel lblAlarmType;
     private javax.swing.JLabel lblAppear;
+    private javax.swing.JLabel lblDesc;
+    private javax.swing.JLabel lblDetekNo;
+    private javax.swing.JLabel lblEva;
+    private javax.swing.JLabel lblGrpNo;
     private javax.swing.JLabel lblHLBem;
+    private javax.swing.JLabel lblKørselType;
     private javax.swing.JTable tblIndsats;
     private javax.swing.JTextArea txtABem;
     private javax.swing.JTextPane txtPAlarmTid;
@@ -304,4 +306,11 @@ public class ILIndsats extends javax.swing.JFrame {
     private javax.swing.JTextPane txtPGrpNo;
     private javax.swing.JTextPane txtPKørselType;
     // End of variables declaration//GEN-END:variables
+
+    private void initOtherComponents() {
+
+    }
+    private void getInfo(){
+       
+    }
 }
