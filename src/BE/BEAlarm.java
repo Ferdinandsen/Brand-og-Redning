@@ -23,11 +23,7 @@ public class BEAlarm {
         this.time = time;
         this.done = done;
     }
-   
 
-    /**
-     * @return the EvaNo
-     */
     /**
      * @return the time
      */
@@ -35,6 +31,10 @@ public class BEAlarm {
         return time;
     }
 
+    /**
+     *
+     * @return a time as a string
+     */
     public String getTimeString() {
         String alarm[] = time.toString().split(" ");
         String[] fixedAlarm1 = alarm[1].split(":");
@@ -123,9 +123,4 @@ public class BEAlarm {
     public void setStation(String station) {
         this.station = station;
     }
-
-    /**
-     * @param timeString the timeString to set
-     */
-
 }
