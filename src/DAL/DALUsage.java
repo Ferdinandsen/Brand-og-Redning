@@ -18,6 +18,7 @@ public class DALUsage {
     private Connection m_connection;
     private static DALUsage m_instance = null;
     private ArrayList<BEMateriel> materiel = new ArrayList<>();
+    private ArrayList<BEUsage> allUsages = new ArrayList<BEUsage>();
 
     private DALUsage() throws SQLServerException, SQLException {
         m_connection = DBConnection.getInstance().getConnection();
@@ -39,6 +40,7 @@ public class DALUsage {
         ps.setInt(2, u.getMateriel().getId());
         ps.setInt(3, u.getAmount());
         ps.execute();
+        allUsages.add(u);
     }
 
     public void populateMats() throws SQLException {
@@ -55,6 +57,9 @@ public class DALUsage {
             BEMateriel mat = new BEMateriel(id, name);
             materiel.add(mat);
         }
+    }
+    public ArrayList<BEUsage> getAllUsages(){
+        return allUsages;
     }
 
     /**

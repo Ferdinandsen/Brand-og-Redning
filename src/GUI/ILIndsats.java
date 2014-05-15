@@ -48,13 +48,14 @@ public class ILIndsats extends javax.swing.JFrame {
     private void initOtherComponents() {
         btnHent.setEnabled(false);
 
-btnBack.addActionListener(new ActionListener() {
+        btnBack.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-            MainView view = new MainView();
-            view.setVisible(true);
-            dispose();
+                MainView view = new MainView();
+                view.setLocationRelativeTo(null);
+                view.setVisible(true);
+                dispose();
             }
         });
         tblFremmøder.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -70,6 +71,7 @@ btnBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 BEAlarm alarm = bllAlarm.getAllUnfinishedAlarms().get(tblFremmøder.convertRowIndexToView(tblFremmøder.getSelectedRow()));
                 ILFremmødeliste view = new ILFremmødeliste(alarm);
+                view.setLocationRelativeTo(null);
                 view.setVisible(true);
                 dispose();
             }
