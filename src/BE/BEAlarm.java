@@ -13,7 +13,6 @@ public class BEAlarm {
     private String desc;
     private String station;
     private Timestamp time;
-    private String timeString;
     private boolean done;
 
     public BEAlarm(int id, String title, String desc, String station, Timestamp time, boolean done) {
@@ -24,11 +23,7 @@ public class BEAlarm {
         this.time = time;
         this.done = done;
     }
-    public BEAlarm(String title, String desc, String timeString) {
-        this.title = title;
-        this.desc = desc;
-        this.timeString = timeString;
-    }
+   
 
     /**
      * @return the EvaNo
@@ -132,8 +127,5 @@ public class BEAlarm {
     /**
      * @param timeString the timeString to set
      */
-    public void setTimeString(String timeString) {
-        this.timeString = timeString;
-    }
 
 }

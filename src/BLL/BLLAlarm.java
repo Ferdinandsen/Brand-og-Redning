@@ -1,6 +1,7 @@
 package BLL;
 
 import BE.BEAlarm;
+import BE.BEOdinAlarm;
 import DAL.DALALarm;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
@@ -44,8 +45,8 @@ public class BLLAlarm {
     public ArrayList<BEAlarm> getAllAlarms() {
         return dalalarm.getAllAlarms();
     }
-    public ArrayList<BEAlarm> getAllTestAlarms(){
-        return dalalarm.getAllTestAlarms();
+    public ArrayList<BEOdinAlarm> getAllOdinAlarms(){
+        return dalalarm.getAllOdinAlarms();
     }
 
 //    public BEAlarm createAlarm(Date date, String time, String fremmøde) {

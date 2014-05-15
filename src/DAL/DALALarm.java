@@ -1,6 +1,7 @@
 package DAL;
 
 import BE.BEAlarm;
+import BE.BEOdinAlarm;
 import BLL.BLLAlarm;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.File;
@@ -32,7 +33,7 @@ public class DALALarm {
     private static DALALarm m_instance = null;
     BLLAlarm bllAlarm;
     ArrayList<BEAlarm> allAlarms;
-    ArrayList<BEAlarm> testAllAlarms;
+    ArrayList<BEOdinAlarm> allOdinAlarms;
     DALVehicle dalVehicle;
 
     private DALALarm() throws SQLServerException, SQLException {
@@ -49,9 +50,9 @@ public class DALALarm {
     }
 
     private void getXmlAlarms() {
-        testAllAlarms = new ArrayList<>();
+        allOdinAlarms = new ArrayList<>();
         try {
-            URL url = new URL("https://www.odin.dk/RSS/RSS.aspx?beredskabsID=bbbbbbbb-1111-2222-3333-bbbbbbbbbbbb");
+            URL url = new URL("https://www.odin.dk/RSS/RSS.aspx?beredskabsID=2d58cb9b-3219-42f7-885d-3905cec3c40e");
             InputStream stream = url.openStream();
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -65,16 +66,16 @@ public class DALALarm {
 
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
-                    BEAlarm alarm = new BEAlarm(getValue("title", element), getValue("description", element), getValue("comments", element));
-                    testAllAlarms.add(alarm);
+                    BEOdinAlarm odinAlarm = new BEOdinAlarm(getValue("title", element), getValue("description", element), getValue("comments", element));
+                    allOdinAlarms.add(odinAlarm);
                 }
             }
         } catch (IOException | ParserConfigurationException | SAXException ex) {
             ex.printStackTrace();
         }
     }
-    public ArrayList<BEAlarm> getAllTestAlarms() {
-        return testAllAlarms;
+    public ArrayList<BEOdinAlarm> getAllOdinAlarms() {
+        return allOdinAlarms;
     }
 
     public static DALALarm getInstance() throws SQLException {
