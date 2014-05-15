@@ -127,7 +127,8 @@ public class HLAfterAction extends javax.swing.JFrame {
                         if (cboxType.getSelectedIndex() != -1 && model.getRowCount() != 0 && cboxAlarm.getSelectedIndex() != 0) {
                             confirmTeam();
                             msgbox("Holdet er nu bekræftet!");
-                            HLUsageReport frame = new HLUsageReport((BEAlarm) cboxAlarm.getSelectedItem());
+                            HLAfterActionStory frame = new HLAfterActionStory((BEAlarm)cboxAlarm.getSelectedItem());
+//                            HLUsageReport frame = new HLUsageReport((BEAlarm) cboxAlarm.getSelectedItem());
                             frame.setVisible(true);
                             dispose();
                         } else {
