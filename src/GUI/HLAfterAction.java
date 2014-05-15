@@ -69,7 +69,6 @@ public class HLAfterAction extends javax.swing.JFrame {
 
     private void updateTable() {
         model.fireTableDataChanged();
-        System.out.println("tabellen opdateret");
     }
 
     private void initOtherComponents() {
@@ -78,9 +77,14 @@ public class HLAfterAction extends javax.swing.JFrame {
         btnChangeTime.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("" + tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
-                System.out.println(bllAppearance.getAllAppearances().size());
-                BEAppearance appearance = bllAppearance.getAllAppearances().get(tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
+                BEAppearance appearance = null;
+                if (cboxAlarm.getSelectedIndex() == 0) {
+                   appearance = bllAppearance.getAllAppearances().get(tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
+                }
+                else{
+                    appearance = bllAppearance.getAppearancesWithCriteria((BEAlarm)cboxAlarm.getSelectedItem()).get(tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
+               
+                }
                 ChangeTimeView ctView = new ChangeTimeView(appearance);
                 ctView.setModal(true);
                 ctView.setLocationRelativeTo(null);
