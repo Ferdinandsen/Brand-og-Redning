@@ -2,7 +2,9 @@ package DAL;
 
 import BE.BEAlarm;
 import BE.BEOdinAlarm;
+import BE.BEUsage;
 import BLL.BLLAlarm;
+import BLL.BLLUsage;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.File;
 import java.io.IOException;
@@ -32,6 +34,7 @@ public class DALALarm {
     private Connection m_connection;
     private static DALALarm m_instance = null;
     BLLAlarm bllAlarm;
+    BLLUsage bllUsage;
     ArrayList<BEAlarm> allAlarms;
     ArrayList<BEOdinAlarm> allOdinAlarms;
     DALVehicle dalVehicle;
@@ -40,6 +43,7 @@ public class DALALarm {
        
         m_connection = DBConnection.getInstance().getConnection();
         dalVehicle = DALVehicle.getInstance();
+        bllUsage = BLLUsage.getInstance();
         getXmlAlarms();
         populateAlarm();
     }
@@ -99,8 +103,20 @@ public class DALALarm {
             String station = result.getString("station");
             Timestamp tid = result.getTimestamp("tid");
             boolean done = result.getBoolean("done");
+            int forbrugRef = result.getInt("forbrugRef");
+            String alarmType = result.getString("alarmType");
+            int evaNo = result.getInt("evaNo");
+            int gruppeNo = result.getInt("gruppeNo");
+            int detekterNo = result.getInt("detekterNo");
+            
+            BEUsage localForbrug = null;
+            for (BEUsage forbrug : bllUsage.getAllUsages()){
+                if (forbrug.getId() == forbrugRef){
+                    localForbrug = forbrug;
+                }
+            }
 
-            BEAlarm alarm = new BEAlarm(id, title, desc, station, tid, done);
+            BEAlarm alarm = new BEAlarm(id, title, desc, station, tid, done, localForbrug, alarmType, evaNo, gruppeNo, detekterNo);
             allAlarms.add(alarm);
         }
     }

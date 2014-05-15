@@ -11,7 +11,7 @@ import static javax.swing.SwingConstants.CENTER;
 
 /**
  *
- * @author Team Kawabunga
+ * @author Team Kawabunga..
  */
 class ActionListRenderer extends JLabel
         implements ListCellRenderer {

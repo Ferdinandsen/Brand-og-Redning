@@ -22,6 +22,9 @@ public class BLLUsage {
             System.out.println("Fejl i BLLUsage " + e);
         }
     }
+    public ArrayList<BEUsage> getAllUsages(){
+        return dalusage.getAllUsages();
+    }
 
     public static BLLUsage getInstance() {
         if (m_instance == null) {
