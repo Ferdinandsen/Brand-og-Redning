@@ -319,7 +319,7 @@ public class ILIndsats1 extends javax.swing.JFrame {
         txtPDesc.setText(action.getAppearance().getAlarm().getDesc());
         txtPKørselType.setText("" + action.getAppearance().getType());
         txtPAlarmType.setText(action.getAlarmType());
-        txtPGrpNo.setText(action.getGruppeNo());
-        txtPDetNo.setText(action.getDetektorNo());
+        txtPGrpNo.setText(""+ action.getGruppeNo());
+        txtPDetNo.setText(""+ action.getDetektorNo());
     }
 }
