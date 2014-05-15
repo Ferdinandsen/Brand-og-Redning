@@ -183,7 +183,6 @@ public class ChangeTimeView extends javax.swing.JDialog {
         localAppearance.setCheckOut(newCheckOut);
         localAppearance.setTotalTid(Integer.parseInt(lblTotal.getText()));
         bllAppearance.updateAppearanceTotal(localAppearance, Integer.parseInt(lblTotal.getText()));
-        System.out.println("den er nu opdaretet");
         dispose();
     }
 

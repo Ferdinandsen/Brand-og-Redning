@@ -1,27 +1,30 @@
 package GUI;
 
-import BE.BEAction;
+import BE.BEAlarm;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.Action;
 
 /**
  *
  * @author Team Kawabunga
  */
-public class ILIndsats1 extends javax.swing.JFrame {
+public class ILFremmødeliste extends javax.swing.JFrame {
 
-    private BEAction action;
+    BEAlarm localAlarm;
 
-    /**
-     * Creates new form ILIndsats
-     */
-    public ILIndsats1(BEAction a) {
-        action = a;
+    public ILFremmødeliste(BEAlarm alarm) {
+        localAlarm = alarm;
         initComponents();
-        //        initOtherComponents();
+        initOtherComponents();
         this.setTitle("Indsatsleders indsats rapport");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         getInfo();
+
     }
 
     /**
@@ -50,25 +53,21 @@ public class ILIndsats1 extends javax.swing.JFrame {
         txtPAlarmTid = new javax.swing.JTextPane();
         jScrollPane6 = new javax.swing.JScrollPane();
         txtPEvaNo = new javax.swing.JTextPane();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        txtPKørselType = new javax.swing.JTextPane();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        txtPAlarmType = new javax.swing.JTextPane();
         jScrollPane9 = new javax.swing.JScrollPane();
         txtPGrpNo = new javax.swing.JTextPane();
         jScrollPane10 = new javax.swing.JScrollPane();
         txtPDetNo = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane11 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        txtHlKommentar = new javax.swing.JTextArea();
         lblHLBem = new javax.swing.JLabel();
         lblAlarmTid = new javax.swing.JLabel();
         lblDesc = new javax.swing.JLabel();
         lblEva = new javax.swing.JLabel();
-        lblKørselType = new javax.swing.JLabel();
         lblAlarmType = new javax.swing.JLabel();
         lblGrpNo = new javax.swing.JLabel();
         lblDetekNo = new javax.swing.JLabel();
+        cboxAlarmType = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -116,21 +115,16 @@ public class ILIndsats1 extends javax.swing.JFrame {
         txtPEvaNo.setToolTipText("");
         jScrollPane6.setViewportView(txtPEvaNo);
 
-        jScrollPane7.setViewportView(txtPKørselType);
-
-        txtPAlarmType.setToolTipText("");
-        jScrollPane8.setViewportView(txtPAlarmType);
-
         jScrollPane9.setViewportView(txtPGrpNo);
 
         jScrollPane10.setViewportView(txtPDetNo);
 
         jLabel1.setText("Bemærkninger");
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jTextArea2.setText("Her kan Niels læse\nbeskeder fra HL");
-        jScrollPane11.setViewportView(jTextArea2);
+        txtHlKommentar.setColumns(20);
+        txtHlKommentar.setRows(5);
+        txtHlKommentar.setText("Her kan Niels læse\nbeskeder fra HL");
+        jScrollPane11.setViewportView(txtHlKommentar);
 
         lblHLBem.setText("HL bemærkninger:");
 
@@ -139,8 +133,6 @@ public class ILIndsats1 extends javax.swing.JFrame {
         lblDesc.setText("Beskrivelse:");
 
         lblEva.setText("EvaNo:");
-
-        lblKørselType.setText("Kørsels type:");
 
         lblAlarmType.setText("Alarm type:");
 
@@ -196,21 +188,17 @@ public class ILIndsats1 extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDesc)
-                            .addComponent(lblKørselType))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblDesc)
+                        .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblAlarmType)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(18, 18, 18)
+                                .addComponent(cboxAlarmType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(60, 60, 60)
                                 .addComponent(lblGrpNo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblDetekNo)
@@ -233,15 +221,13 @@ public class ILIndsats1 extends javax.swing.JFrame {
                             .addComponent(lblDesc))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblEva)
-                            .addComponent(lblAlarmType)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblGrpNo)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblAlarmType)
+                                .addComponent(cboxAlarmType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblGrpNo))
                             .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lblKørselType)
                     .addComponent(lblDetekNo)
                     .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -278,6 +264,7 @@ public class ILIndsats1 extends javax.swing.JFrame {
     private javax.swing.JButton btnOK;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JButton btnUsage;
+    private javax.swing.JComboBox cboxAlarmType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
@@ -286,10 +273,7 @@ public class ILIndsats1 extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JLabel lblAlarmTid;
     private javax.swing.JLabel lblAlarmType;
     private javax.swing.JLabel lblAppear;
@@ -298,28 +282,122 @@ public class ILIndsats1 extends javax.swing.JFrame {
     private javax.swing.JLabel lblEva;
     private javax.swing.JLabel lblGrpNo;
     private javax.swing.JLabel lblHLBem;
-    private javax.swing.JLabel lblKørselType;
     private javax.swing.JTable tblIndsats;
     private javax.swing.JTextArea txtABem;
+    private javax.swing.JTextArea txtHlKommentar;
     private javax.swing.JTextPane txtPAlarmTid;
-    private javax.swing.JTextPane txtPAlarmType;
     private javax.swing.JTextPane txtPDesc;
     private javax.swing.JTextPane txtPDetNo;
     private javax.swing.JTextPane txtPEvaNo;
     private javax.swing.JTextPane txtPGrpNo;
-    private javax.swing.JTextPane txtPKørselType;
     // End of variables declaration//GEN-END:variables
 
     private void initOtherComponents() {
+        txtHlKommentar.setEditable(false);
 
+        txtPGrpNo.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+
+                char vChar = e.getKeyChar();
+                if (!(Character.isDigit(vChar)
+                        || (vChar == KeyEvent.VK_BACK_SPACE)
+                        || (vChar == KeyEvent.VK_DELETE))) {
+                    e.consume();
+                }
+            }
+        });
+
+        txtPDetNo.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+
+                char vChar = e.getKeyChar();
+                if (!(Character.isDigit(vChar)
+                        || (vChar == KeyEvent.VK_BACK_SPACE)
+                        || (vChar == KeyEvent.VK_DELETE))) {
+                    e.consume();
+                }
+            }
+        });
+        txtPAlarmTid.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (txtPAlarmTid.getText().length() == 2) {
+                    txtPAlarmTid.setText(txtPAlarmTid.getText() + ":");
+                }
+                char vChar = e.getKeyChar();
+                if (!(Character.isDigit(vChar) && txtPAlarmTid.getText().length() != 5
+                        || (vChar == KeyEvent.VK_BACK_SPACE)
+                        || (vChar == KeyEvent.VK_DELETE))) {
+                    e.consume();
+                }
+                if (Character.isDigit(vChar) && txtPAlarmTid.getText().length() == 0 && Integer.parseInt(String.valueOf(vChar)) > 2) {
+                    e.consume();
+                }
+                if (txtPAlarmTid.getText().length() > 0 && txtPAlarmTid.getText().charAt(0) == '2') {
+                    if (txtPAlarmTid.getText().length() == 1 && Integer.parseInt(String.valueOf(vChar)) > 3) {
+                        e.consume();
+                    }
+                }
+                if (Character.isDigit(vChar) && txtPAlarmTid.getText().length() == 3 && Integer.parseInt(String.valueOf(vChar)) > 5) {
+                    e.consume();
+                }
+                if (vChar == KeyEvent.VK_BACK_SPACE) {
+                    txtPAlarmTid.setText("");
+                }
+            }
+        });
+
+        btnUpdate.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+        btnCancel.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        btnAdd.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        btnDelete.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        btnOK.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        btnUsage.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
 
     private void getInfo() {
-        txtPAlarmTid.setText(action.getAppearance().getAlarm().getTimeString());
-        txtPDesc.setText(action.getAppearance().getAlarm().getDesc());
-        txtPKørselType.setText("" + action.getAppearance().getType());
-        txtPAlarmType.setText(action.getAlarmType());
-        txtPGrpNo.setText(""+ action.getGruppeNo());
-        txtPDetNo.setText(""+ action.getDetektorNo());
+        cboxAlarmType.addItem("Normal alarm");
+        cboxAlarmType.addItem("Blind alarm");
+        cboxAlarmType.addItem("Falsk alarm");
+        
+        
+        txtPAlarmTid.setText(localAlarm.getTimeString());
+        txtPDesc.setText(localAlarm.getDesc());
     }
 }

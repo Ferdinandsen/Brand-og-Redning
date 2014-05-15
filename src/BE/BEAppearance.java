@@ -9,27 +9,36 @@ import java.sql.Timestamp;
 public class BEAppearance {
 
     private int id;
-    private BEAlarm alarm;
+
     private BEFireman fireman;
+    private int totalTid;
     private Timestamp checkIn;
     private Timestamp checkOut;
-    private int totalTid;
     private boolean hlGodkendt;
-    private boolean ilGodkendt;
     private boolean holdleder;
     private boolean chauffør;
     private boolean STvagt;
-    private int type;
+    private boolean ilGodkendt;
+    private int kørselsType;
+    private BEAlarm alarm;
     private BEVehicle veh;
+    private BELogin login;
+    private String hlBemærkning;
+    private int gruppeNr;
+    private String ilBemærkning;
+    private Timestamp ilGodkendtTid;
+    private Timestamp hlGodkendtTid;
 
-    public BEAppearance(int id, BEFireman fireman, Timestamp checkIn, Timestamp checkOut, int totaltid, boolean hlGodkendt, boolean ilGodkendt,
-            boolean holdleder, boolean chauffør, boolean STvagt, int type, BEAlarm alarm, BEVehicle veh) {
+    public BEAppearance(int id, BEFireman fireman, Timestamp checkIn, Timestamp checkOut, int totaltid, 
+            boolean hlGodkendt, boolean ilGodkendt, boolean holdleder, boolean chauffør, boolean STvagt, 
+            int type, BEAlarm alarm, BEVehicle veh, BELogin login, String hlBemærkning, int gruppeNr, 
+            String ilBemærkning, Timestamp ilGodkendtTid, Timestamp hlGodkendtTid) {
         this.id = id;
         this.alarm = alarm;
         this.fireman = fireman;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
-        this.type = type;
+        this.kørselsType = type;
         this.totalTid = totaltid;
         this.hlGodkendt = hlGodkendt;
         this.ilGodkendt = ilGodkendt;
@@ -37,6 +46,11 @@ public class BEAppearance {
         this.chauffør = chauffør;
         this.STvagt = STvagt;
         this.veh = veh;
+        this.hlBemærkning = hlBemærkning;
+        this.gruppeNr = gruppeNr;
+        this.ilBemærkning = ilBemærkning;
+        this.ilGodkendtTid = ilGodkendtTid;
+        this.hlGodkendtTid = hlGodkendtTid;
     }
 
     /**
@@ -173,17 +187,17 @@ public class BEAppearance {
     }
 
     /**
-     * @return the type
+     * @return the kørselsType
      */
     public int getType() {
-        return type;
+        return getKørselsType();
     }
 
     /**
-     * @param type the type to set
+     * @param type the kørselsType to set
      */
     public void setType(int type) {
-        this.type = type;
+        this.setKørselsType(type);
     }
 
     /**
@@ -233,5 +247,103 @@ public class BEAppearance {
      */
     public void setCheckIn(Timestamp checkIn) {
         this.checkIn = checkIn;
+    }
+
+    /**
+     * @return the kørselsType
+     */
+    public int getKørselsType() {
+        return kørselsType;
+    }
+
+    /**
+     * @param kørselsType the kørselsType to set
+     */
+    public void setKørselsType(int kørselsType) {
+        this.kørselsType = kørselsType;
+    }
+
+    /**
+     * @return the login
+     */
+    public BELogin getLogin() {
+        return login;
+    }
+
+    /**
+     * @param login the login to set
+     */
+    public void setLogin(BELogin login) {
+        this.login = login;
+    }
+
+    /**
+     * @return the hlBemærkning
+     */
+    public String getHlBemærkning() {
+        return hlBemærkning;
+    }
+
+    /**
+     * @param hlBemærkning the hlBemærkning to set
+     */
+    public void setHlBemærkning(String hlBemærkning) {
+        this.hlBemærkning = hlBemærkning;
+    }
+
+    /**
+     * @return the gruppeNr
+     */
+    public int getGruppeNr() {
+        return gruppeNr;
+    }
+
+    /**
+     * @param gruppeNr the gruppeNr to set
+     */
+    public void setGruppeNr(int gruppeNr) {
+        this.gruppeNr = gruppeNr;
+    }
+
+    /**
+     * @return the ilBemærkning
+     */
+    public String getIlBemærkning() {
+        return ilBemærkning;
+    }
+
+    /**
+     * @param ilBemærkning the ilBemærkning to set
+     */
+    public void setIlBemærkning(String ilBemærkning) {
+        this.ilBemærkning = ilBemærkning;
+    }
+
+    /**
+     * @return the ilGodkendtTid
+     */
+    public Timestamp getIlGodkendtTid() {
+        return ilGodkendtTid;
+    }
+
+    /**
+     * @param ilGodkendtTid the ilGodkendtTid to set
+     */
+    public void setIlGodkendtTid(Timestamp ilGodkendtTid) {
+        this.ilGodkendtTid = ilGodkendtTid;
+    }
+
+    /**
+     * @return the hlGodkendtTid
+     */
+    public Timestamp getHlGodkendtTid() {
+        return hlGodkendtTid;
+    }
+
+    /**
+     * @param hlGodkendtTid the hlGodkendtTid to set
+     */
+    public void setHlGodkendtTid(Timestamp hlGodkendtTid) {
+        this.hlGodkendtTid = hlGodkendtTid;
     }
 }
