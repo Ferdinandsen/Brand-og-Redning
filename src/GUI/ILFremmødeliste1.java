@@ -4,12 +4,12 @@ package GUI;
  *
  * @author Team Kawabunga
  */
-public class ILFremmødeliste extends javax.swing.JFrame {
+public class ILFremmødeliste1 extends javax.swing.JFrame {
 
     /**
      * Creates new form ILFremmødeliste
      */
-    public ILFremmødeliste() {
+    public ILFremmødeliste1() {
         this.setResizable(false);
         this.setTitle("Indsatsleder - Fremmødeliste");
         initComponents();

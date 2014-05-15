@@ -6,14 +6,14 @@ import BE.BEAction;
  *
  * @author Team Kawabunga
  */
-public class ILIndsats extends javax.swing.JFrame {
+public class ILIndsats1 extends javax.swing.JFrame {
 
     private BEAction action;
 
     /**
      * Creates new form ILIndsats
      */
-    public ILIndsats(BEAction a) {
+    public ILIndsats1(BEAction a) {
         action = a;
         initComponents();
         //        initOtherComponents();
@@ -319,7 +319,7 @@ public class ILIndsats extends javax.swing.JFrame {
         txtPDesc.setText(action.getAppearance().getAlarm().getDesc());
         txtPKørselType.setText("" + action.getAppearance().getType());
         txtPAlarmType.setText(action.getAlarmType());
-        txtPGrpNo.setText(action.getGruppeNo());
-        txtPDetNo.setText(action.getDetektorNo());
+        txtPGrpNo.setText(""+ action.getGruppeNo());
+        txtPDetNo.setText(""+ action.getDetektorNo());
     }
 }
