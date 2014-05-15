@@ -2,7 +2,9 @@ package DAL;
 
 import BE.BEAlarm;
 import BE.BEAppearance;
+import BE.BEEmployee;
 import BE.BEFireman;
+import BE.BELogin;
 import BE.BEVehicle;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
@@ -23,12 +25,14 @@ public class DALAppearance {
     private ArrayList<BEAppearance> allAppearances = new ArrayList<>();
     private DALVehicle dalVehicle;
     private DALFireman dalFireman;
+    private DALLogin dALLogin;
     DALALarm dalAlarm;
 
     private DALAppearance() throws SQLServerException, SQLException {
         m_connection = DBConnection.getInstance().getConnection();
         dalFireman = DALFireman.getInstance();
         dalVehicle = DALVehicle.getInstance();
+        dALLogin = DALLogin.getInstance();
         dalAlarm = DALALarm.getInstance();
 
         populateAppearances();
@@ -42,7 +46,7 @@ public class DALAppearance {
     }
 
     public void endShift(BEAlarm alarm, BEFireman fireman, BEVehicle veh, boolean hl, boolean ch, boolean st, int total, Timestamp time) throws SQLException {
-        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setInt(1, fireman.getMedarbjeder().getMedarbejderNo());
@@ -56,11 +60,19 @@ public class DALAppearance {
         ps.setBoolean(9, false);
         ps.setString(10, null);
         ps.setInt(11, alarm.getId());
+        
         if (veh == null) {
             ps.setString(12, null);
         } else {
             ps.setInt(12, veh.getOdinnummer());
         }
+        ps.setString(13, null);
+        ps.setString(14, null);
+        ps.setString(15, null);
+        ps.setString(16, null);
+        ps.setString(17, null);
+        ps.setString(18, null);
+
         ps.execute();
     }
 
@@ -85,6 +97,13 @@ public class DALAppearance {
             boolean stationsvagt = result.getBoolean("stationsvagt");
             int alarmRef = result.getInt("alarmRef");
             int vehRef = result.getInt("køtjRef");
+            int loginRef = result.getInt("loginRef");
+            String hlBemærkning = result.getString("hlBemærkning");
+            int gruppeNr = result.getInt("gruppeNr");
+            String ilBemærkning = result.getString("ilBemærkning");
+            Timestamp ilGodkendtTid = result.getTimestamp("ilGodkendtTid");
+            Timestamp hlGodkendtTid = result.getTimestamp("hlGodkendtTid");
+
             BEAlarm localAlarm = null;
             for (BEAlarm alarm : dalAlarm.getAllAlarms()) {
                 if (alarm.getId() == alarmRef) {
@@ -103,7 +122,17 @@ public class DALAppearance {
                     localVeh = veh;
                 }
             }
-            BEAppearance appearance = new BEAppearance(id, localFireman, checkIn, checkOut, totalTid, hlGodkendt, ilGodkendt, holdleder, chauffør, stationsvagt, type, localAlarm, localVeh);
+
+            BELogin localLogin = null;
+            for (BELogin login : dALLogin.getAllLogins()) {
+                if (login.getMedarbejder().getMedarbejderNo() == loginRef) {
+                    localLogin = login;
+                }
+            }
+            BEAppearance appearance
+                    = new BEAppearance(id, localFireman, checkIn, checkOut, totalTid, hlGodkendt, ilGodkendt,
+                            holdleder, chauffør, stationsvagt, type, localAlarm, localVeh, localLogin,
+                            hlBemærkning, gruppeNr, ilBemærkning, ilGodkendtTid, hlGodkendtTid);
             allAppearances.add(appearance);
         }
     }
@@ -112,13 +141,14 @@ public class DALAppearance {
         return allAppearances;
     }
 
-    public void confirmTeam(BEAppearance appearance) throws SQLException {
-        String sql = "UPDATE Fremmøde SET hlGodkendt = ?, kørselType = ?, alarmRef = ? WHERE id = ?";
+    public void confirmTeam(BEAppearance appearance, String comment) throws SQLException {
+        String sql = "UPDATE Fremmøde SET hlGodkendt = ?, kørselType = ?, alarmRef = ?, hlBemærkning = ? WHERE id = ?";
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setBoolean(1, true);
         ps.setInt(2, appearance.getType());
         ps.setInt(3, appearance.getAlarm().getId());
-        ps.setInt(4, appearance.getId());
+        ps.setString(4, comment);
+        ps.setInt(5, appearance.getId());
         appearance.setHlGodkendt(true);
         ps.execute();
     }
