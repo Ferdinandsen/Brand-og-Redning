@@ -12,6 +12,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
 
 /**
@@ -71,8 +73,16 @@ public class HLAfterAction extends javax.swing.JFrame {
     }
 
     private void initOtherComponents() {
+        btnChangeTime.setEnabled(false);
         txtFremmøde.setEditable(false);
         btnBekæft.setEnabled(true);
+        tblTider.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                btnChangeTime.setEnabled(tblTider.getSelectedRow() != -1);
+               
+            }
+        });
         btnChangeTime.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -208,6 +218,7 @@ public class HLAfterAction extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblTider.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblTider);
 
         lblFremmøde.setText("Fremmøde ved:");

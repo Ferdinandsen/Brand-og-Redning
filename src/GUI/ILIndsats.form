@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.6" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jScrollPane1" pref="719" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnBack" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="btnHent" min="-2" pref="601" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jScrollPane1" min="-2" pref="245" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnHent" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnBack" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTable" name="tblFremm&#xf8;der">
+          <Properties>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+              <Table columnCount="9" rowCount="4">
+                <Column editable="false" title="K&#xf8;ret&#xf8;j" type="java.lang.Object">
+                  <Data value="1339"/>
+                  <Data value="1339"/>
+                  <Data value="1339"/>
+                  <Data value="null"/>
+                </Column>
+                <Column editable="true" title="Grad" type="java.lang.Object">
+                  <Data value="HL"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                </Column>
+                <Column editable="true" title="Fornavn" type="java.lang.Object">
+                  <Data value="Michael"/>
+                  <Data value="Andr&#xe9;"/>
+                  <Data value="Jacob"/>
+                  <Data value="null"/>
+                </Column>
+                <Column editable="true" title="Efternavn" type="java.lang.Object">
+                  <Data value="Schutenberger"/>
+                  <Data value="Thy"/>
+                  <Data value="Schlerose"/>
+                  <Data value="null"/>
+                </Column>
+                <Column editable="true" title="Check ind" type="java.lang.Object">
+                  <Data value="12:00"/>
+                  <Data value="12:01"/>
+                  <Data value="12:01"/>
+                  <Data value="null"/>
+                </Column>
+                <Column editable="true" title="Check ud" type="java.lang.Object">
+                  <Data value="12:49"/>
+                  <Data value="12:48"/>
+                  <Data value="12:49"/>
+                  <Data value="null"/>
+                </Column>
+                <Column editable="true" title="Timer" type="java.lang.Object">
+                  <Data value="2"/>
+                  <Data value="2"/>
+                  <Data value="2"/>
+                  <Data value="null"/>
+                </Column>
+                <Column editable="true" title="Holdleder?" type="java.lang.Object">
+                  <Data value="Ja"/>
+                  <Data value="Nej"/>
+                  <Data value="Nej"/>
+                  <Data value="null"/>
+                </Column>
+                <Column editable="true" title="Chauff&#xf8;r?" type="java.lang.Object">
+                  <Data value="Nej"/>
+                  <Data value="Ja"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                </Column>
+              </Table>
+            </Property>
+            <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+              <JTableSelectionModel selectionMode="0"/>
+            </Property>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JButton" name="btnHent">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Hent indsats"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnBack">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tilbage"/>
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>
