@@ -162,4 +162,13 @@ public class DALAppearance {
         ps.setInt(4, appearance.getId());
         ps.execute();
     }
+
+    public void updateKørselType(BEAppearance a) throws SQLException {
+        String sql = "UPDATE Fremmøde SET kørselType = ? WHERE id = ?";
+
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setInt(1, a.getKørselsType());
+        ps.setInt(2, a.getId());
+       
+        ps.execute(); }
 }

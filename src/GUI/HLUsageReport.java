@@ -162,7 +162,7 @@ public class HLUsageReport extends javax.swing.JFrame {
         bllusage.createReport(u);
     }
 
-    private class ForbrugPanel extends javax.swing.JPanel {
+    private class ForbrugPanel extends JPanel {
 
         String name;
         int amount = 0;

@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -74,7 +76,6 @@ public class BLLAppearance {
         }
         return hlGodkendtAppearances;
     }
-   
 
     public ArrayList<BEAppearance> getAppearancesWithCriteria(BEAlarm selectedAlarm) {
         newAppearances = new ArrayList();
@@ -85,6 +86,7 @@ public class BLLAppearance {
         }
         return newAppearances;
     }
+
     public ArrayList<BEAppearance> getAppearancesWithHLGodkendt(BEAlarm selectedAlarm) {
         newAppearances = new ArrayList();
         for (BEAppearance appearance : getAllAppearances()) {
@@ -161,6 +163,15 @@ public class BLLAppearance {
             dalAppearance.updateTime(appearance, total);
         } catch (SQLException ex) {
             System.out.println("fejl i updateAppearanceTotal " + ex);
+        }
+    }
+
+    public void updateKørselType(BEAppearance a, int kørselType)  {
+        a.setKørselsType(kørselType);
+        try {
+            dalAppearance.updateKørselType(a);
+        } catch (SQLException ex) {
+            System.out.println("Fejl i update kørseltype" + ex);
         }
     }
 }
