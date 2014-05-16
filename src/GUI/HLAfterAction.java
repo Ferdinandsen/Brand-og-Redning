@@ -107,7 +107,7 @@ public class HLAfterAction extends javax.swing.JFrame {
             public void itemStateChanged(ItemEvent e) {
                 if (cboxAlarm.getSelectedIndex() != -1) {
                     if (cboxAlarm.getSelectedIndex() != 0 && cboxAlarm.getSelectedIndex() != -1) {
-                        update();
+//                        update();
                         model.setAppearanceList(bllAppearance.getAppearancesWithCriteria((BEAlarm) cboxAlarm.getSelectedItem()));
                         BEAlarm alarm = null;
                         for (BEAlarm theAlarm : bllAlarm.getAllAlarms()) {
