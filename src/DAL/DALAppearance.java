@@ -99,7 +99,6 @@ public class DALAppearance {
             int vehRef = result.getInt("køtjRef");
             int loginRef = result.getInt("loginRef");
             String hlBemærkning = result.getString("hlBemærkning");
-            int gruppeNr = result.getInt("gruppeNr");
             String ilBemærkning = result.getString("ilBemærkning");
             Timestamp ilGodkendtTid = result.getTimestamp("ilGodkendtTid");
             Timestamp hlGodkendtTid = result.getTimestamp("hlGodkendtTid");
@@ -132,7 +131,7 @@ public class DALAppearance {
             BEAppearance appearance
                     = new BEAppearance(id, localFireman, checkIn, checkOut, totalTid, hlGodkendt, ilGodkendt,
                             holdleder, chauffør, stationsvagt, type, localAlarm, localVeh, localLogin,
-                            hlBemærkning, gruppeNr, ilBemærkning, ilGodkendtTid, hlGodkendtTid);
+                            hlBemærkning, ilBemærkning, ilGodkendtTid, hlGodkendtTid);
             allAppearances.add(appearance);
         }
     }

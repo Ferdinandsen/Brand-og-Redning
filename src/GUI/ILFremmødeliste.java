@@ -1,21 +1,24 @@
 package GUI;
 
 import BE.BEAlarm;
+import BLL.BLLAppearance;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.Action;
 
 /**
  *
  * @author Team Kawabunga
  */
 public class ILFremmødeliste extends javax.swing.JFrame {
-
+    
+    BLLAppearance bllAppearance;
     BEAlarm localAlarm;
-
+    
+private FremmødeTableModel model;
     public ILFremmødeliste(BEAlarm alarm) {
+        bllAppearance = BLLAppearance.getInstance();
         localAlarm = alarm;
         initComponents();
         initOtherComponents();
@@ -24,6 +27,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
         this.setResizable(false);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         getInfo();
+        populateFremmødeTable();
 
     }
 
@@ -37,7 +41,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblIndsats = new javax.swing.JTable();
+        tblFremmøde = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtABem = new javax.swing.JTextArea();
         btnOK = new javax.swing.JButton();
@@ -71,7 +75,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tblIndsats.setModel(new javax.swing.table.DefaultTableModel(
+        tblFremmøde.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -82,7 +86,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblIndsats);
+        jScrollPane1.setViewportView(tblFremmøde);
 
         txtABem.setColumns(20);
         txtABem.setRows(5);
@@ -104,7 +108,6 @@ public class ILFremmødeliste extends javax.swing.JFrame {
 
         lblAppear.setText("Deltagere:");
 
-        btnUsage.setBackground(new java.awt.Color(255, 102, 0));
         btnUsage.setForeground(new java.awt.Color(255, 102, 0));
         btnUsage.setText("Bekræft Forbrug");
 
@@ -160,10 +163,9 @@ public class ILFremmødeliste extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(btnUsage, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
                         .addComponent(jScrollPane11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, Short.MAX_VALUE)
+                        .addGap(7, 7, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
@@ -196,17 +198,19 @@ public class ILFremmødeliste extends javax.swing.JFrame {
                                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                 .addContainerGap(25, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
                                 .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblAppear)))
+                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblAppear)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -287,7 +291,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
     private javax.swing.JLabel lblEva;
     private javax.swing.JLabel lblGrpNo;
     private javax.swing.JLabel lblHLBem;
-    private javax.swing.JTable tblIndsats;
+    private javax.swing.JTable tblFremmøde;
     private javax.swing.JTextArea txtABem;
     private javax.swing.JTextArea txtHlKommentar;
     private javax.swing.JTextPane txtPAlarmTid;
@@ -399,6 +403,12 @@ public class ILFremmødeliste extends javax.swing.JFrame {
 
             }
         });
+    }
+    
+    private void populateFremmødeTable() {
+        model = new FremmødeTableModel(bllAppearance.getAllHlGodkendtAppearances(localAlarm));
+        tblFremmøde.setModel(model);
+        model.fireTableDataChanged();
     }
 
     private void getInfo() {

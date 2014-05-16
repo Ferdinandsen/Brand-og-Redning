@@ -13,6 +13,7 @@ public class Main {
 //        CheckInView main = new CheckInView();
 //        HLErrorReport main = new HLErrorReport());
 //        ILIndsats main = new ILIndsats();
+        main.setLocationRelativeTo(null);
         main.setVisible(true);
     }
 }
