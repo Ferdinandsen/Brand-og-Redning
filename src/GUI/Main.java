@@ -7,10 +7,10 @@ package GUI;
 public class Main {
 
     public static void main(String[] args) {
+        AddAppearanceView main = new AddAppearanceView();
 //         CheckInView main = new CheckInView();
-        MainView main = new MainView();
+//        MainView main = new MainView();
 //        HLAfterAction1 main = HLAfterAction1.getInstance();
-//        CheckInView main = new CheckInView();
 //        HLErrorReport main = new HLErrorReport());
 //        ILIndsats main = new ILIndsats();
         main.setLocationRelativeTo(null);

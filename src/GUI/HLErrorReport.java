@@ -193,7 +193,7 @@ public class HLErrorReport extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void fillCboxKøretøj() {
-        for (BEVehicle veh : bllVehicle.GetVehicles()) {
+        for (BEVehicle veh : bllVehicle.getAllVehicles()) {
             cboxKøretøj.addItem(veh);
         }
         cboxKøretøj.setSelectedIndex(-1);

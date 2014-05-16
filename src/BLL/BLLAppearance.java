@@ -154,24 +154,31 @@ public class BLLAppearance {
         try {
             dalAppearance.populateAppearances();
         } catch (SQLException ex) {
-            System.out.println("blabla" + ex);
+            System.out.println("fejl i update inde i appearance" + ex);
         }
     }
 
-    public void updateAppearanceTotal(BEAppearance appearance, int total) {
+    public void updateAppearance(BEAppearance appearance) {
         try {
-            dalAppearance.updateTime(appearance, total);
+            dalAppearance.updateAppearance(appearance);
         } catch (SQLException ex) {
             System.out.println("fejl i updateAppearanceTotal " + ex);
         }
     }
 
-    public void updateKørselType(BEAppearance a, int kørselType)  {
-        a.setKørselsType(kørselType);
+    public void deleteAppearance(BEAppearance appearance) {
         try {
-            dalAppearance.updateKørselType(a);
+            dalAppearance.deleteAppearance(appearance);
         } catch (SQLException ex) {
-            System.out.println("Fejl i update kørseltype" + ex);
+            System.out.println("fejl i delete Appearance " + ex);
+        }
+    }
+
+    public void addAppearance(BEFireman fireman, BEAlarm alarm, BEVehicle veh, String checkOutTime, boolean hl, boolean ch, boolean st) {
+        try {
+            dalAppearance.createAppearance(fireman, calculateTotalTime(alarm, time()), time(), alarm, veh, checkOutTime, hl, ch, st);
+        } catch (SQLException ex) {
+            System.out.println("fejl i add Appearance " + ex);
         }
     }
 }
