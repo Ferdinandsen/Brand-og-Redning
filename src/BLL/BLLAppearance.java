@@ -180,5 +180,16 @@ public class BLLAppearance {
         } catch (SQLException ex) {
             System.out.println("fejl i add Appearance " + ex);
         }
+
+    }
+
+    public void updateKørselType(BEAppearance a, int kørselType) {
+        a.setKørselsType(kørselType);
+        try {
+            dalAppearance.updateKørselType(a);
+        } catch (SQLException ex) {
+            System.out.println("Fejl i update kørseltype" + ex);
+
+        }
     }
 }

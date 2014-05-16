@@ -1,5 +1,6 @@
 package GUI;
 
+import BE.BEAlarm;
 import BE.BEAppearance;
 import BE.BEVehicle;
 import BLL.BLLAlarm;
@@ -16,6 +17,7 @@ import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -27,22 +29,25 @@ import javax.swing.event.ChangeListener;
 public class HLAfterActionStory extends javax.swing.JFrame {
 
     ArrayList<BEAppearance> allappearances;
-    BLLAlarm bllalarm;
+    BLLAlarm bllAlarm;
     BLLAppearance bllAppearance;
     ArrayList<KørselPanel> køtj = new ArrayList<>();
     int køtjtype = 1;
+    BEAlarm localAlarm;
 //    private JPanel main;
 
     /**
      * Creates new form HLAfterActionStory
      *
      * @param a
+     * @param alarm
      */
-    public HLAfterActionStory(ArrayList<BEAppearance> a) {
+    public HLAfterActionStory(ArrayList<BEAppearance> a, BEAlarm alarm) {
         allappearances = a;
+        localAlarm = alarm;
         bllAppearance = BLLAppearance.getInstance();
+        bllAlarm = BLLAlarm.getInstance();
         initComponents();
-
         fillCBox();
         initOtherComponents();
 //        main = getBorderLayout();
@@ -233,6 +238,10 @@ public class HLAfterActionStory extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 getDataToIL();
+                JOptionPane.showMessageDialog(null, "Tak for bekræftigelsen");
+                HLUsageReport frame = new HLUsageReport(localAlarm);
+                frame.setVisible(true);
+                dispose();
             }
         });
 
@@ -282,8 +291,8 @@ public class HLAfterActionStory extends javax.swing.JFrame {
         detekNo = Integer.parseInt(txtPDet.getText());
 
         for (BEAppearance a : allappearances) {
-            bllalarm.updateAlarm(a, alarmtype, gruppeNo, detekNo);
-            bllAppearance.updateKørselType(a,getKørselType());
+            bllAlarm.updateAlarm(a, alarmtype, gruppeNo, detekNo);
+            bllAppearance.updateKørselType(a, getKørselType());
         }
     }
 
@@ -303,7 +312,6 @@ public class HLAfterActionStory extends javax.swing.JFrame {
             lbl = new JLabel();
             lbl.setPreferredSize(new Dimension(40, 15));
             combo = new JComboBox<>();
-            combo.setSelectedIndex(0);
             combo.addItemListener(new ItemListener() {
 
                 @Override
@@ -315,6 +323,7 @@ public class HLAfterActionStory extends javax.swing.JFrame {
             lbl.setText(String.valueOf(name));
             combo.addItem(1);
             combo.addItem(2);
+            combo.setSelectedIndex(0);
             this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         }
 
