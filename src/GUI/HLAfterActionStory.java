@@ -4,7 +4,11 @@ import BE.BEAlarm;
 import BE.BEAppearance;
 import BE.BEVehicle;
 import BLL.BLLAppearance;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -26,9 +30,11 @@ public class HLAfterActionStory extends javax.swing.JFrame {
      */
     public HLAfterActionStory(BEAlarm alarm) {
         localalarm = alarm;
-        bllAppearance = BLLAppearance.getInstance();       
+        bllAppearance = BLLAppearance.getInstance();
         initComponents();
-        getGroupLayout();
+        initOtherComponents();
+//        main = getBorderLayout();
+//        this.add(main);
     }
 
     /**
@@ -50,7 +56,8 @@ public class HLAfterActionStory extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextPane2 = new javax.swing.JTextPane();
-        pnlKørsel = new javax.swing.JPanel();
+        pnlKørsel = getGroupLayout();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,8 +85,10 @@ public class HLAfterActionStory extends javax.swing.JFrame {
         );
         pnlKørselLayout.setVerticalGroup(
             pnlKørselLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 123, Short.MAX_VALUE)
+            .addGap(0, 103, Short.MAX_VALUE)
         );
+
+        jLabel3.setText("Kørselstype:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,40 +98,39 @@ public class HLAfterActionStory extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(pnlKørsel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jRadioButton3)
-                                        .addGap(116, 116, 116))))
+                            .addComponent(jLabel3)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(21, 21, 21)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(pnlKørsel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jRadioButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jRadioButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jRadioButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 100, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jRadioButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jRadioButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(5, 5, 5)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,8 +139,10 @@ public class HLAfterActionStory extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlKørsel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
@@ -141,6 +151,7 @@ public class HLAfterActionStory extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
@@ -152,48 +163,69 @@ public class HLAfterActionStory extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private ArrayList<BEVehicle> getVeh() {
-        allappearances = bllAppearance.getAllAppearances();
+        allappearances = bllAppearance.getAllAppearances();//forkert appearance
         ArrayList<BEVehicle> allvehicles = new ArrayList<>();
         for (BEAppearance a : allappearances) {
             if (!allvehicles.contains(a.getVeh())) {
                 allvehicles.add(a.getVeh());
             }
         }
+        System.out.println(allvehicles.get(0));
         return allvehicles;
+    }
+
+    private JPanel getBorderLayout() {
+        JPanel p = new JPanel();
+        p.setLayout(new BorderLayout());
+        p.add(getGroupLayout(), BorderLayout.CENTER);
+        return p;
     }
 
     private JPanel getGroupLayout() {
         pnlKørsel = new JPanel();
-        for (BEVehicle v : getVeh()) {
-            KørselPanel panel = new KørselPanel(v);
-            JComboBox combobox = new JComboBox();
-            GroupLayout layout = new GroupLayout(panel);
-            layout.setAutoCreateGaps(true);
-            layout.setAutoCreateContainerGaps(true);
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                            .addComponent(panel.getLBL())
-                            .addComponent(combobox));
-            pnlKørsel.add(panel);
+        if (!getVeh().isEmpty()) {
+            for (BEVehicle v : getVeh()) {
+                KørselPanel panel = new KørselPanel(v);
+                GroupLayout layout = new GroupLayout(panel);
+                layout.setAutoCreateGaps(true);
+                layout.setAutoCreateContainerGaps(true);
+                layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(panel.getLBL())
+                                .addComponent(panel.combo));
+                getContentPane().add(panel);
+                pack();
+                pnlKørsel.add(panel);
+            }
         }
         return pnlKørsel;
     }
 
+    private void initOtherComponents() {
+        getGroupLayout();
+    }
+
     private class KørselPanel extends JPanel {
 
-        int name;
+        String name;
         JLabel lbl;
         JComboBox<Object> combo;
         BEVehicle vehicle;
 
         public KørselPanel(BEVehicle v) {
-            name = v.getOdinnummer();
+            if (name.isEmpty()) {
+                name = " ";
+            } else {
+                name = Integer.toString(v.getOdinnummer());
+            }
             vehicle = v;
             lbl = new JLabel();
+            lbl.setPreferredSize(new Dimension(50, 50));
             combo = new JComboBox<>();
-            lbl.setText("" + name);
+            lbl.setText(name);
             combo.addItem(1);
             combo.addItem(2);
+            this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         }
 
         public JLabel getLBL() {

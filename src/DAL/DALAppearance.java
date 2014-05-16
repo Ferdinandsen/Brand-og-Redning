@@ -46,7 +46,7 @@ public class DALAppearance {
     }
 
     public void endShift(BEAlarm alarm, BEFireman fireman, BEVehicle veh, boolean hl, boolean ch, boolean st, int total, Timestamp time) throws SQLException {
-        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setInt(1, fireman.getMedarbjeder().getMedarbejderNo());
@@ -71,7 +71,6 @@ public class DALAppearance {
         ps.setString(15, null);
         ps.setString(16, null);
         ps.setString(17, null);
-        ps.setString(18, null);
 
         ps.execute();
     }

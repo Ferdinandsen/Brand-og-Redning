@@ -1,5 +1,6 @@
 package GUI;
 
+import BE.BEAlarm;
 import BE.BELogin;
 import BE.BEOdinAlarm;
 import BLL.BLLAlarm;
@@ -27,7 +28,6 @@ public class MainView extends javax.swing.JFrame {
      */
     public MainView() {
         this.setResizable(false);
-//        this.setLocationRelativeTo(null);
         bllAlarm = BLLAlarm.getInstance();
         bllEmployee = BLLEmployee.getInstance();
         initComponents();
@@ -268,6 +268,13 @@ public class MainView extends javax.swing.JFrame {
                 clearlogintxt();
                 btnLogIn.setEnabled(true);
                 btnLogOut.setEnabled(false);
+            }
+        });
+        
+        btnIL.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
             }
         });
     }
