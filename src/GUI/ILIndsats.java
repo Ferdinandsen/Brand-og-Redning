@@ -1,7 +1,6 @@
 package GUI;
 
 import BE.BEAlarm;
-import BE.BEAppearance;
 import BLL.BLLAlarm;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -87,7 +86,7 @@ public class ILIndsats extends javax.swing.JFrame {
         btnHent = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tblFremmøder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
