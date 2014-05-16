@@ -33,11 +33,7 @@ public class BEAlarm {
         this.gruppeNo = gruppeNo;
         this.detekterNo = detekterNo;
     }
-   
 
-    /**
-     * @return the EvaNo
-     */
     /**
      * @return the time
      */
@@ -45,6 +41,10 @@ public class BEAlarm {
         return time;
     }
 
+    /**
+     *
+     * @return a time as a string
+     */
     public String getTimeString() {
         String alarm[] = getTime().toString().split(" ");
         String[] fixedAlarm1 = alarm[1].split(":");
