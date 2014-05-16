@@ -77,28 +77,10 @@ public class BLLAppearance {
 
     public ArrayList<BEAppearance> getAppearancesWithCriteria(BEAlarm selectedAlarm) {
         newAppearances = new ArrayList();
-        for (BEAppearance appearance : getAllAppearances()) {
-            if (appearance.getAlarm() == selectedAlarm && !appearance.isHlGodkendt()) {
+        for (BEAppearance appearance : getAllAppearancesNotHlGodkendt()) {
+            if (appearance.getAlarm() == selectedAlarm) {
                 newAppearances.add(appearance);
             }
-//
-////            String times[] = appearance.getTime().getCheckIn().toString().split(" ");
-////            String times2[] = times[1].split(":");
-////            String hourAndMin = times2[0] + ":" + times2[1];
-////            int checkInHour = Integer.parseInt(times2[0]);
-////            int checkInMin = Integer.parseInt(times2[1]);
-//            String selectedTime[] = time.split(":");
-//            int selectedHour = Integer.parseInt(selectedTime[0]);
-//            
-//            int selectedMin = Integer.parseInt(selectedTime[1]);
-//            Timestamp ts = new Timestamp(date.getYear(), date.getMonth(), date.getDate(), selectedHour, selectedMin, 0, 0);
-//            long testMili = ts.getTime();
-//            long checkMili = appearance.getAlarm().getTime().getTime();//appearance.getTime().getCheckIn().getTime();
-//            long minutes = (checkMili - testMili) / 1000 / 60;
-//            System.out.println(minutes);
-//            if (minutes >= 0) { //dagene + tid (10min) passer!
-//                newAppearances.add(appearance);
-//            }
         }
         return newAppearances;
     }
