@@ -74,11 +74,21 @@ public class BLLAppearance {
         }
         return hlGodkendtAppearances;
     }
+   
 
     public ArrayList<BEAppearance> getAppearancesWithCriteria(BEAlarm selectedAlarm) {
         newAppearances = new ArrayList();
         for (BEAppearance appearance : getAllAppearancesNotHlGodkendt()) {
             if (appearance.getAlarm() == selectedAlarm) {
+                newAppearances.add(appearance);
+            }
+        }
+        return newAppearances;
+    }
+    public ArrayList<BEAppearance> getAppearancesWithHLGodkendt(BEAlarm selectedAlarm) {
+        newAppearances = new ArrayList();
+        for (BEAppearance appearance : getAllAppearances()) {
+            if (appearance.getAlarm() == selectedAlarm && appearance.isHlGodkendt()) {
                 newAppearances.add(appearance);
             }
         }
