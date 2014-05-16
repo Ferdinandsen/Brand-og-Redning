@@ -2,7 +2,6 @@ package DAL;
 
 import BE.BEAlarm;
 import BE.BEAppearance;
-import BE.BEEmployee;
 import BE.BEFireman;
 import BE.BELogin;
 import BE.BEVehicle;
@@ -60,17 +59,14 @@ public class DALAppearance {
         ps.setBoolean(9, false);
         ps.setString(10, null);
         ps.setInt(11, alarm.getId());
-        
+
         if (veh == null) {
             ps.setString(12, null);
         } else {
             ps.setInt(12, veh.getOdinnummer());
         }
         ps.setString(13, null);
-        ps.setString(14, null);
-        ps.setString(15, null);
-        ps.setString(16, null);
-        ps.setString(17, null);
+
 
         ps.execute();
     }
@@ -97,10 +93,7 @@ public class DALAppearance {
             int alarmRef = result.getInt("alarmRef");
             int vehRef = result.getInt("køtjRef");
             int loginRef = result.getInt("loginRef");
-            String hlBemærkning = result.getString("hlBemærkning");
-            String ilBemærkning = result.getString("ilBemærkning");
-            Timestamp ilGodkendtTid = result.getTimestamp("ilGodkendtTid");
-            Timestamp hlGodkendtTid = result.getTimestamp("hlGodkendtTid");
+
 
             BEAlarm localAlarm = null;
             for (BEAlarm alarm : dalAlarm.getAllAlarms()) {
@@ -127,10 +120,8 @@ public class DALAppearance {
                     localLogin = login;
                 }
             }
-            BEAppearance appearance
-                    = new BEAppearance(id, localFireman, checkIn, checkOut, totalTid, hlGodkendt, ilGodkendt,
-                            holdleder, chauffør, stationsvagt, type, localAlarm, localVeh, localLogin,
-                            hlBemærkning, ilBemærkning, ilGodkendtTid, hlGodkendtTid);
+            BEAppearance appearance = new BEAppearance(id, localFireman, checkIn, checkOut, totalTid, hlGodkendt, ilGodkendt,
+                    holdleder, chauffør, stationsvagt, type, localAlarm, localVeh, localLogin);
             allAppearances.add(appearance);
         }
     }
@@ -151,15 +142,54 @@ public class DALAppearance {
         ps.execute();
     }
 
-    public void updateTime(BEAppearance appearance, int total) throws SQLException {
+    public void updateAppearance(BEAppearance appearance) throws SQLException {
 
         String sql = "UPDATE Fremmøde SET checkInTime = ?, checkOutTime = ?, totaltid = ? WHERE id = ?";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setTimestamp(1, appearance.getCheckIn());
         ps.setTimestamp(2, appearance.getCheckOut());
-        ps.setInt(3, total);
+        ps.setInt(3, appearance.getTotalTid());
         ps.setInt(4, appearance.getId());
         ps.execute();
     }
+
+    public void deleteAppearance(BEAppearance appearance) throws SQLException {
+        String sql = "DELETE FROM Fremmøde WHERE id = ?";
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setInt(1, appearance.getId());
+        ps.execute();
+        allAppearances.remove(appearance);
+    }
+
+
+    public void createAppearance(BEFireman fireman, int total, Timestamp time, BEAlarm alarm, BEVehicle veh, String checkOutTime, boolean hl, boolean ch, boolean st) throws SQLException {
+        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setInt(1, fireman.getMedarbjeder().getMedarbejderNo());
+        ps.setInt(2, total);
+        ps.setTimestamp(3, alarm.getTime());
+        ps.setTimestamp(4, time);
+        ps.setBoolean(5, true);
+        ps.setBoolean(6, hl);
+        ps.setBoolean(7, ch);
+        ps.setBoolean(8, st);
+        ps.setBoolean(9, false);
+        ps.setString(10, null);
+        ps.setInt(11, alarm.getId());
+
+        if (veh == null) {
+            ps.setString(12, null);
+        } else {
+            ps.setInt(12, veh.getOdinnummer());
+        }
+        ps.setString(13, null);
+
+        ps.execute();
+        
+//        BEAppearance appearance = new BEAppearance(, localFireman, checkIn, checkOut, totalTid, hlGodkendt, ilGodkendt,
+//                    holdleder, chauffør, stationsvagt, type, localAlarm, localVeh, localLogin);
+    }
+
 }

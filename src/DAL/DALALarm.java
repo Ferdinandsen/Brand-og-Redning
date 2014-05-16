@@ -108,6 +108,10 @@ public class DALALarm {
             int evaNo = result.getInt("evaNo");
             int gruppeNo = result.getInt("gruppeNo");
             int detekterNo = result.getInt("detekterNo");
+            String hlBemærkning = result.getString("hlBemærkning");
+            String ilBemærkning = result.getString("ilBemærkning");
+            Timestamp ilGodkendtTid = result.getTimestamp("ilGodkendtTid");
+            Timestamp hlGodkendtTid = result.getTimestamp("hlGodkendtTid");
             
             BEUsage localForbrug = null;
             for (BEUsage forbrug : bllUsage.getAllUsages()){
@@ -116,7 +120,7 @@ public class DALALarm {
                 }
             }
 
-            BEAlarm alarm = new BEAlarm(id, title, desc, station, tid, done, localForbrug, alarmType, evaNo, gruppeNo, detekterNo);
+            BEAlarm alarm = new BEAlarm(id, title, desc, station, tid, done, localForbrug, alarmType, evaNo, gruppeNo, detekterNo,  hlBemærkning, ilBemærkning, ilGodkendtTid, hlGodkendtTid);
             allAlarms.add(alarm);
         }
     }

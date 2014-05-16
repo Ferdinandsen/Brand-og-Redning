@@ -29,7 +29,7 @@ public class BLLVehicle {
         return m_instance;
     }
 
-    public ArrayList<BEVehicle> GetVehicles() {
+    public ArrayList<BEVehicle> getAllVehicles() {
         return dalvehicle.getVehicles();
     }
 

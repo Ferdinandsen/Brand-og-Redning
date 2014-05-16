@@ -182,26 +182,6 @@ public class CheckOutView extends javax.swing.JDialog {
         btnClose.setBackground(Color.RED);
         btnAcknowledge.setText("Bekræft");
         btnAcknowledge.setEnabled(false);
-
-        btnGrpCheckOut.add(rbtnStVagt);
-        btnGrpCheckOut.add(rbtnChauffør);
-        btnGrpCheckOut.add(rbtnHoldleder);
-        rbtnChauffør.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                btnAcknowledge.setEnabled(cboxVehicle.getSelectedIndex() != 0 && cboxAlarm.getSelectedIndex() != 0);
-            }
-        });
-        //dd
-        rbtnHoldleder.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                btnAcknowledge.setEnabled(cboxVehicle.getSelectedIndex() != 0 && cboxAlarm.getSelectedIndex() != 0);
-            }
-        });
-
         rbtnHoldleder.setEnabled(false);
         if (localFireman.isHoldleder()) {
             rbtnHoldleder.setEnabled(true);
@@ -212,8 +192,35 @@ public class CheckOutView extends javax.swing.JDialog {
         }
         rbtnStVagt.setEnabled(true);
 
-        btnAcknowledge.addChangeListener(new ChangeListener() {
+        btnGrpCheckOut.add(rbtnStVagt);
+        btnGrpCheckOut.add(rbtnChauffør);
+        btnGrpCheckOut.add(rbtnHoldleder);
 
+        rbtnChauffør.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnAcknowledge.setEnabled(cboxVehicle.getSelectedIndex() != 0 && cboxAlarm.getSelectedIndex() != 0);
+            }
+        });
+
+        rbtnHoldleder.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnAcknowledge.setEnabled(cboxVehicle.getSelectedIndex() != 0 && cboxAlarm.getSelectedIndex() != 0);
+            }
+        });
+        
+        rbtnStVagt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cboxVehicle.setSelectedIndex(0);
+                btnAcknowledge.setEnabled(rbtnStVagt.isSelected() && cboxAlarm.getSelectedIndex() != 0);
+            }
+        });
+
+
+
+        btnAcknowledge.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 if (btnAcknowledge.isEnabled()) {
@@ -224,7 +231,6 @@ public class CheckOutView extends javax.swing.JDialog {
             }
         });
         btnReset.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 btnGrpCheckOut.clearSelection();
@@ -241,7 +247,6 @@ public class CheckOutView extends javax.swing.JDialog {
             }
         });
         btnClose.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
@@ -257,24 +262,17 @@ public class CheckOutView extends javax.swing.JDialog {
             }
         });
         cboxAlarm.addItemListener(new ItemListener() {
-
             @Override
             public void itemStateChanged(ItemEvent e) {
 
                 btnAcknowledge.setEnabled((cboxAlarm.getSelectedIndex() != 0 && cboxVehicle.getSelectedIndex() != 0) || cboxAlarm.getSelectedIndex() != 0 && rbtnStVagt.isSelected());
             }
         });
-        rbtnStVagt.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cboxVehicle.setSelectedIndex(0);
-                btnAcknowledge.setEnabled(rbtnStVagt.isSelected() && cboxAlarm.getSelectedIndex() != 0);
-            }
-        });
+        
     }
 
     private void fillCboxVehicle() {
-        for (BEVehicle car : bllvehicle.GetVehicles()) {
+        for (BEVehicle car : bllvehicle.getAllVehicles()) {
             cboxVehicle.addItem(car);
         }
     }

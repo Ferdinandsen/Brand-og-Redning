@@ -81,11 +81,9 @@ public class BEFireman {
 
     @Override
     public String toString() {
-        if (getMedarbjeder().getMellemnavn().equals("")) {
-            return getMedarbjeder().getFornavn() + " " + getMedarbjeder().getEfternavn();
-        } else {
-            return getMedarbjeder().getFornavn() + " " + getMedarbjeder().getMellemnavn() + " " + getMedarbjeder().getEfternavn() + " (CHECKED IN)";
-        }
+       
+            return getMedarbjeder().getFornavn() + " " +  getMedarbjeder().getEfternavn();
+       
     }
 
     /**

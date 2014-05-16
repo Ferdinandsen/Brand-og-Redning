@@ -370,7 +370,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
         btnUpdate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                updateAppearance();
             }
         });
         btnCancel.addActionListener(new ActionListener() {
@@ -385,11 +385,13 @@ public class ILFremmødeliste extends javax.swing.JFrame {
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                addAppearance();
             }
         });
         btnDelete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                deleteAppearance();
             }
         });
         btnOK.addActionListener(new ActionListener() {
@@ -402,6 +404,22 @@ public class ILFremmødeliste extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
             }
         });
+    }
+
+    private void deleteAppearance() {
+        bllAppearance.deleteAppearance(bllAppearance.getAllAppearances().get(tblFremmøde.convertRowIndexToView(tblFremmøde.getSelectedRow())));
+        populateFremmødeTable();
+    }
+
+    private void updateAppearance() {
+        ChangeTimeView ctView = new ChangeTimeView(bllAppearance.getAllHlGodkendtAppearances(localAlarm).get(tblFremmøde.convertRowIndexToView(tblFremmøde.getSelectedRow())));
+        ctView.setModal(true);
+        ctView.setLocationRelativeTo(null);
+        ctView.setVisible(true);
+        model.fireTableDataChanged();
+    }
+    private void addAppearance(){
+        
     }
 
     private void populateFremmødeTable() {
@@ -424,7 +442,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
             cboxAlarmType.addItem("Blind Alarm");
             cboxAlarmType.addItem("Normal Alarm");
         }
-
+        txtHlKommentar.setText(localAlarm.getHlBemærkning());
         txtPGrpNo.setText(String.valueOf(localAlarm.getGruppeNo()));
         txtPDetNo.setText(String.valueOf(localAlarm.getDetekterNo()));
         txtPAlarmTid.setText(localAlarm.getTimeString());

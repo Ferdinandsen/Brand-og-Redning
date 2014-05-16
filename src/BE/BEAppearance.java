@@ -23,15 +23,11 @@ public class BEAppearance {
     private BEAlarm alarm;
     private BEVehicle veh;
     private BELogin login;
-    private String hlBemærkning;
-    private String ilBemærkning;
-    private Timestamp ilGodkendtTid;
-    private Timestamp hlGodkendtTid;
+    
 
     public BEAppearance(int id, BEFireman fireman, Timestamp checkIn, Timestamp checkOut, int totaltid, 
             boolean hlGodkendt, boolean ilGodkendt, boolean holdleder, boolean chauffør, boolean STvagt, 
-            int type, BEAlarm alarm, BEVehicle veh, BELogin login, String hlBemærkning, 
-            String ilBemærkning, Timestamp ilGodkendtTid, Timestamp hlGodkendtTid) {
+            int type, BEAlarm alarm, BEVehicle veh, BELogin login) {
         this.id = id;
         this.alarm = alarm;
         this.fireman = fireman;
@@ -45,10 +41,7 @@ public class BEAppearance {
         this.chauffør = chauffør;
         this.STvagt = STvagt;
         this.veh = veh;
-        this.hlBemærkning = hlBemærkning;
-        this.ilBemærkning = ilBemærkning;
-        this.ilGodkendtTid = ilGodkendtTid;
-        this.hlGodkendtTid = hlGodkendtTid;
+        
     }
 
     /**
@@ -275,61 +268,5 @@ public class BEAppearance {
         this.login = login;
     }
 
-    /**
-     * @return the hlBemærkning
-     */
-    public String getHlBemærkning() {
-        return hlBemærkning;
-    }
-
-    /**
-     * @param hlBemærkning the hlBemærkning to set
-     */
-    public void setHlBemærkning(String hlBemærkning) {
-        this.hlBemærkning = hlBemærkning;
-    }
-
-   
-
-    /**
-     * @return the ilBemærkning
-     */
-    public String getIlBemærkning() {
-        return ilBemærkning;
-    }
-
-    /**
-     * @param ilBemærkning the ilBemærkning to set
-     */
-    public void setIlBemærkning(String ilBemærkning) {
-        this.ilBemærkning = ilBemærkning;
-    }
-
-    /**
-     * @return the ilGodkendtTid
-     */
-    public Timestamp getIlGodkendtTid() {
-        return ilGodkendtTid;
-    }
-
-    /**
-     * @param ilGodkendtTid the ilGodkendtTid to set
-     */
-    public void setIlGodkendtTid(Timestamp ilGodkendtTid) {
-        this.ilGodkendtTid = ilGodkendtTid;
-    }
-
-    /**
-     * @return the hlGodkendtTid
-     */
-    public Timestamp getHlGodkendtTid() {
-        return hlGodkendtTid;
-    }
-
-    /**
-     * @param hlGodkendtTid the hlGodkendtTid to set
-     */
-    public void setHlGodkendtTid(Timestamp hlGodkendtTid) {
-        this.hlGodkendtTid = hlGodkendtTid;
-    }
+    
 }
