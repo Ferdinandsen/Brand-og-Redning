@@ -54,6 +54,15 @@ public class BLLAppearance {
     public ArrayList<BEAppearance> getAllAppearances() {
         return dalAppearance.getAppearances();
     }
+    public ArrayList<BEAppearance> getAllHlGodkendtAppearances(BEAlarm alarm) {
+        ArrayList<BEAppearance> hlGodkendtAppearances = getAllAppearances();
+        for (BEAppearance appearance : getAllAppearances()){
+            if (appearance.getAlarm() == alarm){
+                hlGodkendtAppearances.add(appearance);
+            }
+        }
+        return hlGodkendtAppearances;
+    }
 
     public ArrayList<BEAppearance> getAppearancesWithCriteria(BEAlarm selectedAlarm) {
         newAppearances = new ArrayList();

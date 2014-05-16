@@ -24,14 +24,13 @@ public class BEAppearance {
     private BEVehicle veh;
     private BELogin login;
     private String hlBemærkning;
-    private int gruppeNr;
     private String ilBemærkning;
     private Timestamp ilGodkendtTid;
     private Timestamp hlGodkendtTid;
 
     public BEAppearance(int id, BEFireman fireman, Timestamp checkIn, Timestamp checkOut, int totaltid, 
             boolean hlGodkendt, boolean ilGodkendt, boolean holdleder, boolean chauffør, boolean STvagt, 
-            int type, BEAlarm alarm, BEVehicle veh, BELogin login, String hlBemærkning, int gruppeNr, 
+            int type, BEAlarm alarm, BEVehicle veh, BELogin login, String hlBemærkning, 
             String ilBemærkning, Timestamp ilGodkendtTid, Timestamp hlGodkendtTid) {
         this.id = id;
         this.alarm = alarm;
@@ -47,7 +46,6 @@ public class BEAppearance {
         this.STvagt = STvagt;
         this.veh = veh;
         this.hlBemærkning = hlBemærkning;
-        this.gruppeNr = gruppeNr;
         this.ilBemærkning = ilBemærkning;
         this.ilGodkendtTid = ilGodkendtTid;
         this.hlGodkendtTid = hlGodkendtTid;
@@ -291,19 +289,7 @@ public class BEAppearance {
         this.hlBemærkning = hlBemærkning;
     }
 
-    /**
-     * @return the gruppeNr
-     */
-    public int getGruppeNr() {
-        return gruppeNr;
-    }
-
-    /**
-     * @param gruppeNr the gruppeNr to set
-     */
-    public void setGruppeNr(int gruppeNr) {
-        this.gruppeNr = gruppeNr;
-    }
+   
 
     /**
      * @return the ilBemærkning

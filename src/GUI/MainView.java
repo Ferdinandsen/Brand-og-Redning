@@ -39,6 +39,7 @@ public class MainView extends javax.swing.JFrame {
         lstAction.setCellRenderer(renderer);
         fillListActions();
         lstAction.setModel(model);
+        txtName.requestFocus();
     }
 
     /**
@@ -127,10 +128,11 @@ public class MainView extends javax.swing.JFrame {
                                 .addComponent(btnConfirmApp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnIL, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(10, 10, 10)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnErrorReport, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-                                .addComponent(btnSalery, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap())
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnErrorReport, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSalery, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(txtNote, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,6 +195,7 @@ public class MainView extends javax.swing.JFrame {
         }
     }
     private void initOtherComponets() {
+        btnErrorReport.setEnabled(false);
         txtNote.setEditable(false);
         lblLogIn.setText("Ikke logget på");
         btnConfirmApp.setEnabled(false);
@@ -215,6 +218,15 @@ public class MainView extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 HLErrorReport frame = new HLErrorReport();
                 frame.setVisible(true);
+            }
+        });
+        btnIL.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              ILIndsats view = new ILIndsats();
+              view.setLocationRelativeTo(null);
+              view.setVisible(true);
             }
         });
     }
@@ -252,6 +264,7 @@ public class MainView extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 btnConfirmApp.setEnabled(false);
+                btnErrorReport.setEnabled(true);
                 btnIL.setEnabled(false);
                 btnSalery.setEnabled(false);
                 lblLogIn.setText("Ikke logget på");
@@ -272,18 +285,21 @@ public class MainView extends javax.swing.JFrame {
             if (isInformationValid()) {
                 if (bllEmployee.doesUserExist(txtName.getText(), txtPassword.getPassword())) {
                     log = bllEmployee.getLogin(txtName.getText());
-                    lblLogIn.setText("Logget ind som: " + log.getMedarbejder().toString());
+                    lblLogIn.setText("Velkommen " + log.getMedarbejder().toString());
                     btnLogIn.setEnabled(false);
                     btnLogOut.setEnabled(true);
                     clearlogintxt();
                     if (log.isHoldleder()) {
                         btnConfirmApp.setEnabled(true);
+                        btnErrorReport.setEnabled(true);
                     }
                     if (log.isAdmin()) {
                         btnIL.setEnabled(true);
+                        btnErrorReport.setEnabled(true);
                     }
                     if (log.isKontor()) {
                         btnSalery.setEnabled(true);
+                        btnErrorReport.setEnabled(true);
                     }
                 } else {
                     JOptionPane.showMessageDialog(this, "Forkert kodeord!!!");

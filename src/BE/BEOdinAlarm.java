@@ -51,6 +51,10 @@ public class BEOdinAlarm {
     public String getTime() {
         return time;
     }
+    public String getTimeString(){
+        String[] times = time.split(":");
+        return times[1];
+    }
 
     /**
      * @param time the time to set
@@ -61,7 +65,7 @@ public class BEOdinAlarm {
 
     @Override
     public String toString() {
-        return description;
+        return description + " - Tid: " + getTime();
     }
     
 
