@@ -87,6 +87,16 @@ public class BLLAppearance {
         return newAppearances;
     }
 
+    public ArrayList<BEAppearance> getAppearancesWithHLGodkendt(BEAlarm selectedAlarm) {
+        newAppearances = new ArrayList();
+        for (BEAppearance appearance : getAllAppearances()) {
+            if (appearance.getAlarm() == selectedAlarm && appearance.isHlGodkendt()) {
+                newAppearances.add(appearance);
+            }
+        }
+        return newAppearances;
+    }
+
     private Timestamp time() {
         Calendar calendar = Calendar.getInstance();
         java.util.Date now = calendar.getTime();
@@ -169,6 +179,17 @@ public class BLLAppearance {
             dalAppearance.createAppearance(fireman, calculateTotalTime(alarm, time()), time(), alarm, veh, checkOutTime, hl, ch, st);
         } catch (SQLException ex) {
             System.out.println("fejl i add Appearance " + ex);
+        }
+
+    }
+
+    public void updateKørselType(BEAppearance a, int kørselType) {
+        a.setKørselsType(kørselType);
+        try {
+            dalAppearance.updateKørselType(a);
+        } catch (SQLException ex) {
+            System.out.println("Fejl i update kørseltype" + ex);
+
         }
     }
 }

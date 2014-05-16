@@ -136,8 +136,7 @@ public class HLAfterAction extends javax.swing.JFrame {
                         if (model.getRowCount() != 0 && cboxAlarm.getSelectedIndex() != 0) {
                             confirmTeam();
                             msgbox("Holdet er nu bekræftet!");
-                            System.out.println(bllAppearance.getAppearancesWithCriteria(null));
-                            HLAfterActionStory frame = new HLAfterActionStory(bllAppearance.getAppearancesWithCriteria((BEAlarm)cboxAlarm.getSelectedItem()));
+                            HLAfterActionStory frame = new HLAfterActionStory(bllAppearance.getAppearancesWithHLGodkendt((BEAlarm)cboxAlarm.getSelectedItem()),(BEAlarm)cboxAlarm.getSelectedItem());
 //                            HLUsageReport frame = new HLUsageReport((BEAlarm) cboxAlarm.getSelectedItem());
                             frame.setVisible(true);
                             dispose();

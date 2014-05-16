@@ -1,12 +1,12 @@
 package DAL;
 
 import BE.BEAlarm;
+import BE.BEAppearance;
 import BE.BEOdinAlarm;
 import BE.BEUsage;
 import BLL.BLLAlarm;
 import BLL.BLLUsage;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -154,4 +154,16 @@ public class DALALarm {
 //        return alarm;
 //
 //    }
+
+    public void updateAlarm(BEAppearance a, String alarmtype, int gruppeNo, int detekNo) throws SQLException {
+        
+        String sql = "UPDATE Alarm SET alarmType = ?, gruppeNo = ?, detekterNo = ? WHERE id = ?";
+
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setString(1, alarmtype);
+        ps.setInt(2, gruppeNo);
+        ps.setInt(3, detekNo);
+        ps.setInt(4, a.getAlarm().getId());
+        ps.execute();
+    }
 }
