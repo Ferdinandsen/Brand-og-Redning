@@ -77,7 +77,7 @@ public class DALAppearance {
 
     public void populateAppearances() throws SQLException {
         allAppearances = new ArrayList<>();
-        String sql = "SELECT * FROM Fremmøde WHERE hlGodkendt = 'false'";
+        String sql = "SELECT * FROM Fremmøde";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.execute();

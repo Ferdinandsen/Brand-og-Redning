@@ -51,13 +51,24 @@ public class BLLAppearance {
         }
     }
 
+    public ArrayList<BEAppearance> getAllAppearancesNotHlGodkendt() {
+        ArrayList<BEAppearance> notHlGodkendt = new ArrayList<>();
+        for (BEAppearance appearance : getAllAppearances()) {
+            if (!appearance.isHlGodkendt()) {
+                notHlGodkendt.add(appearance);
+            }
+        }
+        return notHlGodkendt;
+    }
+
     public ArrayList<BEAppearance> getAllAppearances() {
         return dalAppearance.getAppearances();
     }
+
     public ArrayList<BEAppearance> getAllHlGodkendtAppearances(BEAlarm alarm) {
-        ArrayList<BEAppearance> hlGodkendtAppearances = getAllAppearances();
-        for (BEAppearance appearance : getAllAppearances()){
-            if (appearance.getAlarm() == alarm){
+        ArrayList<BEAppearance> hlGodkendtAppearances = new ArrayList<>();
+        for (BEAppearance appearance : getAllAppearances()) {
+            if (appearance.getAlarm() == alarm && appearance.isHlGodkendt()) {
                 hlGodkendtAppearances.add(appearance);
             }
         }
@@ -67,7 +78,7 @@ public class BLLAppearance {
     public ArrayList<BEAppearance> getAppearancesWithCriteria(BEAlarm selectedAlarm) {
         newAppearances = new ArrayList();
         for (BEAppearance appearance : getAllAppearances()) {
-            if (appearance.getAlarm() == selectedAlarm) {
+            if (appearance.getAlarm() == selectedAlarm && !appearance.isHlGodkendt()) {
                 newAppearances.add(appearance);
             }
 //
@@ -135,16 +146,15 @@ public class BLLAppearance {
 //        Timestamp time = time();
         for (BEAppearance appearance : newAppearances) {
             try {
+                appearance.setHlGodkendt(true);
                 appearance.setAlarm(alarm);
                 dalAppearance.confirmTeam(appearance, comment);
-               
+
             } catch (SQLException ex) {
                 System.out.println("fejl i confirmTeam" + ex);
             }
         }
     }
-
- 
 
     public void update() {
         try {

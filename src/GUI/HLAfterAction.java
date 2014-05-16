@@ -57,9 +57,10 @@ public class HLAfterAction extends javax.swing.JFrame {
     }
 
     private void update() {
+        cboxAlarm.setSelectedIndex(0);
         bllVehicle.update();
         bllAppearance.update();
-        model.setAppearanceList(bllAppearance.getAllAppearances());
+        model.setAppearanceList(bllAppearance.getAllAppearancesNotHlGodkendt());
         model.fireTableDataChanged();
         lblCount.setText("Fremmødt: " + model.getRowCount());
     }
@@ -118,7 +119,7 @@ public class HLAfterAction extends javax.swing.JFrame {
                         }
                         txtFremmøde.setText(alarm.getDesc());
                     } else {
-                        model.setAppearanceList(bllAppearance.getAllAppearances());
+                        model.setAppearanceList(bllAppearance.getAllAppearancesNotHlGodkendt());
                         txtFremmøde.setText("");
                     }
                     model.fireTableDataChanged();
@@ -156,7 +157,7 @@ public class HLAfterAction extends javax.swing.JFrame {
 
     
     private void populateFremmødeTable() {
-        model = new FremmødeTableModel(bllAppearance.getAllAppearances());
+        model = new FremmødeTableModel(bllAppearance.getAllAppearancesNotHlGodkendt());
         tblTider.setModel(model);
         model.fireTableDataChanged();
     }
