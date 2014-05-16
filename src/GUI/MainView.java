@@ -70,7 +70,7 @@ public class MainView extends javax.swing.JFrame {
 
         btnErrorReport.setText("Fejl rapport");
 
-        btnConfirmApp.setText("Bekræft Fremmmøder");
+        btnConfirmApp.setText("Bekræft Fremmøder");
 
         btnIL.setText("IndsatsLeder");
 
@@ -136,7 +136,7 @@ public class MainView extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(7, 7, 7)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -164,8 +164,7 @@ public class MainView extends javax.swing.JFrame {
                     .addComponent(btnIL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSalery, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNote, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(txtNote, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -202,7 +201,10 @@ public class MainView extends javax.swing.JFrame {
         btnConfirmApp.setEnabled(false);
         btnIL.setEnabled(false);
         btnSalery.setEnabled(false);
-
+        txtName.setNextFocusableComponent(txtPassword);
+        txtPassword.setNextFocusableComponent(txtName);
+        btnConfirmApp.setText("Bekræft fremmøder");
+        
         btnConfirmApp.addActionListener(new ActionListener() {
 
             @Override
@@ -271,6 +273,13 @@ public class MainView extends javax.swing.JFrame {
                 clearlogintxt();
                 btnLogIn.setEnabled(true);
                 btnLogOut.setEnabled(false);
+            }
+        });
+        
+        btnIL.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
             }
         });
     }

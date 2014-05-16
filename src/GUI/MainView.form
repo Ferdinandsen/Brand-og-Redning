@@ -82,7 +82,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="295" max="-2" attributes="0"/>
@@ -118,7 +118,6 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="txtNote" min="-2" pref="79" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -136,7 +135,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnConfirmApp">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Bekr&#xe6;ft Fremmm&#xf8;der"/>
+        <Property name="text" type="java.lang.String" value="Bekr&#xe6;ft Fremm&#xf8;der"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnIL">
