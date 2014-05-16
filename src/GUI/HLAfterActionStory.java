@@ -1,6 +1,5 @@
 package GUI;
 
-import BE.BEAlarm;
 import BE.BEAppearance;
 import BE.BEVehicle;
 import BLL.BLLAppearance;
@@ -20,16 +19,17 @@ import javax.swing.JPanel;
  */
 public class HLAfterActionStory extends javax.swing.JFrame {
 
-    ArrayList<BEAppearance> allappearances = new ArrayList<>();
+    ArrayList<BEAppearance> allappearances;
     BLLAppearance bllAppearance;
-    BEAlarm localalarm;
 //    private JPanel main;
 
     /**
      * Creates new form HLAfterActionStory
+     * @param a
      */
-    public HLAfterActionStory(BEAlarm alarm) {
-        localalarm = alarm;
+    public HLAfterActionStory(ArrayList<BEAppearance> a) {
+        allappearances = a;
+        System.out.println(a.size());
         bllAppearance = BLLAppearance.getInstance();
         initComponents();
         initOtherComponents();
@@ -51,8 +51,8 @@ public class HLAfterActionStory extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextPane2 = new javax.swing.JTextPane();
-        pnlKørsel = getGroupLayout();
         jLabel3 = new javax.swing.JLabel();
+        pnlKørsel = getGroupLayout();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,7 +72,7 @@ public class HLAfterActionStory extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jTextPane2);
 
-        pnlKørsel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabel3.setText("Kørselstype:");
 
         javax.swing.GroupLayout pnlKørselLayout = new javax.swing.GroupLayout(pnlKørsel);
         pnlKørsel.setLayout(pnlKørselLayout);
@@ -82,10 +82,8 @@ public class HLAfterActionStory extends javax.swing.JFrame {
         );
         pnlKørselLayout.setVerticalGroup(
             pnlKørselLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 103, Short.MAX_VALUE)
+            .addGap(0, 166, Short.MAX_VALUE)
         );
-
-        jLabel3.setText("Kørselstype:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,16 +93,13 @@ public class HLAfterActionStory extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(pnlKørsel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,7 +111,10 @@ public class HLAfterActionStory extends javax.swing.JFrame {
                                 .addComponent(jRadioButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jRadioButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jRadioButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 100, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlKørsel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,7 +137,7 @@ public class HLAfterActionStory extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlKørsel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
 
         pack();
@@ -160,14 +158,12 @@ public class HLAfterActionStory extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private ArrayList<BEVehicle> getVeh() {
-        allappearances = bllAppearance.getAllAppearances();//forkert appearance
         ArrayList<BEVehicle> allvehicles = new ArrayList<>();
         for (BEAppearance a : allappearances) {
             if (!allvehicles.contains(a.getVeh())) {
                 allvehicles.add(a.getVeh());
             }
         }
-        System.out.println(allvehicles.get(0));
         return allvehicles;
     }
 
@@ -178,12 +174,12 @@ public class HLAfterActionStory extends javax.swing.JFrame {
         return p;
     }
 
-    
-
     private JPanel getGroupLayout() {
         pnlKørsel = new JPanel();
         if (!getVeh().isEmpty()) {
+            System.out.println(getVeh().size());
             for (BEVehicle v : getVeh()) {
+                System.out.println(v);
                 KørselPanel panel = new KørselPanel(v);
                 GroupLayout layout = new GroupLayout(panel);
                 layout.setAutoCreateGaps(true);
@@ -206,25 +202,24 @@ public class HLAfterActionStory extends javax.swing.JFrame {
 
     private class KørselPanel extends JPanel {
 
-        String name;
+        int name = 0;
         JLabel lbl;
         JComboBox<Object> combo;
         BEVehicle vehicle;
 
         public KørselPanel(BEVehicle v) {
-            if (name.isEmpty()) {
-                name = " ";
-            } else {
-                name = Integer.toString(v.getOdinnummer());
+            if (v != null) {
+                name = v.getOdinnummer();
             }
             vehicle = v;
             lbl = new JLabel();
-            lbl.setPreferredSize(new Dimension(50, 50));
+            lbl.setPreferredSize(new Dimension(40, 15));
             combo = new JComboBox<>();
-            lbl.setText(name);
+            lbl.setText(String.valueOf(name));
             combo.addItem(1);
             combo.addItem(2);
             this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            
         }
 
         public JLabel getLBL() {
