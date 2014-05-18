@@ -69,6 +69,8 @@ public class ILIndsats extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 BEAlarm alarm = bllAlarm.getAllUnfinishedAlarms().get(tblFremmøder.convertRowIndexToView(tblFremmøder.getSelectedRow()));
+                System.out.println(alarm);
+                System.out.println(alarm.getForbrug().getAmount());
                 ILFremmødeliste view = new ILFremmødeliste(alarm);
                 view.setLocationRelativeTo(null);
                 view.setVisible(true);

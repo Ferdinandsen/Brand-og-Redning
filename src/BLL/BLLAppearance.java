@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -174,9 +175,11 @@ public class BLLAppearance {
         }
     }
 
-    public void addAppearance(BEFireman fireman, BEAlarm alarm, BEVehicle veh, String checkOutTime, boolean hl, boolean ch, boolean st) {
+    public void addAppearance(BEFireman fireman, BEAlarm alarm, BEVehicle veh, String checkOutTime, boolean hl, boolean ch, boolean st, int kørselstype) {
         try {
-            dalAppearance.createAppearance(fireman, calculateTotalTime(alarm, time()), time(), alarm, veh, checkOutTime, hl, ch, st);
+            String[] theCheckOutTime = checkOutTime.toString().split(":");
+            Timestamp ts = new Timestamp(alarm.getTime().getYear(), alarm.getTime().getMonth(), alarm.getTime().getDate(), Integer.parseInt(theCheckOutTime[0]), Integer.parseInt(theCheckOutTime[1]), alarm.getTime().getSeconds(), alarm.getTime().getNanos());
+            dalAppearance.createAppearance(fireman, calculateTotalTime(alarm, time()), ts, alarm, veh, checkOutTime, hl, ch, st, (int) kørselstype);
         } catch (SQLException ex) {
             System.out.println("fejl i add Appearance " + ex);
         }

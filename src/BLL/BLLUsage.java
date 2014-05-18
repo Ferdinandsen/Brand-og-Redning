@@ -18,6 +18,7 @@ public class BLLUsage {
     private BLLUsage() {
         try {
             dalusage = DALUsage.getInstance();
+            dalusage.populateUsages();
         } catch (SQLException e) {
             System.out.println("Fejl i BLLUsage " + e);
         }
@@ -43,6 +44,6 @@ public class BLLUsage {
     }
 
     public ArrayList<BEMateriel> getAllMats() {
-        return dalusage.getMateriel();
+        return dalusage.getAllMats();
     }
 }

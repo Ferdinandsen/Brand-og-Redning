@@ -14,19 +14,23 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.Action;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Kaj
  */
-public class AddAppearanceView extends javax.swing.JFrame {
+public class AddAppearanceView extends javax.swing.JDialog {
 
     BLLAppearance bllAppearance;
     BLLFireman bllFireman;
     BLLAlarm bllAlarm;
     BLLVehicle bllVehicle;
+    BEAlarm localAlarm;
 
-    public AddAppearanceView() {
+    public AddAppearanceView(BEAlarm alarm) {
+        localAlarm = alarm;
+        this.setLocationRelativeTo(null);
         bllAppearance = BLLAppearance.getInstance();
         bllFireman = BLLFireman.getInstance();
         bllAlarm = BLLAlarm.getInstance();
@@ -37,6 +41,7 @@ public class AddAppearanceView extends javax.swing.JFrame {
         fillCboxFireman();
         fillCboxAlarm();
         fillCboxVehicle();
+        fillCboxKørselstype();
     }
 
     private void initOtherComponents() {
@@ -140,7 +145,9 @@ public class AddAppearanceView extends javax.swing.JFrame {
         if (cboxKøretøj.getSelectedIndex() != 0) {
             veh = (BEVehicle) cboxKøretøj.getSelectedItem();
         }
-        bllAppearance.addAppearance((BEFireman) cboxFireman.getSelectedItem(), (BEAlarm) cboxAlarm.getSelectedItem(), veh, txtCheckUdTid.getText(), hl, ch, st);
+        bllAppearance.addAppearance((BEFireman) cboxFireman.getSelectedItem(), (BEAlarm) cboxAlarm.getSelectedItem(), veh, txtCheckUdTid.getText(), hl, ch, st, (int) cboxKørselstype.getSelectedItem());
+        JOptionPane.showMessageDialog(this, cboxFireman.getSelectedItem() + " er nu tilføjet til listen!");
+        dispose();
     }
 
     private void fillCboxFireman() {
@@ -152,10 +159,8 @@ public class AddAppearanceView extends javax.swing.JFrame {
     }
 
     private void fillCboxAlarm() {
-        cboxAlarm.addItem("Ingen alarm valgt");
-        for (BEAlarm alarm : bllAlarm.getAllAlarms()) {
-            cboxAlarm.addItem(alarm);
-        }
+        cboxAlarm.addItem(localAlarm);
+       
     }
 
     private void fillCboxVehicle() {
@@ -163,6 +168,10 @@ public class AddAppearanceView extends javax.swing.JFrame {
         for (BEVehicle veh : bllVehicle.getAllVehicles()) {
             cboxKøretøj.addItem(veh);
         }
+    }
+    private void fillCboxKørselstype(){
+        cboxKørselstype.addItem(1);
+        cboxKørselstype.addItem(2);
     }
 
     @SuppressWarnings("unchecked")
@@ -183,8 +192,10 @@ public class AddAppearanceView extends javax.swing.JFrame {
         txtCheckUdTid = new javax.swing.JTextField();
         btnOk = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        cboxKørselstype = new javax.swing.JComboBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Brandmand:");
 
@@ -204,31 +215,46 @@ public class AddAppearanceView extends javax.swing.JFrame {
 
         btnCancel.setText("Cancel");
 
+        jLabel5.setText("Køreselstype:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnOk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnOk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(8, 8, 8)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(10, 10, 10)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(rbtnChauffør)
+                                        .addComponent(rbtnHoldleder)
+                                        .addComponent(rbtnStVagt)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(cboxAlarm, javax.swing.GroupLayout.Alignment.LEADING, 0, 50, Short.MAX_VALUE)
+                                            .addComponent(cboxFireman, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(cboxKøretøj, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboxFireman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cboxAlarm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cboxKøretøj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCheckUdTid, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rbtnChauffør)
-                            .addComponent(rbtnHoldleder)
-                            .addComponent(rbtnStVagt)))
-                    .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(85, Short.MAX_VALUE))
+                            .addComponent(cboxKørselstype, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,6 +273,10 @@ public class AddAppearanceView extends javax.swing.JFrame {
                     .addComponent(cboxKøretøj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cboxKørselstype, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(txtCheckUdTid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -271,10 +301,12 @@ public class AddAppearanceView extends javax.swing.JFrame {
     private javax.swing.JComboBox cboxAlarm;
     private javax.swing.JComboBox cboxFireman;
     private javax.swing.JComboBox cboxKøretøj;
+    private javax.swing.JComboBox cboxKørselstype;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JRadioButton rbtnChauffør;
     private javax.swing.JRadioButton rbtnHoldleder;
     private javax.swing.JRadioButton rbtnStVagt;

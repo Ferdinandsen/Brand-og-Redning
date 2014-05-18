@@ -11,8 +11,13 @@ public class BEUsage {
     private BEMateriel materiel;
     private int amount;
 
+    public BEUsage(int id, BEAlarm alarm, BEMateriel materiel, int amount) {
+        this.id = id;
+        this.alarm = alarm;
+        this.materiel = materiel;
+        this.amount = amount;
+    }
     public BEUsage(BEAlarm alarm, BEMateriel materiel, int amount) {
-
         this.alarm = alarm;
         this.materiel = materiel;
         this.amount = amount;

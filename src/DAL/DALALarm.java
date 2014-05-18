@@ -33,20 +33,20 @@ public class DALALarm {
 
     private Connection m_connection;
     private static DALALarm m_instance = null;
-    BLLAlarm bllAlarm;
-    BLLUsage bllUsage;
+    DALUsage dalUsage;
     ArrayList<BEAlarm> allAlarms;
     ArrayList<BEOdinAlarm> allOdinAlarms;
     DALVehicle dalVehicle;
 
     private DALALarm() throws SQLServerException, SQLException {
-       
+
         m_connection = DBConnection.getInstance().getConnection();
         dalVehicle = DALVehicle.getInstance();
-        bllUsage = BLLUsage.getInstance();
+        dalUsage = DALUsage.getInstance();
         getXmlAlarms();
         populateAlarm();
     }
+
     private String getValue(String tag, Element element) {
         NodeList nodes = element.getElementsByTagName(tag).item(0).getChildNodes();
         Node node = (Node) nodes.item(0);
@@ -78,6 +78,7 @@ public class DALALarm {
             ex.printStackTrace();
         }
     }
+
     public ArrayList<BEOdinAlarm> getAllOdinAlarms() {
         return allOdinAlarms;
     }
@@ -112,15 +113,17 @@ public class DALALarm {
             String ilBemærkning = result.getString("ilBemærkning");
             Timestamp ilGodkendtTid = result.getTimestamp("ilGodkendtTid");
             Timestamp hlGodkendtTid = result.getTimestamp("hlGodkendtTid");
-            
+
             BEUsage localForbrug = null;
-            for (BEUsage forbrug : bllUsage.getAllUsages()){
-                if (forbrug.getId() == forbrugRef){
+            dalUsage.populateUsages();
+            for (BEUsage forbrug : dalUsage.getAllUsages()) {
+                if (forbrug.getId() == forbrugRef) {
                     localForbrug = forbrug;
+                    System.out.println(desc + " " + forbrugRef);
                 }
             }
 
-            BEAlarm alarm = new BEAlarm(id, title, desc, station, tid, done, localForbrug, alarmType, evaNo, gruppeNo, detekterNo,  hlBemærkning, ilBemærkning, ilGodkendtTid, hlGodkendtTid);
+            BEAlarm alarm = new BEAlarm(id, title, desc, station, tid, done, localForbrug, alarmType, evaNo, gruppeNo, detekterNo, hlBemærkning, ilBemærkning, ilGodkendtTid, hlGodkendtTid);
             allAlarms.add(alarm);
         }
     }
@@ -154,9 +157,8 @@ public class DALALarm {
 //        return alarm;
 //
 //    }
-
     public void updateAlarm(BEAppearance a, String alarmtype, int gruppeNo, int detekNo) throws SQLException {
-        
+
         String sql = "UPDATE Alarm SET alarmType = ?, gruppeNo = ?, detekterNo = ? WHERE id = ?";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
