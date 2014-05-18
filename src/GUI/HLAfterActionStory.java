@@ -237,11 +237,15 @@ public class HLAfterActionStory extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
+                if(!txtPGRP.getText().isEmpty() && !txtPDet.getText().isEmpty()){
                 getDataToIL();
                 JOptionPane.showMessageDialog(null, "Tak for bekræftigelsen");
                 HLUsageReport frame = new HLUsageReport(localAlarm);
                 frame.setVisible(true);
-                dispose();
+                dispose();}
+                else{
+                    JOptionPane.showMessageDialog(null, "Du skal indtase alle oplysniger for at kunne bekræfte");
+                }
             }
         });
 
