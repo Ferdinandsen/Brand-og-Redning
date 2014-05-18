@@ -1,7 +1,9 @@
 package DAL;
 
+import BE.BEAlarm;
 import BE.BEMateriel;
 import BE.BEUsage;
+import BLL.BLLAlarm;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,12 +19,15 @@ public class DALUsage {
 
     private Connection m_connection;
     private static DALUsage m_instance = null;
-    private ArrayList<BEMateriel> materiel = new ArrayList<>();
+    private ArrayList<BEMateriel> allMaterials = new ArrayList<>();
     private ArrayList<BEUsage> allUsages = new ArrayList<BEUsage>();
+    DALALarm dalAlarm;
 
     private DALUsage() throws SQLServerException, SQLException {
         m_connection = DBConnection.getInstance().getConnection();
+        
         populateMats();
+        
     }
 
     public static DALUsage getInstance() throws SQLException {
@@ -35,7 +40,7 @@ public class DALUsage {
     public void createUsageReport(BEUsage u) throws SQLException {
         String sql = "INSERT INTO Forbrug VALUES (?,?,?)";
 
-        PreparedStatement ps = getM_connection().prepareStatement(sql);
+        PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setInt(1, u.getAlarm().getId());
         ps.setInt(2, u.getMateriel().getId());
         ps.setInt(3, u.getAmount());
@@ -43,10 +48,44 @@ public class DALUsage {
         allUsages.add(u);
     }
 
+    public void populateUsages() throws SQLException {
+        String sql = "SELECT * FROM Forbrug";
+        dalAlarm = DALALarm.getInstance();
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.execute();
+
+        ResultSet result = ps.getResultSet();
+        while (result.next()) {
+            int id = result.getInt("id");
+            int alarmRef = result.getInt("alarmRef");
+            int matId = result.getInt("matId");
+            int amount = result.getInt("amount");
+
+            BEAlarm localAlarm = null;
+            
+            for (BEAlarm alarm : dalAlarm.getAllAlarms()) {
+                if (alarm.getId() == alarmRef) {
+                    localAlarm = alarm;
+                }
+            }
+            
+            BEMateriel localMateriel = null;
+            for (BEMateriel mat : getAllMats()) {
+                if (mat.getId() == matId) {
+                    localMateriel = mat;
+                }
+            }
+
+
+            BEUsage usage = new BEUsage(id, localAlarm, localMateriel, amount);
+            allUsages.add(usage);
+        }
+    }
+
     public void populateMats() throws SQLException {
         String sql = "SELECT * FROM Brandmateriel";
 
-        PreparedStatement ps = getM_connection().prepareStatement(sql);
+        PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.execute();
 
         ResultSet result = ps.getResultSet();
@@ -55,38 +94,18 @@ public class DALUsage {
             String name = result.getString("navn");
 
             BEMateriel mat = new BEMateriel(id, name);
-            materiel.add(mat);
+            allMaterials.add(mat);
         }
     }
-    public ArrayList<BEUsage> getAllUsages(){
+
+    public ArrayList<BEUsage> getAllUsages() {
         return allUsages;
-    }
-
-    /**
-     * @return the m_connection
-     */
-    public Connection getM_connection() {
-        return m_connection;
-    }
-
-    /**
-     * @param m_connection the m_connection to set
-     */
-    public void setM_connection(Connection m_connection) {
-        this.m_connection = m_connection;
     }
 
     /**
      * @return the materiel
      */
-    public ArrayList<BEMateriel> getMateriel() {
-        return materiel;
-    }
-
-    /**
-     * @param materiel the materiel to set
-     */
-    public void setMateriel(ArrayList<BEMateriel> materiel) {
-        this.materiel = materiel;
+    public ArrayList<BEMateriel> getAllMats() {
+        return allMaterials;
     }
 }

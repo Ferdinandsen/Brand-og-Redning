@@ -25,8 +25,9 @@ import javax.swing.JTextField;
  * @author Shadowleet
  */
 public class HLUsageReport extends javax.swing.JFrame {
-
+    
     BLLUsage bllusage;
+    BEUsage localUsage;
     BEMateriel m;
     ArrayList<BEMateriel> allMats = new ArrayList<>();
     private JPanel main;
@@ -53,7 +54,15 @@ public class HLUsageReport extends javax.swing.JFrame {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
     }
-
+    
+    HLUsageReport(BEUsage usage) {
+        localUsage = usage;
+        fillInfo();
+    }
+    
+    private void fillInfo() {
+    }
+    
     private JPanel getBorderLayout() {
         JPanel p = new JPanel();
         p.setLayout(new BorderLayout());
@@ -61,7 +70,7 @@ public class HLUsageReport extends javax.swing.JFrame {
         p.add(getFlowLayoutSouth(), BorderLayout.SOUTH);
         return p;
     }
-
+    
     private JPanel getGridLayout() {
         JPanel p = new JPanel();
         GridLayout gl = new GridLayout();
@@ -69,7 +78,7 @@ public class HLUsageReport extends javax.swing.JFrame {
         p.add(getGroupLayout());
         return p;
     }
-
+    
     private JPanel getFlowLayoutSouth() {
         JPanel p = new JPanel();
         FlowLayout fl = new FlowLayout();
@@ -86,7 +95,7 @@ public class HLUsageReport extends javax.swing.JFrame {
                 dispose();
             }
         });
-
+        
         c.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -95,7 +104,7 @@ public class HLUsageReport extends javax.swing.JFrame {
         });
         return p;
     }
-
+    
     private JPanel getGroupLayout() {
         allMats = bllusage.getAllMats();
         int modsize = allMats.size() % 2;
@@ -118,7 +127,7 @@ public class HLUsageReport extends javax.swing.JFrame {
         }
         return p;
     }
-
+    
     private void usage() {
         BEUsage bu;
         for (ForbrugPanel test : forbrug) {
@@ -161,9 +170,9 @@ public class HLUsageReport extends javax.swing.JFrame {
     private void createUsageReport(BEUsage u) {
         bllusage.createReport(u);
     }
-
+    
     private class ForbrugPanel extends JPanel {
-
+        
         String name;
         int amount = 0;
         JLabel lbl;
@@ -176,6 +185,13 @@ public class HLUsageReport extends javax.swing.JFrame {
             
             lbl = new JLabel();
             tf = new JTextField();
+            if (localUsage != null) {
+                for (BEMateriel mat : allMats) {
+                    if (localUsage.getMateriel() == mat) {
+                        tf.setText(String.valueOf(mat.getAmount()));
+                    }
+                }
+            }
             name = m.getName();
             lbl.setText(name);
             lbl.setPreferredSize(new Dimension(140, 20));
@@ -190,15 +206,15 @@ public class HLUsageReport extends javax.swing.JFrame {
                 }
             });
         }
-
+        
         public JTextField getTF() {
             return tf;
         }
-
+        
         public JLabel getLBL() {
             return lbl;
         }
-
+        
         public int getAmount() {
             return !tf.getText().equals("") ? Integer.parseInt(tf.getText()) : 0;
         }

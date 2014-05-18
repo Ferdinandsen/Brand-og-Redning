@@ -140,13 +140,14 @@ public class DALAppearance {
         appearance.setHlGodkendt(true);
         ps.execute();
     }
+
     public void updateKørselType(BEAppearance a) throws SQLException {
         String sql = "UPDATE Fremmøde SET kørselType = ? WHERE id = ?";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setInt(1, a.getKørselsType());
         ps.setInt(2, a.getId());
-       
+
         ps.execute();
     }
 
@@ -170,9 +171,8 @@ public class DALAppearance {
         allAppearances.remove(appearance);
     }
 
-
-    public void createAppearance(BEFireman fireman, int total, Timestamp time, BEAlarm alarm, BEVehicle veh, String checkOutTime, boolean hl, boolean ch, boolean st) throws SQLException {
-        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    public void createAppearance(BEFireman fireman, int total, Timestamp time, BEAlarm alarm, BEVehicle veh, String checkOutTime, boolean hl, boolean ch, boolean st, int kørselstype) throws SQLException {
+        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?) select @@identity";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setInt(1, fireman.getMedarbjeder().getMedarbejderNo());
@@ -184,7 +184,7 @@ public class DALAppearance {
         ps.setBoolean(7, ch);
         ps.setBoolean(8, st);
         ps.setBoolean(9, false);
-        ps.setString(10, null);
+        ps.setInt(10, kørselstype);
         ps.setInt(11, alarm.getId());
 
         if (veh == null) {
@@ -195,9 +195,13 @@ public class DALAppearance {
         ps.setString(13, null);
 
         ps.execute();
-        
-//        BEAppearance appearance = new BEAppearance(, localFireman, checkIn, checkOut, totalTid, hlGodkendt, ilGodkendt,
-//                    holdleder, chauffør, stationsvagt, type, localAlarm, localVeh, localLogin);
-    }
+        ResultSet rs = ps.getGeneratedKeys();
+        int id = 0;
+        if (rs.next()) {
+            id = rs.getInt(1);
 
+            BEAppearance appearance = new BEAppearance(id, fireman, alarm.getTime(), time, total, true, false, hl, ch, st, kørselstype, alarm, veh, null);
+            allAppearances.add(appearance);
+        }
+    }
 }
