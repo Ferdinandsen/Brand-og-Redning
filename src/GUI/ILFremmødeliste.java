@@ -4,6 +4,7 @@ import BE.BEAlarm;
 import BE.BEUsage;
 import BLL.BLLAlarm;
 import BLL.BLLAppearance;
+import BLL.BLLPdf;
 import BLL.BLLUsage;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -419,7 +420,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
 
             bllAppearance.confirmAlarmTeam(localAlarm);
             JOptionPane.showMessageDialog(this, "Indsatsen er nu bekræftet");
-
+            createPDF();
         } else {
             JOptionPane.showMessageDialog(this, "Udfyld venligst al information");
         }
@@ -486,5 +487,9 @@ public class ILFremmødeliste extends javax.swing.JFrame {
 
     private boolean isInformationValid() {
         return !(txtAlarmTid.getText().isEmpty() && txtBeskrivelse.getText().isEmpty() && txtDetektorNr.getText().isEmpty() && txtEvaNo.getText().isEmpty() && txtGruppeNr.getText().isEmpty() && usageConfirmed == true);
+    }
+    private void createPDF(){
+        BLLPdf pdf = new BLLPdf(bllAppearance.getAllHlGodkendtAppearances(localAlarm));
+        JOptionPane.showMessageDialog(this, "PDF'en er nu lavet på skrivebordet!");
     }
 }
