@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -53,14 +51,24 @@ public class BLLAlarm {
         return unfinishedAlarms;
     }
 
+    public ArrayList<BEAlarm> getAllHIkkelGodkendteAlarms() {
+        ArrayList<BEAlarm> hlgodkendt = new ArrayList<>();
+        for (BEAlarm a : getAllAlarms()) {
+            if (a.getHlGodkendtTid() == null) {
+                hlgodkendt.add(a);
+            }
+        }
+        return hlgodkendt;
+    }
+
     public void updateAlarm(BEAlarm a) {
-        try {    
+        try {
             dalAlarm.updateAlarm(a);
         } catch (SQLException ex) {
             System.out.println("fejl i update alarm" + ex);
         }
     }
-    
+
     private Timestamp time() {
         Calendar calendar = Calendar.getInstance();
         java.util.Date now = calendar.getTime();
@@ -72,7 +80,7 @@ public class BLLAlarm {
         try {
             dalAlarm.confirmAlarm(localAlarm, time());
         } catch (SQLException ex) {
-          System.out.println("fejl i confirm alarm" + ex);
+            System.out.println("fejl i confirm alarm" + ex);
         }
     }
 }
