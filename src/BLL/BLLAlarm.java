@@ -1,7 +1,6 @@
 package BLL;
 
 import BE.BEAlarm;
-import BE.BEAppearance;
 import BE.BEOdinAlarm;
 import DAL.DALALarm;
 import java.sql.SQLException;
@@ -54,9 +53,9 @@ public class BLLAlarm {
         return unfinishedAlarms;
     }
 
-    public void updateAlarm(BEAppearance a, String alarmtype, int gruppeNo, int detekNo) {
-        try {
-            dalAlarm.updateAlarm(a, alarmtype, gruppeNo, detekNo);
+    public void updateAlarm(BEAlarm a) {
+        try {    
+            dalAlarm.updateAlarm(a);
         } catch (SQLException ex) {
             System.out.println("fejl i update alarm" + ex);
         }

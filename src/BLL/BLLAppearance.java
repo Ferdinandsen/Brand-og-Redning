@@ -135,6 +135,7 @@ public class BLLAppearance {
                 dalAlarm.setHlBemærkning(alarm);
                 appearance.setHlGodkendt(true);
                 appearance.setAlarm(alarm);
+                appearance.setLogin(log);
                 dalAppearance.confirmTeam(appearance, comment);
 
             } catch (SQLException ex) {

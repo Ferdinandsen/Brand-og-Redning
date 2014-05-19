@@ -210,7 +210,7 @@ public class HLErrorReport extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Fejl rapport sendt");
                     dispose();
                 } else {
-                    msgbox("Indtast venligst hvilket køretøj, fejl og hvem");
+                    msgbox("Indtast venligst hvilket køretøj, fejl og mangler samt hvem du er");
                 }
             }
         });

@@ -145,15 +145,15 @@ public class DALALarm {
 //        return alarm;
 //
 //    }
-    public void updateAlarm(BEAppearance a, String alarmtype, int gruppeNo, int detekNo) throws SQLException {
+    public void updateAlarm(BEAlarm a) throws SQLException {
 
         String sql = "UPDATE Alarm SET alarmType = ?, gruppeNo = ?, detekterNo = ? WHERE id = ?";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
-        ps.setString(1, alarmtype);
-        ps.setInt(2, gruppeNo);
-        ps.setInt(3, detekNo);
-        ps.setInt(4, a.getAlarm().getId());
+        ps.setString(1, a.getAlarmType());
+        ps.setInt(2, a.getGruppeNo());
+        ps.setInt(3, a.getDetekterNo());
+        ps.setInt(4, a.getId());
         ps.execute();
     }
 
