@@ -22,7 +22,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Shadowleet
+ * @author Team Kawabunga
  */
 public class HLUsageReport extends javax.swing.JDialog {
 
