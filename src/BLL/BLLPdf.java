@@ -37,13 +37,7 @@ public class BLLPdf {
             Font.BOLD);
     private Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
             Font.BOLD);
-    String gr = "";
-    String grad = "HL";
-    String fornavn = "Michael";
-    String efternavn = "Pedersen";
-    String tidsrum = "12:30";
-    int antalTimer = 2;
-    boolean stVagt = true;
+
     ArrayList<BEAppearance> localAppearances;
     private int amount = 0;
 
@@ -258,8 +252,8 @@ public class BLLPdf {
 
     private void insertData(PdfPTable table) {
         for (BEAppearance appearance : localAppearances) {
-            table.addCell(gr);
-            table.addCell(grad);
+            table.addCell("??");
+            table.addCell(String.valueOf(appearance.getFireman().isHoldleder()));
             table.addCell(appearance.getFireman().getMedarbjeder().getFornavn());
             table.addCell(appearance.getFireman().getMedarbjeder().getEfternavn());
             table.addCell(appearance.getAlarm().getTimeString());
