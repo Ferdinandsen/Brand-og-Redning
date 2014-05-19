@@ -158,11 +158,12 @@ public class DALALarm {
     }
 
     public void setHlBemærkning(BEAlarm alarm) throws SQLException {
-        String sql = "UPDATE Alarm SET hlBemærkning = ? WHERE id = ?";
+        String sql = "UPDATE Alarm SET hlBemærkning = ?, hlGodkendtTid = ? WHERE id = ?";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setString(1, alarm.getHlBemærkning());
-        ps.setInt(2, alarm.getId());
+        ps.setTimestamp(2, alarm.getHlGodkendtTid());
+        ps.setInt(3, alarm.getId());
         ps.execute();
     }
 

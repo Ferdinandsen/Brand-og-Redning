@@ -32,50 +32,53 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+              <Component id="btnBekræft" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
-                              <Component id="cboxIkkeIBrug" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="rbtnBAlarm" alignment="0" max="32767" attributes="0"/>
-                          <Component id="rbtnFAlarm" alignment="0" pref="101" max="32767" attributes="0"/>
-                          <Component id="rbtnIkkeIBrug" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="pnlKørsel" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="pnlKørsel" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
+                          <Component id="rbtnNormalAlarm" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
+                                  <Component id="cboxIkkeIBrug" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="rbtnFAlarm" alignment="0" pref="101" max="32767" attributes="0"/>
+                              <Component id="rbtnIkkeIBrug" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtFDet" pref="60" max="32767" attributes="0"/>
-                                  <Component id="txtFGRP" max="32767" attributes="0"/>
+                                  <Component id="txtFDet" max="32767" attributes="0"/>
+                                  <Component id="txtFGRP" min="-2" pref="60" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <Component id="rbtnBAlarm" min="-2" pref="101" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="74" max="32767" attributes="0"/>
                   </Group>
               </Group>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-              <Component id="btnBekræft" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="71" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="rbtnNormalAlarm" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="rbtnBAlarm" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -86,12 +89,12 @@
               <Component id="cboxIkkeIBrug" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="txtFGRP" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                       <Component id="txtFDet" min="-2" max="-2" attributes="0"/>
@@ -99,7 +102,7 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
               <Component id="pnlKørsel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="btnBekræft" min="-2" max="-2" attributes="0"/>
@@ -159,7 +162,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="161" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="95" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -172,6 +175,11 @@
     <Component class="javax.swing.JTextField" name="txtFGRP">
     </Component>
     <Component class="javax.swing.JTextField" name="txtFDet">
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="rbtnNormalAlarm">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Normal Alarm"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

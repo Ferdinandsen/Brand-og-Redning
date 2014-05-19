@@ -151,7 +151,7 @@ public class HLAfterAction extends javax.swing.JFrame {
         try {
             bllAppearance.confirmTeam(localLog, (BEAlarm) cboxAlarm.getSelectedItem(), txtComment.getText());
         } catch (Exception ex) {
-            msgbox("dd" + ex);
+            msgbox("fejl i confirmteam" + ex);
         }
     }
 

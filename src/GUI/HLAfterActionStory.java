@@ -71,6 +71,7 @@ public class HLAfterActionStory extends javax.swing.JFrame {
         btnBekræft = new javax.swing.JButton();
         txtFGRP = new javax.swing.JTextField();
         txtFDet = new javax.swing.JTextField();
+        rbtnNormalAlarm = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -94,49 +95,54 @@ public class HLAfterActionStory extends javax.swing.JFrame {
         );
         pnlKørselLayout.setVerticalGroup(
             pnlKørselLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 161, Short.MAX_VALUE)
+            .addGap(0, 95, Short.MAX_VALUE)
         );
 
         btnBekræft.setText("Bekræft");
+
+        rbtnNormalAlarm.setText("Normal Alarm");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addComponent(btnBekræft)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(cboxIkkeIBrug, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(rbtnBAlarm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(rbtnFAlarm, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-                            .addComponent(rbtnIkkeIBrug, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(pnlKørsel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnlKørsel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(rbtnNormalAlarm)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(21, 21, 21)
+                                    .addComponent(cboxIkkeIBrug, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(rbtnFAlarm, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                                .addComponent(rbtnIkkeIBrug, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel2))
                                 .addGap(11, 11, 11)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtFDet, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                                    .addComponent(txtFGRP))))
-                        .addContainerGap())))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(btnBekræft)
-                .addGap(0, 71, Short.MAX_VALUE))
+                                    .addComponent(txtFDet)
+                                    .addComponent(txtFGRP, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(rbtnBAlarm, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 74, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(rbtnNormalAlarm)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rbtnBAlarm)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rbtnFAlarm, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -156,7 +162,7 @@ public class HLAfterActionStory extends javax.swing.JFrame {
                         .addComponent(txtFDet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(49, 49, 49)
                 .addComponent(pnlKørsel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnBekræft)
@@ -178,6 +184,7 @@ public class HLAfterActionStory extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtnBAlarm;
     private javax.swing.JRadioButton rbtnFAlarm;
     private javax.swing.JRadioButton rbtnIkkeIBrug;
+    private javax.swing.JRadioButton rbtnNormalAlarm;
     private javax.swing.JTextField txtFDet;
     private javax.swing.JTextField txtFGRP;
     // End of variables declaration//GEN-END:variables
@@ -216,9 +223,11 @@ public class HLAfterActionStory extends javax.swing.JFrame {
     private void initOtherComponents() {
 
         cboxIkkeIBrug.setEnabled(false);
+        btnGrpAlarm.add(rbtnNormalAlarm);
         btnGrpAlarm.add(rbtnBAlarm);
         btnGrpAlarm.add(rbtnFAlarm);
         btnGrpAlarm.add(rbtnIkkeIBrug);
+        btnGrpAlarm.setSelected(rbtnNormalAlarm.getModel(),true);
 
         txtFGRP.addKeyListener(new KeyAdapter() {
             @Override
@@ -287,7 +296,9 @@ public class HLAfterActionStory extends javax.swing.JFrame {
 
     private void fillCBox() {
         for (BEVehicle v : getVeh()) {
-            cboxIkkeIBrug.addItem(v);
+            if (v != null) {
+                cboxIkkeIBrug.addItem(v);
+            }
         }
     }
 
@@ -299,6 +310,10 @@ public class HLAfterActionStory extends javax.swing.JFrame {
         String alarmtype = "Normal Alarm";
         int gruppeNo;
         int detekNo;
+        
+        if(rbtnNormalAlarm.isSelected()){
+            alarmtype = "Normal Alarm";
+        }
 
         if (rbtnBAlarm.isSelected()) {
             alarmtype = "Blind Alarm";
