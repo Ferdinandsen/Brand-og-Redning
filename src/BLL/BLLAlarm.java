@@ -51,16 +51,6 @@ public class BLLAlarm {
         return unfinishedAlarms;
     }
 
-    public ArrayList<BEAlarm> getAllHIkkelGodkendteAlarms() {
-        ArrayList<BEAlarm> hlgodkendt = new ArrayList<>();
-        for (BEAlarm a : getAllAlarms()) {
-            if (a.getHlGodkendtTid() == null) {
-                hlgodkendt.add(a);
-            }
-        }
-        return hlgodkendt;
-    }
-
     public void updateAlarm(BEAlarm a) {
         try {
             dalAlarm.updateAlarm(a);
