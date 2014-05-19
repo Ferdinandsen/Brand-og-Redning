@@ -195,14 +195,12 @@ public class MainView extends javax.swing.JFrame {
     private void initOtherComponets() {
         txtName.setNextFocusableComponent(txtPassword);
         txtPassword.setNextFocusableComponent(txtName);
-        btnErrorReport.setEnabled(false);
+        btnErrorReport.setEnabled(true);
         txtNote.setEditable(false);
         lblLogIn.setText("Ikke logget på");
         btnConfirmApp.setEnabled(false);
         btnIL.setEnabled(false);
         btnSalery.setEnabled(false);
-        txtName.setNextFocusableComponent(txtPassword);
-        txtPassword.setNextFocusableComponent(txtName);
         btnConfirmApp.setText("Bekræft fremmøder");
         
         btnConfirmApp.addActionListener(new ActionListener() {

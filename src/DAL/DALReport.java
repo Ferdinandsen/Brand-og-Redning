@@ -29,7 +29,7 @@ public class DALReport {
     }
 
     public void createErrorReport(BEError be, BEVehicle veh) throws SQLException {
-        String sql = "INSERT INTO Report VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO ErrorReport VALUES (?,?,?,?,?,?,?,?)";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setInt(1, veh.getOdinnummer());
