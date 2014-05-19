@@ -141,6 +141,8 @@ public class BLLAppearance {
 //        Timestamp time = time();
         for (BEAppearance appearance : newAppearances) {
             try {
+                alarm.setHlBemærkning(comment);
+                dalAlarm.setHlBemærkning(alarm);
                 appearance.setHlGodkendt(true);
                 appearance.setAlarm(alarm);
                 dalAppearance.confirmTeam(appearance, comment);

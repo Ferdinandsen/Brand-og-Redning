@@ -33,7 +33,6 @@ public class DALALarm {
 
     private Connection m_connection;
     private static DALALarm m_instance = null;
-    DALUsage dalUsage;
     ArrayList<BEAlarm> allAlarms;
     ArrayList<BEOdinAlarm> allOdinAlarms;
     DALVehicle dalVehicle;
@@ -42,7 +41,6 @@ public class DALALarm {
 
         m_connection = DBConnection.getInstance().getConnection();
         dalVehicle = DALVehicle.getInstance();
-        dalUsage = DALUsage.getInstance();
         getXmlAlarms();
         populateAlarm();
     }
@@ -104,7 +102,6 @@ public class DALALarm {
             String station = result.getString("station");
             Timestamp tid = result.getTimestamp("tid");
             boolean done = result.getBoolean("done");
-            int forbrugRef = result.getInt("forbrugRef");
             String alarmType = result.getString("alarmType");
             int evaNo = result.getInt("evaNo");
             int gruppeNo = result.getInt("gruppeNo");
@@ -114,16 +111,7 @@ public class DALALarm {
             Timestamp ilGodkendtTid = result.getTimestamp("ilGodkendtTid");
             Timestamp hlGodkendtTid = result.getTimestamp("hlGodkendtTid");
 
-            BEUsage localForbrug = null;
-            dalUsage.populateUsages();
-            for (BEUsage forbrug : dalUsage.getAllUsages()) {
-                if (forbrug.getId() == forbrugRef) {
-                    localForbrug = forbrug;
-                    System.out.println(desc + " " + forbrugRef);
-                }
-            }
-
-            BEAlarm alarm = new BEAlarm(id, title, desc, station, tid, done, localForbrug, alarmType, evaNo, gruppeNo, detekterNo, hlBemærkning, ilBemærkning, ilGodkendtTid, hlGodkendtTid);
+            BEAlarm alarm = new BEAlarm(id, title, desc, station, tid, done, alarmType, evaNo, gruppeNo, detekterNo, hlBemærkning, ilBemærkning, ilGodkendtTid, hlGodkendtTid);
             allAlarms.add(alarm);
         }
     }
@@ -166,6 +154,15 @@ public class DALALarm {
         ps.setInt(2, gruppeNo);
         ps.setInt(3, detekNo);
         ps.setInt(4, a.getAlarm().getId());
+        ps.execute();
+    }
+
+    public void setHlBemærkning(BEAlarm alarm) throws SQLException {
+        String sql = "UPDATE Alarm SET hlBemærkning = ? WHERE id = ?";
+
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setString(1, alarm.getHlBemærkning());
+        ps.setInt(2, alarm.getId());
         ps.execute();
     }
 }

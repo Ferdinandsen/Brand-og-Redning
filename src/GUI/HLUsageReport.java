@@ -25,9 +25,10 @@ import javax.swing.JTextField;
  * @author Shadowleet
  */
 public class HLUsageReport extends javax.swing.JFrame {
-    
+
     BLLUsage bllusage;
     BEUsage localUsage;
+    ArrayList<BEUsage> localAllUsages = new ArrayList<>();
     BEMateriel m;
     ArrayList<BEMateriel> allMats = new ArrayList<>();
     private JPanel main;
@@ -54,15 +55,32 @@ public class HLUsageReport extends javax.swing.JFrame {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
     }
-    
-    HLUsageReport(BEUsage usage) {
-        localUsage = usage;
+
+    public HLUsageReport(ArrayList<BEUsage> allUsages) {
+        bllusage = BLLUsage.getInstance();
+        allMats = bllusage.getAllMats();
+        height = allMats.size() * 25;
+        this.setSize(width, height);
+        this.setTitle("Holdleder Forbrugs Rapport");
+        this.setLocationRelativeTo(null);
+        main = getBorderLayout();
+        this.add(main);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setResizable(false);
+        localAllUsages = allUsages;
         fillInfo();
     }
-    
+
     private void fillInfo() {
+         for (ForbrugPanel test : forbrug) {
+            for (BEUsage usage : localAllUsages) {
+                if (usage.getMateriel().getName().equalsIgnoreCase(test.name)) {
+                   test.setText(String.valueOf(usage.getAmount()));
+                }
+            }
+        }
     }
-    
+
     private JPanel getBorderLayout() {
         JPanel p = new JPanel();
         p.setLayout(new BorderLayout());
@@ -70,7 +88,7 @@ public class HLUsageReport extends javax.swing.JFrame {
         p.add(getFlowLayoutSouth(), BorderLayout.SOUTH);
         return p;
     }
-    
+
     private JPanel getGridLayout() {
         JPanel p = new JPanel();
         GridLayout gl = new GridLayout();
@@ -78,7 +96,7 @@ public class HLUsageReport extends javax.swing.JFrame {
         p.add(getGroupLayout());
         return p;
     }
-    
+
     private JPanel getFlowLayoutSouth() {
         JPanel p = new JPanel();
         FlowLayout fl = new FlowLayout();
@@ -95,7 +113,7 @@ public class HLUsageReport extends javax.swing.JFrame {
                 dispose();
             }
         });
-        
+
         c.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -104,7 +122,7 @@ public class HLUsageReport extends javax.swing.JFrame {
         });
         return p;
     }
-    
+
     private JPanel getGroupLayout() {
         allMats = bllusage.getAllMats();
         int modsize = allMats.size() % 2;
@@ -127,17 +145,19 @@ public class HLUsageReport extends javax.swing.JFrame {
         }
         return p;
     }
-    
+
     private void usage() {
-        BEUsage bu;
+        BEUsage bu = null;
         for (ForbrugPanel test : forbrug) {
             for (BEMateriel mat : allMats) {
                 if (mat.getName().equalsIgnoreCase(test.name) && test.getAmount() != 0) {
-                    bu = new BEUsage(alarm, mat, test.getAmount());
+                    bu = new BEUsage(mat, test.getAmount(), alarm);
                     createUsageReport(bu);
+                   
                 }
             }
         }
+
     }
 
     /**
@@ -170,9 +190,9 @@ public class HLUsageReport extends javax.swing.JFrame {
     private void createUsageReport(BEUsage u) {
         bllusage.createReport(u);
     }
-    
+
     private class ForbrugPanel extends JPanel {
-        
+
         String name;
         int amount = 0;
         JLabel lbl;
@@ -182,7 +202,7 @@ public class HLUsageReport extends javax.swing.JFrame {
          * Creates new form ForbrugPanel
          */
         public ForbrugPanel(BEMateriel m) {
-            
+
             lbl = new JLabel();
             tf = new JTextField();
             if (localUsage != null) {
@@ -206,15 +226,18 @@ public class HLUsageReport extends javax.swing.JFrame {
                 }
             });
         }
-        
+
         public JTextField getTF() {
             return tf;
         }
-        
+        public void setText(String text){
+            tf.setText(text);
+        }
+
         public JLabel getLBL() {
             return lbl;
         }
-        
+
         public int getAmount() {
             return !tf.getText().equals("") ? Integer.parseInt(tf.getText()) : 0;
         }

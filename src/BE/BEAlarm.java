@@ -14,7 +14,6 @@ public class BEAlarm {
     private String station;
     private Timestamp time;
     private boolean done;
-    private BEUsage forbrug;
     private String alarmType;
     private int evaNo;
     private int gruppeNo;
@@ -25,7 +24,7 @@ public class BEAlarm {
     private Timestamp hlGodkendtTid;
 
     public BEAlarm(int id, String title, String desc, String station, Timestamp time, boolean done, 
-            BEUsage forbrug, String alarmType, int evaNo, int gruppeNo, int detekterNo, String hlBemærkning, 
+            String alarmType, int evaNo, int gruppeNo, int detekterNo, String hlBemærkning, 
             String ilBemærkning, Timestamp ilGodkendtTid, Timestamp hlGodkendtTid) {
         this.id = id;
         this.title = title;
@@ -33,7 +32,6 @@ public class BEAlarm {
         this.station = station;
         this.time = time;
         this.done = done;
-        this.forbrug = forbrug;
         this.alarmType = alarmType;
         this.evaNo = evaNo;
         this.gruppeNo = gruppeNo;
@@ -147,16 +145,7 @@ public class BEAlarm {
     /**
      * @return the forbrug
      */
-    public BEUsage getForbrug() {
-        return forbrug;
-    }
-
-    /**
-     * @param forbrug the forbrug to set
-     */
-    public void setForbrug(BEUsage forbrug) {
-        this.forbrug = forbrug;
-    }
+    
 
     /**
      * @return the alarmType

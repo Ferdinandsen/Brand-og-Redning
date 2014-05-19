@@ -7,20 +7,31 @@ package BE;
 public class BEUsage {
 
     private int id;
-    private BEAlarm alarm;
     private BEMateriel materiel;
     private int amount;
+    private BEAlarm alarm;
 
-    public BEUsage(int id, BEAlarm alarm, BEMateriel materiel, int amount) {
+    public BEUsage(int id,BEMateriel materiel, int amount, BEAlarm alarm) {
         this.id = id;
-        this.alarm = alarm;
         this.materiel = materiel;
         this.amount = amount;
+        this.alarm = alarm;
     }
-    public BEUsage(BEAlarm alarm, BEMateriel materiel, int amount) {
-        this.alarm = alarm;
+    public BEUsage(BEMateriel materiel, int amount, BEAlarm alarm) {
         this.materiel = materiel;
         this.amount = amount;
+        this.alarm = alarm;
+    }
+    
+    public BEAlarm getAlarm() {
+        return alarm;
+    }
+
+    /**
+     * @param forbrug the forbrug to set
+     */
+    public void setAlarm(BEAlarm alarm) {
+        this.alarm = alarm;
     }
 
     /**
@@ -65,17 +76,4 @@ public class BEUsage {
         this.amount = amount;
     }
 
-    /**
-     * @return the alarm
-     */
-    public BEAlarm getAlarm() {
-        return alarm;
-    }
-
-    /**
-     * @param alarm the alarm to set
-     */
-    public void setAlarm(BEAlarm alarm) {
-        this.alarm = alarm;
-    }
 }
