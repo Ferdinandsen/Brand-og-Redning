@@ -12,6 +12,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
@@ -70,16 +71,6 @@ public class ILFremmødeliste extends javax.swing.JFrame {
         btnDelete = new javax.swing.JButton();
         lblAppear = new javax.swing.JLabel();
         btnUsage = new javax.swing.JButton();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        txtPDesc = new javax.swing.JTextPane();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        txtPAlarmTid = new javax.swing.JTextPane();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        txtPEvaNo = new javax.swing.JTextPane();
-        jScrollPane9 = new javax.swing.JScrollPane();
-        txtPGrpNo = new javax.swing.JTextPane();
-        jScrollPane10 = new javax.swing.JScrollPane();
-        txtPDetNo = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane11 = new javax.swing.JScrollPane();
         txtHlKommentar = new javax.swing.JTextArea();
@@ -91,6 +82,11 @@ public class ILFremmødeliste extends javax.swing.JFrame {
         lblGrpNo = new javax.swing.JLabel();
         lblDetekNo = new javax.swing.JLabel();
         cboxAlarmType = new javax.swing.JComboBox();
+        txtAlarmTid = new javax.swing.JTextField();
+        txtBeskrivelse = new javax.swing.JTextField();
+        txtEvaNo = new javax.swing.JTextField();
+        txtGruppeNr = new javax.swing.JTextField();
+        txtDetektorNr = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -129,17 +125,6 @@ public class ILFremmødeliste extends javax.swing.JFrame {
 
         btnUsage.setForeground(new java.awt.Color(255, 102, 0));
         btnUsage.setText("Bekræft Forbrug");
-
-        jScrollPane4.setViewportView(txtPDesc);
-
-        jScrollPane5.setViewportView(txtPAlarmTid);
-
-        txtPEvaNo.setToolTipText("");
-        jScrollPane6.setViewportView(txtPEvaNo);
-
-        jScrollPane9.setViewportView(txtPGrpNo);
-
-        jScrollPane10.setViewportView(txtPDetNo);
 
         jLabel1.setText("Bemærkninger");
 
@@ -199,27 +184,27 @@ public class ILFremmødeliste extends javax.swing.JFrame {
                                             .addComponent(lblEva)
                                             .addComponent(lblAlarmTid))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtAlarmTid, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                                            .addComponent(txtEvaNo))
+                                        .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
                                                 .addComponent(lblAlarmType)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(cboxAlarmType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(lblGrpNo)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtGruppeNr, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(lblDetekNo)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(txtDetektorNr, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(16, 16, 16)
                                                 .addComponent(lblDesc)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addComponent(txtBeskrivelse, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addComponent(lblAppear))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
@@ -241,35 +226,27 @@ public class ILFremmødeliste extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblDesc))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addGap(15, 15, 15)
-                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(lblAlarmType)
-                                                        .addComponent(cboxAlarmType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(lblGrpNo)
-                                                        .addComponent(lblDetekNo)))
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(15, 15, 15)
-                                                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGap(40, 40, 40)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(lblAlarmType)
+                                            .addComponent(cboxAlarmType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lblGrpNo)
+                                            .addComponent(lblDetekNo)
+                                            .addComponent(txtGruppeNr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtDetektorNr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(lblAlarmTid)
-                                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtAlarmTid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lblDesc)
+                                            .addComponent(txtBeskrivelse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(20, 20, 20)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(lblEva)
-                                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(txtEvaNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(16, 16, 16)
                                         .addComponent(lblAppear)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -281,8 +258,8 @@ public class ILFremmødeliste extends javax.swing.JFrame {
                             .addComponent(jScrollPane11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnUsage, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))
+                            .addComponent(btnUsage, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
                         .addGap(41, 41, 41)))
                 .addGap(4, 4, 4))
         );
@@ -299,13 +276,8 @@ public class ILFremmødeliste extends javax.swing.JFrame {
     private javax.swing.JComboBox cboxAlarmType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JLabel lblAlarmTid;
     private javax.swing.JLabel lblAlarmType;
     private javax.swing.JLabel lblAppear;
@@ -316,16 +288,16 @@ public class ILFremmødeliste extends javax.swing.JFrame {
     private javax.swing.JLabel lblHLBem;
     private javax.swing.JTable tblFremmøde;
     private javax.swing.JTextArea txtABem;
+    private javax.swing.JTextField txtAlarmTid;
+    private javax.swing.JTextField txtBeskrivelse;
+    private javax.swing.JTextField txtDetektorNr;
+    private javax.swing.JTextField txtEvaNo;
+    private javax.swing.JTextField txtGruppeNr;
     private javax.swing.JTextArea txtHlKommentar;
-    private javax.swing.JTextPane txtPAlarmTid;
-    private javax.swing.JTextPane txtPDesc;
-    private javax.swing.JTextPane txtPDetNo;
-    private javax.swing.JTextPane txtPEvaNo;
-    private javax.swing.JTextPane txtPGrpNo;
     // End of variables declaration//GEN-END:variables
 
     private void initOtherComponents() {
-        txtPAlarmTid.setEditable(false);
+        txtAlarmTid.setEditable(false);
         btnUsage.setEnabled(doesUsageExist());
         btnDelete.setEnabled(false);
         btnUpdate.setEnabled(false);
@@ -341,7 +313,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
 
             }
         });
-        txtPGrpNo.addKeyListener(new KeyAdapter() {
+        txtGruppeNr.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
 
@@ -354,7 +326,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
             }
         });
 
-        txtPDetNo.addKeyListener(new KeyAdapter() {
+        txtDetektorNr.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
 
@@ -366,31 +338,31 @@ public class ILFremmødeliste extends javax.swing.JFrame {
                 }
             }
         });
-        txtPAlarmTid.addKeyListener(new KeyAdapter() {
+        txtAlarmTid.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if (txtPAlarmTid.getText().length() == 2) {
-                    txtPAlarmTid.setText(txtPAlarmTid.getText() + ":");
+                if (txtAlarmTid.getText().length() == 2) {
+                    txtAlarmTid.setText(txtAlarmTid.getText() + ":");
                 }
                 char vChar = e.getKeyChar();
-                if (!(Character.isDigit(vChar) && txtPAlarmTid.getText().length() != 5
+                if (!(Character.isDigit(vChar) && txtAlarmTid.getText().length() != 5
                         || (vChar == KeyEvent.VK_BACK_SPACE)
                         || (vChar == KeyEvent.VK_DELETE))) {
                     e.consume();
                 }
-                if (Character.isDigit(vChar) && txtPAlarmTid.getText().length() == 0 && Integer.parseInt(String.valueOf(vChar)) > 2) {
+                if (Character.isDigit(vChar) && txtAlarmTid.getText().length() == 0 && Integer.parseInt(String.valueOf(vChar)) > 2) {
                     e.consume();
                 }
-                if (txtPAlarmTid.getText().length() > 0 && txtPAlarmTid.getText().charAt(0) == '2') {
-                    if (txtPAlarmTid.getText().length() == 1 && Integer.parseInt(String.valueOf(vChar)) > 3) {
+                if (txtAlarmTid.getText().length() > 0 && txtAlarmTid.getText().charAt(0) == '2') {
+                    if (txtAlarmTid.getText().length() == 1 && Integer.parseInt(String.valueOf(vChar)) > 3) {
                         e.consume();
                     }
                 }
-                if (Character.isDigit(vChar) && txtPAlarmTid.getText().length() == 3 && Integer.parseInt(String.valueOf(vChar)) > 5) {
+                if (Character.isDigit(vChar) && txtAlarmTid.getText().length() == 3 && Integer.parseInt(String.valueOf(vChar)) > 5) {
                     e.consume();
                 }
                 if (vChar == KeyEvent.VK_BACK_SPACE) {
-                    txtPAlarmTid.setText("");
+                    txtAlarmTid.setText("");
                 }
             }
         });
@@ -437,15 +409,20 @@ public class ILFremmødeliste extends javax.swing.JFrame {
     }
     private void confirmTeam(){
         if (isInformationValid()){
-            localAlarm.setEvaNo(Integer.parseInt(txtPEvaNo.getText()));
-            localAlarm.setDetekterNo(Integer.parseInt(txtPDetNo.getText()));
-            localAlarm.setGruppeNo(Integer.parseInt(txtPGrpNo.getText()));
+            localAlarm.setEvaNo(Integer.parseInt(txtEvaNo.getText()));
+            localAlarm.setDetekterNo(Integer.parseInt(txtDetektorNr.getText()));
+            localAlarm.setGruppeNo(Integer.parseInt(txtGruppeNr.getText()));
             localAlarm.setAlarmType(cboxAlarmType.getSelectedItem().toString());
             localAlarm.setIlBemærkning(txtABem.getText());
+            localAlarm.setDesc(txtBeskrivelse.getText());
             bllAlarm.confirmAlarm(localAlarm);
             
             bllAppearance.confirmAlarmTeam(localAlarm);
+            JOptionPane.showMessageDialog(this, "Indsatsen er nu bekræftet");
             
+        }
+        else{
+                   JOptionPane.showMessageDialog(this, "Udfyld venligst al information");
         }
     }
     private boolean doesUsageExist(){
@@ -464,7 +441,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
                 localUsages.add(usage);
             }
         }
-        HLUsageReport view = new HLUsageReport(localUsages);
+        HLUsageReport view = new HLUsageReport(localAlarm, localUsages);
         view.setModal(true);
         view.setVisible(true);
         usageConfirmed = true;
@@ -505,14 +482,14 @@ public class ILFremmødeliste extends javax.swing.JFrame {
         cboxAlarmType.addItem("Normal Alarm");
         cboxAlarmType.setSelectedItem(localAlarm.getAlarmType());
         txtHlKommentar.setText(localAlarm.getHlBemærkning());
-        txtPGrpNo.setText(String.valueOf(localAlarm.getGruppeNo()));
-        txtPDetNo.setText(String.valueOf(localAlarm.getDetekterNo()));
-        txtPAlarmTid.setText(localAlarm.getTimeString());
-        txtPDesc.setText(localAlarm.getDesc());
+        txtGruppeNr.setText(String.valueOf(localAlarm.getGruppeNo()));
+        txtDetektorNr.setText(String.valueOf(localAlarm.getDetekterNo()));
+        txtAlarmTid.setText(localAlarm.getTimeString());
+        txtBeskrivelse.setText(localAlarm.getDesc());
     }
 
     private boolean isInformationValid() {
-        if (txtPAlarmTid.getText().isEmpty() && txtPDesc.getText().isEmpty() && txtPDetNo.getText().isEmpty() && txtPEvaNo.getText().isEmpty() && txtPGrpNo.getText().isEmpty()){
+        if (txtAlarmTid.getText().isEmpty() && txtBeskrivelse.getText().isEmpty() && txtDetektorNr.getText().isEmpty() && txtEvaNo.getText().isEmpty() && txtGruppeNr.getText().isEmpty() && usageConfirmed == true){
             return false;
         }
         return true;

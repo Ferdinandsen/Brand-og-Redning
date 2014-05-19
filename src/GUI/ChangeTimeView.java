@@ -10,6 +10,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class ChangeTimeView extends javax.swing.JDialog {
 
@@ -46,7 +47,7 @@ public class ChangeTimeView extends javax.swing.JDialog {
                 confirm();
             }
         });
-        
+
         btnCancel.addActionListener(new ActionListener() {
 
             @Override
@@ -54,7 +55,7 @@ public class ChangeTimeView extends javax.swing.JDialog {
                 dispose();
             }
         });
-        
+
         txtCheckIn.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -83,12 +84,13 @@ public class ChangeTimeView extends javax.swing.JDialog {
                 }
             }
         });
-        
+
         txtCheckIn.addFocusListener(new FocusListener() {
 
             @Override
             public void focusGained(FocusEvent e) {
             }
+
             @Override
             public void focusLost(FocusEvent e) {
                 if (txtCheckIn.getText().length() == 5 && txtCheckUd.getText().length() == 5) {
@@ -134,6 +136,7 @@ public class ChangeTimeView extends javax.swing.JDialog {
             @Override
             public void focusGained(FocusEvent e) {
             }
+
             @Override
             public void focusLost(FocusEvent e) {
                 if (txtCheckIn.getText().length() == 5 && txtCheckUd.getText().length() == 5) {
@@ -169,20 +172,24 @@ public class ChangeTimeView extends javax.swing.JDialog {
     }
 
     private void confirm() {
-        String[] splittedCheckIn = txtCheckIn.getText().split(":");
-        String[] splittedCheckOut = txtCheckUd.getText().split(":");
 
+        Date checkInDate = dateCheckIn.getDate();
+        Date chekOutDate = dateCheckUd.getDate();
+
+        String[] splittedCheckIn = txtCheckIn.getText().split(":");
         int checkInHour = Integer.parseInt(splittedCheckIn[0]);
         int checkInMinute = Integer.parseInt(splittedCheckIn[1]);
+        Timestamp newCheckInTime = new Timestamp(checkInDate.getYear(), checkInDate.getMonth(), checkInDate.getDate(), checkInHour, checkInMinute, 0, 0);
 
+        String[] splittedCheckOut = txtCheckUd.getText().split(":");
         int checkOutHour = Integer.parseInt(splittedCheckOut[0]);
         int checkOutMinute = Integer.parseInt(splittedCheckOut[1]);
+        Timestamp newCheckOutTime = new Timestamp(chekOutDate.getYear(), chekOutDate.getMonth(), chekOutDate.getDate(), checkOutHour, checkOutMinute, 0, 0);
+//        Timestamp CheckIn = new Timestamp(localAppearance.getCheckIn().getYear(), localAppearance.getCheckIn().getMonth(), localAppearance.getCheckIn().getDate(), checkInHour, checkInMinute, localAppearance.getCheckIn().getSeconds(), localAppearance.getCheckIn().getNanos());
+//        Timestamp newCheckOut = new Timestamp(localAppearance.getCheckOut().getYear(), localAppearance.getCheckOut().getMonth(), localAppearance.getCheckOut().getDate(), checkOutHour, checkOutMinute, localAppearance.getCheckOut().getSeconds(), localAppearance.getCheckOut().getNanos());
 
-        Timestamp newCheckIn = new Timestamp(localAppearance.getCheckIn().getYear(), localAppearance.getCheckIn().getMonth(), localAppearance.getCheckIn().getDate(), checkInHour, checkInMinute, localAppearance.getCheckIn().getSeconds(), localAppearance.getCheckIn().getNanos());
-        Timestamp newCheckOut = new Timestamp(localAppearance.getCheckOut().getYear(), localAppearance.getCheckOut().getMonth(), localAppearance.getCheckOut().getDate(), checkOutHour, checkOutMinute, localAppearance.getCheckOut().getSeconds(), localAppearance.getCheckOut().getNanos());
-
-        localAppearance.setCheckIn(newCheckIn);
-        localAppearance.setCheckOut(newCheckOut);
+        localAppearance.setCheckIn(newCheckInTime);
+        localAppearance.setCheckOut(newCheckOutTime);
         localAppearance.setTotalTid(Integer.parseInt(lblTotal.getText()));
         bllAppearance.updateAppearance(localAppearance);
         dispose();
@@ -204,6 +211,8 @@ public class ChangeTimeView extends javax.swing.JDialog {
         lblTotal = new javax.swing.JLabel();
         btnOk = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
+        dateCheckIn = new com.toedter.calendar.JDateChooser();
+        dateCheckUd = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -229,52 +238,65 @@ public class ChangeTimeView extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFornavn, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtEfternavn))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCheckIn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCheckUd))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblTotal))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnOk)
+                        .addComponent(dateCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCancel)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txtCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(dateCheckUd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtFornavn, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtEfternavn))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(lblTotal))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnOk)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnCancel))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCheckUd, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtFornavn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtEfternavn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtCheckUd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(txtFornavn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(txtEfternavn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(txtCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(dateCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(txtCheckUd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(dateCheckUd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -291,6 +313,8 @@ public class ChangeTimeView extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOk;
+    private com.toedter.calendar.JDateChooser dateCheckIn;
+    private com.toedter.calendar.JDateChooser dateCheckUd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

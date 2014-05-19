@@ -57,7 +57,8 @@ public class HLUsageReport extends javax.swing.JDialog {
         this.setResizable(false);
     }
 
-    public HLUsageReport(ArrayList<BEUsage> allUsages) {
+    public HLUsageReport(BEAlarm a,ArrayList<BEUsage> allUsages) {
+        alarm = a;
         update = true;
         bllusage = BLLUsage.getInstance();
         allMats = bllusage.getAllMats();
