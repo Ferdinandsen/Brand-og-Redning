@@ -36,6 +36,8 @@ public class ChangeTimeView extends javax.swing.JDialog {
     }
 
     private void initOtherComponents() {
+        txtFornavn.setEditable(false);
+        txtEfternavn.setEditable(false);
         btnOk.addActionListener(new ActionListener() {
 
             @Override

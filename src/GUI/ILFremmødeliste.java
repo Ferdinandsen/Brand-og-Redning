@@ -2,8 +2,10 @@ package GUI;
 
 import BE.BEAlarm;
 import BE.BEUsage;
+import BLL.BLLAlarm;
 import BLL.BLLAppearance;
 import BLL.BLLUsage;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -19,13 +21,16 @@ import javax.swing.table.TableColumn;
  * @author Team Kawabunga
  */
 public class ILFremmødeliste extends javax.swing.JFrame {
-    
+
     BLLAppearance bllAppearance;
+    BLLAlarm bllAlarm;
     BLLUsage bllUsage;
     BEAlarm localAlarm;
     private ILFremmødeTableModel model;
-    
+    boolean usageConfirmed = false;
+
     public ILFremmødeliste(BEAlarm alarm) {
+        bllAlarm = BLLAlarm.getInstance();
         bllUsage = BLLUsage.getInstance();
         bllAppearance = BLLAppearance.getInstance();
         localAlarm = alarm;
@@ -39,9 +44,9 @@ public class ILFremmødeliste extends javax.swing.JFrame {
         populateFremmødeTable();
         addCellRenderer();
     }
-    
+
     private void addCellRenderer() {
-        
+
         ILFremmødeTableCellRenderer renderer = new ILFremmødeTableCellRenderer();
         for (int col = 0; col < model.getColumnCount(); col++) {
             renderer.setHorizontalAlignment(JLabel.CENTER);
@@ -49,7 +54,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
             tc.setCellRenderer(renderer);
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -320,6 +325,8 @@ public class ILFremmødeliste extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void initOtherComponents() {
+        txtPAlarmTid.setEditable(false);
+        btnUsage.setEnabled(doesUsageExist());
         btnDelete.setEnabled(false);
         btnUpdate.setEnabled(false);
         txtHlKommentar.setEditable(false);
@@ -331,13 +338,13 @@ public class ILFremmødeliste extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 btnDelete.setEnabled(tblFremmøde.getSelectedRow() != -1);
                 btnUpdate.setEnabled(tblFremmøde.getSelectedRow() != -1);
-                
+
             }
         });
         txtPGrpNo.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                
+
                 char vChar = e.getKeyChar();
                 if (!(Character.isDigit(vChar)
                         || (vChar == KeyEvent.VK_BACK_SPACE)
@@ -346,11 +353,11 @@ public class ILFremmødeliste extends javax.swing.JFrame {
                 }
             }
         });
-        
+
         txtPDetNo.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                
+
                 char vChar = e.getKeyChar();
                 if (!(Character.isDigit(vChar)
                         || (vChar == KeyEvent.VK_BACK_SPACE)
@@ -387,7 +394,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
                 }
             }
         });
-        
+
         btnUpdate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -418,6 +425,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
         btnOK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                confirmTeam();
             }
         });
         btnUsage.addActionListener(new ActionListener() {
@@ -427,7 +435,28 @@ public class ILFremmødeliste extends javax.swing.JFrame {
             }
         });
     }
-    
+    private void confirmTeam(){
+        if (isInformationValid()){
+            localAlarm.setEvaNo(Integer.parseInt(txtPEvaNo.getText()));
+            localAlarm.setDetekterNo(Integer.parseInt(txtPDetNo.getText()));
+            localAlarm.setGruppeNo(Integer.parseInt(txtPGrpNo.getText()));
+            localAlarm.setAlarmType(cboxAlarmType.getSelectedItem().toString());
+            localAlarm.setIlBemærkning(txtABem.getText());
+            bllAlarm.confirmAlarm(localAlarm);
+            
+            bllAppearance.confirmAlarmTeam(localAlarm);
+            
+        }
+    }
+    private boolean doesUsageExist(){
+         for (BEUsage theUsage : bllUsage.getAllUsages()) {
+            if (theUsage.getAlarm() == localAlarm) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void openUsage() {
         ArrayList<BEUsage> localUsages = new ArrayList<>();
         for (BEUsage usage : bllUsage.getAllUsages()) {
@@ -436,15 +465,18 @@ public class ILFremmødeliste extends javax.swing.JFrame {
             }
         }
         HLUsageReport view = new HLUsageReport(localUsages);
+        view.setModal(true);
         view.setVisible(true);
+        usageConfirmed = true;
+        btnUsage.setForeground(Color.GREEN);
     }
-    
+
     private void deleteAppearance() {
-        bllAppearance.deleteAppearance(bllAppearance.getAllAppearances().get(tblFremmøde.convertRowIndexToView(tblFremmøde.getSelectedRow())));
+        bllAppearance.deleteAppearance(bllAppearance.getAllHlGodkendtAppearances(localAlarm).get(tblFremmøde.convertRowIndexToView(tblFremmøde.getSelectedRow())));
         model.setAppearanceList(bllAppearance.getAllHlGodkendtAppearances(localAlarm));
         model.fireTableDataChanged();
     }
-    
+
     private void updateAppearance() {
         ChangeTimeView ctView = new ChangeTimeView(bllAppearance.getAllHlGodkendtAppearances(localAlarm).get(tblFremmøde.convertRowIndexToView(tblFremmøde.getSelectedRow())));
         ctView.setModal(true);
@@ -452,7 +484,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
         ctView.setVisible(true);
         model.fireTableDataChanged();
     }
-    
+
     private void addAppearance() {
         AddAppearanceView view = new AddAppearanceView(localAlarm);
         view.setModal(true);
@@ -460,13 +492,13 @@ public class ILFremmødeliste extends javax.swing.JFrame {
         model.setAppearanceList(bllAppearance.getAllHlGodkendtAppearances(localAlarm));
         model.fireTableDataChanged();
     }
-    
+
     private void populateFremmødeTable() {
         model = new ILFremmødeTableModel(bllAppearance.getAllHlGodkendtAppearances(localAlarm));
         tblFremmøde.setModel(model);
         model.fireTableDataChanged();
     }
-    
+
     private void getInfo() {
         cboxAlarmType.addItem("Falsk Alarm");
         cboxAlarmType.addItem("Blind Alarm");
@@ -477,5 +509,12 @@ public class ILFremmødeliste extends javax.swing.JFrame {
         txtPDetNo.setText(String.valueOf(localAlarm.getDetekterNo()));
         txtPAlarmTid.setText(localAlarm.getTimeString());
         txtPDesc.setText(localAlarm.getDesc());
+    }
+
+    private boolean isInformationValid() {
+        if (txtPAlarmTid.getText().isEmpty() && txtPDesc.getText().isEmpty() && txtPDetNo.getText().isEmpty() && txtPEvaNo.getText().isEmpty() && txtPGrpNo.getText().isEmpty()){
+            return false;
+        }
+        return true;
     }
 }

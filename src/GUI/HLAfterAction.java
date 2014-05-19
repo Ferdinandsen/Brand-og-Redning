@@ -91,7 +91,7 @@ public class HLAfterAction extends javax.swing.JFrame {
                 if (cboxAlarm.getSelectedIndex() == 0) {
                     appearance = bllAppearance.getAllAppearances().get(tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
                 } else {
-                    appearance = bllAppearance.getAppearancesWithCriteria((BEAlarm) cboxAlarm.getSelectedItem()).get(tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
+                    appearance = bllAppearance.getAppearancesWithSameAlarm((BEAlarm) cboxAlarm.getSelectedItem()).get(tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
 
                 }
                 ChangeTimeView ctView = new ChangeTimeView(appearance);
@@ -108,7 +108,7 @@ public class HLAfterAction extends javax.swing.JFrame {
                 if (cboxAlarm.getSelectedIndex() != -1) {
                     if (cboxAlarm.getSelectedIndex() != 0 && cboxAlarm.getSelectedIndex() != -1) {
 //                        update();
-                        model.setAppearanceList(bllAppearance.getAppearancesWithCriteria((BEAlarm) cboxAlarm.getSelectedItem()));
+                        model.setAppearanceList(bllAppearance.getAppearancesWithSameAlarm((BEAlarm) cboxAlarm.getSelectedItem()));
                         BEAlarm alarm = null;
                         for (BEAlarm theAlarm : bllAlarm.getAllAlarms()) {
                             String[] theAlarmString = cboxAlarm.getSelectedItem().toString().split(" - ");
@@ -136,7 +136,7 @@ public class HLAfterAction extends javax.swing.JFrame {
                         if (model.getRowCount() != 0 && cboxAlarm.getSelectedIndex() != 0) {
                             confirmTeam();
                             msgbox("Holdet er nu bekræftet!");
-                            HLAfterActionStory frame = new HLAfterActionStory(bllAppearance.getAppearancesWithHLGodkendt((BEAlarm)cboxAlarm.getSelectedItem()),(BEAlarm)cboxAlarm.getSelectedItem());
+                            HLAfterActionStory frame = new HLAfterActionStory(bllAppearance.getAllHlGodkendtAppearances((BEAlarm)cboxAlarm.getSelectedItem()),(BEAlarm)cboxAlarm.getSelectedItem());
 //                            HLUsageReport frame = new HLUsageReport((BEAlarm) cboxAlarm.getSelectedItem());
                             frame.setVisible(true);
                             dispose();

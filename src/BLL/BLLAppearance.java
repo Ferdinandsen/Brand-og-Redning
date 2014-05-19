@@ -78,24 +78,14 @@ public class BLLAppearance {
         return hlGodkendtAppearances;
     }
 
-    public ArrayList<BEAppearance> getAppearancesWithCriteria(BEAlarm selectedAlarm) {
-        newAppearances = new ArrayList();
+    public ArrayList<BEAppearance> getAppearancesWithSameAlarm(BEAlarm selectedAlarm) {
+        ArrayList<BEAppearance> appearances = new ArrayList<>();
         for (BEAppearance appearance : getAllAppearancesNotHlGodkendt()) {
             if (appearance.getAlarm() == selectedAlarm) {
-                newAppearances.add(appearance);
+                appearances.add(appearance);
             }
         }
-        return newAppearances;
-    }
-
-    public ArrayList<BEAppearance> getAppearancesWithHLGodkendt(BEAlarm selectedAlarm) {
-        newAppearances = new ArrayList();
-        for (BEAppearance appearance : getAllAppearances()) {
-            if (appearance.getAlarm() == selectedAlarm && appearance.isHlGodkendt()) {
-                newAppearances.add(appearance);
-            }
-        }
-        return newAppearances;
+        return appearances;
     }
 
     private Timestamp time() {
@@ -123,7 +113,7 @@ public class BLLAppearance {
         long total = (co.getTime() - ci.getTime());
         long second = total / 1000 % 60;
         long minute = total / (1000 * 60) % 60;
-        long hour = total / (60 * 60 * 1000) % 24;
+        long hour = total / (60 * 60 * 1000);
         if (second > 0) {
             minute++;
         }
@@ -181,7 +171,7 @@ public class BLLAppearance {
         try {
             String[] theCheckOutTime = checkOutTime.toString().split(":");
             Timestamp ts = new Timestamp(alarm.getTime().getYear(), alarm.getTime().getMonth(), alarm.getTime().getDate(), Integer.parseInt(theCheckOutTime[0]), Integer.parseInt(theCheckOutTime[1]), alarm.getTime().getSeconds(), alarm.getTime().getNanos());
-            dalAppearance.createAppearance(fireman, calculateTotalTime(alarm, time()), ts, alarm, veh, checkOutTime, hl, ch, st, (int) kørselstype);
+            dalAppearance.createAppearance(fireman, calculateTotalTime(alarm, ts), ts, alarm, veh, checkOutTime, hl, ch, st, (int) kørselstype);
         } catch (SQLException ex) {
             System.out.println("fejl i add Appearance " + ex);
         }
@@ -193,8 +183,20 @@ public class BLLAppearance {
         try {
             dalAppearance.updateKørselType(a);
         } catch (SQLException ex) {
-            System.out.println("Fejl i update kørseltype" + ex);
+            System.out.println("Fejl i update kørseltype " + ex);
 
+        }
+    }
+
+    public void confirmAlarmTeam(BEAlarm alarm) {
+        for (BEAppearance appearance : getAllHlGodkendtAppearances(alarm)) {
+            try {
+                dalAppearance.confirmAlarmTeam(appearance);
+                appearance.setIlGodkendt(true);
+            } catch (SQLException ex) {
+                System.out.println("Fejl i confirm alarm " + ex);
+            }
+        
         }
     }
 }

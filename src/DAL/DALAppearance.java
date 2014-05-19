@@ -45,7 +45,7 @@ public class DALAppearance {
     }
 
     public void endShift(BEAlarm alarm, BEFireman fireman, BEVehicle veh, boolean hl, boolean ch, boolean st, int total, Timestamp time) throws SQLException {
-        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setInt(1, fireman.getMedarbjeder().getMedarbejderNo());
@@ -66,7 +66,6 @@ public class DALAppearance {
             ps.setInt(12, veh.getOdinnummer());
         }
         ps.setString(13, null);
-
 
         ps.execute();
     }
@@ -93,7 +92,6 @@ public class DALAppearance {
             int alarmRef = result.getInt("alarmRef");
             int vehRef = result.getInt("køtjRef");
             int loginRef = result.getInt("loginRef");
-
 
             BEAlarm localAlarm = null;
             for (BEAlarm alarm : dalAlarm.getAllAlarms()) {
@@ -203,5 +201,14 @@ public class DALAppearance {
             BEAppearance appearance = new BEAppearance(id, fireman, alarm.getTime(), time, total, true, false, hl, ch, st, kørselstype, alarm, veh, null);
             allAppearances.add(appearance);
         }
+    }
+
+    public void confirmAlarmTeam(BEAppearance appearance) throws SQLException {
+        String sql = "UPDATE Fremmøde SET ilGodkendt = ? WHERE id = ?";
+
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setBoolean(1, true);
+        ps.setInt(2, appearance.getId());
+        ps.execute();
     }
 }

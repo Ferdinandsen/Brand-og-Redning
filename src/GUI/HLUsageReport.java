@@ -24,7 +24,7 @@ import javax.swing.JTextField;
  *
  * @author Shadowleet
  */
-public class HLUsageReport extends javax.swing.JFrame {
+public class HLUsageReport extends javax.swing.JDialog {
 
     BLLUsage bllusage;
     BEUsage localUsage;
@@ -35,6 +35,7 @@ public class HLUsageReport extends javax.swing.JFrame {
     private int height;
     private int width = 450;
     BEAlarm alarm;
+    boolean update = false;
     ArrayList<ForbrugPanel> forbrug = new ArrayList<>();
 
     /**
@@ -57,6 +58,7 @@ public class HLUsageReport extends javax.swing.JFrame {
     }
 
     public HLUsageReport(ArrayList<BEUsage> allUsages) {
+        update = true;
         bllusage = BLLUsage.getInstance();
         allMats = bllusage.getAllMats();
         height = allMats.size() * 25;
@@ -103,6 +105,8 @@ public class HLUsageReport extends javax.swing.JFrame {
         p.setLayout(fl);
         JButton b = new JButton(("Bekræft"));
         JButton c = new JButton(("Intet Forbrug"));
+        if (update)
+            c.setEnabled(false);
         p.add(b);
         p.add(c);
         b.addActionListener(new ActionListener() {

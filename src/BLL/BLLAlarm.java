@@ -5,7 +5,9 @@ import BE.BEAppearance;
 import BE.BEOdinAlarm;
 import DAL.DALALarm;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,10 +55,25 @@ public class BLLAlarm {
     }
 
     public void updateAlarm(BEAppearance a, String alarmtype, int gruppeNo, int detekNo) {
-        try {    
-            dalAlarm.updateAlarm(a,alarmtype,gruppeNo,detekNo);
+        try {
+            dalAlarm.updateAlarm(a, alarmtype, gruppeNo, detekNo);
         } catch (SQLException ex) {
             System.out.println("fejl i update alarm" + ex);
+        }
+    }
+    
+    private Timestamp time() {
+        Calendar calendar = Calendar.getInstance();
+        java.util.Date now = calendar.getTime();
+        Timestamp currentTime = new java.sql.Timestamp(now.getTime());
+        return currentTime;
+    }
+
+    public void confirmAlarm(BEAlarm localAlarm) {
+        try {
+            dalAlarm.confirmAlarm(localAlarm, time());
+        } catch (SQLException ex) {
+          System.out.println("fejl i confirm alarm" + ex);
         }
     }
 }

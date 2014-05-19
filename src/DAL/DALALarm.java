@@ -165,4 +165,22 @@ public class DALALarm {
         ps.setInt(2, alarm.getId());
         ps.execute();
     }
+
+
+    public void confirmAlarm(BEAlarm alarm, Timestamp time) throws SQLException {
+        String sql = "UPDATE Alarm SET done = ?, alarmType = ?, evaNo = ?, gruppeNo = ?, detekterNo = ?, ilBemærkning = ?, ilGodkendtTid = ? WHERE id = ?";
+
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setBoolean(1, true);
+        ps.setString(2, alarm.getAlarmType());
+        ps.setInt(3, alarm.getEvaNo());
+        ps.setInt(4, alarm.getGruppeNo());
+        ps.setInt(5, alarm.getDetekterNo());
+        ps.setString(6, alarm.getIlBemærkning());
+        ps.setTimestamp(7, time);
+        ps.setInt(8, alarm.getId());
+        ps.execute();
+        alarm.setDone(true);
+    }
 }
+
