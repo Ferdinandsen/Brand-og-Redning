@@ -11,9 +11,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -21,7 +18,6 @@ import java.util.logging.Logger;
  */
 public class BLLAppearance {
 
-    public ArrayList<BEAppearance> newAppearances;
     DALAppearance dalAppearance;
     DALALarm dalAlarm;
     private BLLAlarm bllAlarm;
@@ -33,7 +29,6 @@ public class BLLAppearance {
 
             dalAlarm = DALALarm.getInstance();
             dalAppearance = DALAppearance.getInstance();
-            newAppearances = getAllAppearances();
         } catch (SQLException e) {
             System.out.println("fejl i bllEmployee " + e);
         }
@@ -129,9 +124,10 @@ public class BLLAppearance {
 
     public void confirmTeam(BELogin log, BEAlarm alarm, String comment) throws Exception {
 //        Timestamp time = time();
-        for (BEAppearance appearance : newAppearances) {
+        for (BEAppearance appearance : getAppearancesWithSameAlarm(alarm)) {
             try {
                 alarm.setHlBemærkning(comment);
+                alarm.setHlGodkendtTid(time());
                 dalAlarm.setHlBemærkning(alarm);
                 appearance.setHlGodkendt(true);
                 appearance.setAlarm(alarm);
@@ -197,7 +193,7 @@ public class BLLAppearance {
             } catch (SQLException ex) {
                 System.out.println("Fejl i confirm alarm " + ex);
             }
-        
+
         }
     }
 }
