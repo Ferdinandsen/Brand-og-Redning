@@ -23,6 +23,8 @@ public class ChangeTimeView extends javax.swing.JDialog {
     BEAppearance localAppearance;
 
     public ChangeTimeView(BEAppearance appearance) {
+        this.setModal(true);
+        this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         initComponents();
         initOtherComponents();

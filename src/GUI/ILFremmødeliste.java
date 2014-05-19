@@ -298,7 +298,6 @@ public class ILFremmødeliste extends javax.swing.JFrame {
 
     private void initOtherComponents() {
         txtAlarmTid.setEditable(false);
-        btnUsage.setEnabled(doesUsageExist());
         btnDelete.setEnabled(false);
         btnUpdate.setEnabled(false);
         txtHlKommentar.setEditable(false);
@@ -407,8 +406,9 @@ public class ILFremmødeliste extends javax.swing.JFrame {
             }
         });
     }
-    private void confirmTeam(){
-        if (isInformationValid()){
+
+    private void confirmTeam() {
+        if (isInformationValid()) {
             localAlarm.setEvaNo(Integer.parseInt(txtEvaNo.getText()));
             localAlarm.setDetekterNo(Integer.parseInt(txtDetektorNr.getText()));
             localAlarm.setGruppeNo(Integer.parseInt(txtGruppeNr.getText()));
@@ -416,17 +416,17 @@ public class ILFremmødeliste extends javax.swing.JFrame {
             localAlarm.setIlBemærkning(txtABem.getText());
             localAlarm.setDesc(txtBeskrivelse.getText());
             bllAlarm.confirmAlarm(localAlarm);
-            
+
             bllAppearance.confirmAlarmTeam(localAlarm);
             JOptionPane.showMessageDialog(this, "Indsatsen er nu bekræftet");
-            
-        }
-        else{
-                   JOptionPane.showMessageDialog(this, "Udfyld venligst al information");
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Udfyld venligst al information");
         }
     }
-    private boolean doesUsageExist(){
-         for (BEUsage theUsage : bllUsage.getAllUsages()) {
+
+    private boolean doesUsageExist() {
+        for (BEUsage theUsage : bllUsage.getAllUsages()) {
             if (theUsage.getAlarm() == localAlarm) {
                 return true;
             }
@@ -442,7 +442,6 @@ public class ILFremmødeliste extends javax.swing.JFrame {
             }
         }
         HLUsageReport view = new HLUsageReport(localAlarm, localUsages);
-        view.setModal(true);
         view.setVisible(true);
         usageConfirmed = true;
         btnUsage.setForeground(Color.GREEN);
@@ -456,15 +455,12 @@ public class ILFremmødeliste extends javax.swing.JFrame {
 
     private void updateAppearance() {
         ChangeTimeView ctView = new ChangeTimeView(bllAppearance.getAllHlGodkendtAppearances(localAlarm).get(tblFremmøde.convertRowIndexToView(tblFremmøde.getSelectedRow())));
-        ctView.setModal(true);
-        ctView.setLocationRelativeTo(null);
         ctView.setVisible(true);
         model.fireTableDataChanged();
     }
 
     private void addAppearance() {
         AddAppearanceView view = new AddAppearanceView(localAlarm);
-        view.setModal(true);
         view.setVisible(true);
         model.setAppearanceList(bllAppearance.getAllHlGodkendtAppearances(localAlarm));
         model.fireTableDataChanged();
@@ -477,9 +473,9 @@ public class ILFremmødeliste extends javax.swing.JFrame {
     }
 
     private void getInfo() {
+        cboxAlarmType.addItem("Normal Alarm");
         cboxAlarmType.addItem("Falsk Alarm");
         cboxAlarmType.addItem("Blind Alarm");
-        cboxAlarmType.addItem("Normal Alarm");
         cboxAlarmType.setSelectedItem(localAlarm.getAlarmType());
         txtHlKommentar.setText(localAlarm.getHlBemærkning());
         txtGruppeNr.setText(String.valueOf(localAlarm.getGruppeNo()));
@@ -489,9 +485,6 @@ public class ILFremmødeliste extends javax.swing.JFrame {
     }
 
     private boolean isInformationValid() {
-        if (txtAlarmTid.getText().isEmpty() && txtBeskrivelse.getText().isEmpty() && txtDetektorNr.getText().isEmpty() && txtEvaNo.getText().isEmpty() && txtGruppeNr.getText().isEmpty() && usageConfirmed == true){
-            return false;
-        }
-        return true;
+        return !(txtAlarmTid.getText().isEmpty() && txtBeskrivelse.getText().isEmpty() && txtDetektorNr.getText().isEmpty() && txtEvaNo.getText().isEmpty() && txtGruppeNr.getText().isEmpty() && usageConfirmed == true);
     }
 }

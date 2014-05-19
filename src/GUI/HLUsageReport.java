@@ -50,6 +50,7 @@ public class HLUsageReport extends javax.swing.JDialog {
         height = allMats.size() * 25;
         this.setSize(width, height);
         this.setTitle("Holdleder Forbrugs Rapport");
+        this.setModal(true);
         this.setLocationRelativeTo(null);
         main = getBorderLayout();
         this.add(main);
@@ -57,7 +58,7 @@ public class HLUsageReport extends javax.swing.JDialog {
         this.setResizable(false);
     }
 
-    public HLUsageReport(BEAlarm a,ArrayList<BEUsage> allUsages) {
+    public HLUsageReport(BEAlarm a, ArrayList<BEUsage> allUsages) {
         alarm = a;
         update = true;
         bllusage = BLLUsage.getInstance();
@@ -75,10 +76,10 @@ public class HLUsageReport extends javax.swing.JDialog {
     }
 
     private void fillInfo() {
-         for (ForbrugPanel test : forbrug) {
+        for (ForbrugPanel test : forbrug) {
             for (BEUsage usage : localAllUsages) {
                 if (usage.getMateriel().getName().equalsIgnoreCase(test.name)) {
-                   test.setText(String.valueOf(usage.getAmount()));
+                    test.setText(String.valueOf(usage.getAmount()));
                 }
             }
         }
@@ -106,8 +107,9 @@ public class HLUsageReport extends javax.swing.JDialog {
         p.setLayout(fl);
         JButton b = new JButton(("Bekræft"));
         JButton c = new JButton(("Intet Forbrug"));
-        if (update)
-            c.setEnabled(false);
+        if (update) {
+            b.setText("Opdater forbrug");
+        }
         p.add(b);
         p.add(c);
         b.addActionListener(new ActionListener() {
@@ -150,15 +152,25 @@ public class HLUsageReport extends javax.swing.JDialog {
         }
         return p;
     }
-
+/**
+ * Update fortæller om det er IL eller HL der bruger formen - hvis HL IKKE har lavet en laver IL en ny Usage.
+ */
     private void usage() {
         BEUsage bu = null;
         for (ForbrugPanel test : forbrug) {
-            for (BEMateriel mat : allMats) {
-                if (mat.getName().equalsIgnoreCase(test.name) && test.getAmount() != 0) {
-                    bu = new BEUsage(mat, test.getAmount(), alarm);
-                    createUsageReport(bu);
-                   
+            if (update && !localAllUsages.isEmpty()) {
+                for (BEUsage u : bllusage.getAllUsages()) {
+                    if (u.getMateriel().getName().equalsIgnoreCase(test.name)) {
+                        u.setAmount(test.getAmount());
+                        bllusage.updateUsageReport(u);
+                    }
+                }
+            } else {
+                for (BEMateriel mat : allMats) {
+                    if (mat.getName().equalsIgnoreCase(test.name) && test.getAmount() != 0) {
+                        bu = new BEUsage(mat, test.getAmount(), alarm);
+                        bllusage.createReport(bu);
+                    }
                 }
             }
         }
@@ -191,10 +203,6 @@ public class HLUsageReport extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-
-    private void createUsageReport(BEUsage u) {
-        bllusage.createReport(u);
-    }
 
     private class ForbrugPanel extends JPanel {
 
@@ -235,7 +243,8 @@ public class HLUsageReport extends javax.swing.JDialog {
         public JTextField getTF() {
             return tf;
         }
-        public void setText(String text){
+
+        public void setText(String text) {
             tf.setText(text);
         }
 

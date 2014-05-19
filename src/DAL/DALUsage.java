@@ -66,7 +66,7 @@ public class DALUsage {
             int matId = result.getInt("matId");
             int amount = result.getInt("amount");
             int alarmRef = result.getInt("alarmRef");
-            
+
             BEMateriel localMateriel = null;
             for (BEMateriel mat : getAllMats()) {
                 if (mat.getId() == matId) {
@@ -78,7 +78,7 @@ public class DALUsage {
             for (BEAlarm alarm : dalAlarm.getAllAlarms()) {
                 if (alarm.getId() == alarmRef) {
                     localAlarm = alarm;
-                    
+
                 }
             }
 
@@ -112,5 +112,15 @@ public class DALUsage {
      */
     public ArrayList<BEMateriel> getAllMats() {
         return allMaterials;
+    }
+
+    public void updateUsageReport(BEUsage bu) throws SQLException {
+        String sql = "UPDATE Forbrug SET amount = ? WHERE id = ?";
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+//        ps.setInt(1, bu.getMateriel().getId());
+        ps.setInt(1, bu.getAmount());
+//        ps.setInt(3, bu.getAlarm().getId());
+        ps.setInt(2, bu.getId());
+        ps.execute();
     }
 }

@@ -31,6 +31,7 @@ public class AddAppearanceView extends javax.swing.JDialog {
 
     public AddAppearanceView(BEAlarm alarm) {
         localAlarm = alarm;
+        this.setModal(true);
         this.setLocationRelativeTo(null);
         bllAppearance = BLLAppearance.getInstance();
         bllFireman = BLLFireman.getInstance();
