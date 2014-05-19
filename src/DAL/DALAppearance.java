@@ -67,7 +67,6 @@ public class DALAppearance {
         }
         ps.setString(13, null);
 
-
         ps.execute();
     }
 
@@ -93,7 +92,6 @@ public class DALAppearance {
             int alarmRef = result.getInt("alarmRef");
             int vehRef = result.getInt("køtjRef");
             int loginRef = result.getInt("loginRef");
-
 
             BEAlarm localAlarm = null;
             for (BEAlarm alarm : dalAlarm.getAllAlarms()) {
@@ -131,12 +129,13 @@ public class DALAppearance {
     }
 
     public void confirmTeam(BEAppearance appearance, String comment) throws SQLException {
-        String sql = "UPDATE Fremmøde SET hlGodkendt = ?, kørselType = ?, alarmRef = ? WHERE id = ?";
+        String sql = "UPDATE Fremmøde SET hlGodkendt = ?, kørselType = ?, alarmRef = ?, loginRef = ? WHERE id = ?";
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setBoolean(1, true);
         ps.setInt(2, appearance.getType());
         ps.setInt(3, appearance.getAlarm().getId());
-        ps.setInt(4, appearance.getId());
+        ps.setInt(4, appearance.getLogin().getMedarbejder().getMedarbejderNo());
+        ps.setInt(5, appearance.getId());
         appearance.setHlGodkendt(true);
         ps.execute();
     }

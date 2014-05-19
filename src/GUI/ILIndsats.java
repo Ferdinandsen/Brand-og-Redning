@@ -51,9 +51,6 @@ public class ILIndsats extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainView view = new MainView();
-                view.setLocationRelativeTo(null);
-                view.setVisible(true);
                 dispose();
             }
         });
