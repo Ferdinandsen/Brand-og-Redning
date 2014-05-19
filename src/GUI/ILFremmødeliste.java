@@ -376,7 +376,6 @@ public class ILFremmødeliste extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ILIndsats view = new ILIndsats();
-                view.setLocationRelativeTo(null);
                 view.setVisible(true);
                 dispose();
             }
@@ -397,6 +396,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 confirmTeam();
+                dispose();
             }
         });
         btnUsage.addActionListener(new ActionListener() {
