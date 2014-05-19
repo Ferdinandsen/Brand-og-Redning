@@ -59,6 +59,7 @@ public class HLAfterActionStory extends javax.swing.JFrame {
     private void initComponents() {
 
         btnGrpAlarm = new javax.swing.ButtonGroup();
+        jSplitPane1 = new javax.swing.JSplitPane();
         cboxIkkeIBrug = new javax.swing.JComboBox();
         rbtnFAlarm = new javax.swing.JRadioButton();
         rbtnBAlarm = new javax.swing.JRadioButton();
@@ -71,7 +72,7 @@ public class HLAfterActionStory extends javax.swing.JFrame {
         txtFGRP = new javax.swing.JTextField();
         txtFDet = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         rbtnFAlarm.setText("Falsk Alarm");
 
@@ -172,6 +173,7 @@ public class HLAfterActionStory extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JPanel pnlKørsel;
     private javax.swing.JRadioButton rbtnBAlarm;
     private javax.swing.JRadioButton rbtnFAlarm;
