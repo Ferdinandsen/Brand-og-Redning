@@ -164,11 +164,11 @@ public class BLLAppearance {
         }
     }
 
-    public void addAppearance(BEFireman fireman, BEAlarm alarm, BEVehicle veh, String checkOutTime, boolean hl, boolean ch, boolean st, int kørselstype) {
+    public void addAppearance(BEFireman fireman, BEAlarm alarm, BEVehicle veh,Timestamp ts, boolean hl, boolean ch, boolean st, int kørselstype) {
         try {
-            String[] theCheckOutTime = checkOutTime.toString().split(":");
-            Timestamp ts = new Timestamp(alarm.getTime().getYear(), alarm.getTime().getMonth(), alarm.getTime().getDate(), Integer.parseInt(theCheckOutTime[0]), Integer.parseInt(theCheckOutTime[1]), alarm.getTime().getSeconds(), alarm.getTime().getNanos());
-            dalAppearance.createAppearance(fireman, calculateTotalTime(alarm, ts), ts, alarm, veh, checkOutTime, hl, ch, st, (int) kørselstype);
+//            String[] theCheckOutTime = checkOutTime.toString().split(":");
+//            Timestamp ts = new Timestamp(alarm.getTime().getYear(), alarm.getTime().getMonth(), alarm.getTime().getDate(), Integer.parseInt(theCheckOutTime[0]), Integer.parseInt(theCheckOutTime[1]), alarm.getTime().getSeconds(), alarm.getTime().getNanos());
+            dalAppearance.createAppearance(fireman, calculateTotalTime(alarm, ts), ts, alarm, veh, String.valueOf(ts.getHours()+ts.getMinutes()), hl, ch, st, (int) kørselstype);
         } catch (SQLException ex) {
             System.out.println("fejl i add Appearance " + ex);
         }
