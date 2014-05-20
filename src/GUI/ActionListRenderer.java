@@ -11,19 +11,19 @@ import static javax.swing.SwingConstants.CENTER;
 
 /**
  *
- * @author Team Kawabunga..
+ * @author Team Kawabunga
  */
 class ActionListRenderer extends JLabel
         implements ListCellRenderer {
+
     DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
-    
+
     public ActionListRenderer() {
         setOpaque(true);
         setHorizontalAlignment(CENTER);
         setVerticalAlignment(CENTER);
         defaultRenderer.setPreferredSize(new Dimension(100, 50));
         defaultRenderer.setHorizontalAlignment(CENTER);
-
     }
 
     /*
@@ -33,15 +33,14 @@ class ActionListRenderer extends JLabel
      */
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        JLabel lbl = (JLabel)defaultRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        JLabel lbl = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         if (index != -1) {
             //Component cell = getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             lbl.setText(value.toString());
-            
+
             if (index % 2 != 0) {
                 lbl.setBackground(new Color(229, 220, 220));
             }
-            
         }
         return lbl;
     }

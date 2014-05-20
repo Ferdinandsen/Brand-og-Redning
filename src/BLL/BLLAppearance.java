@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -20,17 +21,14 @@ public class BLLAppearance {
 
     DALAppearance dalAppearance;
     DALALarm dalAlarm;
-    private BLLAlarm bllAlarm;
     private static BLLAppearance m_instance = null;
 
     private BLLAppearance() {
         try {
-            bllAlarm = BLLAlarm.getInstance();
-
             dalAlarm = DALALarm.getInstance();
             dalAppearance = DALAppearance.getInstance();
         } catch (SQLException e) {
-            System.out.println("fejl i bllEmployee " + e);
+            System.out.println("fejl i bllAppearance " + e);
         }
     }
 
@@ -49,6 +47,10 @@ public class BLLAppearance {
         }
     }
 
+    public ArrayList<BEAppearance> getAllAppearances() {
+        return dalAppearance.getAppearances();
+    }
+
     public ArrayList<BEAppearance> getAllAppearancesNotHlGodkendt() {
         ArrayList<BEAppearance> notHlGodkendt = new ArrayList<>();
         for (BEAppearance appearance : getAllAppearances()) {
@@ -57,10 +59,6 @@ public class BLLAppearance {
             }
         }
         return notHlGodkendt;
-    }
-
-    public ArrayList<BEAppearance> getAllAppearances() {
-        return dalAppearance.getAppearances();
     }
 
     public ArrayList<BEAppearance> getAllHlGodkendtAppearances(BEAlarm alarm) {
@@ -81,6 +79,18 @@ public class BLLAppearance {
             }
         }
         return appearances;
+    }
+
+    public ArrayList<BEAppearance> getAllAppearancesWithDateCriteria(BEFireman fm, Date from, Date to) {
+        ArrayList<BEAppearance> dateappearance = new ArrayList<>();
+        for (BEAppearance a : getAllAppearances()) {
+            if (fm == null && a.getAlarm().getTime().after(from) && a.getAlarm().getTime().before(to) && a.isIlGodkendt()) {
+                dateappearance.add(a);
+            } else if (a.getAlarm().getTime().after(from) && a.getAlarm().getTime().before(to) && a.getFireman().equals(fm)&& a.isIlGodkendt()) {
+                dateappearance.add(a);
+            }
+        }
+        return dateappearance;
     }
 
     private Timestamp time() {
@@ -164,11 +174,11 @@ public class BLLAppearance {
         }
     }
 
-    public void addAppearance(BEFireman fireman, BEAlarm alarm, BEVehicle veh,Timestamp ts, boolean hl, boolean ch, boolean st, int kørselstype) {
+    public void addAppearance(BEFireman fireman, BEAlarm alarm, BEVehicle veh, Timestamp ts, boolean hl, boolean ch, boolean st, int kørselstype) {
         try {
 //            String[] theCheckOutTime = checkOutTime.toString().split(":");
 //            Timestamp ts = new Timestamp(alarm.getTime().getYear(), alarm.getTime().getMonth(), alarm.getTime().getDate(), Integer.parseInt(theCheckOutTime[0]), Integer.parseInt(theCheckOutTime[1]), alarm.getTime().getSeconds(), alarm.getTime().getNanos());
-            dalAppearance.createAppearance(fireman, calculateTotalTime(alarm, ts), ts, alarm, veh, String.valueOf(ts.getHours()+ts.getMinutes()), hl, ch, st, (int) kørselstype);
+            dalAppearance.createAppearance(fireman, calculateTotalTime(alarm, ts), ts, alarm, veh, String.valueOf(ts.getHours() + ts.getMinutes()), hl, ch, st, (int) kørselstype);
         } catch (SQLException ex) {
             System.out.println("fejl i add Appearance " + ex);
         }

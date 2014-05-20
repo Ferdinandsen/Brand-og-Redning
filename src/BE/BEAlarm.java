@@ -23,8 +23,8 @@ public class BEAlarm {
     private Timestamp ilGodkendtTid;
     private Timestamp hlGodkendtTid;
 
-    public BEAlarm(int id, String title, String desc, String station, Timestamp time, boolean done, 
-            String alarmType, int evaNo, int gruppeNo, int detekterNo, String hlBemærkning, 
+    public BEAlarm(int id, String title, String desc, String station, Timestamp time, boolean done,
+            String alarmType, int evaNo, int gruppeNo, int detekterNo, String hlBemærkning,
             String ilBemærkning, Timestamp ilGodkendtTid, Timestamp hlGodkendtTid) {
         this.id = id;
         this.title = title;
@@ -47,6 +47,11 @@ public class BEAlarm {
      */
     public Timestamp getTime() {
         return time;
+    }
+
+    public String getDateString() {
+        String alarm[] = getTime().toString().split(" ");
+        return alarm[0];
     }
 
     /**
@@ -83,7 +88,7 @@ public class BEAlarm {
 
     @Override
     public String toString() {
-        return getDesc(); //+ " - " + getTimeString();
+        return getDesc(); //+ " - " + getTime();
     }
 
     /**
@@ -143,11 +148,6 @@ public class BEAlarm {
     }
 
     /**
-     * @return the forbrug
-     */
-    
-
-    /**
      * @return the alarmType
      */
     public String getAlarmType() {
@@ -202,7 +202,8 @@ public class BEAlarm {
     public void setDetekterNo(int detekterNo) {
         this.detekterNo = detekterNo;
     }
-/**
+
+    /**
      * @return the hlBemærkning
      */
     public String getHlBemærkning() {
@@ -215,8 +216,6 @@ public class BEAlarm {
     public void setHlBemærkning(String hlBemærkning) {
         this.hlBemærkning = hlBemærkning;
     }
-
-   
 
     /**
      * @return the ilBemærkning

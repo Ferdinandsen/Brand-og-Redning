@@ -45,6 +45,7 @@ public class CheckOutView extends javax.swing.JDialog {
         rbtnChauffør.setBackground(new Color(164, 164, 164));
         rbtnHoldleder.setBackground(new Color(164, 164, 164));
         rbtnStVagt.setBackground(new Color(164, 164, 164));
+
         this.setTitle("CHECK UD");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
@@ -209,7 +210,7 @@ public class CheckOutView extends javax.swing.JDialog {
                 btnAcknowledge.setEnabled(cboxVehicle.getSelectedIndex() != 0 && cboxAlarm.getSelectedIndex() != 0);
             }
         });
-        
+
         rbtnStVagt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -217,8 +218,6 @@ public class CheckOutView extends javax.swing.JDialog {
                 btnAcknowledge.setEnabled(rbtnStVagt.isSelected() && cboxAlarm.getSelectedIndex() != 0);
             }
         });
-
-
 
         btnAcknowledge.addChangeListener(new ChangeListener() {
             @Override
@@ -268,7 +267,7 @@ public class CheckOutView extends javax.swing.JDialog {
                 btnAcknowledge.setEnabled((cboxAlarm.getSelectedIndex() != 0 && cboxVehicle.getSelectedIndex() != 0) || cboxAlarm.getSelectedIndex() != 0 && rbtnStVagt.isSelected());
             }
         });
-        
+
     }
 
     private void fillCboxVehicle() {

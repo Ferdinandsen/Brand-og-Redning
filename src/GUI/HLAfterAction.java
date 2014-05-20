@@ -81,7 +81,7 @@ public class HLAfterAction extends javax.swing.JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 btnChangeTime.setEnabled(tblTider.getSelectedRow() != -1);
-               
+
             }
         });
         btnChangeTime.addActionListener(new ActionListener() {
@@ -129,22 +129,21 @@ public class HLAfterAction extends javax.swing.JFrame {
         }
         );
 
-        btnBekæft.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (model.getRowCount() != 0 && cboxAlarm.getSelectedIndex() != 0) {
-                            confirmTeam();
-                            msgbox("Holdet er nu bekræftet!");
-                            HLAfterActionStory frame = new HLAfterActionStory(bllAppearance.getAllHlGodkendtAppearances((BEAlarm)cboxAlarm.getSelectedItem()),(BEAlarm)cboxAlarm.getSelectedItem());
+        btnBekæft.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (model.getRowCount() != 0 && cboxAlarm.getSelectedIndex() != 0) {
+                    confirmTeam();
+                    msgbox("Holdet er nu bekræftet!");
+                    HLAfterActionStory frame = new HLAfterActionStory(bllAppearance.getAllHlGodkendtAppearances((BEAlarm) cboxAlarm.getSelectedItem()), (BEAlarm) cboxAlarm.getSelectedItem());
 //                            HLUsageReport frame = new HLUsageReport((BEAlarm) cboxAlarm.getSelectedItem());
-                            frame.setVisible(true);
-                            dispose();
-                        } else {
-                            msgbox("Udfyld venligst al information!");
-                        }
-                    }
-                });
+                    frame.setVisible(true);
+                    dispose();
+                } else {
+                    msgbox("Udfyld venligst al information!");
+                }
+            }
+        });
     }
 
     private void confirmTeam() {
@@ -155,7 +154,6 @@ public class HLAfterAction extends javax.swing.JFrame {
         }
     }
 
-    
     private void populateFremmødeTable() {
         model = new FremmødeTableModel(bllAppearance.getAllAppearancesNotHlGodkendt());
         tblTider.setModel(model);
@@ -163,7 +161,6 @@ public class HLAfterAction extends javax.swing.JFrame {
     }
 
     private void addCellRenderer() {
-
         FremmødeTableCellRenderer renderer = new FremmødeTableCellRenderer();
         for (int col = 0; col < model.getColumnCount(); col++) {
             renderer.setHorizontalAlignment(JLabel.CENTER);
