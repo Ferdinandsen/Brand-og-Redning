@@ -206,4 +206,12 @@ public class BLLAppearance {
 
         }
     }
+
+    public void updateFunction(BEAppearance appearance) {
+        try {
+            dalAppearance.updateFunction(appearance);
+        } catch (SQLException ex) {
+            System.out.println("fejl i updateAppearanceTotal " + ex);
+        }
+    }
 }

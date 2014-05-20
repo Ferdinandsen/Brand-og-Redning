@@ -108,6 +108,7 @@ public class ChangeTimeView extends javax.swing.JDialog {
         });
 
         txtCheckUd.addKeyListener(new KeyAdapter() {
+            
             @Override
             public void keyTyped(KeyEvent e) {
                 if (txtCheckUd.getText().length() == 2) {
@@ -137,11 +138,11 @@ public class ChangeTimeView extends javax.swing.JDialog {
         });
 
         txtCheckUd.addFocusListener(new FocusListener() {
-
+            
             @Override
             public void focusGained(FocusEvent e) {
             }
-
+            
             @Override
             public void focusLost(FocusEvent e) {
                 if (txtCheckIn.getText().length() == 5 && txtCheckUd.getText().length() == 5) {

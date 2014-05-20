@@ -198,7 +198,13 @@ public class Administration extends javax.swing.JFrame {
         dchoFra.setDate(new Date(new Date().getTime() - dagenstal));
         dchoTil.setDate(new Date());
         tblBM.setModel(new LønTableModel(bllAppearance.getAllAppearancesWithDateCriteria(null, dchoFra.getDate(), dchoTil.getDate())));
+        btnEdit.addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateSalary();
+            }
+        });
         btnHent.setText("Hent");
         btnHent.addActionListener(new ActionListener() {
 
@@ -222,11 +228,13 @@ public class Administration extends javax.swing.JFrame {
             }
         });
     }
-    private void populateAlarmList(){
+
+    private void populateAlarmList() {
         alarmliste = new DefaultListModel<>();
         lstAlarm.setModel(alarmliste);
-        for(BEAlarm a : bllAlarm.getAllUnfinishedAlarms())
-        alarmliste.addElement(a.getDesc() + " "+ a.getDateString());
+        for (BEAlarm a : bllAlarm.getAllUnfinishedAlarms()) {
+            alarmliste.addElement(a.getDesc() + " " + a.getDateString());
+        }
     }
 
     private void populateLønTable(BEFireman localFireman, Date from, Date to) {
@@ -240,5 +248,17 @@ public class Administration extends javax.swing.JFrame {
         for (BEFireman bm : bllFireman.getAllfiremen()) {
             cboxBM.addItem(bm);
         }
+    }
+
+    private void updateSalary() {
+        if (cboxBM.getSelectedIndex() == 0) {
+            BEFireman localFireman = null;
+            ChangeSalaryView frame = new ChangeSalaryView(bllAppearance.getAllAppearancesWithDateCriteria(localFireman, dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY)).get(tblBM.convertRowIndexToView(tblBM.getSelectedRow())));
+            frame.setVisible(true);
+        } else {
+            ChangeSalaryView frame = new ChangeSalaryView(bllAppearance.getAllAppearancesWithDateCriteria((BEFireman) cboxBM.getSelectedItem(), dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY)).get(tblBM.convertRowIndexToView(tblBM.getSelectedRow())));
+            frame.setVisible(true);
+        }
+        model.fireTableDataChanged();
     }
 }

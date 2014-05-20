@@ -212,4 +212,13 @@ public class DALAppearance {
         ps.setInt(2, appearance.getId());
         ps.execute();
     }
+
+    public void updateFunction(BEAppearance appearance) throws SQLException {
+        String sql = "UPDATE Fremmøde SET isHoldleder = ? WHERE id = ?";
+
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setBoolean(1, appearance.isHoldleder());
+        ps.setInt(2, appearance.getId());
+        ps.execute();
+    }
 }
