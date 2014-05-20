@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 public class BLLPdf {
 
-    private String FILE = "C:/Users/Kaj/Desktop/FirstPdf.pdf";
+    private String FILE = "C:/Users/Shadowleet/Desktop/FirstPdf.pdf";
     private Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.NORMAL, BaseColor.RED);
     private Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
@@ -45,7 +45,7 @@ public class BLLPdf {
         localAppearances = allHlGodkendtAppearances;
         amount = localAppearances.size();
         try {
-            Document document = new Document(PageSize.LETTER.rotate()); //Roterer siden til at være landskab! Fjern parameter for at gøre den til normal  Document document = new Document(PageSize.LETTER.rotate()); 
+            Document document = new Document(PageSize.A4.rotate()); //Roterer siden til at være landskab! Fjern parameter for at gøre den til normal  Document document = new Document(PageSize.LETTER.rotate()); 
             PdfWriter.getInstance(document, new FileOutputStream(FILE));
             document.open();
             addMetaData(document);
@@ -121,7 +121,6 @@ public class BLLPdf {
 //
 //        // now add all this to the document
 //        document.add(catPart);
-
     }
 
 //    private static void createHeaderTable(Section subCatPart)
@@ -161,8 +160,7 @@ public class BLLPdf {
 //        subCatPart.add(table);
 //
 //    }
-    private void createGridTable(Section subCatPart)
-            throws BadElementException {
+    private void createGridTable(Section subCatPart) throws BadElementException {
         PdfPTable table = new PdfPTable(new float[]{1, 2, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2});
         table.setWidthPercentage(100f);
         table.getDefaultCell().setUseAscender(true);
@@ -233,19 +231,17 @@ public class BLLPdf {
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.addCell(c1);
 
-
         table.setHeaderRows(1);
         int counter = 0;
         for (int i = 0; i < amount; i++) {
             if (i % 2 == 0 && counter == 5) {
                 table.getDefaultCell().setBackgroundColor(BaseColor.WHITE);
-                insertData(table);
                 counter = 0;
             } else {
                 table.getDefaultCell().setBackgroundColor(BaseColor.LIGHT_GRAY);
-                insertData(table);
                 counter++;
             }
+            insertData(table);
         }
         subCatPart.add(table);
     }
@@ -268,37 +264,37 @@ public class BLLPdf {
             } else {
                 table.addCell("");
             }
-            if (appearance.getVeh() != null &&appearance.getVeh().toString().equals("1338")) {
+            if (appearance.getVeh() != null && appearance.getVeh().toString().equals("1338")) {
                 table.addCell("X");
             } else {
                 table.addCell("");
             }
-            if (appearance.getVeh() != null &&appearance.getVeh().toString().equals("2338")) {
+            if (appearance.getVeh() != null && appearance.getVeh().toString().equals("2338")) {
                 table.addCell("X");
             } else {
                 table.addCell("");
             }
-            if (appearance.getVeh() != null &&appearance.getVeh().toString().equals("1343")) {
+            if (appearance.getVeh() != null && appearance.getVeh().toString().equals("1343")) {
                 table.addCell("X");
             } else {
                 table.addCell("");
             }
-            if (appearance.getVeh() != null &&appearance.getVeh().toString().equals("2351")) {
+            if (appearance.getVeh() != null && appearance.getVeh().toString().equals("2351")) {
                 table.addCell("X");
             } else {
                 table.addCell("");
             }
-            if (appearance.getVeh() != null &&appearance.getVeh().toString().equals("2349")) {
+            if (appearance.getVeh() != null && appearance.getVeh().toString().equals("2349")) {
                 table.addCell("X");
             } else {
                 table.addCell("");
             }
-            if (appearance.getVeh() != null &&appearance.getVeh().toString().equals("2332")) {
+            if (appearance.getVeh() != null && appearance.getVeh().toString().equals("2332")) {
                 table.addCell("X");
             } else {
                 table.addCell("");
             }
-            if (appearance.getVeh() != null &&appearance.getVeh().toString().equals("2341")) {
+            if (appearance.getVeh() != null && appearance.getVeh().toString().equals("2341")) {
                 table.addCell("X");
             } else {
                 table.addCell("");
