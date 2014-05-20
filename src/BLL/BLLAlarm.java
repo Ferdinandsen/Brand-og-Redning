@@ -51,6 +51,16 @@ public class BLLAlarm {
         return unfinishedAlarms;
     }
 
+    public ArrayList<BEAlarm> getAllIkkeHLGodkendt() {
+        ArrayList<BEAlarm> hlgodkendt = new ArrayList<>();
+        for (BEAlarm a : getAllAlarms()) {
+            if (a.getHlGodkendtTid() == null) {
+                hlgodkendt.add(a);
+            }
+        }
+        return hlgodkendt;
+    }
+
     public void updateAlarm(BEAlarm a) {
         try {
             dalAlarm.updateAlarm(a);
@@ -72,5 +82,9 @@ public class BLLAlarm {
         } catch (SQLException ex) {
             System.out.println("fejl i confirm alarm" + ex);
         }
+    }
+
+    public void setGuestsOnAlarms() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

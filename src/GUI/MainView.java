@@ -264,7 +264,6 @@ public class MainView extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 btnConfirmApp.setEnabled(false);
-                btnErrorReport.setEnabled(false);
                 btnIL.setEnabled(false);
                 btnSalery.setEnabled(false);
                 lblLogIn.setText("Ikke logget på");

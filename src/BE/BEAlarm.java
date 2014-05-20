@@ -1,5 +1,6 @@
 package BE;
 
+import java.awt.Color;
 import java.sql.Timestamp;
 
 /**
@@ -22,6 +23,7 @@ public class BEAlarm {
     private String ilBemærkning;
     private Timestamp ilGodkendtTid;
     private Timestamp hlGodkendtTid;
+    private boolean guestConfirmed;
 
     public BEAlarm(int id, String title, String desc, String station, Timestamp time, boolean done,
             String alarmType, int evaNo, int gruppeNo, int detekterNo, String hlBemærkning,
@@ -45,13 +47,26 @@ public class BEAlarm {
     /**
      * @return the time
      */
+
     public Timestamp getTime() {
         return time;
     }
 
-    public String getDateString() {
-        String alarm[] = getTime().toString().split(" ");
-        return alarm[0];
+    public Color getColor() {
+        if (guestConfirmed) {
+            return Color.ORANGE;
+        } else {
+            return Color.GREEN;
+        }
+
+    }
+
+    public void setGuestConfirmed(boolean value) {
+        guestConfirmed = value;
+    }
+
+    public boolean hasGuestConfirmed() {
+        return guestConfirmed;
     }
 
     /**

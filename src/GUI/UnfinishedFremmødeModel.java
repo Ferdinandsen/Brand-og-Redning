@@ -18,13 +18,15 @@ public class UnfinishedFremmødeModel extends AbstractTableModel {
     private String[] colNames = {
         "Titel",
         "Beskrivelse",
-        "Tid",};
+        "Tid",
+    "Godkendt tid"};
     /**
      * the type definition for the columns
      */
     private Class[] classes = {
         String.class, //Køretøj
         String.class,//Fornavn
+        Timestamp.class,
         Timestamp.class
     };
 
@@ -58,7 +60,8 @@ public class UnfinishedFremmødeModel extends AbstractTableModel {
                 return a.getDesc();
             case 2:
                 return a.getTime();
-            
+            case 3:
+                return a.getHlGodkendtTid();
         }
         return null;
     }
@@ -78,11 +81,11 @@ public class UnfinishedFremmødeModel extends AbstractTableModel {
         return false;
     }
 
-    public void setAppearanceList(ArrayList<BEAlarm> alarm) {
+    public void setAlarmList(ArrayList<BEAlarm> alarm) {
         this.alarms = alarm;
     }
 
-    public BEAlarm getAppearanceByRow(int row) {
+    public BEAlarm getAlarmByRow(int row) {
         return alarms.get(row);
     }
 }
