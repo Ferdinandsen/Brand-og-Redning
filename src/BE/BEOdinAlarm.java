@@ -1,20 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package BE;
 
+/**
+ *
+ * @author Team Kawabunga
+ */
 public class BEOdinAlarm {
+
     private String title;
     private String description;
     private String time;
-    public BEOdinAlarm(String title, String description, String time){
+
+    public BEOdinAlarm(String title, String description, String time) {
         this.title = title;
         this.description = description;
         this.time = time;
-        
     }
 
     /**
@@ -51,7 +50,8 @@ public class BEOdinAlarm {
     public String getTime() {
         return time;
     }
-    public String getTimeString(){
+
+    public String getTimeString() {
         String[] times = time.split(":");
         return times[1];
     }
@@ -67,6 +67,4 @@ public class BEOdinAlarm {
     public String toString() {
         return description + " - Tid: " + getTime();
     }
-    
-
 }

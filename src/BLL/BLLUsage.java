@@ -46,4 +46,13 @@ public class BLLUsage {
     public ArrayList<BEMateriel> getAllMats() {
         return dalusage.getAllMats();
     }
+
+    public void updateUsageReport(BEUsage bu) {
+       try{
+           dalusage.updateUsageReport(bu);
+       }
+       catch (SQLException e){
+           System.out.println("Fejl i updateUsageReport" + e);
+       }
+    }
 }

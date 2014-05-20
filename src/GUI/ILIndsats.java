@@ -25,6 +25,7 @@ public class ILIndsats extends javax.swing.JFrame {
         bllAlarm = BLLAlarm.getInstance();
         bllAppearance = BLLAppearance.getInstance();
         this.setResizable(false);
+        this.setLocationRelativeTo(null);
         this.setTitle("Indsatsleder - Fremmødeliste");
         initComponents();
         initOtherComponents();

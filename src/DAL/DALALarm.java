@@ -1,11 +1,7 @@
 package DAL;
 
 import BE.BEAlarm;
-import BE.BEAppearance;
 import BE.BEOdinAlarm;
-import BE.BEUsage;
-import BLL.BLLAlarm;
-import BLL.BLLUsage;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.io.InputStream;

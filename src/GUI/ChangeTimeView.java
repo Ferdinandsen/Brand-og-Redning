@@ -2,7 +2,6 @@ package GUI;
 
 import BE.BEAppearance;
 import BLL.BLLAppearance;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -12,6 +11,10 @@ import java.awt.event.KeyEvent;
 import java.sql.Timestamp;
 import java.util.Date;
 
+/**
+ *
+ * @author Team Kawabunga
+ */
 public class ChangeTimeView extends javax.swing.JDialog {
 
     boolean checkInIsCorrect = false;
@@ -20,6 +23,8 @@ public class ChangeTimeView extends javax.swing.JDialog {
     BEAppearance localAppearance;
 
     public ChangeTimeView(BEAppearance appearance) {
+        this.setModal(true);
+        this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         initComponents();
         initOtherComponents();
@@ -288,9 +293,9 @@ public class ChangeTimeView extends javax.swing.JDialog {
                                     .addComponent(jLabel2)
                                     .addComponent(txtEfternavn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(txtCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCheckIn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3)))
                             .addComponent(dateCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
