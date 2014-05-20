@@ -1,13 +1,11 @@
 package GUI;
 
 import BE.BEAlarm;
-import BE.BEAppearance;
 import BLL.BLLAppearance;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -20,11 +18,8 @@ public class UnfinishedAlarmsCellRenderer extends DefaultTableCellRenderer {
     ArrayList<BEAlarm> allAlarms;
     BLLAppearance bllAppearance;
 
-    public UnfinishedAlarmsCellRenderer(ArrayList<BEAlarm> allUnfinishedAlarms) {
+    public UnfinishedAlarmsCellRenderer() {
 
-        allAlarms = allUnfinishedAlarms;
-                System.out.println(allAlarms.size());
-        bllAppearance = BLLAppearance.getInstance();
     }
 
     @Override
@@ -33,29 +28,15 @@ public class UnfinishedAlarmsCellRenderer extends DefaultTableCellRenderer {
             boolean isSelected,
             boolean hasFocus,
             int row, int column) {
+        UnfinishedFremmødeModel model = (UnfinishedFremmødeModel) table.getModel();
         Component cell = super.getTableCellRendererComponent(
                 table, obj, isSelected, hasFocus, row, column);
 
         cell.setBackground(Color.WHITE);
 
         Font f = new Font(Font.SANS_SERIF, Font.BOLD, 13);
-
-        boolean hasFoundOne = false;
-        for (BEAlarm alarm : allAlarms) {
-            System.out.println("WWWWWWWWWWWWWWWWWWW ALARM: " + alarm);
-            hasFoundOne = false;
-            for (BEAppearance appearance : bllAppearance.getAllHlGodkendtAppearances(alarm)) {
-                if (bllAppearance.getAllHlGodkendtAppearances(alarm).get(row).getLogin().getMedarbejder().getFornavn().equalsIgnoreCase("gæst")) {
-                    cell.setBackground(Color.ORANGE);
-                    System.out.println("fandt en orange");
-                    hasFoundOne = true;
-                } else {
-                    System.out.println("grøn");
-                    cell.setBackground(Color.GREEN);
-                }
-                 System.out.println("Alarmen er: " + alarm.getDesc() + " og, appearance er: " + appearance.getFireman().getMedarbjeder().getFornavn() + " " + appearance.getFireman().getMedarbjeder().getEfternavn());
-            }
-        }
+        BEAlarm a = model.getAlarmByRow(row);
+        cell.setBackground(a.getColor());
 
         if (isSelected) {
             cell.setBackground(Color.DARK_GRAY);
@@ -69,4 +50,5 @@ public class UnfinishedAlarmsCellRenderer extends DefaultTableCellRenderer {
 
         return cell;
     }
+
 }

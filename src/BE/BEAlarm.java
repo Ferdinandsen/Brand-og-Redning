@@ -1,5 +1,6 @@
 package BE;
 
+import java.awt.Color;
 import java.sql.Timestamp;
 
 /**
@@ -22,9 +23,10 @@ public class BEAlarm {
     private String ilBemærkning;
     private Timestamp ilGodkendtTid;
     private Timestamp hlGodkendtTid;
+    private boolean guestConfirmed;
 
-    public BEAlarm(int id, String title, String desc, String station, Timestamp time, boolean done, 
-            String alarmType, int evaNo, int gruppeNo, int detekterNo, String hlBemærkning, 
+    public BEAlarm(int id, String title, String desc, String station, Timestamp time, boolean done,
+            String alarmType, int evaNo, int gruppeNo, int detekterNo, String hlBemærkning,
             String ilBemærkning, Timestamp ilGodkendtTid, Timestamp hlGodkendtTid) {
         this.id = id;
         this.title = title;
@@ -45,8 +47,26 @@ public class BEAlarm {
     /**
      * @return the time
      */
+
     public Timestamp getTime() {
         return time;
+    }
+
+    public Color getColor() {
+        if (guestConfirmed) {
+            return Color.ORANGE;
+        } else {
+            return Color.GREEN;
+        }
+
+    }
+
+    public void setGuestConfirmed(boolean value) {
+        guestConfirmed = value;
+    }
+
+    public boolean hasGuestConfirmed() {
+        return guestConfirmed;
     }
 
     /**
@@ -145,8 +165,6 @@ public class BEAlarm {
     /**
      * @return the forbrug
      */
-    
-
     /**
      * @return the alarmType
      */
@@ -202,7 +220,8 @@ public class BEAlarm {
     public void setDetekterNo(int detekterNo) {
         this.detekterNo = detekterNo;
     }
-/**
+
+    /**
      * @return the hlBemærkning
      */
     public String getHlBemærkning() {
@@ -215,8 +234,6 @@ public class BEAlarm {
     public void setHlBemærkning(String hlBemærkning) {
         this.hlBemærkning = hlBemærkning;
     }
-
-   
 
     /**
      * @return the ilBemærkning

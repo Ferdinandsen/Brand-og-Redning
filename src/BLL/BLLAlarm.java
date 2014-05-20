@@ -83,4 +83,8 @@ public class BLLAlarm {
             System.out.println("fejl i confirm alarm" + ex);
         }
     }
+
+    public void setGuestsOnAlarms() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

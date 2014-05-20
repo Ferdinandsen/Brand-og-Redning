@@ -1,7 +1,9 @@
 package GUI;
 
 import BE.BEAlarm;
+import BE.BEAppearance;
 import BLL.BLLAlarm;
+import BLL.BLLAppearance;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JLabel;
@@ -16,10 +18,12 @@ import javax.swing.table.TableColumn;
 public class ILIndsats extends javax.swing.JFrame {
 
     BLLAlarm bllAlarm;
+    BLLAppearance bllAppearance;
     private UnfinishedFremmødeModel model;
 
     public ILIndsats() {
         bllAlarm = BLLAlarm.getInstance();
+        bllAppearance = BLLAppearance.getInstance();
         this.setResizable(false);
         this.setTitle("Indsatsleder - Fremmødeliste");
         initComponents();
@@ -29,7 +33,7 @@ public class ILIndsats extends javax.swing.JFrame {
     }
 
     private void addCellRenderer() {
-        UnfinishedAlarmsCellRenderer renderer = new UnfinishedAlarmsCellRenderer(bllAlarm.getAllUnfinishedAlarms());
+        UnfinishedAlarmsCellRenderer renderer = new UnfinishedAlarmsCellRenderer();
         for (int col = 0; col < model.getColumnCount(); col++) {
             renderer.setHorizontalAlignment(JLabel.CENTER);
             TableColumn tc = tblFremmøder.getColumnModel().getColumn(col);
