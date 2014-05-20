@@ -29,8 +29,7 @@ public class ILIndsats extends javax.swing.JFrame {
     }
 
     private void addCellRenderer() {
-
-        FremmødeTableCellRenderer renderer = new FremmødeTableCellRenderer();
+        UnfinishedAlarmsCellRenderer renderer = new UnfinishedAlarmsCellRenderer(bllAlarm.getAllUnfinishedAlarms());
         for (int col = 0; col < model.getColumnCount(); col++) {
             renderer.setHorizontalAlignment(JLabel.CENTER);
             TableColumn tc = tblFremmøder.getColumnModel().getColumn(col);

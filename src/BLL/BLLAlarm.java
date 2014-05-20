@@ -51,7 +51,7 @@ public class BLLAlarm {
         return unfinishedAlarms;
     }
 
-    public ArrayList<BEAlarm> getAllHIkkelGodkendteAlarms() {
+    public ArrayList<BEAlarm> getAllIkkeHLGodkendt() {
         ArrayList<BEAlarm> hlgodkendt = new ArrayList<>();
         for (BEAlarm a : getAllAlarms()) {
             if (a.getHlGodkendtTid() == null) {

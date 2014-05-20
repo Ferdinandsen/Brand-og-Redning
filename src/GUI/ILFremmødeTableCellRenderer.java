@@ -1,9 +1,10 @@
 package GUI;
 
+import BE.BEAppearance;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import javax.swing.ImageIcon;
+import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -12,11 +13,16 @@ import javax.swing.table.DefaultTableCellRenderer;
  * @author Team Kawabunga
  */
 public class ILFremmødeTableCellRenderer extends DefaultTableCellRenderer {
-    ImageIcon warning;
+
+    ArrayList<BEAppearance> allAppearances;
 
     public ILFremmødeTableCellRenderer() {
-        
     }
+
+    public ILFremmødeTableCellRenderer(ArrayList<BEAppearance> allHlGodkendtAppearances) {
+        allAppearances = allHlGodkendtAppearances;
+    }
+
     @Override
     public Component getTableCellRendererComponent(JTable table,
             Object obj,
@@ -30,17 +36,22 @@ public class ILFremmødeTableCellRenderer extends DefaultTableCellRenderer {
 
         Font f = new Font(Font.SANS_SERIF, Font.BOLD, 13);
         Font total = new Font(Font.SANS_SERIF, Font.BOLD, 15);
-
-        if (table.convertColumnIndexToModel(column) == 4)
-        {
-            cell.setFont(total);
-
-            cell.setForeground(Color.WHITE);
-               
-//            JLabel res = new JLabel(obj.toString());
-//            res.setIcon(warning);
-//            return res;
+        if (allAppearances.get(row).getLogin().getMedarbejder().getFornavn().equalsIgnoreCase("gæst")){
+             cell.setBackground(Color.ORANGE);
         }
+        else{
+            cell.setBackground(Color.GREEN);
+
+        }
+//        if (table.convertColumnIndexToModel(column) == 4) {
+//            cell.setFont(total);
+//
+//            cell.setForeground(Color.WHITE);
+//
+////            JLabel res = new JLabel(obj.toString());
+////            res.setIcon(warning);
+////            return res;
+//        }
         if (isSelected) {
             cell.setBackground(Color.DARK_GRAY);
             if (table.convertColumnIndexToModel(column) != 5) {
@@ -50,7 +61,7 @@ public class ILFremmødeTableCellRenderer extends DefaultTableCellRenderer {
         } else {
             cell.setForeground(Color.BLACK);
         }
-       
+
         return cell;
     }
 }

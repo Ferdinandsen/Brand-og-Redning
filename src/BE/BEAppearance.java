@@ -41,7 +41,7 @@ public class BEAppearance {
         this.chauffør = chauffør;
         this.STvagt = STvagt;
         this.veh = veh;
-        
+        this.login = login;
     }
 
     /**

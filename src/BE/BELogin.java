@@ -90,4 +90,10 @@ public class BELogin {
     public void setHoldleder(boolean holdleder) {
         this.holdleder = holdleder;
     }
+
+    @Override
+    public String toString() {
+        return getMedarbejder().getFornavn() + " " + getMedarbejder().getEfternavn();
+    }
+    
 }

@@ -48,7 +48,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
 
     private void addCellRenderer() {
 
-        ILFremmødeTableCellRenderer renderer = new ILFremmødeTableCellRenderer();
+        ILFremmødeTableCellRenderer renderer = new ILFremmødeTableCellRenderer(bllAppearance.getAllHlGodkendtAppearances(localAlarm));
         for (int col = 0; col < model.getColumnCount(); col++) {
             renderer.setHorizontalAlignment(JLabel.CENTER);
             TableColumn tc = tblFremmøde.getColumnModel().getColumn(col);

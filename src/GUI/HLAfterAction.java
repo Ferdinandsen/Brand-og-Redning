@@ -174,7 +174,7 @@ public class HLAfterAction extends javax.swing.JFrame {
 
     private void fillCboxAlarm() {
         cboxAlarm.addItem("Ingen alarm");
-        for (BEAlarm alarm : bllAlarm.getAllHIkkelGodkendteAlarms()) {
+        for (BEAlarm alarm : bllAlarm.getAllUnfinishedAlarms()) {
             cboxAlarm.addItem(alarm);
         }
     }
