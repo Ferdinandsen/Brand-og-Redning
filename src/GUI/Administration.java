@@ -233,7 +233,7 @@ public class Administration extends javax.swing.JFrame {
         alarmliste = new DefaultListModel<>();
         lstAlarm.setModel(alarmliste);
         for (BEAlarm a : bllAlarm.getAllUnfinishedAlarms()) {
-            alarmliste.addElement(a.getDesc() + " " + a.getDateString());
+//            alarmliste.addElement(a.getDesc() + " " + a.getDateString());
         }
     }
 
