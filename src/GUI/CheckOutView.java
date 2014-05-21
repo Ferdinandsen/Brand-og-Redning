@@ -1,5 +1,6 @@
 package GUI;
 
+import Renderes.ComboboxRenderer;
 import BE.BEAlarm;
 import BE.BEFireman;
 import BE.BEVehicle;
@@ -52,7 +53,7 @@ public class CheckOutView extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         this.setModal(true);
 
-        ComboBoxRenderer renderer = new ComboBoxRenderer();
+        ComboboxRenderer renderer = new ComboboxRenderer();
         cboxAlarm.setRenderer(renderer);
         cboxVehicle.setRenderer(renderer);
 

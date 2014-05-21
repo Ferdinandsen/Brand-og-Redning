@@ -1,5 +1,6 @@
 package GUI;
 
+import Renderes.UnfinishedAlarmsCellRenderer;
 import BE.BEAlarm;
 import BE.BEAppearance;
 import BE.BEFireman;
@@ -7,14 +8,18 @@ import BLL.BLLAlarm;
 import BLL.BLLAppearance;
 import BLL.BLLFireman;
 import BLL.BLLLønPdf;
+import Renderes.FremmødeTableCellRenderer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -45,6 +50,7 @@ public class Administration extends javax.swing.JFrame {
         this.setResizable(false);
         this.setTitle("Administration");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        addCellRenderer();
     }
 
     /**
@@ -204,7 +210,7 @@ public class Administration extends javax.swing.JFrame {
         dchoFra.setDate(new Date(new Date().getTime() - dagenstal));
         dchoTil.setDate(new Date());
         btnEdit.setEnabled(false);
-
+        tblBM.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tblBM.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
             @Override
@@ -254,8 +260,8 @@ public class Administration extends javax.swing.JFrame {
                     app.add(løn.getRow(i));
                 }
                 bllAppearance.EndSalary(app);
-                 JOptionPane.showMessageDialog(null, "Lønnen bekræftet");
-                 createPDF(app);
+                JOptionPane.showMessageDialog(null, "Lønnen bekræftet");
+                createPDF(app);
             }
         });
     }
@@ -264,7 +270,7 @@ public class Administration extends javax.swing.JFrame {
         alarmliste = new DefaultListModel<>();
         lstAlarm.setModel(alarmliste);
         for (BEAlarm a : bllAlarm.getAllUnfinishedAlarms()) {
-        alarmliste.addElement(a.toString());
+            alarmliste.addElement(a.toString());
         }
     }
 
@@ -305,7 +311,16 @@ public class Administration extends javax.swing.JFrame {
         }
         lblTid.setText("Total Tid: " + amount);
     }
-     private void createPDF(ArrayList<BEAppearance> app){
+
+    private void addCellRenderer() {
+        FremmødeTableCellRenderer renderer = new FremmødeTableCellRenderer();
+        for (int col = 0; col < model.getColumnCount(); col++) {
+            renderer.setHorizontalAlignment(JLabel.CENTER);
+            TableColumn tc = tblBM.getColumnModel().getColumn(col);
+            tc.setCellRenderer(renderer);
+        }
+    }
+    private void createPDF(ArrayList<BEAppearance> app) {
         BLLLønPdf pdf = new BLLLønPdf(app);
         JOptionPane.showMessageDialog(this, "PDF'en er nu lavet på skrivebordet!");
     }

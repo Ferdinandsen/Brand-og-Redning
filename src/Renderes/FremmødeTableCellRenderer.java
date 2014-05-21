@@ -1,9 +1,8 @@
-package GUI;
+package Renderes;
 
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -12,7 +11,6 @@ import javax.swing.table.DefaultTableCellRenderer;
  * @author Team Kawabunga
  */
 public class FremmødeTableCellRenderer extends DefaultTableCellRenderer {
-    ImageIcon warning;
 
     public FremmødeTableCellRenderer() {
         
@@ -34,12 +32,7 @@ public class FremmødeTableCellRenderer extends DefaultTableCellRenderer {
         if (table.convertColumnIndexToModel(column) == 5)
         {
             cell.setFont(total);
-
             cell.setForeground(Color.WHITE);
-               
-//            JLabel res = new JLabel(obj.toString());
-//            res.setIcon(warning);
-//            return res;
         }
         if (isSelected) {
             cell.setBackground(Color.DARK_GRAY);
@@ -50,7 +43,6 @@ public class FremmødeTableCellRenderer extends DefaultTableCellRenderer {
         } else {
             cell.setForeground(Color.BLACK);
         }
-       
         return cell;
     }
 }

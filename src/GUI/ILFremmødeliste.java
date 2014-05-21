@@ -1,5 +1,6 @@
 package GUI;
 
+import Renderes.ILFremmødeTableCellRenderer;
 import BE.BEAlarm;
 import BE.BEUsage;
 import BLL.BLLAlarm;

@@ -1,7 +1,6 @@
-package GUI;
+package Renderes;
 
-import BE.BEAlarm;
-import BLL.BLLAppearance;
+import BE.BEAppearance;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -13,13 +12,15 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Team Kawabunga
  */
-public class UnfinishedAlarmsCellRenderer extends DefaultTableCellRenderer {
+public class ILFremmødeTableCellRenderer extends DefaultTableCellRenderer {
 
-    ArrayList<BEAlarm> allAlarms;
-    BLLAppearance bllAppearance;
+    ArrayList<BEAppearance> allAppearances;
 
-    public UnfinishedAlarmsCellRenderer() {
+    public ILFremmødeTableCellRenderer() {
+    }
 
+    public ILFremmødeTableCellRenderer(ArrayList<BEAppearance> allHlGodkendtAppearances) {
+        allAppearances = allHlGodkendtAppearances;
     }
 
     @Override
@@ -28,16 +29,20 @@ public class UnfinishedAlarmsCellRenderer extends DefaultTableCellRenderer {
             boolean isSelected,
             boolean hasFocus,
             int row, int column) {
-        UnfinishedFremmødeModel model = (UnfinishedFremmødeModel) table.getModel();
         Component cell = super.getTableCellRendererComponent(
                 table, obj, isSelected, hasFocus, row, column);
 
-        cell.setBackground(Color.WHITE);
+        cell.setBackground(row % 2 == 0 ? Color.WHITE : Color.lightGray);
 
         Font f = new Font(Font.SANS_SERIF, Font.BOLD, 13);
-        BEAlarm a = model.getAlarmByRow(row);
-        cell.setBackground(a.getColor());
-
+        Font total = new Font(Font.SANS_SERIF, Font.BOLD, 15);
+        if (allAppearances.get(row).getLogin().getMedarbejder().getFornavn().equalsIgnoreCase("gæst")){
+             cell.setBackground(Color.ORANGE);
+        }
+        else{
+            cell.setBackground(Color.GREEN);
+        }
+        
         if (isSelected) {
             cell.setBackground(Color.DARK_GRAY);
             if (table.convertColumnIndexToModel(column) != 5) {
@@ -50,5 +55,4 @@ public class UnfinishedAlarmsCellRenderer extends DefaultTableCellRenderer {
 
         return cell;
     }
-
 }
