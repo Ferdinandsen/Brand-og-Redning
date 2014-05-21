@@ -30,7 +30,7 @@ import java.util.ArrayList;
  */
 public class BLLLønPdf {
 
-    private String FILE = "C:/Users/Shadowleet/Desktop/FirstLønPdf.pdf";
+    private String FILE = System.getProperty("user.home") + "/Desktop/FirstPdf.pdf";
     private Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.NORMAL, BaseColor.RED);
     private Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
@@ -49,7 +49,7 @@ public class BLLLønPdf {
         localAppearances = app;
         amount = localAppearances.size();
         try {
-            Document document = new Document(PageSize.A4) {   
+            Document document = new Document(PageSize.A4) {
             }; //Roterer siden til at være landskab! Fjern parameter for at gøre den til normal  Document document = new Document(PageSize.LETTER.rotate()); 
             PdfWriter.getInstance(document, new FileOutputStream(FILE));
             document.open();
