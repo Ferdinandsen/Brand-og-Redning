@@ -7,7 +7,6 @@ import BLL.BLLAlarm;
 import BLL.BLLAppearance;
 import BLL.BLLFireman;
 import BLL.BLLLønPdf;
-import BLL.BLLPdf;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -265,6 +264,7 @@ public class Administration extends javax.swing.JFrame {
         alarmliste = new DefaultListModel<>();
         lstAlarm.setModel(alarmliste);
         for (BEAlarm a : bllAlarm.getAllUnfinishedAlarms()) {
+        alarmliste.addElement(a.toString());
         }
     }
 
@@ -301,7 +301,7 @@ public class Administration extends javax.swing.JFrame {
     private void setTotalTime() {
         int amount = 0;
         for (int i = 0; i < tblBM.getRowCount(); i++) {
-            amount = +(int) tblBM.getModel().getValueAt(i, 7);
+            amount += (int) tblBM.getModel().getValueAt(i, 7);
         }
         lblTid.setText("Total Tid: " + amount);
     }

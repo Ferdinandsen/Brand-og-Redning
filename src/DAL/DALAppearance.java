@@ -68,7 +68,7 @@ public class DALAppearance {
         ps.setString(13, null);
         ps.setBoolean(14, false);
         ps.setTimestamp(15, null);
-        
+
         ps.execute();
     }
 
@@ -124,12 +124,10 @@ public class DALAppearance {
             }
             BEAppearance appearance = new BEAppearance(id, localFireman, checkIn, checkOut, totalTid, hlGodkendt, ilGodkendt,
                     holdleder, chauffør, stationsvagt, type, localAlarm, localVeh, localLogin, lønDone, lønTime);
-            if (localLogin.getMedarbejder().getFornavn().equalsIgnoreCase("gæst")) {
+            if (appearance.getFireman().getMedarbjeder().getFornavn().equalsIgnoreCase("gæst")) {
                 appearance.getAlarm().setGuestConfirmed(true);
             }
-
             allAppearances.add(appearance);
-
         }
     }
 
@@ -204,7 +202,7 @@ public class DALAppearance {
         ps.setTimestamp(15, null);
 
         ps.execute();
-        
+
         ResultSet rs = ps.getGeneratedKeys();
         int id = 0;
         if (rs.next()) {

@@ -241,8 +241,8 @@ public class BLLPdf {
                 table.getDefaultCell().setBackgroundColor(BaseColor.LIGHT_GRAY);
                 counter++;
             }
-            insertData(table);
         }
+        insertData(table);
         subCatPart.add(table);
     }
 

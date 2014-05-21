@@ -84,9 +84,9 @@ public class BLLAppearance {
     public ArrayList<BEAppearance> getAllAppearancesWithDateCriteria(BEFireman fm, Date from, Date to) {
         ArrayList<BEAppearance> dateappearance = new ArrayList<>();
         for (BEAppearance a : getAllAppearances()) {
-            if (fm == null && a.getAlarm().getTime().after(from) && a.getAlarm().getTime().before(to) && a.isIlGodkendt()) {
+            if (fm == null && a.getAlarm().getTime().after(from) && a.getAlarm().getTime().before(to) && a.isIlGodkendt() && !a.isLønDone()) {
                 dateappearance.add(a);
-            } else if (a.getAlarm().getTime().after(from) && a.getAlarm().getTime().before(to) && a.getFireman().equals(fm) && a.isIlGodkendt()) {
+            } else if (a.getAlarm().getTime().after(from) && a.getAlarm().getTime().before(to) && a.getFireman().equals(fm) && a.isIlGodkendt()&& !a.isLønDone()) {
                 dateappearance.add(a);
             }
         }
