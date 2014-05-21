@@ -3,6 +3,7 @@ package DAL;
 import BE.BEAlarm;
 import BE.BEMateriel;
 import BE.BEUsage;
+import BE.BEVehicle;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -122,5 +123,29 @@ public class DALUsage {
 //        ps.setInt(3, bu.getAlarm().getId());
         ps.setInt(2, bu.getId());
         ps.execute();
+    }
+
+    public void deleteMaterial(BEMateriel mat) throws SQLException {
+        String sql = "DELETE FROM Brandmateriel WHERE id = ?";
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setInt(1, mat.getId());
+        ps.execute();
+        allMaterials.remove(mat);
+    }
+
+    public void addMaterial(String text) throws SQLException {
+        String sql = "INSERT INTO Brandmateriel VALUES (?)  select @@identity";
+
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setString(1, text);
+        ps.execute();
+        ResultSet rs = ps.getGeneratedKeys();
+        int id = 0;
+        if (rs.next()) {
+            id = rs.getInt(1);
+
+            BEMateriel mat = new BEMateriel(id, text);
+            allMaterials.add(mat);
+        }
     }
 }

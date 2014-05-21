@@ -203,6 +203,14 @@ public class MainView extends javax.swing.JFrame {
         btnSalery.setEnabled(false);
         btnConfirmApp.setText("Bekræft fremmøder");
         
+        btnSalery.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdministrationChooseView view = new AdministrationChooseView();
+                view.setVisible(true);
+            }
+        });
         btnConfirmApp.addActionListener(new ActionListener() {
 
             @Override
@@ -301,6 +309,7 @@ public class MainView extends javax.swing.JFrame {
                     }
                     if (log.isAdmin()) {
                         btnIL.setEnabled(true);
+                        btnSalery.setEnabled(true);
                         btnErrorReport.setEnabled(true);
                     }
                     if (log.isKontor()) {

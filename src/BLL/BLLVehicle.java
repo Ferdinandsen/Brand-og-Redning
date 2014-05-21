@@ -4,6 +4,8 @@ import BE.BEVehicle;
 import DAL.DALVehicle;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -37,7 +39,23 @@ public class BLLVehicle {
         try {
             dalvehicle.populateVehicle();
         } catch (SQLException ex) {
-            System.out.println("blabla" + ex);
+            System.out.println("fejl i update i bllVehicle " + ex);
+        }
+    }
+
+    public void deleteVehicle(BEVehicle car) {
+        try {
+            dalvehicle.deleteVehicle(car);
+        } catch (SQLException ex) {
+           System.out.println("fejl i deletevehicle i bllvehicle " + ex);
+        }
+    }
+
+    public void addVehicle(String desc, String bilNr, String model, String mærke, String nummerplade) {
+        try {
+            dalvehicle.addVehicle(desc, bilNr, model, mærke, nummerplade);
+        } catch (SQLException ex) {
+           System.out.println("fejl i addVehicle i bllvehicle " + ex);
         }
     }
 }

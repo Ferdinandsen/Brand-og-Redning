@@ -37,7 +37,7 @@ public class DALEmployee {
 
     private void populateEmployee() throws SQLException {
         allEmployees = new ArrayList<>();
-        String sql = "SELECT * FROM Medarbejder";
+        String sql = "SELECT * FROM Medarbejder order by fornavn";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.execute();

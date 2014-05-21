@@ -16,7 +16,7 @@ public class DALVehicle {
 
     private Connection m_connection;
     private static DALVehicle m_instance = null;
-    private ArrayList<BEVehicle> vehicles = new ArrayList<>();
+    private ArrayList<BEVehicle> allVehicles = new ArrayList<>();
 
     private DALVehicle() throws SQLException, SQLServerException {
         m_connection = DBConnection.getInstance().getConnection();
@@ -31,7 +31,7 @@ public class DALVehicle {
     }
 
     public void populateVehicle() throws SQLException {
-        vehicles = new ArrayList<>();
+        allVehicles = new ArrayList<>();
         String sql = "SELECT * FROM KØTJ ORDER by odinNo";
 
         PreparedStatement ps = getM_connection().prepareStatement(sql);
@@ -46,7 +46,7 @@ public class DALVehicle {
             String desc = result.getString("beskrivelse");
 
             BEVehicle bil = new BEVehicle(odin, reg, mark, mod, desc);
-            vehicles.add(bil);
+            allVehicles.add(bil);
         }
     }
 
@@ -68,13 +68,36 @@ public class DALVehicle {
      * @return the vehicles
      */
     public ArrayList<BEVehicle> getVehicles() {
-        return vehicles;
+        return allVehicles;
     }
 
     /**
      * @param vehicles the vehicles to set
      */
     public void setVehicles(ArrayList<BEVehicle> vehicles) {
-        this.vehicles = vehicles;
+        this.allVehicles = vehicles;
+    }
+
+    public void deleteVehicle(BEVehicle car) throws SQLException {
+        String sql = "DELETE FROM KØTJ WHERE odinNo = ?";
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setInt(1, car.getOdinnummer());
+        ps.execute();
+        allVehicles.remove(car);
+    }
+
+    public void addVehicle(String desc, String bilNr, String model, String mærke, String nummerplade) throws SQLException {
+        String sql = "INSERT INTO KØTJ VALUES (?,?,?,?,?)";
+
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setInt(1, Integer.parseInt(bilNr));
+        ps.setString(2, nummerplade);
+        ps.setString(3, mærke);
+        ps.setString(4, model);
+        ps.setString(5, desc);
+        ps.execute();
+
+        BEVehicle veh = new BEVehicle(Integer.parseInt(bilNr), nummerplade, mærke, model, desc);
+        allVehicles.add(veh);
     }
 }

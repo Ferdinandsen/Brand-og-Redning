@@ -5,6 +5,8 @@ import BE.BEUsage;
 import DAL.DALUsage;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -54,5 +56,21 @@ public class BLLUsage {
        catch (SQLException e){
            System.out.println("Fejl i updateUsageReport" + e);
        }
+    }
+
+    public void deleteMaterial(BEMateriel mat) {
+        try {
+            dalusage.deleteMaterial(mat);
+        } catch (SQLException ex) {
+            System.out.println("Fejl i deleteMaterial i bllusage " + ex);
+        }
+    }
+
+    public void addMaterial(String text) {
+        try {
+            dalusage.addMaterial(text);
+        } catch (SQLException ex) {
+             System.out.println("Fejl i addMaterial i bllUsage" + ex);
+        }
     }
 }
