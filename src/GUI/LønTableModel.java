@@ -97,6 +97,10 @@ final int BMLønkode = 446;
     public boolean isCellEditable(int row, int col) {
         return false;
     }
+    
+    public BEAppearance getRow(int row){
+        return appearances.get(row);
+    }
 
     public void setAppearanceList(ArrayList<BEAppearance> appearance) {
         this.appearances = appearance;

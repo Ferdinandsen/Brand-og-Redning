@@ -102,7 +102,7 @@ public class BLLAppearance {
 
     public void createEndShift(BEAlarm alarm, BEFireman fireman, BEVehicle veh, boolean hl, boolean ch, boolean st) {
         Timestamp time = time();
-        int total = calculateTotalTime(alarm, time);
+        int total = calculateTotalTime(alarm.getTime(), time);
 
         try {
             dalAppearance.endShift(alarm, fireman, veh, hl, ch, st, total, time);
@@ -111,9 +111,9 @@ public class BLLAppearance {
         }
     }
 
-    private int calculateTotalTime(BEAlarm alarm, Timestamp ts) {
-        Timestamp ci = alarm.getTime();
-        Timestamp co = ts;
+    public int calculateTotalTime(Timestamp checkin, Timestamp checkout) {
+        Timestamp ci = checkin;
+        Timestamp co = checkout;
 
         long total = (co.getTime() - ci.getTime());
         long second = total / 1000 % 60;
@@ -133,7 +133,6 @@ public class BLLAppearance {
     }
 
     public void confirmTeam(BELogin log, BEAlarm alarm, String comment) throws Exception {
-//        Timestamp time = time();
         for (BEAppearance appearance : getAppearancesWithSameAlarm(alarm)) {
             try {
                 alarm.setHlBemærkning(comment);
@@ -176,9 +175,7 @@ public class BLLAppearance {
 
     public void addAppearance(BEFireman fireman, BEAlarm alarm, BEVehicle veh, Timestamp ts, boolean hl, boolean ch, boolean st, int kørselstype) {
         try {
-//            String[] theCheckOutTime = checkOutTime.toString().split(":");
-//            Timestamp ts = new Timestamp(alarm.getTime().getYear(), alarm.getTime().getMonth(), alarm.getTime().getDate(), Integer.parseInt(theCheckOutTime[0]), Integer.parseInt(theCheckOutTime[1]), alarm.getTime().getSeconds(), alarm.getTime().getNanos());
-            dalAppearance.createAppearance(fireman, calculateTotalTime(alarm, ts), ts, alarm, veh, String.valueOf(ts.getHours() + ts.getMinutes()), hl, ch, st, (int) kørselstype);
+            dalAppearance.createAppearance(fireman, calculateTotalTime(alarm.getTime(), ts), ts, alarm, veh, String.valueOf(ts.getHours() + ts.getMinutes()), hl, ch, st, (int) kørselstype);
         } catch (SQLException ex) {
             System.out.println("fejl i add Appearance " + ex);
         }
@@ -191,7 +188,6 @@ public class BLLAppearance {
             dalAppearance.updateKørselType(a);
         } catch (SQLException ex) {
             System.out.println("Fejl i update kørseltype " + ex);
-
         }
     }
 
@@ -203,7 +199,6 @@ public class BLLAppearance {
             } catch (SQLException ex) {
                 System.out.println("Fejl i confirm alarm " + ex);
             }
-
         }
     }
 
@@ -212,6 +207,19 @@ public class BLLAppearance {
             dalAppearance.updateFunction(appearance);
         } catch (SQLException ex) {
             System.out.println("fejl i updateFunction " + ex);
+        }
+    }
+
+    public void EndSalary(ArrayList<BEAppearance> app) {
+        Timestamp time = time();
+        try {
+            for (BEAppearance a : app) {
+                dalAppearance.createSalary(a,time);
+                a.setLønDone(true);
+                a.setLønTime(time);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Fejl i endSalary" + ex);
         }
     }
 }

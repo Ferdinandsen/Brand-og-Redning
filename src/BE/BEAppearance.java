@@ -23,11 +23,13 @@ public class BEAppearance {
     private BEAlarm alarm;
     private BEVehicle veh;
     private BELogin login;
+    private boolean lønDone;
+    private Timestamp lønTime;
     
 
     public BEAppearance(int id, BEFireman fireman, Timestamp checkIn, Timestamp checkOut, int totaltid, 
             boolean hlGodkendt, boolean ilGodkendt, boolean holdleder, boolean chauffør, boolean STvagt, 
-            int type, BEAlarm alarm, BEVehicle veh, BELogin login) {
+            int type, BEAlarm alarm, BEVehicle veh, BELogin login, boolean lønDone, Timestamp lønTime) {
         this.id = id;
         this.alarm = alarm;
         this.fireman = fireman;
@@ -42,6 +44,8 @@ public class BEAppearance {
         this.STvagt = STvagt;
         this.veh = veh;
         this.login = login;
+        this.lønDone = lønDone;
+        this.lønTime = lønTime;
     }
 
     /**
@@ -266,6 +270,34 @@ public class BEAppearance {
      */
     public void setLogin(BELogin login) {
         this.login = login;
+    }
+
+    /**
+     * @return the lønDone
+     */
+    public boolean isLønDone() {
+        return lønDone;
+    }
+
+    /**
+     * @param lønDone the lønDone to set
+     */
+    public void setLønDone(boolean lønDone) {
+        this.lønDone = lønDone;
+    }
+
+    /**
+     * @return the lønTime
+     */
+    public Timestamp getLønTime() {
+        return lønTime;
+    }
+
+    /**
+     * @param lønTime the lønTime to set
+     */
+    public void setLønTime(Timestamp lønTime) {
+        this.lønTime = lønTime;
     }
 
     
