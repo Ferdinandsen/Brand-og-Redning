@@ -160,13 +160,13 @@ public class ChangeTimeView extends javax.swing.JDialog {
     private void calculateHours() {
         String[] checkInHour = txtCheckIn.getText().split(":");
         String[] checkOutHour = txtCheckUd.getText().split(":");
-        Timestamp checkInHourTs = new Timestamp(0, 0, 0, Integer.parseInt(checkInHour[0]), Integer.parseInt(checkInHour[1]), 33, 66);
-        Timestamp checkOutHourTs = new Timestamp(0, 0, 0, Integer.parseInt(checkOutHour[0]), Integer.parseInt(checkOutHour[1]), 33, 66);
+        Timestamp checkInHourTs = new Timestamp(dateCheckIn.getDate().getYear(), dateCheckIn.getDate().getMonth(), dateCheckIn.getDate().getDate(), Integer.parseInt(checkInHour[0]), Integer.parseInt(checkInHour[1]), 33, 66);
+        Timestamp checkOutHourTs = new Timestamp(dateCheckUd.getDate().getYear(), dateCheckUd.getDate().getMonth(), dateCheckUd.getDate().getDate(), Integer.parseInt(checkOutHour[0]), Integer.parseInt(checkOutHour[1]), 33, 66);
         long difference = checkOutHourTs.getTime() - checkInHourTs.getTime();
 
         long second = difference / 1000 % 60;
         long minute = difference / (1000 * 60) % 60;
-        long hour = difference / (60 * 60 * 1000) % 24;
+        long hour = difference / (60 * 60 * 1000) ;
         if (second > 0) {
             minute++;
         }
