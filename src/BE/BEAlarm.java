@@ -47,7 +47,6 @@ public class BEAlarm {
     /**
      * @return the time
      */
-
     public Timestamp getTime() {
         return time;
     }
@@ -67,6 +66,14 @@ public class BEAlarm {
 
     public boolean hasGuestConfirmed() {
         return guestConfirmed;
+    }
+/**
+ * 
+ * @return the date as string
+ */
+    public String getDateString() {
+        String alarm[] = getTime().toString().split(" ");
+        return alarm[0];
     }
 
     /**
