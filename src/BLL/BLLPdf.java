@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 public class BLLPdf {
 
-    private String FILE = "C:/Users/Shadowleet/Desktop/FirstPdf.pdf";
+    private String FILE = System.getProperty("user.home") + "/Desktop/FirstPdf.pdf";
     private Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.NORMAL, BaseColor.RED);
     private Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
