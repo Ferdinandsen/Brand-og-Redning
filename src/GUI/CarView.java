@@ -20,6 +20,10 @@ public class CarView extends javax.swing.JFrame {
         fillList();
         lstVehicles.setModel(model);
         initOtherComponents();
+        this.setResizable(false);
+        this.setTitle("Køretøjer");
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     private void fillList() {
@@ -27,8 +31,6 @@ public class CarView extends javax.swing.JFrame {
         for (BEVehicle veh : bllVehicle.getAllVehicles()) {
             model.addElement(veh);
         }
-
-
     }
 
     private void initOtherComponents() {
