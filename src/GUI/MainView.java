@@ -27,6 +27,7 @@ public class MainView extends javax.swing.JFrame {
      */
     public MainView() {
         this.setResizable(false);
+        this.setTitle("Main View");
         bllAlarm = BLLAlarm.getInstance();
         bllEmployee = BLLEmployee.getInstance();
         initComponents();

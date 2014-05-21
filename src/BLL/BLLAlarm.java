@@ -61,6 +61,16 @@ public class BLLAlarm {
         return hlgodkendt;
     }
 
+    public ArrayList<BEAlarm> getAllHLGodkendtAndNotILGodkend() {
+        ArrayList<BEAlarm> hlgodkendt = new ArrayList<>();
+        for (BEAlarm a : getAllAlarms()) {
+            if (a.getHlGodkendtTid() != null && a.getIlGodkendtTid() == null) {
+                hlgodkendt.add(a);
+            }
+        }
+        return hlgodkendt;
+    }
+
     public void updateAlarm(BEAlarm a) {
         try {
             dalAlarm.updateAlarm(a);
@@ -77,8 +87,10 @@ public class BLLAlarm {
     }
 
     public void confirmAlarm(BEAlarm localAlarm) {
+        Timestamp time = time();
         try {
-            dalAlarm.confirmAlarm(localAlarm, time());
+            dalAlarm.confirmAlarm(localAlarm, time);
+            localAlarm.setIlGodkendtTid(time);
         } catch (SQLException ex) {
             System.out.println("fejl i confirm alarm" + ex);
         }

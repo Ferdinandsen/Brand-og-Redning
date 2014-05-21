@@ -52,6 +52,8 @@ public class HLAfterActionStory extends javax.swing.JFrame {
         fillCBox();
         initOtherComponents();
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setTitle("Beretning");
     }
 
     @SuppressWarnings("unchecked")
@@ -227,7 +229,7 @@ public class HLAfterActionStory extends javax.swing.JFrame {
         btnGrpAlarm.add(rbtnBAlarm);
         btnGrpAlarm.add(rbtnFAlarm);
         btnGrpAlarm.add(rbtnIkkeIBrug);
-        btnGrpAlarm.setSelected(rbtnNormalAlarm.getModel(),true);
+        btnGrpAlarm.setSelected(rbtnNormalAlarm.getModel(), true);
 
         txtFGRP.addKeyListener(new KeyAdapter() {
             @Override
@@ -266,15 +268,11 @@ public class HLAfterActionStory extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (!txtFGRP.getText().isEmpty() && !txtFDet.getText().isEmpty()) {
-                    getDataToIL();
-                    JOptionPane.showMessageDialog(null, "Tak for bekræftigelsen");
-                    HLUsageReport frame = new HLUsageReport(localAlarm);
-                    frame.setVisible(true);
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Du skal indtaste alle oplysniger for at kunne bekræfte");
-                }
+                getDataToIL();
+                JOptionPane.showMessageDialog(null, "Tak for bekræftigelsen");
+                dispose();
+                HLUsageReport frame = new HLUsageReport(localAlarm);
+                frame.setVisible(true);
             }
         });
 
@@ -310,8 +308,8 @@ public class HLAfterActionStory extends javax.swing.JFrame {
         String alarmtype = "Normal Alarm";
         int gruppeNo;
         int detekNo;
-        
-        if(rbtnNormalAlarm.isSelected()){
+
+        if (rbtnNormalAlarm.isSelected()) {
             alarmtype = "Normal Alarm";
         }
 
@@ -325,8 +323,8 @@ public class HLAfterActionStory extends javax.swing.JFrame {
             alarmtype = "Normal Alarm";
         }
 
-        gruppeNo = Integer.parseInt(txtFGRP.getText());
-        detekNo = Integer.parseInt(txtFDet.getText());
+        gruppeNo = txtFGRP.getText().isEmpty() ? 0 : Integer.parseInt(txtFGRP.getText()); 
+        detekNo = txtFDet.getText().isEmpty() ? 0 : Integer.parseInt(txtFDet.getText());
         localAlarm.setAlarmType(alarmtype);
         localAlarm.setGruppeNo(gruppeNo);
         localAlarm.setDetekterNo(detekNo);

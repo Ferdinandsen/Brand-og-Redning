@@ -120,9 +120,9 @@ public class DALAppearance {
             }
             BEAppearance appearance = new BEAppearance(id, localFireman, checkIn, checkOut, totalTid, hlGodkendt, ilGodkendt,
                     holdleder, chauffør, stationsvagt, type, localAlarm, localVeh, localLogin);
-//            if (localLogin.getMedarbejder().getFornavn().equalsIgnoreCase("gæst")) {
-//                appearance.getAlarm().setGuestConfirmed(true);
-//            }
+            if (localLogin.getMedarbejder().getFornavn().equalsIgnoreCase("gæst")) {
+                appearance.getAlarm().setGuestConfirmed(true);
+            }
 
             allAppearances.add(appearance);
 
@@ -156,7 +156,6 @@ public class DALAppearance {
     }
 
     public void updateAppearance(BEAppearance appearance) throws SQLException {
-
         String sql = "UPDATE Fremmøde SET checkInTime = ?, checkOutTime = ?, totaltid = ? WHERE id = ?";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
@@ -219,7 +218,7 @@ public class DALAppearance {
     }
 
     public void updateFunction(BEAppearance appearance) throws SQLException {
-        String sql = "UPDATE Fremmøde SET isHoldleder = ? WHERE id = ?";
+        String sql = "UPDATE Fremmøde SET holdleder = ? WHERE id = ?";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setBoolean(1, appearance.isHoldleder());

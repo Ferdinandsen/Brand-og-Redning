@@ -4,6 +4,7 @@ import BE.BEAppearance;
 import BLL.BLLAppearance;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
@@ -29,6 +30,7 @@ public class ChangeSalaryView extends javax.swing.JDialog {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setModal(true);
         this.setLocationRelativeTo(null);
+        this.setTitle("Rediger løn");
         initComponents();
         initOtherComponents();
         localAppearance = appearance;
@@ -48,6 +50,8 @@ public class ChangeSalaryView extends javax.swing.JDialog {
         txtEfternavn.setText(localAppearance.getFireman().getMedarbjeder().getEfternavn());
         txtCheckIn.setText(localAppearance.getAlarm().getTimeString());
         txtCheckUd.setText(localAppearance.getCheckOutString());
+        dateCheckIn.setDate(new Date(localAppearance.getCheckIn().getTime()));
+        dateCheckUd.setDate(new Date(localAppearance.getCheckOut().getTime()));
         if (localAppearance.isHoldleder()) {
             cboxFunktion.setSelectedItem(HOLDLEDER);
         } else {
@@ -150,11 +154,7 @@ public class ChangeSalaryView extends javax.swing.JDialog {
             }
         });
 
-        txtCheckUd.addFocusListener(new FocusListener() {
-
-            @Override
-            public void focusGained(FocusEvent e) {
-            }
+        txtCheckUd.addFocusListener(new FocusAdapter() {
 
             @Override
             public void focusLost(FocusEvent e) {
@@ -204,8 +204,7 @@ public class ChangeSalaryView extends javax.swing.JDialog {
         int checkOutHour = Integer.parseInt(splittedCheckOut[0]);
         int checkOutMinute = Integer.parseInt(splittedCheckOut[1]);
         Timestamp newCheckOutTime = new Timestamp(chekOutDate.getYear(), chekOutDate.getMonth(), chekOutDate.getDate(), checkOutHour, checkOutMinute, 0, 0);
-//        Timestamp CheckIn = new Timestamp(localAppearance.getCheckIn().getYear(), localAppearance.getCheckIn().getMonth(), localAppearance.getCheckIn().getDate(), checkInHour, checkInMinute, localAppearance.getCheckIn().getSeconds(), localAppearance.getCheckIn().getNanos());
-//        Timestamp newCheckOut = new Timestamp(localAppearance.getCheckOut().getYear(), localAppearance.getCheckOut().getMonth(), localAppearance.getCheckOut().getDate(), checkOutHour, checkOutMinute, localAppearance.getCheckOut().getSeconds(), localAppearance.getCheckOut().getNanos());
+
         localAppearance.setHoldleder(changeFunction());
         localAppearance.setCheckIn(newCheckInTime);
         localAppearance.setCheckOut(newCheckOutTime);

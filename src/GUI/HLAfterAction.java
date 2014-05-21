@@ -136,8 +136,8 @@ public class HLAfterAction extends javax.swing.JFrame {
                     confirmTeam();
                     msgbox("Holdet er nu bekræftet!");
                     HLAfterActionStory frame = new HLAfterActionStory(bllAppearance.getAllHlGodkendtAppearances((BEAlarm) cboxAlarm.getSelectedItem()), (BEAlarm) cboxAlarm.getSelectedItem());
-//                            HLUsageReport frame = new HLUsageReport((BEAlarm) cboxAlarm.getSelectedItem());
                     frame.setVisible(true);
+                    txtComment.setText(null);
                     dispose();
                 } else {
                     msgbox("Udfyld venligst al information!");

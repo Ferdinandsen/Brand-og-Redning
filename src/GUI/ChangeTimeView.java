@@ -39,6 +39,8 @@ public class ChangeTimeView extends javax.swing.JDialog {
         txtEfternavn.setText(localAppearance.getFireman().getMedarbjeder().getEfternavn());
         txtCheckIn.setText(localAppearance.getAlarm().getTimeString());
         txtCheckUd.setText(localAppearance.getCheckOutString());
+        dateCheckIn.setDate(new Date(localAppearance.getCheckIn().getTime()));
+        dateCheckUd.setDate(new Date(localAppearance.getCheckOut().getTime()));
     }
 
     private void initOtherComponents() {
