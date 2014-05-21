@@ -1,7 +1,6 @@
 package GUI;
 
 import BE.BEMateriel;
-import BE.BEUsage;
 import BLL.BLLUsage;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,13 +12,17 @@ import javax.swing.event.ListSelectionListener;
 public class ForbrugView extends javax.swing.JFrame {
     BLLUsage bllUsage;
     DefaultListModel model = new DefaultListModel();
+    
     public ForbrugView() {
-        this.setLocationRelativeTo(null);
         bllUsage = BLLUsage.getInstance();
         initComponents();
         fillList();
         lstMats.setModel(model);
         initOtherComponents();
+        this.setResizable(false);
+        this.setTitle("Forbrugs administration");
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     private void fillList() {
         model.clear();
@@ -105,7 +108,7 @@ public class ForbrugView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemove)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -114,7 +117,7 @@ public class ForbrugView extends javax.swing.JFrame {
                 .addComponent(txtMat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAdd)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();

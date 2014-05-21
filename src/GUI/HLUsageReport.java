@@ -105,13 +105,14 @@ public class HLUsageReport extends javax.swing.JDialog {
         JPanel p = new JPanel();
         FlowLayout fl = new FlowLayout();
         p.setLayout(fl);
+        JButton a = new JButton(("Intet Forbrug"));
         JButton b = new JButton(("Bekræft"));
-        JButton c = new JButton(("Intet Forbrug"));
         if (update) {
+            a.setText("Tilbage");
             b.setText("Opdater forbrug");
         }
+        p.add(a);
         p.add(b);
-        p.add(c);
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -121,7 +122,7 @@ public class HLUsageReport extends javax.swing.JDialog {
             }
         });
 
-        c.addActionListener(new ActionListener() {
+        a.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
@@ -152,9 +153,11 @@ public class HLUsageReport extends javax.swing.JDialog {
         }
         return p;
     }
-/**
- * Update fortæller om det er IL eller HL der bruger formen - hvis HL IKKE har lavet en laver IL en ny Usage.
- */
+
+    /**
+     * Update fortæller om det er IL eller HL der bruger formen - hvis HL IKKE
+     * har lavet en, laver IL en ny Usage.
+     */
     private void usage() {
         BEUsage bu = null;
         for (ForbrugPanel test : forbrug) {

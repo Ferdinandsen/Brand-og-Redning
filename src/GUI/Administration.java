@@ -1,14 +1,20 @@
 package GUI;
 
 import BE.BEAlarm;
+import BE.BEAppearance;
 import BE.BEFireman;
 import BLL.BLLAlarm;
 import BLL.BLLAppearance;
 import BLL.BLLFireman;
+import BLL.BLLLønPdf;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -32,6 +38,7 @@ public class Administration extends javax.swing.JFrame {
         bllAlarm = BLLAlarm.getInstance();
         initComponents();
         initOtherComponents();
+        populateLønTable(null, dchoFra.getDate(), dchoTil.getDate());
         fillcboxBrandMand();
         populateAlarmList();
         this.setLocationRelativeTo(null);
@@ -63,7 +70,7 @@ public class Administration extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnHent = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
+        lblTid = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,7 +109,7 @@ public class Administration extends javax.swing.JFrame {
 
         btnBack.setText("Tilbage");
 
-        btnDelete.setText("Slet");
+        lblTid.setText("Total tid:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,17 +120,13 @@ public class Administration extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
+                        .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnBack, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblTid, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnOK, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cboxBM, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(53, 53, 53)
@@ -136,7 +139,11 @@ public class Administration extends javax.swing.JFrame {
                         .addComponent(dchoTil, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnHent, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 133, Short.MAX_VALUE)))
+                        .addGap(0, 133, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEdit)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -156,19 +163,18 @@ public class Administration extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(lblTid))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnEdit)
-                            .addComponent(btnDelete))
-                        .addGap(82, 82, 82)
+                        .addComponent(btnEdit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnOK)
-                            .addComponent(btnBack))))
+                            .addComponent(btnBack)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -176,7 +182,6 @@ public class Administration extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnHent;
     private javax.swing.JButton btnOK;
@@ -188,6 +193,7 @@ public class Administration extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblTid;
     private javax.swing.JList lstAlarm;
     private javax.swing.JTable tblBM;
     // End of variables declaration//GEN-END:variables
@@ -197,7 +203,17 @@ public class Administration extends javax.swing.JFrame {
         long dagenstal = new Date().getDate() * DAY - DAY;// den første i måneden, fra dd.
         dchoFra.setDate(new Date(new Date().getTime() - dagenstal));
         dchoTil.setDate(new Date());
-        tblBM.setModel(new LønTableModel(bllAppearance.getAllAppearancesWithDateCriteria(null, dchoFra.getDate(), dchoTil.getDate())));
+        btnEdit.setEnabled(false);
+
+        tblBM.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                btnEdit.setEnabled(tblBM.getSelectedRow() != -1);
+
+            }
+        });
+
         btnEdit.addActionListener(new ActionListener() {
 
             @Override
@@ -205,6 +221,7 @@ public class Administration extends javax.swing.JFrame {
                 updateSalary();
             }
         });
+
         btnHent.setText("Hent");
         btnHent.addActionListener(new ActionListener() {
 
@@ -227,13 +244,27 @@ public class Administration extends javax.swing.JFrame {
                 dispose();
             }
         });
+        btnOK.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<BEAppearance> app = new ArrayList<>();
+                LønTableModel løn = (LønTableModel) tblBM.getModel();
+                for (int i = 0; i < tblBM.getRowCount(); i++) {
+                    app.add(løn.getRow(i));
+                }
+                bllAppearance.EndSalary(app);
+                 JOptionPane.showMessageDialog(null, "Lønnen bekræftet");
+                 createPDF(app);
+            }
+        });
     }
 
     private void populateAlarmList() {
         alarmliste = new DefaultListModel<>();
         lstAlarm.setModel(alarmliste);
         for (BEAlarm a : bllAlarm.getAllUnfinishedAlarms()) {
-//            alarmliste.addElement(a.getDesc() + " " + a.getDateString());
+        alarmliste.addElement(a.toString());
         }
     }
 
@@ -241,6 +272,7 @@ public class Administration extends javax.swing.JFrame {
         model = new LønTableModel(bllAppearance.getAllAppearancesWithDateCriteria(localFireman, from, to));
         tblBM.setModel(model);
         model.fireTableDataChanged();
+        setTotalTime();
     }
 
     private void fillcboxBrandMand() {
@@ -256,9 +288,25 @@ public class Administration extends javax.swing.JFrame {
             ChangeSalaryView frame = new ChangeSalaryView(bllAppearance.getAllAppearancesWithDateCriteria(localFireman, dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY)).get(tblBM.convertRowIndexToView(tblBM.getSelectedRow())));
             frame.setVisible(true);
         } else {
-            ChangeSalaryView frame = new ChangeSalaryView(bllAppearance.getAllAppearancesWithDateCriteria((BEFireman) cboxBM.getSelectedItem(), dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY)).get(tblBM.convertRowIndexToView(tblBM.getSelectedRow())));
-            frame.setVisible(true);
+            try {
+                ChangeSalaryView frame = new ChangeSalaryView(bllAppearance.getAllAppearancesWithDateCriteria((BEFireman) cboxBM.getSelectedItem(), dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY)).get(tblBM.convertRowIndexToView(tblBM.getSelectedRow())));
+                frame.setVisible(true);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Du skal huske at hente først!");
+            }
         }
-        model.fireTableDataChanged();
+        tblBM.setModel(new LønTableModel(bllAppearance.getAllAppearancesWithDateCriteria(null, dchoFra.getDate(), dchoTil.getDate())));
+    }
+
+    private void setTotalTime() {
+        int amount = 0;
+        for (int i = 0; i < tblBM.getRowCount(); i++) {
+            amount += (int) tblBM.getModel().getValueAt(i, 7);
+        }
+        lblTid.setText("Total Tid: " + amount);
+    }
+     private void createPDF(ArrayList<BEAppearance> app){
+        BLLLønPdf pdf = new BLLLønPdf(app);
+        JOptionPane.showMessageDialog(this, "PDF'en er nu lavet på skrivebordet!");
     }
 }

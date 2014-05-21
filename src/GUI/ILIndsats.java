@@ -1,7 +1,6 @@
 package GUI;
 
 import BE.BEAlarm;
-import BE.BEAppearance;
 import BLL.BLLAlarm;
 import BLL.BLLAppearance;
 import java.awt.event.ActionEvent;
@@ -43,7 +42,7 @@ public class ILIndsats extends javax.swing.JFrame {
     }
 
     private void populateFremmødeTable() {
-        model = new UnfinishedFremmødeModel(bllAlarm.getAllUnfinishedAlarms());
+        model = new UnfinishedFremmødeModel(bllAlarm.getAllHLGodkendtAndNotILGodkend());
         tblFremmøder.setModel(model);
         model.fireTableDataChanged();
     }
@@ -69,7 +68,7 @@ public class ILIndsats extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                BEAlarm alarm = bllAlarm.getAllUnfinishedAlarms().get(tblFremmøder.convertRowIndexToView(tblFremmøder.getSelectedRow()));
+                BEAlarm alarm = bllAlarm.getAllHLGodkendtAndNotILGodkend().get(tblFremmøder.convertRowIndexToView(tblFremmøder.getSelectedRow()));
                 ILFremmødeliste view = new ILFremmødeliste(alarm);
                 view.setLocationRelativeTo(null);
                 view.setVisible(true);

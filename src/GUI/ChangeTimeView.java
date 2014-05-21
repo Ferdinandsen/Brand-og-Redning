@@ -4,15 +4,15 @@ import BE.BEAppearance;
 import BLL.BLLAppearance;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Timestamp;
 import java.util.Date;
 
 /**
- *
+ *              REFACTOR TIL ARVECLASS?????
  * @author Team Kawabunga
  */
 public class ChangeTimeView extends javax.swing.JDialog {
@@ -39,6 +39,8 @@ public class ChangeTimeView extends javax.swing.JDialog {
         txtEfternavn.setText(localAppearance.getFireman().getMedarbjeder().getEfternavn());
         txtCheckIn.setText(localAppearance.getAlarm().getTimeString());
         txtCheckUd.setText(localAppearance.getCheckOutString());
+        dateCheckIn.setDate(new Date(localAppearance.getCheckIn().getTime()));
+        dateCheckUd.setDate(new Date(localAppearance.getCheckOut().getTime()));
     }
 
     private void initOtherComponents() {
@@ -90,25 +92,8 @@ public class ChangeTimeView extends javax.swing.JDialog {
             }
         });
 
-        txtCheckIn.addFocusListener(new FocusListener() {
-
-            @Override
-            public void focusGained(FocusEvent e) {
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (txtCheckIn.getText().length() == 5 && txtCheckUd.getText().length() == 5) {
-                    calculateHours();
-                }
-                if (txtCheckIn.getText().length() != 5) {
-                    txtCheckIn.requestFocus();
-                }
-            }
-        });
-
         txtCheckUd.addKeyListener(new KeyAdapter() {
-            
+
             @Override
             public void keyTyped(KeyEvent e) {
                 if (txtCheckUd.getText().length() == 2) {
@@ -137,12 +122,21 @@ public class ChangeTimeView extends javax.swing.JDialog {
             }
         });
 
-        txtCheckUd.addFocusListener(new FocusListener() {
-            
+        txtCheckIn.addFocusListener(new FocusAdapter() {
+
             @Override
-            public void focusGained(FocusEvent e) {
+            public void focusLost(FocusEvent e) {
+                if (txtCheckIn.getText().length() == 5 && txtCheckUd.getText().length() == 5) {
+                    calculateHours();
+                }
+                if (txtCheckIn.getText().length() != 5) {
+                    txtCheckIn.requestFocus();
+                }
             }
-            
+        });
+
+        txtCheckUd.addFocusListener(new FocusAdapter() {
+
             @Override
             public void focusLost(FocusEvent e) {
                 if (txtCheckIn.getText().length() == 5 && txtCheckUd.getText().length() == 5) {
@@ -156,43 +150,24 @@ public class ChangeTimeView extends javax.swing.JDialog {
     }
 
     private void calculateHours() {
-        String[] checkInHour = txtCheckIn.getText().split(":");
-        String[] checkOutHour = txtCheckUd.getText().split(":");
-        Timestamp checkInHourTs = new Timestamp(0, 0, 0, Integer.parseInt(checkInHour[0]), Integer.parseInt(checkInHour[1]), 33, 66);
-        Timestamp checkOutHourTs = new Timestamp(0, 0, 0, Integer.parseInt(checkOutHour[0]), Integer.parseInt(checkOutHour[1]), 33, 66);
-        long difference = checkOutHourTs.getTime() - checkInHourTs.getTime();
+        lblTotal.setText(String.valueOf(bllAppearance.calculateTotalTime(getcheckInTime(), getcheckOutTime())));
+    }
 
-        long second = difference / 1000 % 60;
-        long minute = difference / (1000 * 60) % 60;
-        long hour = difference / (60 * 60 * 1000) % 24;
-        if (second > 0) {
-            minute++;
-        }
-        if (minute > 0) {
-            hour++;
-        }
-        if (hour < 2) {
-            hour = 2;
-        }
-        lblTotal.setText(String.valueOf(hour));
+    private Timestamp getcheckInTime() {
+        String[] checkInHour = txtCheckIn.getText().split(":");
+        Timestamp checkInHourTs = new Timestamp(dateCheckIn.getDate().getYear(), dateCheckIn.getDate().getMonth(), dateCheckIn.getDate().getDate(), Integer.parseInt(checkInHour[0]), Integer.parseInt(checkInHour[1]), 0, 0);
+        return checkInHourTs;
+    }
+
+    private Timestamp getcheckOutTime() {
+        String[] checkOutHour = txtCheckUd.getText().split(":");
+        Timestamp checkOutHourTs = new Timestamp(dateCheckUd.getDate().getYear(), dateCheckUd.getDate().getMonth(), dateCheckUd.getDate().getDate(), Integer.parseInt(checkOutHour[0]), Integer.parseInt(checkOutHour[1]), 0, 0);
+        return checkOutHourTs;
     }
 
     private void confirm() {
-
-        Date checkInDate = dateCheckIn.getDate();
-        Date chekOutDate = dateCheckUd.getDate();
-
-        String[] splittedCheckIn = txtCheckIn.getText().split(":");
-        int checkInHour = Integer.parseInt(splittedCheckIn[0]);
-        int checkInMinute = Integer.parseInt(splittedCheckIn[1]);
-        Timestamp newCheckInTime = new Timestamp(checkInDate.getYear(), checkInDate.getMonth(), checkInDate.getDate(), checkInHour, checkInMinute, 0, 0);
-
-        String[] splittedCheckOut = txtCheckUd.getText().split(":");
-        int checkOutHour = Integer.parseInt(splittedCheckOut[0]);
-        int checkOutMinute = Integer.parseInt(splittedCheckOut[1]);
-        Timestamp newCheckOutTime = new Timestamp(chekOutDate.getYear(), chekOutDate.getMonth(), chekOutDate.getDate(), checkOutHour, checkOutMinute, 0, 0);
-//        Timestamp CheckIn = new Timestamp(localAppearance.getCheckIn().getYear(), localAppearance.getCheckIn().getMonth(), localAppearance.getCheckIn().getDate(), checkInHour, checkInMinute, localAppearance.getCheckIn().getSeconds(), localAppearance.getCheckIn().getNanos());
-//        Timestamp newCheckOut = new Timestamp(localAppearance.getCheckOut().getYear(), localAppearance.getCheckOut().getMonth(), localAppearance.getCheckOut().getDate(), checkOutHour, checkOutMinute, localAppearance.getCheckOut().getSeconds(), localAppearance.getCheckOut().getNanos());
+        Timestamp newCheckInTime = getcheckInTime();
+        Timestamp newCheckOutTime = getcheckOutTime();
 
         localAppearance.setCheckIn(newCheckInTime);
         localAppearance.setCheckOut(newCheckOutTime);

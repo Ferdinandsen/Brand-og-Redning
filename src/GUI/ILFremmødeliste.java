@@ -416,6 +416,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
             localAlarm.setAlarmType(cboxAlarmType.getSelectedItem().toString());
             localAlarm.setIlBemærkning(txtABem.getText());
             localAlarm.setDesc(txtBeskrivelse.getText());
+            
             bllAlarm.confirmAlarm(localAlarm);
 
             bllAppearance.confirmAlarmTeam(localAlarm);

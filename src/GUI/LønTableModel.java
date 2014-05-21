@@ -21,6 +21,7 @@ final int BMLønkode = 446;
         "Efternavn",
         "Dato",
         "Indsats",
+        "evaNo",
         "Funktion",
         "Lønkode",
         "Total Timer"
@@ -33,6 +34,7 @@ final int BMLønkode = 446;
         String.class, //Efternavn
         Timestamp.class, //Dato
         String.class, // Indsats
+        Integer.class,//EvaNo
         String.class, //Funktion
         Integer.class, //Lønkode
         Integer.class, //Total timer
@@ -70,10 +72,12 @@ final int BMLønkode = 446;
             case 3:
                 return a.getAlarm().getDesc();
             case 4:
-                return a.isHoldleder() ? "Holdleder" : "Brandmand";
+                return a.getAlarm().getEvaNo();
             case 5:
-               return a.isHoldleder() ? HLLønkode : BMLønkode;
+                return a.isHoldleder() ? "Holdleder" : "Brandmand";
             case 6:
+               return a.isHoldleder() ? HLLønkode : BMLønkode;
+            case 7:
                 return a.getTotalTid();
         }
         return null;
@@ -92,6 +96,10 @@ final int BMLønkode = 446;
     @Override
     public boolean isCellEditable(int row, int col) {
         return false;
+    }
+    
+    public BEAppearance getRow(int row){
+        return appearances.get(row);
     }
 
     public void setAppearanceList(ArrayList<BEAppearance> appearance) {

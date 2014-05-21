@@ -45,7 +45,7 @@ public class DALAppearance {
     }
 
     public void endShift(BEAlarm alarm, BEFireman fireman, BEVehicle veh, boolean hl, boolean ch, boolean st, int total, Timestamp time) throws SQLException {
-        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setInt(1, fireman.getMedarbjeder().getMedarbejderNo());
@@ -66,7 +66,9 @@ public class DALAppearance {
             ps.setInt(12, veh.getOdinnummer());
         }
         ps.setString(13, null);
-//LAV EN BE
+        ps.setBoolean(14, false);
+        ps.setTimestamp(15, null);
+
         ps.execute();
     }
 
@@ -92,6 +94,8 @@ public class DALAppearance {
             int alarmRef = result.getInt("alarmRef");
             int vehRef = result.getInt("køtjRef");
             int loginRef = result.getInt("loginRef");
+            boolean lønDone = result.getBoolean("lønDone");
+            Timestamp lønTime = result.getTimestamp("lønTime");
 
             BEAlarm localAlarm = null;
             for (BEAlarm alarm : dalAlarm.getAllAlarms()) {
@@ -119,13 +123,11 @@ public class DALAppearance {
                 }
             }
             BEAppearance appearance = new BEAppearance(id, localFireman, checkIn, checkOut, totalTid, hlGodkendt, ilGodkendt,
-                    holdleder, chauffør, stationsvagt, type, localAlarm, localVeh, localLogin);
-            if (localLogin.getMedarbejder().getFornavn().equalsIgnoreCase("gæst")) {
+                    holdleder, chauffør, stationsvagt, type, localAlarm, localVeh, localLogin, lønDone, lønTime);
+            if (appearance.getFireman().getMedarbjeder().getFornavn().equalsIgnoreCase("gæst")) {
                 appearance.getAlarm().setGuestConfirmed(true);
             }
-
             allAppearances.add(appearance);
-
         }
     }
 
@@ -156,7 +158,6 @@ public class DALAppearance {
     }
 
     public void updateAppearance(BEAppearance appearance) throws SQLException {
-
         String sql = "UPDATE Fremmøde SET checkInTime = ?, checkOutTime = ?, totaltid = ? WHERE id = ?";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
@@ -176,7 +177,7 @@ public class DALAppearance {
     }
 
     public void createAppearance(BEFireman fireman, int total, Timestamp time, BEAlarm alarm, BEVehicle veh, String checkOutTime, boolean hl, boolean ch, boolean st, int kørselstype) throws SQLException {
-        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?) select @@identity";
+        String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) select @@identity";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setInt(1, fireman.getMedarbjeder().getMedarbejderNo());
@@ -197,14 +198,16 @@ public class DALAppearance {
             ps.setInt(12, veh.getOdinnummer());
         }
         ps.setString(13, null);
+        ps.setBoolean(14, false);
+        ps.setTimestamp(15, null);
 
         ps.execute();
+
         ResultSet rs = ps.getGeneratedKeys();
         int id = 0;
         if (rs.next()) {
             id = rs.getInt(1);
-
-            BEAppearance appearance = new BEAppearance(id, fireman, alarm.getTime(), time, total, true, false, hl, ch, st, kørselstype, alarm, veh, null);
+            BEAppearance appearance = new BEAppearance(id, fireman, alarm.getTime(), time, total, true, false, hl, ch, st, kørselstype, alarm, veh, null, false, null);
             allAppearances.add(appearance);
         }
     }
@@ -219,11 +222,21 @@ public class DALAppearance {
     }
 
     public void updateFunction(BEAppearance appearance) throws SQLException {
-        String sql = "UPDATE Fremmøde SET isHoldleder = ? WHERE id = ?";
+        String sql = "UPDATE Fremmøde SET holdleder = ? WHERE id = ?";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setBoolean(1, appearance.isHoldleder());
         ps.setInt(2, appearance.getId());
+        ps.execute();
+    }
+
+    public void createSalary(BEAppearance a, Timestamp ts) throws SQLException {
+        String sql = "UPDATE Fremmøde SET lønDone = ?, lønTime =? where id = ?";
+
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setBoolean(1, true);
+        ps.setTimestamp(2, ts);
+        ps.setInt(3, a.getId());
         ps.execute();
     }
 }
