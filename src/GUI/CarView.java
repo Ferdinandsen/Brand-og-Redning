@@ -27,8 +27,6 @@ public class CarView extends javax.swing.JFrame {
         for (BEVehicle veh : bllVehicle.getAllVehicles()) {
             model.addElement(veh);
         }
-
-
     }
 
     private void initOtherComponents() {

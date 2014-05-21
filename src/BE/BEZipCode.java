@@ -15,30 +15,40 @@ public class BEZipCode {
     }
 
     /**
-     * @return the ZIPCODE
+     * @return the zipCode
      */
-    public int getZIPCODE() {
+    public int getZipCode() {
         return zipCode;
     }
 
     /**
-     * @param ZIPCODE the ZIPCODE to set
+     * @param zipCode the zipCode to set
      */
-    public void setZIPCODE(int ZIPCODE) {
-        this.zipCode = ZIPCODE;
+    public void setZipCode(int zipCode) {
+        this.zipCode = zipCode;
     }
 
     /**
-     * @return the CITY
+     * @return the city
      */
-    public String getCITY() {
+    public String getCity() {
         return city;
     }
 
     /**
-     * @param CITY the CITY to set
+     * @param city the city to set
      */
-    public void setCITY(String CITY) {
-        this.city = CITY;
+    public void setCity(String city) {
+        this.city = city;
     }
+
+    /**
+     * @return the ZIPCODE
+     */
+    
+
+    /**
+     * @return the CITY
+     */
+   
 }

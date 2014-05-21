@@ -116,7 +116,7 @@ public class BEEmployee {
     /**
      * @return the adressRef
      */
-    public BEAddress getAdressRef() {
+    public BEAddress getAdress() {
         return adressRef;
     }
 

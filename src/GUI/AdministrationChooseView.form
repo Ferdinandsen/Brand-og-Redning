@@ -26,7 +26,7 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnFiremen" pref="188" max="32767" attributes="0"/>
+                  <Component id="btnEmployee" pref="188" max="32767" attributes="0"/>
                   <Component id="btnCar" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -48,7 +48,7 @@
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnFiremen" alignment="3" min="-2" pref="137" max="-2" attributes="0"/>
+                  <Component id="btnEmployee" alignment="3" min="-2" pref="137" max="-2" attributes="0"/>
                   <Component id="btnSalary" alignment="3" min="-2" pref="137" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -62,9 +62,9 @@
         <Property name="text" type="java.lang.String" value="Administrer biler"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnFiremen">
+    <Component class="javax.swing.JButton" name="btnEmployee">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Administrer brandm&#xe6;nd"/>
+        <Property name="text" type="java.lang.String" value="Administrer medarbejdere"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnSalary">

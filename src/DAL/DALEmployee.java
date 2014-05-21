@@ -2,6 +2,7 @@ package DAL;
 
 import BE.BEAddress;
 import BE.BEEmployee;
+import BE.BEFireman;
 import BE.BEZipCode;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -37,7 +38,7 @@ public class DALEmployee {
 
     private void populateEmployee() throws SQLException {
         allEmployees = new ArrayList<>();
-        String sql = "SELECT * FROM Medarbejder order by fornavn";
+        String sql = "select * from Medarbejder order by case when fornavn = 'Gæst' then 0 else 1 end, fornavn";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.execute();
@@ -61,9 +62,10 @@ public class DALEmployee {
                 if (adresseRef == address.getId()) {
                     localaddress = address;
                 }
-                BEEmployee employee = new BEEmployee(medarbejderNo, fornavn, mellemnavn, efternavn, CPR, portræt, localaddress, isFriviligBrandmand);
-                allEmployees.add(employee);
             }
+            BEEmployee employee = new BEEmployee(medarbejderNo, fornavn, mellemnavn, efternavn, CPR, portræt, localaddress, isFriviligBrandmand);
+            allEmployees.add(employee);
+
         }
     }
 
@@ -85,7 +87,7 @@ public class DALEmployee {
             BEZipCode localZipCode = null;
 
             for (BEZipCode zipCode : getAllZipCodes()) {
-                if (postnummerRef == zipCode.getZIPCODE()) {
+                if (postnummerRef == zipCode.getZipCode()) {
                     localZipCode = zipCode;
                 }
                 BEAddress address = new BEAddress(ID, gadenavn, gadenummer, etage, lejlighed, localZipCode);
@@ -146,4 +148,76 @@ public class DALEmployee {
     public ArrayList<BEAddress> getAllAddresses() {
         return allAddresses;
     }
+
+    public int addAddress(String gadenavn, int gadenummer, int etage, String lejlighed, int postnummer) throws SQLException {
+        String sql = "INSERT INTO Adresse VALUES (?,?,?,?,?) select @@identity";
+
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setString(1, gadenavn);
+        ps.setInt(2, gadenummer);
+        ps.setInt(3, etage);
+        ps.setString(4, lejlighed);
+        ps.setInt(5, postnummer);
+
+        ps.execute();
+
+        
+        ResultSet rs = ps.getGeneratedKeys();
+        int id = 0;
+        if (rs.next()) {
+            id = rs.getInt(1);
+        }
+        BEZipCode localZip = null;
+        for (BEZipCode zip : getAllZipCodes()){
+            if (zip.getZipCode() == postnummer){
+                localZip = zip;
+            }
+        }
+        BEAddress add = new BEAddress(id, gadenavn, gadenummer, etage, lejlighed, localZip);
+        allAddresses.add(add);
+        return id;
+    }
+
+    public BEEmployee addEmployee(String fornavn, String mellemnavn, String efternavn, String CPR, String portræt, boolean fireman, int adresseID) throws SQLException {
+        String sql = "INSERT INTO Medarbejder VALUES (?,?,?,?,?,?,?) select @@identity";
+
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setString(1, fornavn);
+        ps.setString(2, mellemnavn);
+        ps.setString(3, efternavn);
+        ps.setString(4, CPR);
+        ps.setString(5, portræt);
+        ps.setInt(6, adresseID);
+        ps.setBoolean(7, fireman);
+
+        ps.execute();
+
+        
+        ResultSet rs = ps.getGeneratedKeys();
+        int id = 0;
+        if (rs.next()) {
+            id = rs.getInt(1);
+        }
+       
+        BEAddress localAddress = null;
+        for (BEAddress add : getAllAddresses()){
+            if (add.getId() == adresseID){
+                localAddress = add;
+            }
+        }
+        BEEmployee employee = new BEEmployee(id, fornavn, mellemnavn, efternavn, CPR, portræt, localAddress, fireman);
+        allEmployees.add(employee);
+        return employee;
+    }
+
+    public void deleteEmployee(BEEmployee emp) throws SQLException {
+        String sql = "DELETE FROM Medarbejder WHERE medarbejderNo = ?";
+        PreparedStatement ps = m_connection.prepareStatement(sql);
+        ps.setInt(1, emp.getMedarbejderNo());
+        ps.execute();
+        allEmployees.remove(emp);
+    }
+    
+
+    
 }

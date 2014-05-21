@@ -1,9 +1,12 @@
 package BLL;
 
+import BE.BEEmployee;
 import BE.BEFireman;
 import DAL.DALFireman;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -56,5 +59,13 @@ public class BLLFireman {
             }
         }
         return number;
+    }
+
+    public void deleteFireman(BEEmployee emp) {
+        try {
+            dalFireman.deleteFireman(emp);
+        } catch (SQLException ex) {
+            System.out.println("fejl i deleteFireman i bllFireman " + ex);
+        }
     }
 }

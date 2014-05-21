@@ -39,6 +39,15 @@ public class AdministrationChooseView extends javax.swing.JFrame {
                 dispose();
             }
         });
+        btnEmployee.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FiremenView view = new FiremenView();
+                view.setVisible(true);
+                dispose();
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -46,7 +55,7 @@ public class AdministrationChooseView extends javax.swing.JFrame {
     private void initComponents() {
 
         btnCar = new javax.swing.JButton();
-        btnFiremen = new javax.swing.JButton();
+        btnEmployee = new javax.swing.JButton();
         btnSalary = new javax.swing.JButton();
         btnMaterials = new javax.swing.JButton();
 
@@ -54,7 +63,7 @@ public class AdministrationChooseView extends javax.swing.JFrame {
 
         btnCar.setText("Administrer biler");
 
-        btnFiremen.setText("Administrer brandmænd");
+        btnEmployee.setText("Administrer medarbejdere");
 
         btnSalary.setText("Administrer løn");
 
@@ -67,7 +76,7 @@ public class AdministrationChooseView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnFiremen, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                    .addComponent(btnEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
                     .addComponent(btnCar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -84,7 +93,7 @@ public class AdministrationChooseView extends javax.swing.JFrame {
                     .addComponent(btnMaterials, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnFiremen, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -93,7 +102,7 @@ public class AdministrationChooseView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCar;
-    private javax.swing.JButton btnFiremen;
+    private javax.swing.JButton btnEmployee;
     private javax.swing.JButton btnMaterials;
     private javax.swing.JButton btnSalary;
     // End of variables declaration//GEN-END:variables
