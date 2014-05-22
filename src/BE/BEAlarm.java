@@ -259,6 +259,12 @@ public class BEAlarm {
     public Timestamp getIlGodkendtTid() {
         return ilGodkendtTid;
     }
+    public String getIlGodkendtTidTimeString() {
+         String godkendtTid[] = ilGodkendtTid.toString().split(" ");
+        String[] fixedGodkendtTid = godkendtTid[1].split(":");
+        String finalGodkendtTid = fixedGodkendtTid[0] + ":" + fixedGodkendtTid[1];
+        return finalGodkendtTid;
+    }
 
     /**
      * @param ilGodkendtTid the ilGodkendtTid to set

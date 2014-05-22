@@ -2,6 +2,7 @@ package GUI;
 
 import Renderes.ILFremmødeTableCellRenderer;
 import BE.BEAlarm;
+import BE.BELogin;
 import BE.BEUsage;
 import BLL.BLLAlarm;
 import BLL.BLLAppearance;
@@ -31,8 +32,10 @@ public class ILFremmødeliste extends javax.swing.JFrame {
     BEAlarm localAlarm;
     private ILFremmødeTableModel model;
     boolean usageConfirmed = false;
+    BELogin localLogin;
 
-    public ILFremmødeliste(BEAlarm alarm) {
+    public ILFremmødeliste(BEAlarm alarm, BELogin log) {
+        localLogin = log;
         bllAlarm = BLLAlarm.getInstance();
         bllUsage = BLLUsage.getInstance();
         bllAppearance = BLLAppearance.getInstance();
@@ -377,7 +380,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
         btnCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ILIndsats view = new ILIndsats();
+                ILIndsats view = new ILIndsats(localLogin);
                 view.setVisible(true);
                 dispose();
             }
@@ -417,7 +420,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
             localAlarm.setAlarmType(cboxAlarmType.getSelectedItem().toString());
             localAlarm.setIlBemærkning(txtABem.getText());
             localAlarm.setDesc(txtBeskrivelse.getText());
-            
+
             bllAlarm.confirmAlarm(localAlarm);
 
             bllAppearance.confirmAlarmTeam(localAlarm);
@@ -490,8 +493,9 @@ public class ILFremmødeliste extends javax.swing.JFrame {
     private boolean isInformationValid() {
         return !(txtAlarmTid.getText().isEmpty() && txtBeskrivelse.getText().isEmpty() && txtDetektorNr.getText().isEmpty() && txtEvaNo.getText().isEmpty() && txtGruppeNr.getText().isEmpty() && usageConfirmed == true);
     }
-    private void createPDF(){
-        BLLPdf pdf = new BLLPdf(bllAppearance.getAllHlGodkendtAppearances(localAlarm));
+
+    private void createPDF() {
+        BLLPdf pdf = new BLLPdf(localAlarm, localLogin);
         JOptionPane.showMessageDialog(this, "PDF'en er nu lavet på skrivebordet!");
     }
 }

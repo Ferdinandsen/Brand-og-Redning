@@ -1,5 +1,6 @@
 package BLL;
 
+import BE.BEAlarm;
 import BE.BEMateriel;
 import BE.BEUsage;
 import DAL.DALUsage;
@@ -25,7 +26,8 @@ public class BLLUsage {
             System.out.println("Fejl i BLLUsage " + e);
         }
     }
-    public ArrayList<BEUsage> getAllUsages(){
+
+    public ArrayList<BEUsage> getAllUsages() {
         return dalusage.getAllUsages();
     }
 
@@ -50,12 +52,11 @@ public class BLLUsage {
     }
 
     public void updateUsageReport(BEUsage bu) {
-       try{
-           dalusage.updateUsageReport(bu);
-       }
-       catch (SQLException e){
-           System.out.println("Fejl i updateUsageReport" + e);
-       }
+        try {
+            dalusage.updateUsageReport(bu);
+        } catch (SQLException e) {
+            System.out.println("Fejl i updateUsageReport" + e);
+        }
     }
 
     public void deleteMaterial(BEMateriel mat) {
@@ -70,7 +71,17 @@ public class BLLUsage {
         try {
             dalusage.addMaterial(text);
         } catch (SQLException ex) {
-             System.out.println("Fejl i addMaterial i bllUsage" + ex);
+            System.out.println("Fejl i addMaterial i bllUsage" + ex);
         }
+    }
+
+    public ArrayList<BEUsage> getAllUsagesForAlarm(BEAlarm localAlarm) {
+        ArrayList<BEUsage> allUsages = new ArrayList<>();
+        for (BEUsage usage : getAllUsages()) {
+            if (usage.getAlarm() == localAlarm) {
+                allUsages.add(usage);
+            }
+        }
+        return allUsages;
     }
 }

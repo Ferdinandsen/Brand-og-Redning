@@ -1,17 +1,20 @@
 package BLL;
 
+import BE.BEAlarm;
 import BE.BEAppearance;
+import BE.BELogin;
+import BE.BEUsage;
+import BE.BEVehicle;
 import java.io.FileOutputStream;
-import java.util.Date;
 
 import com.itextpdf.text.Anchor;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.List;
 import com.itextpdf.text.ListItem;
 import com.itextpdf.text.PageSize;
@@ -22,11 +25,14 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BLLPdf {
 
-    private String FILE = System.getProperty("user.home") + "/Desktop/FirstPdf.pdf";
+    private String FILE;
     private Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.NORMAL, BaseColor.RED);
     private Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
@@ -40,16 +46,32 @@ public class BLLPdf {
 
     ArrayList<BEAppearance> localAppearances;
     private int amount = 0;
+    BEAlarm localAlarm;
+    BLLUsage bllUsage;
+    BLLAppearance bllAppearance;
+    BELogin localLog;
+    BLLVehicle bllVehicle;
 
-    public BLLPdf(ArrayList<BEAppearance> allHlGodkendtAppearances) {
-        localAppearances = allHlGodkendtAppearances;
-        amount = localAppearances.size();
+    public BLLPdf(BEAlarm alarm, BELogin log) {
         try {
+            localLog = log;
+            localAlarm = alarm;
+            bllAppearance = BLLAppearance.getInstance();
+            bllVehicle = BLLVehicle.getInstance();
+            bllUsage = BLLUsage.getInstance();
+            localAppearances = bllAppearance.getAllHlGodkendtAppearances(localAlarm);
+            amount = localAppearances.size();
+            FILE = System.getProperty("user.home") + "/Desktop/" + localAlarm.getEvaNo() + " " + localAlarm.getDesc() + " - " + localAlarm.getIlGodkendtTid().getDay() + "-" + localAlarm.getIlGodkendtTid().getMonth() + "-" + localAlarm.getIlGodkendtTid().getYear() + ".pdf";
+
             Document document = new Document(PageSize.A4.rotate()); //Roterer siden til at være landskab! Fjern parameter for at gøre den til normal  Document document = new Document(PageSize.LETTER.rotate()); 
             PdfWriter.getInstance(document, new FileOutputStream(FILE));
             document.open();
             addMetaData(document);
-            addTitlePage(document);
+            try {
+                addTitlePage(document);
+            } catch (IOException ex) {
+                Logger.getLogger(BLLPdf.class.getName()).log(Level.SEVERE, null, ex);
+            }
             addContent(document);
             document.close();
         } catch (DocumentException | FileNotFoundException ex) {
@@ -66,170 +88,200 @@ public class BLLPdf {
     }
 
     private void addTitlePage(Document document)
-            throws DocumentException {
+            throws DocumentException, IOException {
         Paragraph preface = new Paragraph();
         // We add one empty line
+        Image image1 = Image.getInstance("brandogredning.jpg");
+        preface.add(image1);
         addEmptyLine(preface, 1);
         // Lets write a big header
-        preface.add(new Paragraph("Brand & Redning, Esbjerg                    Set af: " + System.getProperty("user.name") + ", " + new Date(), titleFont));
+        addEmptyLine(preface, 1);
+        Paragraph p = new Paragraph("Brand & Redning, Esbjerg - Station 4.24 \t \t \t ");
+        p.setAlignment(Element.ALIGN_LEFT);
+        preface.add(p);
+
+        p = (new Paragraph("Set af: " + localLog.getMedarbejder() + ", " + localAlarm.getIlGodkendtTidTimeString(), titleFont));
+        p.setAlignment(Element.ALIGN_RIGHT);
+        preface.add(p);
+        addEmptyLine(preface, 1);
+
+        preface.add(new Paragraph("Alarm beskrivelse: " + localAlarm.getDesc()));
+        addEmptyLine(preface, 1);
+        preface.add(new Paragraph("Alarm Tidspunkt: " + localAlarm.getTime()));
+        addEmptyLine(preface, 1);
+        preface.add(new Paragraph("Alarm EVA NR: " + localAlarm.getEvaNo()));
+        addEmptyLine(preface, 1);
+        preface.add(new Paragraph("Holdleder bemærkning: " + localAlarm.getHlBemærkning()));
+        addEmptyLine(preface, 1);
+        preface.add(new Paragraph("Indsatsleder bemærkning: " + localAlarm.getIlBemærkning()));
+        addEmptyLine(preface, 1);
         document.add(preface);
         // Start a new page
 //        document.newPage();
     }
 
     private void addContent(Document document) throws DocumentException {
-        Anchor anchor = new Anchor("Tidsregistrering", catFont);
-        anchor.setName("Tidsregistrering");
+        Anchor anchor = new Anchor("Fremmøde", catFont);
+        anchor.setName("Fremmøde");
 
-//
-//        // Second parameter is the number of the chapter
-        Chapter catPart = new Chapter(new Paragraph(anchor), 1);
-//
-//        Paragraph subPara = new Paragraph("Subcategory 1", subFont);
-//        Section subCatPart = catPart.addSection(subPara);
-//        subCatPart.add(new Paragraph("Hello"));
-//
-//        subPara = new Paragraph("Subcategory 2", subFont);
-//        subCatPart = catPart.addSection(subPara);
-//        subCatPart.add(new Paragraph("Paragraph 1"));
-//        subCatPart.add(new Paragraph("Paragraph 2"));
-//        subCatPart.add(new Paragraph("Paragraph 3"));
-//
-//        // add a list
-//        createList(subCatPart);
-//        Paragraph paragraph = new Paragraph();
-//        addEmptyLine(paragraph, 5);
-//        subCatPart.add(paragraph);
+        createFremmødeTable(document);
+        document.newPage();
+        createForbrugTable(document);
+        Paragraph preface = new Paragraph();
+        addEmptyLine(preface, 2);
+        document.add(preface);
+        createIndsatsStyrkeTable(document);
 
-        // add a table
-        //createHeaderTable(subCatPart);
-        createGridTable(catPart);
-
-        // now add all this to the document
-        document.add(catPart);
-
-//        // Next section
-//        anchor = new Anchor("Second Chapter", catFont);
-//        anchor.setName("Second Chapter");
-//
-//        // Second parameter is the number of the chapter
-//        catPart = new Chapter(new Paragraph(anchor), 1);
-//
-//        subPara = new Paragraph("Subcategory", subFont);
-//        subCatPart = catPart.addSection(subPara);
-//        subCatPart.add(new Paragraph("This is a very important message"));
-//
-//        // now add all this to the document
-//        document.add(catPart);
     }
 
-//    private static void createHeaderTable(Section subCatPart)
-//            throws BadElementException {
-//        PdfPTable table = new PdfPTable(3);
-//
-//        // t.setBorderColor(BaseColor.GRAY);
-//        // t.setPadding(4);
-//        // t.setSpacing(4);
-//        // t.setBorderWidth(1);
-//
-//        PdfPCell c1 = new PdfPCell(new Phrase("Fremmødeliste ved: "));
-//        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-//        table.addCell(c1);
-//
-//        c1 = new PdfPCell(new Phrase("Table Header 2"));
-//        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-//        table.addCell(c1);
-//
-//
-//        c1 = new PdfPCell(new Phrase("Table Header 3"));
-//        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-//        table.addCell(c1);
-//        table.setHeaderRows(1);
-//
-//        table.addCell("1.0");
-//        table.addCell("1.1");
-//        table.addCell("1.2");
-//        table.addCell("2.1");
-//        table.addCell("2.2");
-//        table.addCell("2.3");
-//        
-//        for (int i = 0; i < amount; i++){
-//           table.addCell("TESTDATA");
-//       }
-//
-//        subCatPart.add(table);
-//
-//    }
-    private void createGridTable(Section subCatPart) throws BadElementException {
-        PdfPTable table = new PdfPTable(new float[]{1, 2, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2});
+    private void createIndsatsStyrkeTable(Document doc) throws BadElementException, DocumentException {
+        PdfPTable table = new PdfPTable(3);
         table.setWidthPercentage(100f);
         table.getDefaultCell().setUseAscender(true);
         table.getDefaultCell().setUseDescender(true);
         table.getDefaultCell().setBackgroundColor(BaseColor.LIGHT_GRAY);
-        // t.setBorderColor(BaseColor.GRAY);
-        // t.setPadding(4);
-        // t.setSpacing(4);
-        // t.setBorderWidth(1);
 
-        PdfPCell c1 = new PdfPCell(new Phrase("Gr:"));
+        PdfPCell c1 = new PdfPCell(new Phrase("Vogn nr:"));
+        c1.setBackgroundColor(BaseColor.LIGHT_GRAY);
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Grad:"));
+        c1 = new PdfPCell(new Phrase("Kørsels 1 / 2"));
+        c1.setBackgroundColor(BaseColor.LIGHT_GRAY);
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Bemanding:"));
+        c1.setBackgroundColor(BaseColor.LIGHT_GRAY);
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        table.setHeaderRows(1);
+
+        insertDataIntoIndsatsStyrkeTable(table);
+        doc.add(table);
+    }
+
+    private void insertDataIntoIndsatsStyrkeTable(PdfPTable table) {
+        for (BEVehicle vehicle : bllVehicle.getAllVehiclesFromAppearances(bllAppearance.getAllHlGodkendtAppearances(localAlarm))) {
+            int kørselType = 0;
+            int bemandingAmount = 0;
+            for (BEAppearance appearance : bllAppearance.getAllHlGodkendtAppearances(localAlarm)) {
+                if (appearance.getVeh() == vehicle) {
+                    kørselType = appearance.getKørselsType();
+                    bemandingAmount++;
+                }
+            }
+
+            PdfPCell c1 = new PdfPCell(new Phrase(vehicle.toString()));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+
+            c1 = new PdfPCell(new Phrase(String.valueOf(kørselType)));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+
+            c1 = new PdfPCell(new Phrase(String.valueOf(bemandingAmount)));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+        }
+
+    }
+
+    private void createForbrugTable(Document doc) throws BadElementException, DocumentException {
+        PdfPTable table = new PdfPTable(4);
+        table.setWidthPercentage(100f);
+        table.getDefaultCell().setUseAscender(true);
+        table.getDefaultCell().setUseDescender(true);
+        table.getDefaultCell().setBackgroundColor(BaseColor.LIGHT_GRAY);
+
+        PdfPCell c1 = new PdfPCell(new Phrase("Brandmateriel:"));
+        c1.setBackgroundColor(BaseColor.LIGHT_GRAY);
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Antal:"));
+        c1.setBackgroundColor(BaseColor.LIGHT_GRAY);
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Brandmateriel:"));
+        c1.setBackgroundColor(BaseColor.LIGHT_GRAY);
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Antal:"));
+        c1.setBackgroundColor(BaseColor.LIGHT_GRAY);
+        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(c1);
+
+        table.setHeaderRows(1);
+
+        insertDataIntoForbrugTable(table);
+        doc.add(table);
+    }
+
+    private void insertDataIntoForbrugTable(PdfPTable table) {
+        for (BEUsage usage : bllUsage.getAllUsagesForAlarm(localAlarm)) {
+
+            PdfPCell c1 = new PdfPCell(new Phrase(usage.getMateriel().getName()));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+
+            c1 = new PdfPCell(new Phrase(String.valueOf(usage.getAmount())));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+        }
+        if (bllUsage.getAllUsagesForAlarm(localAlarm).size() % 2 == 1) {
+            PdfPCell c1 = new PdfPCell(new Phrase(""));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+            table.addCell(c1);
+        }
+    }
+
+    private void createFremmødeTable(Document doc) throws BadElementException, DocumentException {
+        PdfPTable table = new PdfPTable(6 + bllVehicle.getAllVehiclesFromAppearances(bllAppearance.getAllHlGodkendtAppearances(localAlarm)).size());
+        table.setWidthPercentage(100f);
+        table.getDefaultCell().setUseAscender(true);
+        table.getDefaultCell().setUseDescender(true);
+
+        PdfPCell c1 = new PdfPCell(new Phrase("Grad:"));
+        c1.setBackgroundColor(BaseColor.LIGHT_GRAY);
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.addCell(c1);
 
         c1 = new PdfPCell(new Phrase("Fornavn:"));
+        c1.setBackgroundColor(BaseColor.LIGHT_GRAY);
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.addCell(c1);
 
         c1 = new PdfPCell(new Phrase("Efternavn:"));
+        c1.setBackgroundColor(BaseColor.LIGHT_GRAY);
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.addCell(c1);
 
         c1 = new PdfPCell(new Phrase("Tidsrum:"));
+        c1.setBackgroundColor(BaseColor.LIGHT_GRAY);
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.addCell(c1);
 
         c1 = new PdfPCell(new Phrase("Kørt Timer:"));
+        c1.setBackgroundColor(BaseColor.LIGHT_GRAY);
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.addCell(c1);
 
         c1 = new PdfPCell(new Phrase("ST Vagt:"));
+        c1.setBackgroundColor(BaseColor.LIGHT_GRAY);
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("1341"));
-        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-        table.addCell(c1);
-
-        c1 = new PdfPCell(new Phrase("1338"));
-        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-        table.addCell(c1);
-
-        c1 = new PdfPCell(new Phrase("2338"));
-        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-        table.addCell(c1);
-
-        c1 = new PdfPCell(new Phrase("1343"));
-        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-        table.addCell(c1);
-
-        c1 = new PdfPCell(new Phrase("2351"));
-        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-        table.addCell(c1);
-
-        c1 = new PdfPCell(new Phrase("2349"));
-        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-        table.addCell(c1);
-
-        c1 = new PdfPCell(new Phrase("2332"));
-        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-        table.addCell(c1);
-
-        c1 = new PdfPCell(new Phrase("2341"));
-        c1.setHorizontalAlignment(Element.ALIGN_LEFT);
-        table.addCell(c1);
+        for (BEVehicle veh : bllVehicle.getAllVehiclesFromAppearances(bllAppearance.getAllHlGodkendtAppearances(localAlarm))) {
+            c1 = new PdfPCell(new Phrase(veh.toString()));
+            c1.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+            table.addCell(c1);
+        }
 
         table.setHeaderRows(1);
         int counter = 0;
@@ -242,62 +294,65 @@ public class BLLPdf {
                 counter++;
             }
         }
-        insertData(table);
-        subCatPart.add(table);
+        insertDataIntoFremmødeTable(table);
+        doc.add(table);
     }
 
-    private void insertData(PdfPTable table) {
+    private void insertDataIntoFremmødeTable(PdfPTable table) {
         for (BEAppearance appearance : localAppearances) {
-            table.addCell("??");
-            table.addCell(String.valueOf(appearance.getFireman().isHoldleder()));
-            table.addCell(appearance.getFireman().getMedarbjeder().getFornavn());
-            table.addCell(appearance.getFireman().getMedarbjeder().getEfternavn());
-            table.addCell(appearance.getAlarm().getTimeString());
-            table.addCell(String.valueOf(appearance.getTotalTid()));
+            String xOrNot = "X";
+            if (appearance.isHoldleder()) {
+                xOrNot = "HL";
+            }
+            if (appearance.isChauffør()) {
+                xOrNot = "CH";
+            }
+
+            if (appearance.getFireman().isHoldleder()) {
+                PdfPCell c1 = new PdfPCell(new Phrase("HL"));
+                c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(c1);
+            } else {
+                PdfPCell c1 = new PdfPCell(new Phrase("BM"));
+                c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(c1);
+            }
+            PdfPCell c1 = new PdfPCell(new Phrase(appearance.getFireman().getMedarbjeder().getFornavn()));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+
+            c1 = new PdfPCell(new Phrase(appearance.getFireman().getMedarbjeder().getEfternavn()));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+
+            c1 = new PdfPCell(new Phrase(appearance.getAlarm().getTimeString() + "-" + appearance.getCheckOutString()));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+
+            c1 = new PdfPCell(new Phrase(String.valueOf(appearance.getTotalTid())));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+            
             if (appearance.isSTvagt()) {
-                table.addCell("X");
+                c1 = new PdfPCell(new Phrase("X"));
+                c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(c1);
             } else {
-                table.addCell("");
+                c1 = new PdfPCell(new Phrase(""));
+                c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(c1);
             }
-            if (appearance.getVeh() != null && appearance.getVeh().toString().equals("1341")) {
-                table.addCell("X");
-            } else {
-                table.addCell("");
-            }
-            if (appearance.getVeh() != null && appearance.getVeh().toString().equals("1338")) {
-                table.addCell("X");
-            } else {
-                table.addCell("");
-            }
-            if (appearance.getVeh() != null && appearance.getVeh().toString().equals("2338")) {
-                table.addCell("X");
-            } else {
-                table.addCell("");
-            }
-            if (appearance.getVeh() != null && appearance.getVeh().toString().equals("1343")) {
-                table.addCell("X");
-            } else {
-                table.addCell("");
-            }
-            if (appearance.getVeh() != null && appearance.getVeh().toString().equals("2351")) {
-                table.addCell("X");
-            } else {
-                table.addCell("");
-            }
-            if (appearance.getVeh() != null && appearance.getVeh().toString().equals("2349")) {
-                table.addCell("X");
-            } else {
-                table.addCell("");
-            }
-            if (appearance.getVeh() != null && appearance.getVeh().toString().equals("2332")) {
-                table.addCell("X");
-            } else {
-                table.addCell("");
-            }
-            if (appearance.getVeh() != null && appearance.getVeh().toString().equals("2341")) {
-                table.addCell("X");
-            } else {
-                table.addCell("");
+
+            for (BEVehicle veh : bllVehicle.getAllVehiclesFromAppearances(bllAppearance.getAllHlGodkendtAppearances(localAlarm))) {
+                if (appearance.getVeh() != null && appearance.getVeh().getOdinnummer() == veh.getOdinnummer()) {
+                    c1 = new PdfPCell(new Phrase(xOrNot));
+                    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    table.addCell(c1);
+                } else {
+                    c1 = new PdfPCell(new Phrase(""));
+                    c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    table.addCell(c1);
+                }
             }
         }
     }

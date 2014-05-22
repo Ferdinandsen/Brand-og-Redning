@@ -234,7 +234,7 @@ public class MainView extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-              ILIndsats view = new ILIndsats();
+              ILIndsats view = new ILIndsats(log);
               view.setLocationRelativeTo(null);
               view.setVisible(true);
             }
