@@ -1,5 +1,6 @@
 package BLL;
 
+import BE.BEAppearance;
 import BE.BEVehicle;
 import DAL.DALVehicle;
 import java.sql.SQLException;
@@ -47,7 +48,7 @@ public class BLLVehicle {
         try {
             dalvehicle.deleteVehicle(car);
         } catch (SQLException ex) {
-           System.out.println("fejl i deletevehicle i bllvehicle " + ex);
+            System.out.println("fejl i deletevehicle i bllvehicle " + ex);
         }
     }
 
@@ -55,7 +56,17 @@ public class BLLVehicle {
         try {
             dalvehicle.addVehicle(desc, bilNr, model, mærke, nummerplade);
         } catch (SQLException ex) {
-           System.out.println("fejl i addVehicle i bllvehicle " + ex);
+            System.out.println("fejl i addVehicle i bllvehicle " + ex);
         }
+    }
+
+    public ArrayList<BEVehicle> getAllVehiclesFromAppearances(ArrayList<BEAppearance> allHlGodkendtAppearances) {
+        ArrayList<BEVehicle> vehicles = new ArrayList<>();
+        for (BEAppearance app : allHlGodkendtAppearances) {
+            if ( app.getVeh() != null && !vehicles.contains(app.getVeh())) {
+                vehicles.add(app.getVeh());
+            }
+        }
+        return vehicles;
     }
 }

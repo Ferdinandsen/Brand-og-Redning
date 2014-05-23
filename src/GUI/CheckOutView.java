@@ -34,6 +34,7 @@ public class CheckOutView extends javax.swing.JDialog {
      * @param fireman
      */
     public CheckOutView(BEFireman fireman) {
+        
         this.setUndecorated(true);
         bllFireman = BLLFireman.getInstance();
         bllvehicle = BLLVehicle.getInstance();
@@ -42,6 +43,7 @@ public class CheckOutView extends javax.swing.JDialog {
         localFireman = fireman;
         initComponents();
         initOtherComponents();
+        lblTitle.setText("Velkommen: " + fireman.getMedarbjeder().getFornavn() + " " + fireman.getMedarbjeder().getEfternavn());
         pnlFrame.setBackground(new Color(164, 164, 164));
         rbtnChauffør.setBackground(new Color(164, 164, 164));
         rbtnHoldleder.setBackground(new Color(164, 164, 164));
@@ -80,6 +82,7 @@ public class CheckOutView extends javax.swing.JDialog {
         rbtnStVagt = new javax.swing.JRadioButton();
         btnAcknowledge = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
+        lblTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -108,13 +111,13 @@ public class CheckOutView extends javax.swing.JDialog {
 
         btnReset.setText("Nulstil");
 
+        lblTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblTitle.setText("Hej: ");
+
         javax.swing.GroupLayout pnlFrameLayout = new javax.swing.GroupLayout(pnlFrame);
         pnlFrame.setLayout(pnlFrameLayout);
         pnlFrameLayout.setHorizontalGroup(
             pnlFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFrameLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFrameLayout.createSequentialGroup()
                 .addContainerGap(163, Short.MAX_VALUE)
                 .addGroup(pnlFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,17 +127,25 @@ public class CheckOutView extends javax.swing.JDialog {
                 .addGap(125, 125, 125))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFrameLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cboxVehicle, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cboxAlarm, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAcknowledge, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(pnlFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFrameLayout.createSequentialGroup()
+                        .addComponent(lblTitle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFrameLayout.createSequentialGroup()
+                        .addGroup(pnlFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cboxVehicle, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cboxAlarm, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAcknowledge, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         pnlFrameLayout.setVerticalGroup(
             pnlFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFrameLayout.createSequentialGroup()
-                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTitle))
                 .addGap(5, 5, 5)
                 .addComponent(cboxAlarm, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -172,6 +183,7 @@ public class CheckOutView extends javax.swing.JDialog {
     private javax.swing.JButton btnReset;
     private javax.swing.JComboBox cboxAlarm;
     private javax.swing.JComboBox cboxVehicle;
+    private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pnlFrame;
     private javax.swing.JRadioButton rbtnChauffør;
     private javax.swing.JRadioButton rbtnHoldleder;
