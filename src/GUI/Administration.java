@@ -1,6 +1,5 @@
 package GUI;
 
-import Renderes.UnfinishedAlarmsCellRenderer;
 import BE.BEAlarm;
 import BE.BEAppearance;
 import BE.BEFireman;
