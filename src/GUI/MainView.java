@@ -213,6 +213,7 @@ public class MainView extends javax.swing.JFrame {
                 view.setVisible(true);
             }
         });
+        
         btnConfirmApp.addActionListener(new ActionListener() {
 
             @Override
@@ -230,6 +231,7 @@ public class MainView extends javax.swing.JFrame {
                 frame.setVisible(true);
             }
         });
+        
         btnIL.addActionListener(new ActionListener() {
 
             @Override

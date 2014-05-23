@@ -314,9 +314,9 @@ public class ILFremmødeliste extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 btnDelete.setEnabled(tblFremmøde.getSelectedRow() != -1);
                 btnUpdate.setEnabled(tblFremmøde.getSelectedRow() != -1);
-
             }
         });
+        
         txtGruppeNr.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -342,6 +342,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
                 }
             }
         });
+        
         txtAlarmTid.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -377,6 +378,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
                 updateAppearance();
             }
         });
+        
         btnCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -385,18 +387,21 @@ public class ILFremmødeliste extends javax.swing.JFrame {
                 dispose();
             }
         });
+        
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 addAppearance();
             }
         });
+        
         btnDelete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 deleteAppearance();
             }
         });
+        
         btnOK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -404,6 +409,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
                 dispose();
             }
         });
+        
         btnUsage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

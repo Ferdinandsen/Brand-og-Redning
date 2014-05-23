@@ -32,7 +32,6 @@ public class HLAfterActionStory extends javax.swing.JFrame {
     BLLAppearance bllAppearance;
     ArrayList<KørselPanel> køtj = new ArrayList<>();
     BEAlarm localAlarm;
-//    private JPanel main;
 
     /**
      * Creates new form HLAfterActionStory
@@ -145,7 +144,6 @@ public class HLAfterActionStory extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBekræft;
     private javax.swing.ButtonGroup btnGrpAlarm;
@@ -248,7 +246,6 @@ public class HLAfterActionStory extends javax.swing.JFrame {
                 frame.setVisible(true);
             }
         });
-
     }
 
 
@@ -264,6 +261,7 @@ public class HLAfterActionStory extends javax.swing.JFrame {
         if (rbtnBAlarm.isSelected()) {
             alarmtype = "Blind Alarm";
         }
+        
         if (rbtnFAlarm.isSelected()) {
             alarmtype = "Falsk Alarm";
         }
@@ -305,7 +303,6 @@ public class HLAfterActionStory extends javax.swing.JFrame {
             combo.addItem(2);
             combo.addItem("Ikke i brug");
             combo.setSelectedIndex(0);
-
         }
 
         public int getselected() {

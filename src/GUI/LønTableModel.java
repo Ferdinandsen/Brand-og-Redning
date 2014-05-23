@@ -12,6 +12,7 @@ import javax.swing.table.AbstractTableModel;
 public class LønTableModel extends AbstractTableModel {
 final int HLLønkode = 447;
 final int BMLønkode = 446;
+
     /**
      * the names of the columns in the table
      */
@@ -26,6 +27,7 @@ final int BMLønkode = 446;
         "Lønkode",
         "Total Timer"
     };
+    
     /**
      * the type definition for the columns
      */

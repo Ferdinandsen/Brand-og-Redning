@@ -59,7 +59,7 @@ public class DALAppearance {
         ps.setBoolean(9, false);
         ps.setString(10, null);
         ps.setInt(11, alarm.getId());
-
+        
         if (veh == null) {
             ps.setString(12, null);
         } else {
@@ -68,7 +68,6 @@ public class DALAppearance {
         ps.setString(13, null);
         ps.setBoolean(14, false);
         ps.setTimestamp(15, null);
-
         ps.execute();
     }
 
@@ -153,7 +152,6 @@ public class DALAppearance {
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setInt(1, a.getKørselsType());
         ps.setInt(2, a.getId());
-
         ps.execute();
     }
 
@@ -200,7 +198,6 @@ public class DALAppearance {
         ps.setString(13, null);
         ps.setBoolean(14, false);
         ps.setTimestamp(15, null);
-
         ps.execute();
 
         ResultSet rs = ps.getGeneratedKeys();

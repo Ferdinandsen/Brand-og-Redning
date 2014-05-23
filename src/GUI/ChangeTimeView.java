@@ -12,7 +12,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 /**
- *              REFACTOR TIL ARVECLASS?????
+ * REFACTOR TIL ARVECLASS?????
+ *
  * @author Team Kawabunga
  */
 public class ChangeTimeView extends javax.swing.JDialog {
@@ -168,7 +169,6 @@ public class ChangeTimeView extends javax.swing.JDialog {
     private void confirm() {
         Timestamp newCheckInTime = getcheckInTime();
         Timestamp newCheckOutTime = getcheckOutTime();
-
         localAppearance.setCheckIn(newCheckInTime);
         localAppearance.setCheckOut(newCheckOutTime);
         localAppearance.setTotalTid(Integer.parseInt(lblTotal.getText()));

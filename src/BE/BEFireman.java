@@ -63,9 +63,6 @@ public class BEFireman {
     }
 
     /**
-     * @return the isCheckedin
-     */
-    /**
      * @return the name
      */
     public String getName() {
@@ -79,11 +76,13 @@ public class BEFireman {
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
-       
-            return getMedarbjeder().getFornavn() + " " +  getMedarbjeder().getEfternavn();
-       
+        return getMedarbjeder().getFornavn() + " " + getMedarbjeder().getEfternavn();
     }
 
     /**

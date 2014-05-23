@@ -72,6 +72,7 @@ public class FiremenView extends javax.swing.JFrame {
                 }
             }
         });
+        
         btnAdd.addActionListener(new ActionListener() {
 
             @Override
@@ -79,6 +80,7 @@ public class FiremenView extends javax.swing.JFrame {
                 addEmployee();
             }
         });
+        
         chckboxFireman.addActionListener(new ActionListener() {
 
             @Override
@@ -86,9 +88,9 @@ public class FiremenView extends javax.swing.JFrame {
                 txtTeam.setEnabled(chckboxFireman.isSelected());
                 chckboxCH.setEnabled(chckboxFireman.isSelected());
                 chckboxHL.setEnabled(chckboxFireman.isSelected());
-
             }
         });
+        
         btnRemove.addActionListener(new ActionListener() {
 
             @Override

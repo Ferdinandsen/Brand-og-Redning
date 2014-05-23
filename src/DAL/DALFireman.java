@@ -70,7 +70,6 @@ public class DALFireman {
         ps.setBoolean(3, CH);
         ps.setBoolean(4, false);
         ps.setInt(5, team);
-
         ps.execute();
 
         BEFireman fireman = new BEFireman(emp, HL, CH, team);

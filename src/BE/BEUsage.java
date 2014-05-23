@@ -11,18 +11,23 @@ public class BEUsage {
     private int amount;
     private BEAlarm alarm;
 
-    public BEUsage(int id,BEMateriel materiel, int amount, BEAlarm alarm) {
+    public BEUsage(int id, BEMateriel materiel, int amount, BEAlarm alarm) {
         this.id = id;
         this.materiel = materiel;
         this.amount = amount;
         this.alarm = alarm;
     }
+
     public BEUsage(BEMateriel materiel, int amount, BEAlarm alarm) {
         this.materiel = materiel;
         this.amount = amount;
         this.alarm = alarm;
     }
-    
+
+    /**
+     *
+     * @return the alarm
+     */
     public BEAlarm getAlarm() {
         return alarm;
     }
@@ -75,5 +80,4 @@ public class BEUsage {
     public void setAmount(int amount) {
         this.amount = amount;
     }
-
 }
