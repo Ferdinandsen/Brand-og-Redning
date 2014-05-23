@@ -33,8 +33,8 @@ public class BLLAppearance {
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public static BLLAppearance getInstance() {
         if (m_instance == null) {
@@ -44,7 +44,7 @@ public class BLLAppearance {
     }
 
     /**
-     * 
+     *
      */
     public void populateAppearances() {
         try {
@@ -55,16 +55,16 @@ public class BLLAppearance {
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public ArrayList<BEAppearance> getAllAppearances() {
         return dalAppearance.getAppearances();
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public ArrayList<BEAppearance> getAllAppearancesNotHlGodkendt() {
         ArrayList<BEAppearance> notHlGodkendt = new ArrayList<>();
@@ -77,9 +77,9 @@ public class BLLAppearance {
     }
 
     /**
-     * 
+     *
      * @param alarm
-     * @return 
+     * @return
      */
     public ArrayList<BEAppearance> getAllHlGodkendtAppearances(BEAlarm alarm) {
         ArrayList<BEAppearance> hlGodkendtAppearances = new ArrayList<>();
@@ -92,9 +92,9 @@ public class BLLAppearance {
     }
 
     /**
-     * 
+     *
      * @param selectedAlarm
-     * @return 
+     * @return
      */
     public ArrayList<BEAppearance> getAppearancesWithSameAlarm(BEAlarm selectedAlarm) {
         ArrayList<BEAppearance> appearances = new ArrayList<>();
@@ -107,18 +107,18 @@ public class BLLAppearance {
     }
 
     /**
-     * 
+     *
      * @param fm
      * @param from
      * @param to
-     * @return 
+     * @return
      */
     public ArrayList<BEAppearance> getAllAppearancesWithDateCriteria(BEFireman fm, Date from, Date to) {
         ArrayList<BEAppearance> dateappearance = new ArrayList<>();
         for (BEAppearance a : getAllAppearances()) {
             if (fm == null && a.getAlarm().getTime().after(from) && a.getAlarm().getTime().before(to) && a.isIlGodkendt() && !a.isLønDone()) {
                 dateappearance.add(a);
-            } else if (a.getAlarm().getTime().after(from) && a.getAlarm().getTime().before(to) && a.getFireman().equals(fm) && a.isIlGodkendt()&& !a.isLønDone()) {
+            } else if (a.getAlarm().getTime().after(from) && a.getAlarm().getTime().before(to) && a.getFireman().equals(fm) && a.isIlGodkendt() && !a.isLønDone()) {
                 dateappearance.add(a);
             }
         }
@@ -126,8 +126,8 @@ public class BLLAppearance {
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     private Timestamp time() {
         Calendar calendar = Calendar.getInstance();
@@ -137,13 +137,13 @@ public class BLLAppearance {
     }
 
     /**
-     * 
+     *
      * @param alarm
      * @param fireman
      * @param veh
      * @param hl
      * @param ch
-     * @param st 
+     * @param st
      */
     public void createEndShift(BEAlarm alarm, BEFireman fireman, BEVehicle veh, boolean hl, boolean ch, boolean st) {
         Timestamp time = time();
@@ -157,10 +157,10 @@ public class BLLAppearance {
     }
 
     /**
-     * 
+     *
      * @param checkin
      * @param checkout
-     * @return 
+     * @return
      */
     public int calculateTotalTime(Timestamp checkin, Timestamp checkout) {
         Timestamp ci = checkin;
@@ -184,23 +184,23 @@ public class BLLAppearance {
     }
 
     /**
-     * 
+     * sender det forkerte med vidre!
+     *
      * @param log
      * @param alarm
      * @param comment
-     * @throws Exception 
+     * @throws Exception
      */
     public void confirmTeam(BELogin log, BEAlarm alarm, String comment) throws Exception {
         for (BEAppearance appearance : getAppearancesWithSameAlarm(alarm)) {
+            alarm.setHlBemærkning(comment);
+            alarm.setHlGodkendtTid(time());
+            appearance.setHlGodkendt(true);
+            appearance.setAlarm(alarm);
+            appearance.setLogin(log);
             try {
-                alarm.setHlBemærkning(comment);
-                alarm.setHlGodkendtTid(time());
                 dalAlarm.setHlBemærkning(alarm);
-                appearance.setHlGodkendt(true);
-                appearance.setAlarm(alarm);
-                appearance.setLogin(log);
                 dalAppearance.confirmTeam(appearance, comment);
-
             } catch (SQLException ex) {
                 System.out.println("fejl i confirmTeam" + ex);
             }
@@ -208,7 +208,7 @@ public class BLLAppearance {
     }
 
     /**
-     * 
+     *
      */
     public void update() {
         try {
@@ -219,8 +219,8 @@ public class BLLAppearance {
     }
 
     /**
-     * 
-     * @param appearance 
+     *
+     * @param appearance
      */
     public void updateAppearance(BEAppearance appearance) {
         try {
@@ -231,8 +231,8 @@ public class BLLAppearance {
     }
 
     /**
-     * 
-     * @param appearance 
+     *
+     * @param appearance
      */
     public void deleteAppearance(BEAppearance appearance) {
         try {
@@ -243,7 +243,7 @@ public class BLLAppearance {
     }
 
     /**
-     * 
+     *
      * @param fireman
      * @param alarm
      * @param veh
@@ -251,7 +251,7 @@ public class BLLAppearance {
      * @param hl
      * @param ch
      * @param st
-     * @param kørselstype 
+     * @param kørselstype
      */
     public void addAppearance(BEFireman fireman, BEAlarm alarm, BEVehicle veh, Timestamp ts, boolean hl, boolean ch, boolean st, int kørselstype) {
         try {
@@ -263,9 +263,9 @@ public class BLLAppearance {
     }
 
     /**
-     * 
+     *
      * @param a
-     * @param kørselType 
+     * @param kørselType
      */
     public void updateKørselType(BEAppearance a, int kørselType) {
         a.setKørselsType(kørselType);
@@ -277,8 +277,8 @@ public class BLLAppearance {
     }
 
     /**
-     * 
-     * @param alarm 
+     *
+     * @param alarm
      */
     public void confirmAlarmTeam(BEAlarm alarm) {
         for (BEAppearance appearance : getAllHlGodkendtAppearances(alarm)) {
@@ -292,8 +292,8 @@ public class BLLAppearance {
     }
 
     /**
-     * 
-     * @param appearance 
+     *
+     * @param appearance
      */
     public void updateFunction(BEAppearance appearance) {
         try {
@@ -304,14 +304,14 @@ public class BLLAppearance {
     }
 
     /**
-     * 
-     * @param app 
+     *
+     * @param app
      */
     public void EndSalary(ArrayList<BEAppearance> app) {
         Timestamp time = time();
         try {
             for (BEAppearance a : app) {
-                dalAppearance.createSalary(a,time);
+                dalAppearance.createSalary(a, time);
                 a.setLønDone(true);
                 a.setLønTime(time);
             }

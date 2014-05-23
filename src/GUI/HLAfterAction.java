@@ -96,8 +96,6 @@ public class HLAfterAction extends javax.swing.JFrame {
                     appearance = bllAppearance.getAppearancesWithSameAlarm((BEAlarm) cboxAlarm.getSelectedItem()).get(tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
                 }
                 ChangeTimeView ctView = new ChangeTimeView(appearance);
-                ctView.setModal(true);
-                ctView.setLocationRelativeTo(null);
                 ctView.setVisible(true);
                 updateTable();
             }

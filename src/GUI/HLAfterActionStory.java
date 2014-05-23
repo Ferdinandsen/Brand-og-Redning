@@ -79,7 +79,7 @@ public class HLAfterActionStory extends javax.swing.JFrame {
 
         jLabel3.setText("Kørselstype:");
 
-        pnlKørsel.setLayout(new java.awt.GridLayout());
+        pnlKørsel.setLayout(new java.awt.GridLayout(1, 0));
 
         btnBekræft.setText("Bekræft");
 
@@ -136,8 +136,8 @@ public class HLAfterActionStory extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlKørsel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlKørsel, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBekræft)
                 .addContainerGap())
         );
@@ -211,7 +211,6 @@ public class HLAfterActionStory extends javax.swing.JFrame {
                 if (!(Character.isDigit(e.getKeyChar()))) {
                     e.consume();
                 }
-
                 if ((e.getKeyCode() == KeyEvent.VK_TAB)) {
                     transferFocus();
                     e.consume();
