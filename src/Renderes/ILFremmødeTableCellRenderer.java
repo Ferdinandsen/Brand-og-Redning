@@ -42,7 +42,6 @@ public class ILFremmødeTableCellRenderer extends DefaultTableCellRenderer {
         else{
             cell.setBackground(Color.GREEN);
         }
-        
         if (isSelected) {
             cell.setBackground(Color.DARK_GRAY);
             if (table.convertColumnIndexToModel(column) != 5) {
@@ -52,7 +51,6 @@ public class ILFremmødeTableCellRenderer extends DefaultTableCellRenderer {
         } else {
             cell.setForeground(Color.BLACK);
         }
-
         return cell;
     }
 }

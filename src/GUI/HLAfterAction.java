@@ -85,6 +85,7 @@ public class HLAfterAction extends javax.swing.JFrame {
 
             }
         });
+        
         btnChangeTime.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -93,7 +94,6 @@ public class HLAfterAction extends javax.swing.JFrame {
                     appearance = bllAppearance.getAllAppearances().get(tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
                 } else {
                     appearance = bllAppearance.getAppearancesWithSameAlarm((BEAlarm) cboxAlarm.getSelectedItem()).get(tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
-
                 }
                 ChangeTimeView ctView = new ChangeTimeView(appearance);
                 ctView.setModal(true);
@@ -102,13 +102,13 @@ public class HLAfterAction extends javax.swing.JFrame {
                 updateTable();
             }
         });
+        
         cboxAlarm.addItemListener(new ItemListener() {
 
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (cboxAlarm.getSelectedIndex() != -1) {
                     if (cboxAlarm.getSelectedIndex() != 0 && cboxAlarm.getSelectedIndex() != -1) {
-//                        update();
                         model.setAppearanceList(bllAppearance.getAppearancesWithSameAlarm((BEAlarm) cboxAlarm.getSelectedItem()));
                         BEAlarm alarm = null;
                         for (BEAlarm theAlarm : bllAlarm.getAllAlarms()) {

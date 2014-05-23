@@ -91,9 +91,12 @@ public class BELogin {
         this.holdleder = holdleder;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return getMedarbejder().getFornavn() + " " + getMedarbejder().getEfternavn();
     }
-    
 }

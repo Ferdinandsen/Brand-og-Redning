@@ -8,8 +8,6 @@ import DAL.DALLogin;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -32,6 +30,10 @@ public class BLLEmployee {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public static BLLEmployee getInstance() {
         if (m_instance == null) {
             m_instance = new BLLEmployee();
@@ -39,6 +41,12 @@ public class BLLEmployee {
         return m_instance;
     }
 
+    /**
+     *
+     * @param name
+     * @param password
+     * @return
+     */
     public boolean doesUserExist(String name, char[] password) {
         for (BELogin login : dalLogin.getAllLogins()) {
             if (login.getMedarbejder().getFornavn().trim().equalsIgnoreCase(name.trim()) && isPasswordCorrect(password, login)) {
@@ -48,6 +56,12 @@ public class BLLEmployee {
         return false;
     }
 
+    /**
+     *
+     * @param password
+     * @param login
+     * @return
+     */
     private boolean isPasswordCorrect(char[] password, BELogin login) {
         boolean isCorrect;
         char[] correctPassword = login.getKode().toCharArray();
@@ -63,6 +77,11 @@ public class BLLEmployee {
         return isCorrect;
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     public BELogin getLogin(String name) {
         for (BELogin login : dalLogin.getAllLogins()) {
             if (name.trim().equalsIgnoreCase(login.getMedarbejder().getFornavn().trim())) {
@@ -72,10 +91,23 @@ public class BLLEmployee {
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<BEEmployee> getAllEmployees() {
         return dalEmployee.getAllEmployees();
     }
 
+    /**
+     *
+     * @param gadenavn
+     * @param gadenummer
+     * @param etage
+     * @param lejlighed
+     * @param postnummer
+     * @return
+     */
     public int addAddress(String gadenavn, int gadenummer, int etage, String lejlighed, int postnummer) {
         try {
             return dalEmployee.addAddress(gadenavn, gadenummer, etage, lejlighed, postnummer);
@@ -85,6 +117,19 @@ public class BLLEmployee {
         return 0;
     }
 
+    /**
+     *
+     * @param fornavn
+     * @param mellemnavn
+     * @param efternavn
+     * @param CPR
+     * @param portræt
+     * @param isFireman
+     * @param adresseID
+     * @param CH
+     * @param HL
+     * @param team
+     */
     public void addEmployee(String fornavn, String mellemnavn, String efternavn, String CPR, String portræt, boolean isFireman, int adresseID, boolean CH, boolean HL, int team) {
 
         try {
@@ -97,6 +142,10 @@ public class BLLEmployee {
         }
     }
 
+    /**
+     *
+     * @param emp
+     */
     public void deleteEmployee(BEEmployee emp) {
         try {
             dalEmployee.deleteEmployee(emp);
@@ -104,5 +153,4 @@ public class BLLEmployee {
             System.out.println("fejl i delete i bllEmployee " + ex);
         }
     }
-
 }

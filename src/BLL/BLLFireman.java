@@ -5,8 +5,6 @@ import BE.BEFireman;
 import DAL.DALFireman;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -25,6 +23,10 @@ public class BLLFireman {
         }
     }
 
+    /**
+     * 
+     * @return 
+     */
     public static BLLFireman getInstance() {
         if (m_instance == null) {
             m_instance = new BLLFireman();
@@ -32,6 +34,9 @@ public class BLLFireman {
         return m_instance;
     }
 
+    /**
+     * 
+     */
     public void update() {
         try {
             dalFireman.populateFiremen();
@@ -40,17 +45,18 @@ public class BLLFireman {
         }
     }
 
+    /**
+     * 
+     * @return 
+     */
     public ArrayList<BEFireman> getAllfiremen() {
         return dalFireman.getAllFiremen();
     }
 
-//    public void changeBit(BEFireman fireman) {
-//        try {
-//            dalFireman.changeBit(fireman);
-//        } catch (SQLException ex) {
-//            System.out.println("kunne ikke changeBit" + ex);
-//        }
-//    }
+    /**
+     * 
+     * @return 
+     */
     public int getHighestTeamNumber() {
         int number = 0;
         for (BEFireman fireman : getAllfiremen()) {
@@ -61,6 +67,10 @@ public class BLLFireman {
         return number;
     }
 
+    /**
+     * 
+     * @param emp 
+     */
     public void deleteFireman(BEEmployee emp) {
         try {
             dalFireman.deleteFireman(emp);

@@ -141,8 +141,12 @@ public class BEEmployee {
         this.isFriviligBrand = isFriviligBrand;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
-        return fornavn + " " + efternavn; //To change body of generated methods, choose Tools | Templates.
+        return fornavn + " " + efternavn;
     }
 }

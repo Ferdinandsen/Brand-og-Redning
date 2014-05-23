@@ -314,9 +314,9 @@ public class ILFremmødeliste extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 btnDelete.setEnabled(tblFremmøde.getSelectedRow() != -1);
                 btnUpdate.setEnabled(tblFremmøde.getSelectedRow() != -1);
-
             }
         });
+
         txtGruppeNr.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -342,6 +342,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
                 }
             }
         });
+
         txtAlarmTid.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -377,6 +378,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
                 updateAppearance();
             }
         });
+
         btnCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -385,25 +387,28 @@ public class ILFremmødeliste extends javax.swing.JFrame {
                 dispose();
             }
         });
+
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 addAppearance();
             }
         });
+
         btnDelete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 deleteAppearance();
             }
         });
+
         btnOK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 confirmTeam();
-                dispose();
             }
         });
+
         btnUsage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -415,10 +420,23 @@ public class ILFremmødeliste extends javax.swing.JFrame {
     private void confirmTeam() {
         if (isInformationValid()) {
             localAlarm.setEvaNo(Integer.parseInt(txtEvaNo.getText()));
-            localAlarm.setDetekterNo(Integer.parseInt(txtDetektorNr.getText()));
-            localAlarm.setGruppeNo(Integer.parseInt(txtGruppeNr.getText()));
+            if (!txtDetektorNr.getText().isEmpty()) {
+                localAlarm.setDetekterNo(Integer.parseInt(txtDetektorNr.getText()));
+            } else {
+                localAlarm.setDetekterNo(0);
+            }
+            if (!txtGruppeNr.getText().isEmpty()) {
+                localAlarm.setGruppeNo(Integer.parseInt(txtGruppeNr.getText()));
+            } else {
+                localAlarm.setGruppeNo(0);
+            }
             localAlarm.setAlarmType(cboxAlarmType.getSelectedItem().toString());
-            localAlarm.setIlBemærkning(txtABem.getText());
+            if (!txtABem.getText().isEmpty()) {
+                localAlarm.setIlBemærkning(txtABem.getText());
+            } else {
+                localAlarm.setIlBemærkning("");
+            }
+
             localAlarm.setDesc(txtBeskrivelse.getText());
 
             bllAlarm.confirmAlarm(localAlarm);
@@ -426,18 +444,10 @@ public class ILFremmødeliste extends javax.swing.JFrame {
             bllAppearance.confirmAlarmTeam(localAlarm);
             JOptionPane.showMessageDialog(this, "Indsatsen er nu bekræftet");
             createPDF();
+            dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Udfyld venligst al information");
         }
-    }
-
-    private boolean doesUsageExist() {
-        for (BEUsage theUsage : bllUsage.getAllUsages()) {
-            if (theUsage.getAlarm() == localAlarm) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private void openUsage() {
@@ -491,7 +501,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
     }
 
     private boolean isInformationValid() {
-        return !(txtAlarmTid.getText().isEmpty() && txtBeskrivelse.getText().isEmpty() && txtDetektorNr.getText().isEmpty() && txtEvaNo.getText().isEmpty() && txtGruppeNr.getText().isEmpty() && usageConfirmed == true);
+        return (!txtEvaNo.getText().isEmpty() && usageConfirmed == true);
     }
 
     private void createPDF() {

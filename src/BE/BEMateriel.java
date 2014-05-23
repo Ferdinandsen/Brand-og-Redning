@@ -58,10 +58,13 @@ public class BEMateriel {
     public void setAmount(int amount) {
         this.amount = amount;
     }
-
+    
+/**
+ * 
+ * @return 
+ */
     @Override
     public String toString() {
-       return name;
+        return name;
     }
-    
 }

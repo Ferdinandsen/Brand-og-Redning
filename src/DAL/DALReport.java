@@ -18,7 +18,6 @@ public class DALReport {
 
     private DALReport() throws SQLException, SQLServerException {
         m_connection = DBConnection.getInstance().getConnection();
-        // populateDalReport();
     }
 
     public static DALReport getInstance() throws SQLException {

@@ -57,7 +57,6 @@ public class BEAlarm {
         } else {
             return Color.GREEN;
         }
-
     }
 
     public void setGuestConfirmed(boolean value) {
@@ -67,10 +66,11 @@ public class BEAlarm {
     public boolean hasGuestConfirmed() {
         return guestConfirmed;
     }
-/**
- * 
- * @return the date as string
- */
+
+    /**
+     *
+     * @return the date as string
+     */
     public String getDateString() {
         String alarm[] = getTime().toString().split(" ");
         return alarm[0];
@@ -259,8 +259,13 @@ public class BEAlarm {
     public Timestamp getIlGodkendtTid() {
         return ilGodkendtTid;
     }
+
+    /**
+     *
+     * @return
+     */
     public String getIlGodkendtTidTimeString() {
-         String godkendtTid[] = ilGodkendtTid.toString().split(" ");
+        String godkendtTid[] = ilGodkendtTid.toString().split(" ");
         String[] fixedGodkendtTid = godkendtTid[1].split(":");
         String finalGodkendtTid = fixedGodkendtTid[0] + ":" + fixedGodkendtTid[1];
         return finalGodkendtTid;
@@ -286,5 +291,4 @@ public class BEAlarm {
     public void setHlGodkendtTid(Timestamp hlGodkendtTid) {
         this.hlGodkendtTid = hlGodkendtTid;
     }
-
 }

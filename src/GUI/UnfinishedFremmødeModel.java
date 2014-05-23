@@ -20,6 +20,7 @@ public class UnfinishedFremmødeModel extends AbstractTableModel {
         "Beskrivelse",
         "Tid",
     "Godkendt tid"};
+    
     /**
      * the type definition for the columns
      */

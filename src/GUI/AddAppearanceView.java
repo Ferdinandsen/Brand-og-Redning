@@ -119,17 +119,7 @@ public class AddAppearanceView extends javax.swing.JDialog {
                 btnOk.setEnabled((cboxKøretøj.getSelectedIndex() != 0 && cboxFireman.getSelectedIndex() != 0) || cboxFireman.getSelectedIndex() != 0 && cboxAlarm.getSelectedIndex() != 0 && rbtnStVagt.isSelected());
             }
         });
-//        cboxFireman.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                cboxKøretøj.addItemListener(new ItemListener() {
-//                    @Override
-//                    public void itemStateChanged(ItemEvent e) {
-//                        btnOk.setEnabled((cboxAlarm.getSelectedIndex() != 0 && cboxKøretøj.getSelectedIndex() != 0 && cboxFireman.getSelectedIndex() != 0) || cboxFireman.getSelectedIndex() != 0 && cboxAlarm.getSelectedIndex() != 0 && rbtnStVagt.isSelected());
-//                    }
-//                });
-//            }
-//        });
+
         btnOk.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -138,7 +128,6 @@ public class AddAppearanceView extends javax.swing.JDialog {
                 } else {
                     JOptionPane.showMessageDialog(null, "Skriv venligst et check ud tidspunkt");
                 }
-
             }
         });
 
@@ -175,7 +164,6 @@ public class AddAppearanceView extends javax.swing.JDialog {
         for (BEFireman fireman : bllFireman.getAllfiremen()) {
             cboxFireman.addItem(fireman);
         }
-
     }
 
     private void fillCboxAlarm() {

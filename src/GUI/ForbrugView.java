@@ -41,6 +41,7 @@ public class ForbrugView extends javax.swing.JFrame {
                 
             }
         });
+        
         btnRemove.addActionListener(new ActionListener() {
 
             @Override
@@ -51,6 +52,7 @@ public class ForbrugView extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Bilen er nu slettet!");
             }
         });
+        
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

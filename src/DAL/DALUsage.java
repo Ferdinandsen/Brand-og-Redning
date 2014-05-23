@@ -3,7 +3,6 @@ package DAL;
 import BE.BEAlarm;
 import BE.BEMateriel;
 import BE.BEUsage;
-import BE.BEVehicle;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -79,7 +78,6 @@ public class DALUsage {
             for (BEAlarm alarm : dalAlarm.getAllAlarms()) {
                 if (alarm.getId() == alarmRef) {
                     localAlarm = alarm;
-
                 }
             }
 
@@ -104,23 +102,10 @@ public class DALUsage {
         }
     }
 
-    public ArrayList<BEUsage> getAllUsages() {
-        return allUsages;
-    }
-
-    /**
-     * @return the materiel
-     */
-    public ArrayList<BEMateriel> getAllMats() {
-        return allMaterials;
-    }
-
     public void updateUsageReport(BEUsage bu) throws SQLException {
         String sql = "UPDATE Forbrug SET amount = ? WHERE id = ?";
         PreparedStatement ps = m_connection.prepareStatement(sql);
-//        ps.setInt(1, bu.getMateriel().getId());
         ps.setInt(1, bu.getAmount());
-//        ps.setInt(3, bu.getAlarm().getId());
         ps.setInt(2, bu.getId());
         ps.execute();
     }
@@ -147,5 +132,20 @@ public class DALUsage {
             BEMateriel mat = new BEMateriel(id, text);
             allMaterials.add(mat);
         }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public ArrayList<BEUsage> getAllUsages() {
+        return allUsages;
+    }
+
+    /**
+     * @return the materiel
+     */
+    public ArrayList<BEMateriel> getAllMats() {
+        return allMaterials;
     }
 }
