@@ -125,11 +125,9 @@ public class BLLPdf {
         anchor.setName("Fremmøde");
 
         createFremmødeTable(document);
-        document.newPage();
+        addEmptyLine(new Paragraph(), 2);
         createForbrugTable(document);
-        Paragraph preface = new Paragraph();
-        addEmptyLine(preface, 2);
-        document.add(preface);
+        addEmptyLine(new Paragraph(), 2);
         createIndsatsStyrkeTable(document);
 
     }
@@ -332,7 +330,7 @@ public class BLLPdf {
             c1 = new PdfPCell(new Phrase(String.valueOf(appearance.getTotalTid())));
             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(c1);
-            
+
             if (appearance.isSTvagt()) {
                 c1 = new PdfPCell(new Phrase("X"));
                 c1.setHorizontalAlignment(Element.ALIGN_CENTER);

@@ -38,8 +38,7 @@ public class BLLLønPdf {
     private Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
             Font.BOLD);
 
-    ArrayList<BEAppearance> localAppearances;
-//    private int amount = 0;
+    ArrayList<BEAppearance> localAppearances = new ArrayList<>();
     BEAlarm localAlarm;
     BLLUsage bllUsage;
     BLLAppearance bllAppearance;
@@ -47,35 +46,37 @@ public class BLLLønPdf {
     BLLVehicle bllVehicle;
     ArrayList<BEFireman> usedFiremen = new ArrayList<>();
     ArrayList<BEAppearance> firemanAppearances = new ArrayList<>();
+    int totalTimer = 0;
 
-    public BLLLønPdf(ArrayList<BEAppearance> appearances) throws DocumentException, FileNotFoundException, IOException {
-        System.out.println("er nu i lønPDF");
+    public BLLLønPdf(ArrayList<BEAppearance> appearances, BELogin log, String fromDate, String toDate) throws DocumentException, FileNotFoundException, IOException {
         localAppearances = appearances;
+        localLog = log;
         bllAppearance = BLLAppearance.getInstance();
         bllVehicle = BLLVehicle.getInstance();
         bllUsage = BLLUsage.getInstance();
         for (BEAppearance appearance : localAppearances) {
-            System.out.println("her..");
             if (!usedFiremen.contains(appearance.getFireman())) {
                 usedFiremen.add(appearance.getFireman());
-                System.out.println("tilføjede: " + appearance.getFireman().getMedarbjeder().getFornavn());
             }
         }
 
         for (BEFireman fireman : usedFiremen) {
+            firemanAppearances = new ArrayList<>();
             for (BEAppearance appearance : localAppearances) {
                 if (appearance.getFireman() == fireman) {
                     firemanAppearances.add(appearance);
                 }
             }
-            System.out.println("laver PDF");
-            FILE = System.getProperty("user.home") + "/Desktop/" + fireman.getMedarbjeder().getFornavn() + fireman.getMedarbjeder().getEfternavn() + ".pdf";
+            FILE = System.getProperty("user.home") + "/Desktop/" + fireman.getMedarbjeder().getFornavn() + fireman.getMedarbjeder().getEfternavn() + " " + fromDate + " " + toDate + ".pdf";
             Document document = new Document(PageSize.A4.rotate()); //Roterer siden til at være landskab! Fjern parameter for at gøre den til normal  Document document = new Document(PageSize.LETTER.rotate()); 
             PdfWriter.getInstance(document, new FileOutputStream(FILE));
             document.open();
             addMetaData(document);
             addTitlePage(document);
             addContent(document);
+            Paragraph p = new Paragraph("Total timer: " + String.valueOf(totalTimer));
+            p.setAlignment(Element.ALIGN_RIGHT);
+            document.add(p);
             document.close();
 
         }
@@ -83,9 +84,9 @@ public class BLLLønPdf {
     }
 
     private void addMetaData(Document document) {
-        document.addTitle("Tidsregistrering");
-        document.addSubject("Tidsregistrering");
-        document.addKeywords("Tidsregistrering");
+        document.addTitle("Løn");
+        document.addSubject("Løn");
+        document.addKeywords("Løn");
         document.addAuthor("Jacob, Jakob og André Thy");
         document.addCreator("Jacob, Jakob og André Thy");
     }
@@ -99,28 +100,17 @@ public class BLLLønPdf {
         addEmptyLine(preface, 1);
         // Lets write a big header
         addEmptyLine(preface, 1);
-        Paragraph p = new Paragraph("Brand & Redning, Esbjerg - Station 4.24 \t \t \t ");
+        Paragraph p = new Paragraph("Brand & Redning, Esbjerg - Station 4.24");
         p.setAlignment(Element.ALIGN_LEFT);
         preface.add(p);
 
-        p = (new Paragraph("Set af: " + localLog.getMedarbejder() + ", " + localAlarm.getIlGodkendtTidTimeString(), titleFont));
+        p = (new Paragraph("Set af: " + localLog.getMedarbejder(), titleFont));
         p.setAlignment(Element.ALIGN_RIGHT);
         preface.add(p);
         addEmptyLine(preface, 1);
 
-        preface.add(new Paragraph("Alarm beskrivelse: " + localAlarm.getDesc()));
-        addEmptyLine(preface, 1);
-        preface.add(new Paragraph("Alarm Tidspunkt: " + localAlarm.getTime()));
-        addEmptyLine(preface, 1);
-        preface.add(new Paragraph("Alarm EVA NR: " + localAlarm.getEvaNo()));
-        addEmptyLine(preface, 1);
-        preface.add(new Paragraph("Holdleder bemærkning: " + localAlarm.getHlBemærkning()));
-        addEmptyLine(preface, 1);
-        preface.add(new Paragraph("Indsatsleder bemærkning: " + localAlarm.getIlBemærkning()));
-        addEmptyLine(preface, 1);
         document.add(preface);
-        // Start a new page
-//        document.newPage();
+
     }
 
     private void addContent(Document document) throws DocumentException {
@@ -128,7 +118,7 @@ public class BLLLønPdf {
         anchor.setName("Løn");
 
         createFremmødeTable(document);
-        document.newPage();
+        addEmptyLine(new Paragraph(), 1);
 
     }
 
@@ -169,13 +159,14 @@ public class BLLLønPdf {
         table.addCell(c1);
 
         table.setHeaderRows(1);
-        insertDataIntoFremmødeTable(table);
+        insertDataIntoFremmødeTable(table, doc);
         doc.add(table);
     }
 
-    private void insertDataIntoFremmødeTable(PdfPTable table) {
+    private void insertDataIntoFremmødeTable(PdfPTable table, Document doc) throws DocumentException {
 
         for (BEAppearance app : firemanAppearances) {
+            totalTimer += app.getTotalTid();
             PdfPCell c1 = new PdfPCell(new Phrase(app.getFireman().getMedarbjeder().getFornavn()));
             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(c1);
@@ -184,7 +175,7 @@ public class BLLLønPdf {
             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(c1);
 
-            c1 = new PdfPCell(new Phrase(app.getAlarm().getTimeString()));
+            c1 = new PdfPCell(new Phrase(app.getAlarm().getDateString() + " - " + app.getAlarm().getTimeString()));
             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(c1);
 
@@ -206,9 +197,10 @@ public class BLLLønPdf {
                 table.addCell(c1);
             }
 
-            c1 = new PdfPCell(new Phrase(app.getTotalTid()));
+            c1 = new PdfPCell(new Phrase(String.valueOf(app.getTotalTid())));
             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(c1);
+
         }
 
     }

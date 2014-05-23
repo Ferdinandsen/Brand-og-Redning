@@ -3,6 +3,7 @@ package GUI;
 import BE.BEAlarm;
 import BE.BEAppearance;
 import BE.BEFireman;
+import BE.BELogin;
 import BLL.BLLAlarm;
 import BLL.BLLAppearance;
 import BLL.BLLFireman;
@@ -14,8 +15,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -31,6 +30,7 @@ import javax.swing.table.TableColumn;
 public class Administration extends javax.swing.JFrame {
 
     final long DAY = 86400000; //1 day in milliseconds
+    BELogin localLog;
     BLLAppearance bllAppearance;
     BLLFireman bllFireman;
     BLLAlarm bllAlarm;
@@ -40,7 +40,8 @@ public class Administration extends javax.swing.JFrame {
     /**
      * Creates new form Administration
      */
-    public Administration() {
+    public Administration(BELogin log) {
+        localLog = log;
         bllAppearance = BLLAppearance.getInstance();
         bllFireman = BLLFireman.getInstance();
         bllAlarm = BLLAlarm.getInstance();
@@ -326,13 +327,7 @@ public class Administration extends javax.swing.JFrame {
 
     private void createPDF(ArrayList<BEAppearance> app) {
         try {
-            BEFireman localFireman = null;
-            if (cboxBM.getSelectedIndex() != 0) {
-                localFireman = (BEFireman)cboxBM.getSelectedItem();
-            }
-              BLLLønPdf pdf = new BLLLønPdf(bllAppearance.getAllAppearancesWithDateCriteria(localFireman, dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY)));
-           
-            
+            BLLLønPdf pdf = new BLLLønPdf(app, localLog, String.valueOf(dchoFra.getDate().getDate() +"-"+  dchoFra.getDate().getMonth() +"-"+  (dchoFra.getDate().getYear() + 1900)), String.valueOf(dchoTil.getDate().getDate() +"-"+  dchoTil.getDate().getMonth() +"-"+ (dchoTil.getDate().getYear()+1900)));
         } catch (DocumentException | IOException ex) {
             System.out.println("FEJL: " + ex);
             JOptionPane.showMessageDialog(this, "Fejl ved at lave en PDF: " + ex);

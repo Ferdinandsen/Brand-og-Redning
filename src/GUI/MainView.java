@@ -209,7 +209,7 @@ public class MainView extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                AdministrationChooseView view = new AdministrationChooseView();
+                AdministrationChooseView view = new AdministrationChooseView(log);
                 view.setVisible(true);
             }
         });
