@@ -8,10 +8,14 @@ import BLL.BLLAppearance;
 import BLL.BLLFireman;
 import BLL.BLLLønPdf;
 import Renderes.FremmødeTableCellRenderer;
+import com.itextpdf.text.DocumentException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -319,8 +323,20 @@ public class Administration extends javax.swing.JFrame {
             tc.setCellRenderer(renderer);
         }
     }
+
     private void createPDF(ArrayList<BEAppearance> app) {
-        BLLLønPdf pdf = new BLLLønPdf(app);
+        try {
+            BEFireman localFireman = null;
+            if (cboxBM.getSelectedIndex() != 0) {
+                localFireman = (BEFireman)cboxBM.getSelectedItem();
+            }
+              BLLLønPdf pdf = new BLLLønPdf(bllAppearance.getAllAppearancesWithDateCriteria(localFireman, dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY)));
+           
+            
+        } catch (DocumentException | IOException ex) {
+            System.out.println("FEJL: " + ex);
+            JOptionPane.showMessageDialog(this, "Fejl ved at lave en PDF: " + ex);
+        }
         JOptionPane.showMessageDialog(this, "PDF'en er nu lavet på skrivebordet!");
     }
 }
