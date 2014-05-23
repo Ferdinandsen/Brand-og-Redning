@@ -51,6 +51,7 @@ public class LoginView extends javax.swing.JFrame {
                 dispose();
             }
         });
+        
         btnOk.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -64,9 +65,6 @@ public class LoginView extends javax.swing.JFrame {
             if (bllEmployee.doesUserExist(txtName.getText(), txtPassword.getPassword())) {
                 BELogin log = bllEmployee.getLogin(txtName.getText());
                 if (log.isHoldleder()) {
-//                    HLAfterAction hlView = HLAfterAction.getInstance();
-//                    hlView.setLocationRelativeTo(null);
-//                    hlView.setVisible(true);
                     dispose();
                 }
                 if (log.isAdmin()){

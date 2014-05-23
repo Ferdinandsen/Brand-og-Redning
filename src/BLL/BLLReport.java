@@ -22,6 +22,10 @@ public class BLLReport {
         }
     }
 
+    /**
+     * 
+     * @return 
+     */
     public static BLLReport getInstance() {
         if (m_instance == null) {
             m_instance = new BLLReport();
@@ -29,6 +33,11 @@ public class BLLReport {
         return m_instance;
     }
 
+    /**
+     * 
+     * @param be
+     * @param veh 
+     */
     public void createErrorReport(BEError be, BEVehicle veh) {
         try {
             dalreport.createErrorReport(be, veh);

@@ -5,12 +5,12 @@ import BE.BEAppearance;
 import BE.BEVehicle;
 import BLL.BLLAlarm;
 import BLL.BLLAppearance;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -20,8 +20,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -33,9 +31,7 @@ public class HLAfterActionStory extends javax.swing.JFrame {
     BLLAlarm bllAlarm;
     BLLAppearance bllAppearance;
     ArrayList<KørselPanel> køtj = new ArrayList<>();
-    int køtjtype = 1;
     BEAlarm localAlarm;
-//    private JPanel main;
 
     /**
      * Creates new form HLAfterActionStory
@@ -49,7 +45,6 @@ public class HLAfterActionStory extends javax.swing.JFrame {
         bllAppearance = BLLAppearance.getInstance();
         bllAlarm = BLLAlarm.getInstance();
         initComponents();
-        fillCBox();
         initOtherComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -61,15 +56,12 @@ public class HLAfterActionStory extends javax.swing.JFrame {
     private void initComponents() {
 
         btnGrpAlarm = new javax.swing.ButtonGroup();
-        jSplitPane1 = new javax.swing.JSplitPane();
-        cboxIkkeIBrug = new javax.swing.JComboBox();
         rbtnFAlarm = new javax.swing.JRadioButton();
         rbtnBAlarm = new javax.swing.JRadioButton();
-        rbtnIkkeIBrug = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        pnlKørsel = getGroupLayout();
+        pnlKørsel = getBorderLayout() ;
         btnBekræft = new javax.swing.JButton();
         txtFGRP = new javax.swing.JTextField();
         txtFDet = new javax.swing.JTextField();
@@ -81,24 +73,13 @@ public class HLAfterActionStory extends javax.swing.JFrame {
 
         rbtnBAlarm.setText("Blind Alarm");
 
-        rbtnIkkeIBrug.setText("Ikke i Brug");
-
         jLabel1.setText("GruppeNo");
 
         jLabel2.setText("DetektorNo");
 
         jLabel3.setText("Kørselstype:");
 
-        javax.swing.GroupLayout pnlKørselLayout = new javax.swing.GroupLayout(pnlKørsel);
-        pnlKørsel.setLayout(pnlKørselLayout);
-        pnlKørselLayout.setHorizontalGroup(
-            pnlKørselLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        pnlKørselLayout.setVerticalGroup(
-            pnlKørselLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 95, Short.MAX_VALUE)
-        );
+        pnlKørsel.setLayout(new java.awt.GridLayout(1, 0));
 
         btnBekræft.setText("Bekræft");
 
@@ -109,35 +90,29 @@ public class HLAfterActionStory extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(btnBekræft)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlKørsel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(rbtnNormalAlarm)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel3)
+                            .addComponent(jLabel3)
+                            .addComponent(rbtnFAlarm, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rbtnBAlarm, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGap(21, 21, 21)
-                                    .addComponent(cboxIkkeIBrug, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(rbtnFAlarm, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-                                .addComponent(rbtnIkkeIBrug, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addGap(11, 11, 11)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtFDet)
-                                    .addComponent(txtFGRP, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(rbtnBAlarm, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 74, Short.MAX_VALUE))))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel1)
+                                        .addComponent(jLabel2))
+                                    .addGap(11, 11, 11)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtFDet)
+                                        .addComponent(txtFGRP, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnBekræft)
+                                    .addGap(29, 29, 29))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(pnlKørsel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,11 +123,7 @@ public class HLAfterActionStory extends javax.swing.JFrame {
                 .addComponent(rbtnBAlarm)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rbtnFAlarm, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbtnIkkeIBrug)
-                .addGap(5, 5, 5)
-                .addComponent(cboxIkkeIBrug, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -164,28 +135,24 @@ public class HLAfterActionStory extends javax.swing.JFrame {
                         .addComponent(txtFDet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addGap(49, 49, 49)
-                .addComponent(pnlKørsel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlKørsel, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBekræft)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBekræft;
     private javax.swing.ButtonGroup btnGrpAlarm;
-    private javax.swing.JComboBox cboxIkkeIBrug;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JPanel pnlKørsel;
     private javax.swing.JRadioButton rbtnBAlarm;
     private javax.swing.JRadioButton rbtnFAlarm;
-    private javax.swing.JRadioButton rbtnIkkeIBrug;
     private javax.swing.JRadioButton rbtnNormalAlarm;
     private javax.swing.JTextField txtFDet;
     private javax.swing.JTextField txtFGRP;
@@ -194,15 +161,24 @@ public class HLAfterActionStory extends javax.swing.JFrame {
     private ArrayList<BEVehicle> getVeh() {
         ArrayList<BEVehicle> allvehicles = new ArrayList<>();
         for (BEAppearance a : allappearances) {
-            if (!allvehicles.contains(a.getVeh())) {
+            if (a.getVeh() != null && !allvehicles.contains(a.getVeh())) {
                 allvehicles.add(a.getVeh());
             }
         }
         return allvehicles;
     }
 
+    private JPanel getBorderLayout() {
+        JPanel p = new JPanel();
+        p.setLayout(new BorderLayout());
+        p.add(getGroupLayout(), BorderLayout.CENTER);
+        return p;
+    }
+
     private JPanel getGroupLayout() {
         JPanel p = new JPanel();
+        GridLayout gl = new GridLayout(0, 1);
+        p.setLayout(gl);
         if (!getVeh().isEmpty()) {
             for (BEVehicle v : getVeh()) {
                 KørselPanel panel = new KørselPanel(v);
@@ -213,8 +189,6 @@ public class HLAfterActionStory extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(panel.getLBL())
                                 .addComponent(panel.combo));
-                getContentPane().add(panel);
-                pack();
                 p.add(panel);
                 køtj.add(panel);
             }
@@ -223,12 +197,9 @@ public class HLAfterActionStory extends javax.swing.JFrame {
     }
 
     private void initOtherComponents() {
-
-        cboxIkkeIBrug.setEnabled(false);
         btnGrpAlarm.add(rbtnNormalAlarm);
         btnGrpAlarm.add(rbtnBAlarm);
         btnGrpAlarm.add(rbtnFAlarm);
-        btnGrpAlarm.add(rbtnIkkeIBrug);
         btnGrpAlarm.setSelected(rbtnNormalAlarm.getModel(), true);
 
         txtFGRP.addKeyListener(new KeyAdapter() {
@@ -240,7 +211,6 @@ public class HLAfterActionStory extends javax.swing.JFrame {
                 if (!(Character.isDigit(e.getKeyChar()))) {
                     e.consume();
                 }
-
                 if ((e.getKeyCode() == KeyEvent.VK_TAB)) {
                     transferFocus();
                     e.consume();
@@ -275,34 +245,8 @@ public class HLAfterActionStory extends javax.swing.JFrame {
                 frame.setVisible(true);
             }
         });
-
-        rbtnIkkeIBrug.addChangeListener(new ChangeListener() {
-
-            @Override
-            public void stateChanged(ChangeEvent ce) {
-                if (rbtnIkkeIBrug.isSelected()) {
-                    cboxIkkeIBrug.setEnabled(true);
-                    pnlKørsel.setVisible(false);
-                } else if (!rbtnIkkeIBrug.isSelected()) {
-                    cboxIkkeIBrug.setEnabled(false);
-                    pnlKørsel.setVisible(true);
-                }
-            }
-        });
-        getGroupLayout();
     }
 
-    private void fillCBox() {
-        for (BEVehicle v : getVeh()) {
-            if (v != null) {
-                cboxIkkeIBrug.addItem(v);
-            }
-        }
-    }
-
-    private int getKørselType() {
-        return køtjtype;
-    }
 
     private void getDataToIL() {
         String alarmtype = "Normal Alarm";
@@ -316,21 +260,23 @@ public class HLAfterActionStory extends javax.swing.JFrame {
         if (rbtnBAlarm.isSelected()) {
             alarmtype = "Blind Alarm";
         }
+        
         if (rbtnFAlarm.isSelected()) {
             alarmtype = "Falsk Alarm";
         }
-        if (rbtnIkkeIBrug.isSelected()) {
-            alarmtype = "Normal Alarm";
-        }
 
-        gruppeNo = txtFGRP.getText().isEmpty() ? 0 : Integer.parseInt(txtFGRP.getText()); 
+        gruppeNo = txtFGRP.getText().isEmpty() ? 0 : Integer.parseInt(txtFGRP.getText());
         detekNo = txtFDet.getText().isEmpty() ? 0 : Integer.parseInt(txtFDet.getText());
         localAlarm.setAlarmType(alarmtype);
         localAlarm.setGruppeNo(gruppeNo);
         localAlarm.setDetekterNo(detekNo);
         bllAlarm.updateAlarm(localAlarm);
-        for (BEAppearance a : allappearances) {
-            bllAppearance.updateKørselType(a, getKørselType());
+        for (KørselPanel kør : køtj) {
+            for (BEAppearance a : allappearances) {
+                if (a.getVeh() != null && a.getVeh().getOdinnummer() == kør.name) {
+                    bllAppearance.updateKørselType(a, kør.getselected());
+                }
+            }
         }
     }
 
@@ -342,27 +288,24 @@ public class HLAfterActionStory extends javax.swing.JFrame {
         BEVehicle vehicle;
 
         public KørselPanel(BEVehicle v) {
-            this.setPreferredSize(new Dimension(100, 40));
+            this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            this.setPreferredSize(new Dimension(120, 45));
             if (v != null) {
                 name = v.getOdinnummer();
             }
             vehicle = v;
             lbl = new JLabel();
             lbl.setPreferredSize(new Dimension(40, 15));
-            combo = new JComboBox<>();
-            combo.addItemListener(new ItemListener() {
-
-                @Override
-                public void itemStateChanged(ItemEvent ie) {
-                    køtjtype = (int) combo.getSelectedItem();
-                }
-            });
-
             lbl.setText(String.valueOf(name));
+            combo = new JComboBox<>();
             combo.addItem(1);
             combo.addItem(2);
+            combo.addItem("Ikke i brug");
             combo.setSelectedIndex(0);
-            this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        }
+
+        public int getselected() {
+            return combo.getSelectedItem().equals("Ikke i brug") ? 3 : (int) combo.getSelectedItem();
         }
 
         public JLabel getLBL() {

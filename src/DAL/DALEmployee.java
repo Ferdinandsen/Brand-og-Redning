@@ -2,7 +2,6 @@ package DAL;
 
 import BE.BEAddress;
 import BE.BEEmployee;
-import BE.BEFireman;
 import BE.BEZipCode;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -65,7 +64,6 @@ public class DALEmployee {
             }
             BEEmployee employee = new BEEmployee(medarbejderNo, fornavn, mellemnavn, efternavn, CPR, portræt, localaddress, isFriviligBrandmand);
             allEmployees.add(employee);
-
         }
     }
 
@@ -158,10 +156,8 @@ public class DALEmployee {
         ps.setInt(3, etage);
         ps.setString(4, lejlighed);
         ps.setInt(5, postnummer);
-
         ps.execute();
 
-        
         ResultSet rs = ps.getGeneratedKeys();
         int id = 0;
         if (rs.next()) {
@@ -189,9 +185,7 @@ public class DALEmployee {
         ps.setString(5, portræt);
         ps.setInt(6, adresseID);
         ps.setBoolean(7, fireman);
-
         ps.execute();
-
         
         ResultSet rs = ps.getGeneratedKeys();
         int id = 0;
@@ -205,6 +199,7 @@ public class DALEmployee {
                 localAddress = add;
             }
         }
+        
         BEEmployee employee = new BEEmployee(id, fornavn, mellemnavn, efternavn, CPR, portræt, localAddress, fireman);
         allEmployees.add(employee);
         return employee;
@@ -217,7 +212,4 @@ public class DALEmployee {
         ps.execute();
         allEmployees.remove(emp);
     }
-    
-
-    
 }

@@ -2,6 +2,7 @@ package GUI;
 
 import Renderes.UnfinishedAlarmsCellRenderer;
 import BE.BEAlarm;
+import BE.BELogin;
 import BLL.BLLAlarm;
 import BLL.BLLAppearance;
 import java.awt.event.ActionEvent;
@@ -20,8 +21,10 @@ public class ILIndsats extends javax.swing.JFrame {
     BLLAlarm bllAlarm;
     BLLAppearance bllAppearance;
     private UnfinishedFremmødeModel model;
+    BELogin localLogin;
 
-    public ILIndsats() {
+    public ILIndsats(BELogin log) {
+        localLogin = log;
         bllAlarm = BLLAlarm.getInstance();
         bllAppearance = BLLAppearance.getInstance();
         this.setResizable(false);
@@ -58,6 +61,7 @@ public class ILIndsats extends javax.swing.JFrame {
                 dispose();
             }
         });
+        
         tblFremmøder.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -65,12 +69,13 @@ public class ILIndsats extends javax.swing.JFrame {
 
             }
         });
+        
         btnHent.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 BEAlarm alarm = bllAlarm.getAllHLGodkendtAndNotILGodkend().get(tblFremmøder.convertRowIndexToView(tblFremmøder.getSelectedRow()));
-                ILFremmødeliste view = new ILFremmødeliste(alarm);
+                ILFremmødeliste view = new ILFremmødeliste(alarm, localLogin);
                 view.setLocationRelativeTo(null);
                 view.setVisible(true);
                 dispose();

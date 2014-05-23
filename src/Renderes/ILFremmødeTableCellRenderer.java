@@ -32,17 +32,17 @@ public class ILFremmødeTableCellRenderer extends DefaultTableCellRenderer {
         Component cell = super.getTableCellRendererComponent(
                 table, obj, isSelected, hasFocus, row, column);
 
-        cell.setBackground(row % 2 == 0 ? Color.WHITE : Color.lightGray);
+//        cell.setBackground(row % 2 == 0 ? Color.WHITE : Color.lightGray);
 
         Font f = new Font(Font.SANS_SERIF, Font.BOLD, 13);
         Font total = new Font(Font.SANS_SERIF, Font.BOLD, 15);
-        if (allAppearances.get(row).getLogin().getMedarbejder().getFornavn().equalsIgnoreCase("gæst")){
+        
+        if (!allAppearances.get(row).getLogin().getMedarbejder().getFornavn().equalsIgnoreCase("gæst")){
              cell.setBackground(Color.ORANGE);
         }
         else{
             cell.setBackground(Color.GREEN);
         }
-        
         if (isSelected) {
             cell.setBackground(Color.DARK_GRAY);
             if (table.convertColumnIndexToModel(column) != 5) {
@@ -52,7 +52,6 @@ public class ILFremmødeTableCellRenderer extends DefaultTableCellRenderer {
         } else {
             cell.setForeground(Color.BLACK);
         }
-
         return cell;
     }
 }

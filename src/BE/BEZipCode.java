@@ -41,14 +41,4 @@ public class BEZipCode {
     public void setCity(String city) {
         this.city = city;
     }
-
-    /**
-     * @return the ZIPCODE
-     */
-    
-
-    /**
-     * @return the CITY
-     */
-   
 }

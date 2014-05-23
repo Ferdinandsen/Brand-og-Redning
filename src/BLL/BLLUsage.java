@@ -1,12 +1,11 @@
 package BLL;
 
+import BE.BEAlarm;
 import BE.BEMateriel;
 import BE.BEUsage;
 import DAL.DALUsage;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -25,10 +24,19 @@ public class BLLUsage {
             System.out.println("Fejl i BLLUsage " + e);
         }
     }
-    public ArrayList<BEUsage> getAllUsages(){
+
+    /**
+     * 
+     * @return 
+     */
+    public ArrayList<BEUsage> getAllUsages() {
         return dalusage.getAllUsages();
     }
 
+    /**
+     * 
+     * @return 
+     */
     public static BLLUsage getInstance() {
         if (m_instance == null) {
             m_instance = new BLLUsage();
@@ -36,6 +44,10 @@ public class BLLUsage {
         return m_instance;
     }
 
+    /**
+     * 
+     * @param u 
+     */
     public void createReport(BEUsage u) {
         try {
             dalusage.createUsageReport(u);
@@ -45,19 +57,30 @@ public class BLLUsage {
         }
     }
 
+    /**
+     * 
+     * @return 
+     */
     public ArrayList<BEMateriel> getAllMats() {
         return dalusage.getAllMats();
     }
 
+    /**
+     * 
+     * @param bu 
+     */
     public void updateUsageReport(BEUsage bu) {
-       try{
-           dalusage.updateUsageReport(bu);
-       }
-       catch (SQLException e){
-           System.out.println("Fejl i updateUsageReport" + e);
-       }
+        try {
+            dalusage.updateUsageReport(bu);
+        } catch (SQLException e) {
+            System.out.println("Fejl i updateUsageReport" + e);
+        }
     }
 
+    /**
+     * 
+     * @param mat 
+     */
     public void deleteMaterial(BEMateriel mat) {
         try {
             dalusage.deleteMaterial(mat);
@@ -66,11 +89,30 @@ public class BLLUsage {
         }
     }
 
+    /**
+     * 
+     * @param text 
+     */
     public void addMaterial(String text) {
         try {
             dalusage.addMaterial(text);
         } catch (SQLException ex) {
-             System.out.println("Fejl i addMaterial i bllUsage" + ex);
+            System.out.println("Fejl i addMaterial i bllUsage" + ex);
         }
+    }
+
+    /**
+     * 
+     * @param localAlarm
+     * @return 
+     */
+    public ArrayList<BEUsage> getAllUsagesForAlarm(BEAlarm localAlarm) {
+        ArrayList<BEUsage> allUsages = new ArrayList<>();
+        for (BEUsage usage : getAllUsages()) {
+            if (usage.getAlarm() == localAlarm) {
+                allUsages.add(usage);
+            }
+        }
+        return allUsages;
     }
 }

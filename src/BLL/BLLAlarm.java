@@ -26,21 +26,37 @@ public class BLLAlarm {
         }
     }
 
+    /**
+     * 
+     * @return 
+     */
     public static BLLAlarm getInstance() {
         if (m_instance == null) {
             m_instance = new BLLAlarm();
         }
         return m_instance;
     }
-
+    
+/**
+ * 
+ * @return 
+ */
     public ArrayList<BEAlarm> getAllAlarms() {
         return dalAlarm.getAllAlarms();
     }
 
+    /**
+     * 
+     * @return 
+     */
     public ArrayList<BEOdinAlarm> getAllOdinAlarms() {
         return dalAlarm.getAllOdinAlarms();
     }
 
+    /**
+     * 
+     * @return 
+     */
     public ArrayList<BEAlarm> getAllUnfinishedAlarms() {
         ArrayList<BEAlarm> unfinishedAlarms = new ArrayList<>();
         for (BEAlarm alarm : getAllAlarms()) {
@@ -51,6 +67,10 @@ public class BLLAlarm {
         return unfinishedAlarms;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public ArrayList<BEAlarm> getAllIkkeHLGodkendt() {
         ArrayList<BEAlarm> hlgodkendt = new ArrayList<>();
         for (BEAlarm a : getAllAlarms()) {
@@ -61,6 +81,10 @@ public class BLLAlarm {
         return hlgodkendt;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public ArrayList<BEAlarm> getAllHLGodkendtAndNotILGodkend() {
         ArrayList<BEAlarm> hlgodkendt = new ArrayList<>();
         for (BEAlarm a : getAllAlarms()) {
@@ -71,6 +95,10 @@ public class BLLAlarm {
         return hlgodkendt;
     }
 
+    /**
+     * 
+     * @param a 
+     */
     public void updateAlarm(BEAlarm a) {
         try {
             dalAlarm.updateAlarm(a);
@@ -79,6 +107,10 @@ public class BLLAlarm {
         }
     }
 
+    /**
+     * 
+     * @return 
+     */
     private Timestamp time() {
         Calendar calendar = Calendar.getInstance();
         java.util.Date now = calendar.getTime();
@@ -86,6 +118,10 @@ public class BLLAlarm {
         return currentTime;
     }
 
+    /**
+     * 
+     * @param localAlarm 
+     */
     public void confirmAlarm(BEAlarm localAlarm) {
         Timestamp time = time();
         try {
@@ -96,6 +132,9 @@ public class BLLAlarm {
         }
     }
 
+    /**
+     * 
+     */
     public void setGuestsOnAlarms() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

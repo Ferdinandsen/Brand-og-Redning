@@ -47,6 +47,9 @@ public class DALALarm {
         return node.getNodeValue();
     }
 
+    /**
+     *
+     */
     private void getXmlAlarms() {
         allOdinAlarms = new ArrayList<>();
         try {
@@ -61,7 +64,6 @@ public class DALALarm {
 
             for (int i = 0; i < nodes.getLength(); i++) {
                 Node node = nodes.item(i);
-
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
                     BEOdinAlarm odinAlarm = new BEOdinAlarm(getValue("title", element), getValue("description", element), getValue("comments", element));
@@ -73,10 +75,18 @@ public class DALALarm {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<BEOdinAlarm> getAllOdinAlarms() {
         return allOdinAlarms;
     }
 
+    /**
+     *
+     * @return @throws SQLException
+     */
     public static DALALarm getInstance() throws SQLException {
         if (m_instance == null) {
             m_instance = new DALALarm();
@@ -84,6 +94,10 @@ public class DALALarm {
         return m_instance;
     }
 
+    /**
+     *
+     * @throws SQLException
+     */
     private void populateAlarm() throws SQLException {
         allAlarms = new ArrayList<>();
         String sql = "SELECT * FROM Alarm";
@@ -112,6 +126,10 @@ public class DALALarm {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<BEAlarm> getAllAlarms() {
         return allAlarms;
     }
@@ -141,6 +159,11 @@ public class DALALarm {
 //        return alarm;
 //
 //    }
+    /**
+     *
+     * @param a
+     * @throws SQLException
+     */
     public void updateAlarm(BEAlarm a) throws SQLException {
 
         String sql = "UPDATE Alarm SET alarmType = ?, gruppeNo = ?, detekterNo = ? WHERE id = ?";
@@ -153,6 +176,11 @@ public class DALALarm {
         ps.execute();
     }
 
+    /**
+     *
+     * @param alarm
+     * @throws SQLException
+     */
     public void setHlBemærkning(BEAlarm alarm) throws SQLException {
         String sql = "UPDATE Alarm SET hlBemærkning = ?, hlGodkendtTid = ? WHERE id = ?";
 
@@ -163,7 +191,12 @@ public class DALALarm {
         ps.execute();
     }
 
-
+    /**
+     *
+     * @param alarm
+     * @param time
+     * @throws SQLException
+     */
     public void confirmAlarm(BEAlarm alarm, Timestamp time) throws SQLException {
         String sql = "UPDATE Alarm SET done = ?, alarmType = ?, evaNo = ?, gruppeNo = ?, detekterNo = ?, ilBemærkning = ?, beskrivelse = ?, ilGodkendtTid = ? WHERE id = ?";
 
@@ -181,4 +214,3 @@ public class DALALarm {
         alarm.setDone(true);
     }
 }
-

@@ -90,7 +90,11 @@ public class BEVehicle {
         this.description = beskrivelse;
     }
 
-    @Override
+    /**
+     * 
+     * @return 
+     */
+        @Override
     public String toString() {
         return "" + odinnummer;
     }

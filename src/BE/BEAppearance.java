@@ -9,7 +9,6 @@ import java.sql.Timestamp;
 public class BEAppearance {
 
     private int id;
-
     private BEFireman fireman;
     private int totalTid;
     private Timestamp checkIn;
@@ -215,7 +214,11 @@ public class BEAppearance {
     public Timestamp getCheckOut() {
         return checkOut;
     }
-
+    
+/**
+ * 
+ * @return 
+ */
     public String getCheckOutString() {
         String checkOutString[] = getCheckOut().toString().split(" ");
         String[] fixedAlarm1 = checkOutString[1].split(":");

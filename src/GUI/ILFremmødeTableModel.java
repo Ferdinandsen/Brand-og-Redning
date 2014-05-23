@@ -24,6 +24,7 @@ public class ILFremmødeTableModel extends AbstractTableModel {
         "Chauffør",
         "ST Vagt"
     };
+    
     /**
      * the type definition for the columns
      */
