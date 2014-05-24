@@ -1,6 +1,8 @@
 package Renderes;
 
-import BE.BEAppearance;
+import TableModels.TableModelUnfinishedFremmøde;
+import BE.BEAlarm;
+import BLL.BLLAppearance;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -12,15 +14,13 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Team Kawabunga
  */
-public class ILFremmødeTableCellRenderer extends DefaultTableCellRenderer {
+public class RenderUnfinishedAlarmsCell extends DefaultTableCellRenderer {
 
-    ArrayList<BEAppearance> allAppearances;
+    ArrayList<BEAlarm> allAlarms;
+    BLLAppearance bllAppearance;
 
-    public ILFremmødeTableCellRenderer() {
-    }
+    public RenderUnfinishedAlarmsCell() {
 
-    public ILFremmødeTableCellRenderer(ArrayList<BEAppearance> allHlGodkendtAppearances) {
-        allAppearances = allHlGodkendtAppearances;
     }
 
     @Override
@@ -29,20 +29,15 @@ public class ILFremmødeTableCellRenderer extends DefaultTableCellRenderer {
             boolean isSelected,
             boolean hasFocus,
             int row, int column) {
+        TableModelUnfinishedFremmøde model = (TableModelUnfinishedFremmøde) table.getModel();
         Component cell = super.getTableCellRendererComponent(
                 table, obj, isSelected, hasFocus, row, column);
 
-//        cell.setBackground(row % 2 == 0 ? Color.WHITE : Color.lightGray);
+        cell.setBackground(Color.WHITE);
 
         Font f = new Font(Font.SANS_SERIF, Font.BOLD, 13);
-        Font total = new Font(Font.SANS_SERIF, Font.BOLD, 15);
-        
-        if (!allAppearances.get(row).getLogin().getMedarbejder().getFornavn().equalsIgnoreCase("gæst")){
-             cell.setBackground(Color.ORANGE);
-        }
-        else{
-            cell.setBackground(Color.GREEN);
-        }
+        BEAlarm a = model.getAlarmByRow(row);
+        cell.setBackground(a.getColor());
         if (isSelected) {
             cell.setBackground(Color.DARK_GRAY);
             if (table.convertColumnIndexToModel(column) != 5) {

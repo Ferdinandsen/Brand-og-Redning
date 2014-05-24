@@ -1,4 +1,4 @@
-package GUI;
+package TableModels;
 
 import BE.BEAlarm;
 import java.sql.Timestamp;
@@ -9,7 +9,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Team Kawabunga
  */
-public class UnfinishedFremmødeModel extends AbstractTableModel {
+public class TableModelUnfinishedFremmøde extends AbstractTableModel {
 
     /**
      * the names of the columns in the table
@@ -35,7 +35,7 @@ public class UnfinishedFremmødeModel extends AbstractTableModel {
      *
      * @param allAlarms
      */
-    public UnfinishedFremmødeModel(ArrayList<BEAlarm> allAlarms) {
+    public TableModelUnfinishedFremmøde(ArrayList<BEAlarm> allAlarms) {
         alarms = allAlarms;
         fireTableDataChanged();
     }

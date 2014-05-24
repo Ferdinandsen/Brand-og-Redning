@@ -1,6 +1,7 @@
 package GUI;
 
-import Renderes.UnfinishedAlarmsCellRenderer;
+import TableModels.TableModelUnfinishedFremmøde;
+import Renderes.RenderUnfinishedAlarmsCell;
 import BE.BEAlarm;
 import BE.BELogin;
 import BLL.BLLAlarm;
@@ -16,14 +17,14 @@ import javax.swing.table.TableColumn;
  *
  * @author Team Kawabunga
  */
-public class ILIndsats extends javax.swing.JFrame {
+public class ViewILIndsats extends javax.swing.JFrame {
 
     BLLAlarm bllAlarm;
     BLLAppearance bllAppearance;
-    private UnfinishedFremmødeModel model;
+    private TableModelUnfinishedFremmøde model;
     BELogin localLogin;
 
-    public ILIndsats(BELogin log) {
+    public ViewILIndsats(BELogin log) {
         localLogin = log;
         bllAlarm = BLLAlarm.getInstance();
         bllAppearance = BLLAppearance.getInstance();
@@ -37,7 +38,7 @@ public class ILIndsats extends javax.swing.JFrame {
     }
 
     private void addCellRenderer() {
-        UnfinishedAlarmsCellRenderer renderer = new UnfinishedAlarmsCellRenderer();
+        RenderUnfinishedAlarmsCell renderer = new RenderUnfinishedAlarmsCell();
         for (int col = 0; col < model.getColumnCount(); col++) {
             renderer.setHorizontalAlignment(JLabel.CENTER);
             TableColumn tc = tblFremmøder.getColumnModel().getColumn(col);
@@ -46,7 +47,7 @@ public class ILIndsats extends javax.swing.JFrame {
     }
 
     private void populateFremmødeTable() {
-        model = new UnfinishedFremmødeModel(bllAlarm.getAllHLGodkendtAndNotILGodkend());
+        model = new TableModelUnfinishedFremmøde(bllAlarm.getAllHLGodkendtAndNotILGodkend());
         tblFremmøder.setModel(model);
         model.fireTableDataChanged();
     }
@@ -61,7 +62,7 @@ public class ILIndsats extends javax.swing.JFrame {
                 dispose();
             }
         });
-        
+
         tblFremmøder.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -69,15 +70,13 @@ public class ILIndsats extends javax.swing.JFrame {
 
             }
         });
-        
+
         btnHent.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 BEAlarm alarm = bllAlarm.getAllHLGodkendtAndNotILGodkend().get(tblFremmøder.convertRowIndexToView(tblFremmøder.getSelectedRow()));
-                ILFremmødeliste view = new ILFremmødeliste(alarm, localLogin);
-                view.setLocationRelativeTo(null);
-                view.setVisible(true);
+                FactoryViewform.createILFremmødeliste(alarm, localLogin).setVisible(true);
                 dispose();
             }
         });

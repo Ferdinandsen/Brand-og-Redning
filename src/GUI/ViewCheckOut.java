@@ -1,6 +1,6 @@
 package GUI;
 
-import Renderes.ComboboxRenderer;
+import Renderes.RenderCombobox;
 import BE.BEAlarm;
 import BE.BEFireman;
 import BE.BEVehicle;
@@ -20,7 +20,7 @@ import javax.swing.event.ChangeListener;
  *
  * @author Team Kawabunga
  */
-public class CheckOutView extends javax.swing.JDialog {
+public class ViewCheckOut extends javax.swing.JDialog {
 
     BLLFireman bllFireman;
     BLLVehicle bllvehicle;
@@ -33,34 +33,38 @@ public class CheckOutView extends javax.swing.JDialog {
      *
      * @param fireman
      */
-    public CheckOutView(BEFireman fireman) {
+    public ViewCheckOut(BEFireman fireman) {
+        initMetaData();
 
-        this.setUndecorated(true);
         bllFireman = BLLFireman.getInstance();
         bllvehicle = BLLVehicle.getInstance();
         bllAlarm = BLLAlarm.getInstance();
         bllAppearance = BLLAppearance.getInstance();
         localFireman = fireman;
         initComponents();
+        initComponentSettings();
         initOtherComponents();
+        fillCboxVehicle();
+        fillCboxAlarm();
+
         lblTitle.setText("Velkommen: " + fireman.getMedarbjeder().getFornavn() + " " + fireman.getMedarbjeder().getEfternavn());
         pnlFrame.setBackground(new Color(164, 164, 164));
         rbtnChauffør.setBackground(new Color(164, 164, 164));
         rbtnHoldleder.setBackground(new Color(164, 164, 164));
         rbtnStVagt.setBackground(new Color(164, 164, 164));
 
+        RenderCombobox renderer = new RenderCombobox();
+        cboxAlarm.setRenderer(renderer);
+        cboxVehicle.setRenderer(renderer);
+    }
+
+    private void initMetaData() {
+        this.setUndecorated(true);
         this.setTitle("CHECK UD");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setModal(true);
-
-        ComboboxRenderer renderer = new ComboboxRenderer();
-        cboxAlarm.setRenderer(renderer);
-        cboxVehicle.setRenderer(renderer);
-
-        fillCboxVehicle();
-        fillCboxAlarm();
     }
 
     @SuppressWarnings("unchecked")
@@ -186,24 +190,6 @@ public class CheckOutView extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void initOtherComponents() {
-        btnReset.setBackground(Color.LIGHT_GRAY);
-        btnAcknowledge.setBackground(new Color(255, 255, 102));
-        btnClose.setBackground(Color.RED);
-        btnAcknowledge.setText("Bekræft");
-        btnAcknowledge.setEnabled(false);
-        rbtnHoldleder.setEnabled(false);
-        if (localFireman.isHoldleder()) {
-            rbtnHoldleder.setEnabled(true);
-        }
-        rbtnChauffør.setEnabled(false);
-        if (localFireman.isChaffør()) {
-            rbtnChauffør.setEnabled(true);
-        }
-        rbtnStVagt.setEnabled(true);
-
-        btnGrpCheckOut.add(rbtnStVagt);
-        btnGrpCheckOut.add(rbtnChauffør);
-        btnGrpCheckOut.add(rbtnHoldleder);
 
         rbtnChauffør.addActionListener(new ActionListener() {
             @Override
@@ -281,6 +267,27 @@ public class CheckOutView extends javax.swing.JDialog {
         });
     }
 
+    private void initComponentSettings() {
+        btnReset.setBackground(Color.LIGHT_GRAY);
+        btnAcknowledge.setBackground(new Color(255, 255, 102));
+        btnClose.setBackground(Color.RED);
+        btnAcknowledge.setText("Bekræft");
+        btnAcknowledge.setEnabled(false);
+        rbtnHoldleder.setEnabled(false);
+        rbtnStVagt.setEnabled(true);
+        btnGrpCheckOut.add(rbtnStVagt);
+        btnGrpCheckOut.add(rbtnChauffør);
+        btnGrpCheckOut.add(rbtnHoldleder);
+
+        if (localFireman.isHoldleder()) {
+            rbtnHoldleder.setEnabled(true);
+        }
+        rbtnChauffør.setEnabled(false);
+        if (localFireman.isChaffør()) {
+            rbtnChauffør.setEnabled(true);
+        }
+    }
+
     private void fillCboxVehicle() {
         for (BEVehicle car : bllvehicle.getAllVehicles()) {
             cboxVehicle.addItem(car);
@@ -298,22 +305,11 @@ public class CheckOutView extends javax.swing.JDialog {
     }
 
     private void endShift() {
-        BEVehicle veh = null;
-        boolean hl = false;
-        boolean ch = false;
-        boolean st = false;
-        if (cboxVehicle.getSelectedIndex() != 0) {
-            veh = (BEVehicle) cboxVehicle.getSelectedItem();
-        }
-        if (rbtnHoldleder.isSelected()) {
-            hl = true;
-        }
-        if (rbtnChauffør.isSelected()) {
-            ch = true;
-        }
-        if (rbtnStVagt.isSelected()) {
-            st = true;
-        }
+        BEVehicle veh =  cboxVehicle.getSelectedIndex() == 0 ? null : (BEVehicle) cboxVehicle.getSelectedItem();
+        boolean hl = rbtnHoldleder.isSelected();
+        boolean ch = rbtnChauffør.isSelected();
+        boolean st = rbtnStVagt.isSelected();
+
         bllAppearance.createEndShift(getAlarm(), localFireman, veh, hl, ch, st);
     }
 }

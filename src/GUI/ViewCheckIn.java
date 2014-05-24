@@ -24,7 +24,7 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
  *
  * @author Team Kawabunga
  */
-public class CheckInView extends javax.swing.JFrame {
+public class ViewCheckIn extends javax.swing.JFrame {
 
     BLLFireman bllFireman;
     ArrayList<BEFireman> allFiremen = new ArrayList<>();
@@ -35,19 +35,20 @@ public class CheckInView extends javax.swing.JFrame {
     /**
      * Creates new form CheckUD
      */
-    public CheckInView() {
+    public ViewCheckIn() {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         bllFireman = BLLFireman.getInstance();
+        main = getBorderLayout();
+        this.add(main);
         this.setUndecorated(true);
         this.setResizable(false);
-        setResizable(false);
+        this.setResizable(false);
         this.setTitle("CHECK UD SCREEN");
         getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         pack();
         width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
         height = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-        main = getBorderLayout();
-        this.add(main);
+
     }
 
     private JPanel getBorderLayout() {
@@ -83,9 +84,8 @@ public class CheckInView extends javax.swing.JFrame {
                 b.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        CheckInView.firemanButton fb = (CheckInView.firemanButton) e.getSource();
-                        CheckOutView frame = new CheckOutView(fb.localFireman);
-                        frame.setVisible(true);
+                        ViewCheckIn.firemanButton fb = (ViewCheckIn.firemanButton) e.getSource();
+                        FactoryViewform.createCheckOutView(fb.localFireman).setVisible(true);
                     }
                 });
                 if (fm.getTeam() == amount) {

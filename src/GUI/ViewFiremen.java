@@ -6,7 +6,6 @@ import BLL.BLLEmployee;
 import BLL.BLLFireman;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -14,14 +13,13 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class FiremenView extends javax.swing.JFrame {
+public class ViewFiremen extends javax.swing.JFrame {
 
     BLLFireman bllFireman;
     BLLEmployee bllEmployee;
     DefaultListModel model = new DefaultListModel();
-    private BufferedImage image;
 
-    public FiremenView() {
+    public ViewFiremen() {
         this.setResizable(false);
         bllEmployee = BLLEmployee.getInstance();
         bllFireman = BLLFireman.getInstance();
@@ -35,21 +33,19 @@ public class FiremenView extends javax.swing.JFrame {
         chckboxCH.setEnabled(false);
         chckboxHL.setEnabled(false);
         txtTeam.setEnabled(false);
+
         lstEmployees.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 btnRemove.setEnabled(lstEmployees.getSelectedIndex() != 0 && lstEmployees.getSelectedIndex() != -1);
                 if (lstEmployees.getSelectedIndex() != 0 && lstEmployees.getSelectedIndex() != -1) {
+
                     BEEmployee emp = (BEEmployee) lstEmployees.getSelectedValue();
-                  
-                    chckboxFireman.setEnabled(emp.isIsFriviligBrand());
-                    if (emp.isIsFriviligBrand()) {
+
+                    if (emp.isFriviligBrand()) {
                         BEFireman fireman = null;
-                        for (BEFireman fm : bllFireman.getAllfiremen()) {
-                            if (fm.getMedarbjeder().getMedarbejderNo() == emp.getMedarbejderNo()) {
-                                fireman = fm;
-                            }
-                        }
+                        fireman = bllFireman.getFiremanByMedabejderNo(emp, fireman);
+                        chckboxFireman.setEnabled(true);
                         txtTeam.setEnabled(true);
                         txtTeam.setText(String.valueOf(fireman.getTeam()));
                         chckboxHL.setSelected(fireman.isHoldleder());
@@ -58,36 +54,9 @@ public class FiremenView extends javax.swing.JFrame {
                         txtTeam.setText("");
                         txtTeam.setEnabled(false);
                     }
-                    txtFornavn.setText(emp.getFornavn());
-                    txtMellemnavn.setText(emp.getMellemnavn());
-                    txtEfternavn.setText(emp.getEfternavn());
-                    txtCPR.setText(emp.getCpr());
-                    txtImage.setText(emp.getPortræt());
-                    chckboxFireman.setSelected(emp.isIsFriviligBrand());
-                    txtGadenavn.setText(emp.getAdress().getStreetName());
-                    txtGadenummer.setText(String.valueOf(emp.getAdress().getStreetNumber()));
-                    txtEtage.setText(String.valueOf(emp.getAdress().getFloor()));
-                    txtLejlighed.setText(emp.getAdress().getApartment());
-                    txtPostNr.setText(String.valueOf(emp.getAdress().getZip().getZipCode()));
-                    lblImage.setHorizontalAlignment(SwingConstants.CENTER);
-                    lblImage.setIcon(new ImageIcon(((new ImageIcon("images/" + emp.getPortræt())).getImage()).getScaledInstance(110, 100, java.awt.Image.SCALE_SMOOTH)));
-                } else {
-                    txtTeam.setText("");
-                    txtTeam.setEnabled(false);
-                    txtFornavn.setText("");
-                    txtMellemnavn.setText("");
-                    txtEfternavn.setText("");
-                    txtCPR.setText("");
-                    txtImage.setText("");
-                    chckboxFireman.setSelected(false);
-                    txtGadenavn.setText("");
-                    txtGadenummer.setText("");
-                    txtEtage.setText("");
-                    txtLejlighed.setText("");
-                    txtPostNr.setText("");
-                    txtTeam.setText("");
-                    lblImage.setHorizontalAlignment(SwingConstants.CENTER);
-                    lblImage.setIcon(new ImageIcon(((new ImageIcon("images/blank.jpg")).getImage()).getScaledInstance(110, 100, java.awt.Image.SCALE_SMOOTH)));
+                    fillInfo(emp); 
+                    } else {
+                    clearInfo();
                 }
             }
         });
@@ -116,6 +85,43 @@ public class FiremenView extends javax.swing.JFrame {
         });
     }
 
+    private void clearInfo() {
+        txtTeam.setText("");
+        txtTeam.setEnabled(false);
+        txtFornavn.setText("");
+        txtMellemnavn.setText("");
+        txtEfternavn.setText("");
+        txtCPR.setText("");
+        txtImage.setText("");
+        chckboxFireman.setSelected(false);
+        txtGadenavn.setText("");
+        txtGadenummer.setText("");
+        txtEtage.setText("");
+        txtLejlighed.setText("");
+        txtPostNr.setText("");
+        txtTeam.setText("");
+        lblImage.setHorizontalAlignment(SwingConstants.CENTER);
+        lblImage.setIcon(new ImageIcon(((new ImageIcon("images/blank.jpg")).getImage()).getScaledInstance(110, 100, java.awt.Image.SCALE_SMOOTH)));
+    }
+
+    private void fillInfo(BEEmployee emp){
+        txtFornavn.setText(emp.getFornavn());
+                    txtMellemnavn.setText(emp.getMellemnavn());
+                    txtEfternavn.setText(emp.getEfternavn());
+                    txtCPR.setText(emp.getCpr());
+                    txtImage.setText(emp.getPortræt());
+                    chckboxFireman.setSelected(emp.isFriviligBrand());
+                    txtGadenavn.setText(emp.getAdress().getStreetName());
+                    txtGadenummer.setText(String.valueOf(emp.getAdress().getStreetNumber()));
+                    txtEtage.setText(String.valueOf(emp.getAdress().getFloor()));
+                    txtLejlighed.setText(emp.getAdress().getApartment());
+                    txtPostNr.setText(String.valueOf(emp.getAdress().getZip().getZipCode()));
+                    lblImage.setHorizontalAlignment(SwingConstants.CENTER);
+                    lblImage.setIcon(new ImageIcon(((new ImageIcon("images/" + emp.getPortræt())).getImage()).getScaledInstance(110, 100, java.awt.Image.SCALE_SMOOTH)));
+                
+    }
+    
+
     private void addEmployee() {
         int gadenummer = !txtGadenummer.getText().isEmpty() ? Integer.parseInt(txtGadenummer.getText()) : 0;
         int etage = !txtEtage.getText().isEmpty() ? Integer.parseInt(txtEtage.getText()) : 0;
@@ -133,12 +139,12 @@ public class FiremenView extends javax.swing.JFrame {
 
     private void removeEmployee() {
         BEEmployee emp = (BEEmployee) lstEmployees.getSelectedValue();
-        if (emp.isIsFriviligBrand()) {
+        if (emp.isFriviligBrand()) {
             bllFireman.deleteFireman(emp);
         }
         bllEmployee.deleteEmployee(emp);
         model.removeElement(emp);
-        JOptionPane.showMessageDialog(null, "Medarbejderen er nu slettet!");
+        JOptionPane.showMessageDialog(this, "Medarbejderen er nu slettet!");
     }
 
     private void fillList() {
@@ -406,7 +412,7 @@ public class FiremenView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(pnlImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(pnlPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(pnlPerson, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()

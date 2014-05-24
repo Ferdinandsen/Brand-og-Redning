@@ -1,4 +1,4 @@
-package GUI;
+package TableModels;
 
 import BE.BEAppearance;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Team Kawabunga
  */
-public class ILFremmødeTableModel extends AbstractTableModel {
+public class TableModelILFremmøde extends AbstractTableModel {
 
     /**
      * the names of the columns in the table
@@ -43,7 +43,7 @@ public class ILFremmødeTableModel extends AbstractTableModel {
      *
      * @param allAppearances
      */
-    public ILFremmødeTableModel(ArrayList<BEAppearance> allAppearances) {
+    public TableModelILFremmøde(ArrayList<BEAppearance> allAppearances) {
         appearances = allAppearances;
         fireTableDataChanged();
     }

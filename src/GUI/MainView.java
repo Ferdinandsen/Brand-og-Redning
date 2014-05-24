@@ -1,6 +1,6 @@
 package GUI;
 
-import Renderes.ActionListRenderer;
+import Renderes.RenderActionList;
 import BE.BELogin;
 import BE.BEOdinAlarm;
 import BLL.BLLAlarm;
@@ -22,11 +22,12 @@ public class MainView extends javax.swing.JFrame {
     BLLEmployee bllEmployee;
     BELogin log;
     DefaultListModel model = new DefaultListModel();
-
+    
     /**
      * Creates new form MainView
      */
     public MainView() {
+        this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setTitle("Main View");
         bllAlarm = BLLAlarm.getInstance();
@@ -35,7 +36,7 @@ public class MainView extends javax.swing.JFrame {
         initLogInComponents();
         initOtherComponets();
 
-        ActionListRenderer renderer = new ActionListRenderer();
+        RenderActionList renderer = new RenderActionList();
         lstAction.setCellRenderer(renderer);
         fillListActions();
         lstAction.setModel(model);
@@ -209,7 +210,7 @@ public class MainView extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                AdministrationChooseView view = new AdministrationChooseView(log);
+                ViewAdministrationChoose view = new ViewAdministrationChoose(log);
                 view.setVisible(true);
             }
         });
@@ -218,8 +219,7 @@ public class MainView extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                HLAfterAction main = HLAfterAction.getInstance(log);
-                main.setVisible(true);
+               FactoryViewform.createHLAfterAction(log).setVisible(true);
             }
         });
 
@@ -227,7 +227,7 @@ public class MainView extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                HLErrorReport frame = new HLErrorReport();
+                ViewHLErrorReport frame = new ViewHLErrorReport();
                 frame.setVisible(true);
             }
         });
@@ -236,7 +236,7 @@ public class MainView extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-              ILIndsats view = new ILIndsats(log);
+              ViewILIndsats view = new ViewILIndsats(log);
               view.setLocationRelativeTo(null);
               view.setVisible(true);
             }
@@ -286,9 +286,10 @@ public class MainView extends javax.swing.JFrame {
         });
         
         btnIL.addActionListener(new ActionListener() {
-
+           
             @Override
             public void actionPerformed(ActionEvent ae) {
+                FactoryViewform.createViewILIndsats(log);
             }
         });
     }

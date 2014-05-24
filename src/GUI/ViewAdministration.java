@@ -1,5 +1,6 @@
 package GUI;
 
+import TableModels.TableModelLøn;
 import BE.BEAlarm;
 import BE.BEAppearance;
 import BE.BEFireman;
@@ -8,7 +9,7 @@ import BLL.BLLAlarm;
 import BLL.BLLAppearance;
 import BLL.BLLFireman;
 import BLL.BLLLønPdf;
-import Renderes.FremmødeTableCellRenderer;
+import Renderes.RenderFremmødeTableCell;
 import com.itextpdf.text.DocumentException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,20 +28,20 @@ import javax.swing.table.TableColumn;
  *
  * @author Team Kawabunga
  */
-public class Administration extends javax.swing.JFrame {
+public class ViewAdministration extends javax.swing.JFrame {
 
     final long DAY = 86400000; //1 day in milliseconds
     BELogin localLog;
     BLLAppearance bllAppearance;
     BLLFireman bllFireman;
     BLLAlarm bllAlarm;
-    LønTableModel model;
+    TableModelLøn model;
     DefaultListModel<String> alarmliste;
 
     /**
      * Creates new form Administration
      */
-    public Administration(BELogin log) {
+    public ViewAdministration(BELogin log) {
         localLog = log;
         bllAppearance = BLLAppearance.getInstance();
         bllFireman = BLLFireman.getInstance();
@@ -255,7 +256,7 @@ public class Administration extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ArrayList<BEAppearance> app = new ArrayList<>();
-                LønTableModel løn = (LønTableModel) tblBM.getModel();
+                TableModelLøn løn = (TableModelLøn) tblBM.getModel();
                 for (int i = 0; i < tblBM.getRowCount(); i++) {
                     app.add(løn.getRow(i));
                 }
@@ -275,7 +276,7 @@ public class Administration extends javax.swing.JFrame {
     }
 
     private void populateLønTable(BEFireman localFireman, Date from, Date to) {
-        model = new LønTableModel(bllAppearance.getAllAppearancesWithDateCriteria(localFireman, from, to));
+        model = new TableModelLøn(bllAppearance.getAllAppearancesWithDateCriteria(localFireman, from, to));
         tblBM.setModel(model);
         model.fireTableDataChanged();
         setTotalTime();
@@ -291,17 +292,17 @@ public class Administration extends javax.swing.JFrame {
     private void updateSalary() {
         if (cboxBM.getSelectedIndex() == 0) {
             BEFireman localFireman = null;
-            ChangeSalaryView frame = new ChangeSalaryView(bllAppearance.getAllAppearancesWithDateCriteria(localFireman, dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY)).get(tblBM.convertRowIndexToView(tblBM.getSelectedRow())));
+            ViewChangeSalary frame = new ViewChangeSalary(bllAppearance.getAllAppearancesWithDateCriteria(localFireman, dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY)).get(tblBM.convertRowIndexToView(tblBM.getSelectedRow())));
             frame.setVisible(true);
         } else {
             try {
-                ChangeSalaryView frame = new ChangeSalaryView(bllAppearance.getAllAppearancesWithDateCriteria((BEFireman) cboxBM.getSelectedItem(), dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY)).get(tblBM.convertRowIndexToView(tblBM.getSelectedRow())));
+                ViewChangeSalary frame = new ViewChangeSalary(bllAppearance.getAllAppearancesWithDateCriteria((BEFireman) cboxBM.getSelectedItem(), dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY)).get(tblBM.convertRowIndexToView(tblBM.getSelectedRow())));
                 frame.setVisible(true);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Du skal huske at hente først!");
             }
         }
-        tblBM.setModel(new LønTableModel(bllAppearance.getAllAppearancesWithDateCriteria(null, dchoFra.getDate(), dchoTil.getDate())));
+        tblBM.setModel(new TableModelLøn(bllAppearance.getAllAppearancesWithDateCriteria(null, dchoFra.getDate(), dchoTil.getDate())));
     }
 
     private void setTotalTime() {
@@ -313,7 +314,7 @@ public class Administration extends javax.swing.JFrame {
     }
 
     private void addCellRenderer() {
-        FremmødeTableCellRenderer renderer = new FremmødeTableCellRenderer();
+        RenderFremmødeTableCell renderer = new RenderFremmødeTableCell();
         for (int col = 0; col < model.getColumnCount(); col++) {
             renderer.setHorizontalAlignment(JLabel.CENTER);
             TableColumn tc = tblBM.getColumnModel().getColumn(col);

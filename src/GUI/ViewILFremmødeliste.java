@@ -1,6 +1,7 @@
 package GUI;
 
-import Renderes.ILFremmødeTableCellRenderer;
+import TableModels.TableModelILFremmøde;
+import Renderes.RenderILFremmødeTableCell;
 import BE.BEAlarm;
 import BE.BELogin;
 import BE.BEUsage;
@@ -19,24 +20,22 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
-import javax.swing.text.TableView;
-import javax.swing.text.TableView.TableRow;
 
 /**
  *
  * @author Team Kawabunga
  */
-public class ILFremmødeliste extends javax.swing.JFrame {
+public class ViewILFremmødeliste extends javax.swing.JFrame {
 
     BLLAppearance bllAppearance;
     BLLAlarm bllAlarm;
     BLLUsage bllUsage;
     BEAlarm localAlarm;
-    private ILFremmødeTableModel model;
+    private TableModelILFremmøde model;
     boolean usageConfirmed = false;
     BELogin localLogin;
 
-    public ILFremmødeliste(BEAlarm alarm, BELogin log) {
+    public ViewILFremmødeliste(BEAlarm alarm, BELogin log) {
         localLogin = log;
         bllAlarm = BLLAlarm.getInstance();
         bllUsage = BLLUsage.getInstance();
@@ -55,7 +54,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
 
     private void addCellRenderer() {
 
-        ILFremmødeTableCellRenderer renderer = new ILFremmødeTableCellRenderer(bllAppearance.getAllHlGodkendtAppearances(localAlarm));
+        RenderILFremmødeTableCell renderer = new RenderILFremmødeTableCell(bllAppearance.getAllHlGodkendtAppearances(localAlarm));
         for (int col = 0; col < model.getColumnCount(); col++) {
             renderer.setHorizontalAlignment(JLabel.CENTER);
             TableColumn tc = tblFremmøde.getColumnModel().getColumn(col);
@@ -311,6 +310,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
         txtHlKommentar.setLineWrap(true);
         txtABem.setLineWrap(true);
         txtABem.setText("");
+        
         tblFremmøde.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -384,9 +384,7 @@ public class ILFremmødeliste extends javax.swing.JFrame {
         btnCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ILIndsats view = new ILIndsats(localLogin);
-                view.setVisible(true);
-                dispose();
+                cancel();
             }
         });
 
@@ -459,10 +457,14 @@ public class ILFremmødeliste extends javax.swing.JFrame {
                 localUsages.add(usage);
             }
         }
-        HLUsageReport view = new HLUsageReport(localAlarm, localUsages);
-        view.setVisible(true);
+        FactoryViewform.createHLUsageReport(localAlarm, localUsages).setVisible(true);
         usageConfirmed = true;
         btnUsage.setForeground(Color.GREEN);
+    }
+
+    private void cancel() {
+        FactoryViewform.createViewILIndsats(localLogin).setVisible(true);
+        dispose();
     }
 
     private void deleteAppearance() {
@@ -472,20 +474,18 @@ public class ILFremmødeliste extends javax.swing.JFrame {
     }
 
     private void updateAppearance() {
-        ChangeTimeView ctView = new ChangeTimeView(bllAppearance.getAllHlGodkendtAppearances(localAlarm).get(tblFremmøde.convertRowIndexToView(tblFremmøde.getSelectedRow())));
-        ctView.setVisible(true);
+        FactoryViewform.createChangeTimeView(bllAppearance.getAllHlGodkendtAppearances(localAlarm).get(tblFremmøde.convertRowIndexToView(tblFremmøde.getSelectedRow()))).setVisible(true);
         model.fireTableDataChanged();
     }
 
     private void addAppearance() {
-        AddAppearanceView view = new AddAppearanceView(localAlarm);
-        view.setVisible(true);
+        FactoryViewform.createAddAppearanceView(localAlarm).setVisible(true);
         model.setAppearanceList(bllAppearance.getAllHlGodkendtAppearances(localAlarm));
         model.fireTableDataChanged();
     }
 
     private void populateFremmødeTable() {
-        model = new ILFremmødeTableModel(bllAppearance.getAllHlGodkendtAppearances(localAlarm));
+        model = new TableModelILFremmøde(bllAppearance.getAllHlGodkendtAppearances(localAlarm));
         tblFremmøde.setModel(model);
         model.fireTableDataChanged();
     }

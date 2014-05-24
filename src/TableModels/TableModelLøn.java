@@ -1,4 +1,4 @@
-package GUI;
+package TableModels;
 
 import BE.BEAppearance;
 import java.sql.Timestamp;
@@ -9,7 +9,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Team Kawabunga
  */
-public class LønTableModel extends AbstractTableModel {
+public class TableModelLøn extends AbstractTableModel {
 final int HLLønkode = 447;
 final int BMLønkode = 446;
 
@@ -46,7 +46,7 @@ final int BMLønkode = 446;
      *
      * @param allAppearances
      */
-    public LønTableModel(ArrayList<BEAppearance> allAppearances) {
+    public TableModelLøn(ArrayList<BEAppearance> allAppearances) {
         appearances = allAppearances;
         fireTableDataChanged();
     }

@@ -16,14 +16,14 @@ import java.util.Date;
  *
  * @author Team Kawabunga
  */
-public class ChangeTimeView extends javax.swing.JDialog {
+public class ViewChangeTime extends javax.swing.JDialog {
 
     boolean checkInIsCorrect = false;
     boolean checkOutIsCorrect = false;
     BLLAppearance bllAppearance;
     BEAppearance localAppearance;
 
-    public ChangeTimeView(BEAppearance appearance) {
+    public ViewChangeTime(BEAppearance appearance) {
         this.setModal(true);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);

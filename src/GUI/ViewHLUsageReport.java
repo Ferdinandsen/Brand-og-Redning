@@ -24,7 +24,7 @@ import javax.swing.JTextField;
  *
  * @author Team Kawabunga
  */
-public class HLUsageReport extends javax.swing.JDialog {
+public class ViewHLUsageReport extends javax.swing.JDialog {
 
     BLLUsage bllusage;
     BEUsage localUsage;
@@ -43,35 +43,36 @@ public class HLUsageReport extends javax.swing.JDialog {
      *
      * @param a
      */
-    public HLUsageReport(BEAlarm a) {
+    public ViewHLUsageReport(BEAlarm a) {
         alarm = a;
         bllusage = BLLUsage.getInstance();
         allMats = bllusage.getAllMats();
         height = allMats.size() * 25;
-        this.setSize(width, height);
-        this.setTitle("Holdleder Forbrugs Rapport");
-        this.setModal(true);
-        this.setLocationRelativeTo(null);
         main = getBorderLayout();
         this.add(main);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
+        this.setSize(width, height);
+        this.setTitle("Holdleder Forbrugs Rapport");
+        this.setModal(true);
+        this.setLocationRelativeTo(null);
     }
 
-    public HLUsageReport(BEAlarm a, ArrayList<BEUsage> allUsages) {
+    public ViewHLUsageReport(BEAlarm a, ArrayList<BEUsage> allUsages) {
         alarm = a;
         update = true;
         bllusage = BLLUsage.getInstance();
         allMats = bllusage.getAllMats();
         height = allMats.size() * 25;
-        this.setSize(width, height);
-        this.setTitle("Holdleder Forbrugs Rapport");
-        this.setLocationRelativeTo(null);
+        localAllUsages = allUsages;
         main = getBorderLayout();
         this.add(main);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
-        localAllUsages = allUsages;
+        this.setSize(width, height);
+        this.setTitle("Holdleder Forbrugs Rapport");
+        this.setModal(true);
+        this.setLocationRelativeTo(null);
         fillInfo();
     }
 
@@ -117,8 +118,6 @@ public class HLUsageReport extends javax.swing.JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 usage();
-                JOptionPane.showMessageDialog(null, "Du har nu registreret forbruget - tak!");
-                dispose();
             }
         });
 
@@ -177,7 +176,8 @@ public class HLUsageReport extends javax.swing.JDialog {
                 }
             }
         }
-
+        JOptionPane.showMessageDialog(this, "Du har nu registreret forbruget - tak!");
+        dispose();
     }
 
     @SuppressWarnings("unchecked")
