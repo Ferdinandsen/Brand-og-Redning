@@ -18,5 +18,10 @@ public class Main {
 //        Administration main = new Administration();
 //        main.setLocationRelativeTo(null);
 //        main.setVisible(true);
+
+        FactoryViewform factory = new FactoryViewform();
+        IViewType frame = factory.getFrame("mainview");
+        frame.show();
+
     }
 }

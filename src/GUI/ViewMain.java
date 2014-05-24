@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  *
  * @author Team Kawabunga
  */
-public class ViewMain extends javax.swing.JFrame {
+public class ViewMain extends javax.swing.JFrame implements IViewType {
 
     BLLAlarm bllAlarm;
     BLLEmployee bllEmployee;
