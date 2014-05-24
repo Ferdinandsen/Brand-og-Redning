@@ -78,4 +78,13 @@ public class BLLFireman {
             System.out.println("fejl i deleteFireman i bllFireman " + ex);
         }
     }
+
+    public BEFireman getFiremanByMedabejderNo(BEEmployee emp, BEFireman fireman) {
+        for (BEFireman fm : getAllfiremen()) {
+            if (fm.getMedarbjeder().getMedarbejderNo() == emp.getMedarbejderNo()) {
+                fireman = fm;
+            }
+        }
+        return fireman;
+    }   
 }

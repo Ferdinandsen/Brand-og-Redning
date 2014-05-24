@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  *
  * @author Team Kawabunga
  */
-public class AddAppearanceView extends javax.swing.JDialog {
+public class ViewAddAppearance extends javax.swing.JDialog {
 
     BLLAppearance bllAppearance;
     BLLFireman bllFireman;
@@ -29,7 +29,7 @@ public class AddAppearanceView extends javax.swing.JDialog {
     BLLVehicle bllVehicle;
     BEAlarm localAlarm;
 
-    public AddAppearanceView(BEAlarm alarm) {
+    public ViewAddAppearance(BEAlarm alarm) {
         localAlarm = alarm;
         this.setModal(true);
         this.setLocationRelativeTo(null);

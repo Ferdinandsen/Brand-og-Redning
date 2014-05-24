@@ -17,7 +17,7 @@ import java.util.Date;
  *
  * @author Team Kawabunga
  */
-public class ChangeSalaryView extends javax.swing.JDialog {
+public class ViewChangeSalary extends javax.swing.JDialog {
 
     BLLAppearance bllAppearance;
     BEAppearance localAppearance;
@@ -27,7 +27,7 @@ public class ChangeSalaryView extends javax.swing.JDialog {
     /**
      * Creates new form RedigerLønForm
      */
-    public ChangeSalaryView(BEAppearance appearance) {
+    public ViewChangeSalary(BEAppearance appearance) {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setModal(true);
         this.setLocationRelativeTo(null);

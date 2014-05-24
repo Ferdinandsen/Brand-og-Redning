@@ -9,12 +9,12 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class CarView extends javax.swing.JFrame {
+public class ViewCar extends javax.swing.JFrame {
 
     BLLVehicle bllVehicle;
     DefaultListModel model = new DefaultListModel();
 
-    public CarView() {
+    public ViewCar() {
         bllVehicle = BLLVehicle.getInstance();
         initComponents();
         fillList();

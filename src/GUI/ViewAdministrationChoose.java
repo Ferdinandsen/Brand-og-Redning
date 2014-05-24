@@ -4,11 +4,11 @@ import BE.BELogin;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AdministrationChooseView extends javax.swing.JFrame {
+public class ViewAdministrationChoose extends javax.swing.JFrame {
 
     BELogin localLog;
 
-    public AdministrationChooseView(BELogin log) {
+    public ViewAdministrationChoose(BELogin log) {
         localLog = log;
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -21,7 +21,7 @@ public class AdministrationChooseView extends javax.swing.JFrame {
         btnSalary.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Administration view = new Administration(localLog);
+                ViewAdministration view = new ViewAdministration(localLog);
                 view.setVisible(true);
                 dispose();
             }
@@ -29,7 +29,7 @@ public class AdministrationChooseView extends javax.swing.JFrame {
         btnCar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CarView view = new CarView();
+                ViewCar view = new ViewCar();
                 view.setVisible(true);
                 dispose();
             }
@@ -38,7 +38,7 @@ public class AdministrationChooseView extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                ForbrugView view = new ForbrugView();
+                ViewForbrug view = new ViewForbrug();
                 view.setVisible(true);
                 dispose();
             }
@@ -47,7 +47,7 @@ public class AdministrationChooseView extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                FiremenView view = new FiremenView();
+                ViewFiremen view = new ViewFiremen();
                 view.setVisible(true);
                 dispose();
             }

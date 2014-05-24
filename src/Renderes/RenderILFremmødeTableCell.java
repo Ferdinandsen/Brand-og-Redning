@@ -1,8 +1,10 @@
 package Renderes;
 
+import BE.BEAppearance;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -10,11 +12,17 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Team Kawabunga
  */
-public class FremmødeTableCellRenderer extends DefaultTableCellRenderer {
+public class RenderILFremmødeTableCell extends DefaultTableCellRenderer {
 
-    public FremmødeTableCellRenderer() {
-        
+    ArrayList<BEAppearance> allAppearances;
+
+    public RenderILFremmødeTableCell() {
     }
+
+    public RenderILFremmødeTableCell(ArrayList<BEAppearance> allHlGodkendtAppearances) {
+        allAppearances = allHlGodkendtAppearances;
+    }
+
     @Override
     public Component getTableCellRendererComponent(JTable table,
             Object obj,
@@ -24,15 +32,16 @@ public class FremmødeTableCellRenderer extends DefaultTableCellRenderer {
         Component cell = super.getTableCellRendererComponent(
                 table, obj, isSelected, hasFocus, row, column);
 
-        cell.setBackground(row % 2 == 0 ? Color.WHITE : Color.lightGray);
+//        cell.setBackground(row % 2 == 0 ? Color.WHITE : Color.lightGray);
 
         Font f = new Font(Font.SANS_SERIF, Font.BOLD, 13);
         Font total = new Font(Font.SANS_SERIF, Font.BOLD, 15);
-
-        if (table.convertColumnIndexToModel(column) == 5)
-        {
-            cell.setFont(total);
-            cell.setForeground(Color.WHITE);
+        
+        if (!allAppearances.get(row).getLogin().getMedarbejder().getFornavn().equalsIgnoreCase("gæst")){
+             cell.setBackground(Color.ORANGE);
+        }
+        else{
+            cell.setBackground(Color.GREEN);
         }
         if (isSelected) {
             cell.setBackground(Color.DARK_GRAY);
