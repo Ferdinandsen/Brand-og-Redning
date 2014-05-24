@@ -65,14 +65,22 @@ public class ViewCheckOut extends javax.swing.JFrame {
         JPanel p = new JPanel(flayout);
         p.setBackground(new Color(164, 164, 164));
         for (int i = 1; i <= bllFireman.getHighestTeamNumber(); i++) {
-            JPanel panel = new JPanel();
-            JLabel label = new JLabel("Hold: " + i);
             Font f = new Font(Font.SANS_SERIF, Font.BOLD, 24);
-            label.setFont(f);
+            Font Hold = new Font(Font.SANS_SERIF, Font.BOLD, 40);
+            JLabel label = new JLabel("Hold: " + i);
+            JPanel labelpanel = new JPanel(new FlowLayout());
+            label.setFont(Hold);
+            labelpanel.add(label);
+            labelpanel.setFont(f);
+            labelpanel.setOpaque(false);
+            JPanel panel = new JPanel();
             GridLayout glayout = new GridLayout(9, 1);
             glayout.setVgap(10);
+            panel.add(labelpanel);
+            panel.setFont(f);
             panel.setPreferredSize(new Dimension(width / (bllFireman.getHighestTeamNumber() + 1), height));
             panel.setLayout(glayout);
+
             for (BEFireman fm : allFiremen) {
                 panel.setBackground(getColorTeam(i));
                 JButton b = new firemanButton(fm);
@@ -89,7 +97,6 @@ public class ViewCheckOut extends javax.swing.JFrame {
                 if (fm.getTeam() == amount) {
                     panel.add(b);
                 }
-                panel.add(label);
             }
             panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             p.add(panel);
