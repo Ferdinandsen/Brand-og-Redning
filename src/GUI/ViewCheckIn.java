@@ -36,10 +36,8 @@ public class ViewCheckIn extends javax.swing.JFrame {
      * Creates new form CheckUD
      */
     public ViewCheckIn() {
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         bllFireman = BLLFireman.getInstance();
-        main = getBorderLayout();
-        this.add(main);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setUndecorated(true);
         this.setResizable(false);
         this.setResizable(false);
@@ -48,7 +46,8 @@ public class ViewCheckIn extends javax.swing.JFrame {
         pack();
         width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
         height = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-
+        main = getBorderLayout();
+        this.add(main);
     }
 
     private JPanel getBorderLayout() {
