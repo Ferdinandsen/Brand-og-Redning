@@ -16,11 +16,11 @@ public class FactoryViewform {
     private static ViewHLAfterAction hl_Instance = null;
 
     public static void FactoryViewform() {
-
+        
     }
 
-    public static MainView createViewformMain() {
-        return new MainView();
+    public static ViewMain createViewformMain() {
+        return new ViewMain();
     }
 
     public static ViewILIndsats createViewILIndsats(BELogin log) {

@@ -16,22 +16,24 @@ import javax.swing.JOptionPane;
  *
  * @author Team Kawabunga
  */
-public class MainView extends javax.swing.JFrame {
+public class ViewMain extends javax.swing.JFrame {
 
     BLLAlarm bllAlarm;
     BLLEmployee bllEmployee;
     BELogin log;
     DefaultListModel model = new DefaultListModel();
-    
+
     /**
      * Creates new form MainView
      */
-    public MainView() {
+    public ViewMain() {
+        bllAlarm = BLLAlarm.getInstance();
+        bllEmployee = BLLEmployee.getInstance();
+
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setTitle("Main View");
-        bllAlarm = BLLAlarm.getInstance();
-        bllEmployee = BLLEmployee.getInstance();
+
         initComponents();
         initLogInComponents();
         initOtherComponets();
@@ -190,11 +192,12 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
 
-    private void fillListActions(){
-        for (BEOdinAlarm odinAlarm : bllAlarm.getAllOdinAlarms()){
+    private void fillListActions() {
+        for (BEOdinAlarm odinAlarm : bllAlarm.getAllOdinAlarms()) {
             model.addElement(odinAlarm);
         }
     }
+
     private void initOtherComponets() {
         txtName.setNextFocusableComponent(txtPassword);
         txtPassword.setNextFocusableComponent(txtName);
@@ -205,21 +208,20 @@ public class MainView extends javax.swing.JFrame {
         btnIL.setEnabled(false);
         btnSalery.setEnabled(false);
         btnConfirmApp.setText("Bekræft fremmøder");
-        
+
         btnSalery.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewAdministrationChoose view = new ViewAdministrationChoose(log);
-                view.setVisible(true);
+                FactoryViewform.createAdministrationChooseView(log).setVisible(true);
             }
         });
-        
+
         btnConfirmApp.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-               FactoryViewform.createHLAfterAction(log).setVisible(true);
+                FactoryViewform.createHLAfterAction(log).setVisible(true);
             }
         });
 
@@ -227,18 +229,15 @@ public class MainView extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewHLErrorReport frame = new ViewHLErrorReport();
-                frame.setVisible(true);
+                FactoryViewform.createHLErrorReport().setVisible(true);
             }
         });
-        
+
         btnIL.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-              ViewILIndsats view = new ViewILIndsats(log);
-              view.setLocationRelativeTo(null);
-              view.setVisible(true);
+                FactoryViewform.createViewILIndsats(log).setVisible(true);
             }
         });
     }
@@ -284,9 +283,9 @@ public class MainView extends javax.swing.JFrame {
                 btnLogOut.setEnabled(false);
             }
         });
-        
+
         btnIL.addActionListener(new ActionListener() {
-           
+
             @Override
             public void actionPerformed(ActionEvent ae) {
                 FactoryViewform.createViewILIndsats(log);
