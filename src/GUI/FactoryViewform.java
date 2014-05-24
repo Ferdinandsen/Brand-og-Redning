@@ -23,7 +23,7 @@ public IViewType getFrame (String type){
     if(type == null){
         return null;
     }
-    if(type.equalsIgnoreCase(type)){
+    if(type.equalsIgnoreCase("mainview")){
         return new ViewMain();
     }
     return null;

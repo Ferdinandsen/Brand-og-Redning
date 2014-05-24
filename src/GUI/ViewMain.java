@@ -192,6 +192,10 @@ public class ViewMain extends javax.swing.JFrame implements IViewType {
     private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
 
+    @Override
+    public void show(){
+        this.setVisible(true);
+    }
     private void fillListActions() {
         for (BEOdinAlarm odinAlarm : bllAlarm.getAllOdinAlarms()) {
             model.addElement(odinAlarm);
