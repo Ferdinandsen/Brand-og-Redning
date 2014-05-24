@@ -310,7 +310,7 @@ public class ViewILFremmødeliste extends javax.swing.JFrame {
         txtHlKommentar.setLineWrap(true);
         txtABem.setLineWrap(true);
         txtABem.setText("");
-        
+
         tblFremmøde.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -445,8 +445,6 @@ public class ViewILFremmødeliste extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Indsatsen er nu bekræftet");
             createPDF();
             dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Udfyld venligst al information");
         }
     }
 
@@ -503,7 +501,15 @@ public class ViewILFremmødeliste extends javax.swing.JFrame {
     }
 
     private boolean isInformationValid() {
-        return (!txtEvaNo.getText().isEmpty() && usageConfirmed == true);
+        if (txtEvaNo.getText().isEmpty() && usageConfirmed) {
+            JOptionPane.showMessageDialog(this, "Indtast venligst EVA nr.");
+        } else if (usageConfirmed && !txtEvaNo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bekræft venligst forbrug");
+        } else {
+            JOptionPane.showMessageDialog(this, "Bekræft forbrug og indstast EVA nr.");
+        }
+
+        return !txtEvaNo.getText().isEmpty() && usageConfirmed;
     }
 
     private void createPDF() {

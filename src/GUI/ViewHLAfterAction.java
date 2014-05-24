@@ -43,7 +43,7 @@ public class ViewHLAfterAction extends javax.swing.JFrame {
         populateFremmødeTable();
         addCellRenderer();
         fillCboxAlarm();
-        cboxAlarm.setSelectedIndex(-1);
+        cboxAlarm.setSelectedIndex(0);
         lblCount.setText("Fremmødt: " + model.getRowCount());
     }
 

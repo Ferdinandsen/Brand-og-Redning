@@ -130,7 +130,7 @@ public class BEEmployee {
     /**
      * @return the isFriviligBrand
      */
-    public boolean isFriviligBrand() {
+    public boolean isFriviligBrandmand() {
         return isFriviligBrand;
     }
 

@@ -277,7 +277,7 @@ public class ViewAdministration extends javax.swing.JFrame {
 
     private void populateLønTable(BEFireman localFireman, Date from, Date to) {
         model = new TableModelLøn(bllAppearance.getAllAppearancesWithDateCriteria(localFireman, from, to));
-        tblBM.setModel(model);
+//        tblBM.setModel(model);
         model.fireTableDataChanged();
         setTotalTime();
     }
@@ -324,7 +324,7 @@ public class ViewAdministration extends javax.swing.JFrame {
 
     private void createPDF(ArrayList<BEAppearance> app) {
         try {
-            BLLLønPdf pdf = new BLLLønPdf(app, localLog, String.valueOf(dchoFra.getDate().getDate() +"-"+  dchoFra.getDate().getMonth() +"-"+  (dchoFra.getDate().getYear() + 1900)), String.valueOf(dchoTil.getDate().getDate() +"-"+  dchoTil.getDate().getMonth() +"-"+ (dchoTil.getDate().getYear()+1900)));
+            BLLLønPdf pdf = new BLLLønPdf(app, localLog, String.valueOf(dchoFra.getDate().getDate() +"-"+  (dchoFra.getDate().getMonth()+1) +"-"+  (dchoFra.getDate().getYear() + 1900)), String.valueOf(dchoTil.getDate().getDate() +"-"+  dchoTil.getDate().getMonth() +"-"+ (dchoTil.getDate().getYear()+1900)));
         } catch (DocumentException | IOException ex) {
             System.out.println("FEJL: " + ex);
             JOptionPane.showMessageDialog(this, "Fejl ved at lave en PDF: " + ex);

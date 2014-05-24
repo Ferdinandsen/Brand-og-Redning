@@ -21,7 +21,7 @@ public class ViewCar extends javax.swing.JFrame {
         lstVehicles.setModel(model);
         initOtherComponents();
         this.setResizable(false);
-        this.setTitle("Køretøjer");
+        this.setTitle("Køretøjs administration");
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
@@ -39,6 +39,7 @@ public class ViewCar extends javax.swing.JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 btnRemove.setEnabled(lstVehicles.getSelectedIndex() != -1);
+                btnAdd.setEnabled(lstVehicles.getSelectedIndex() == 0);
                 if (lstVehicles.getSelectedIndex() != -1) {
                     BEVehicle veh = (BEVehicle) lstVehicles.getSelectedValue();
                     txtBilnr.setText(String.valueOf(veh.getOdinnummer()));
