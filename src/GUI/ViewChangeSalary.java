@@ -25,17 +25,19 @@ public class ViewChangeSalary extends javax.swing.JDialog {
     final String BRANDMAND = "Brandmand";
 
     /**
-     * Creates new form RedigerLønForm
+     * Creates new form 
      */
     public ViewChangeSalary(BEAppearance appearance) {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setModal(true);
         this.setLocationRelativeTo(null);
         this.setTitle("Rediger løn");
-        initComponents();
-        initOtherComponents();
         localAppearance = appearance;
         bllAppearance = BLLAppearance.getInstance();
+        
+        initComponents();
+        initOtherComponents();
+        
         fillCheckBox();
         fillInformation();
         calculateHours();

@@ -10,27 +10,26 @@ public class ViewAdministrationChoose extends javax.swing.JFrame {
 
     public ViewAdministrationChoose(BELogin log) {
         localLog = log;
+        this.setTitle("Admin");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+
         initComponents();
         initOtherComponents();
-
     }
 
     private void initOtherComponents() {
         btnSalary.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewAdministration view = new ViewAdministration(localLog);
-                view.setVisible(true);
+                FactoryViewform.createAdministration(localLog).setVisible(true);
                 dispose();
             }
         });
         btnCar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewCar view = new ViewCar();
-                view.setVisible(true);
+                FactoryViewform.createCarView().setVisible(true);
                 dispose();
             }
         });
@@ -38,8 +37,7 @@ public class ViewAdministrationChoose extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewForbrug view = new ViewForbrug();
-                view.setVisible(true);
+                FactoryViewform.createForbrugView().setVisible(true);
                 dispose();
             }
         });
@@ -47,8 +45,7 @@ public class ViewAdministrationChoose extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewFiremen view = new ViewFiremen();
-                view.setVisible(true);
+                FactoryViewform.createFiremenView().setVisible(true);
                 dispose();
             }
         });

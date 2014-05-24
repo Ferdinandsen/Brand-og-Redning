@@ -19,8 +19,8 @@ public class FactoryViewform {
 
     }
 
-    public static MainView createViewformMain() {
-        return new MainView();
+    public static ViewMain createViewformMain() {
+        return new ViewMain();
     }
 
     public static ViewILIndsats createViewILIndsats(BELogin log) {

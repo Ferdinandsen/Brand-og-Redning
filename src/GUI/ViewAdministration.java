@@ -11,6 +11,7 @@ import BLL.BLLFireman;
 import BLL.BLLLønPdf;
 import Renderes.RenderFremmødeTableCell;
 import com.itextpdf.text.DocumentException;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -46,15 +47,17 @@ public class ViewAdministration extends javax.swing.JFrame {
         bllAppearance = BLLAppearance.getInstance();
         bllFireman = BLLFireman.getInstance();
         bllAlarm = BLLAlarm.getInstance();
+
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setTitle("Administration");
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
         initComponents();
         initOtherComponents();
         populateLønTable(null, dchoFra.getDate(), dchoTil.getDate());
         fillcboxBrandMand();
         populateAlarmList();
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-        this.setTitle("Administration");
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         addCellRenderer();
     }
 
@@ -233,12 +236,7 @@ public class ViewAdministration extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (cboxBM.getSelectedIndex() == 0) {
-                    BEFireman localFireman = null;
-                    populateLønTable(localFireman, dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY));
-                } else {
-                    populateLønTable((BEFireman) cboxBM.getSelectedItem(), dchoFra.getDate(), dchoTil.getDate());
-                }
+                hentInfo();
             }
         });
 
@@ -255,16 +253,30 @@ public class ViewAdministration extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                ArrayList<BEAppearance> app = new ArrayList<>();
-                TableModelLøn løn = (TableModelLøn) tblBM.getModel();
-                for (int i = 0; i < tblBM.getRowCount(); i++) {
-                    app.add(løn.getRow(i));
-                }
-                bllAppearance.EndSalary(app);
-                JOptionPane.showMessageDialog(null, "Lønnen bekræftet");
+                ArrayList<BEAppearance> app = confirm();
                 createPDF(app);
             }
         });
+    }
+
+    private ArrayList<BEAppearance> confirm() throws HeadlessException {
+        ArrayList<BEAppearance> app = new ArrayList<>();
+        TableModelLøn løn = (TableModelLøn) tblBM.getModel();
+        for (int i = 0; i < tblBM.getRowCount(); i++) {
+            app.add(løn.getRow(i));
+        }
+        bllAppearance.EndSalary(app);
+        JOptionPane.showMessageDialog(this, "Lønnen bekræftet");
+        return app;
+    }
+
+    private void hentInfo() {
+        if (cboxBM.getSelectedIndex() == 0) {
+            BEFireman localFireman = null;
+            populateLønTable(localFireman, dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY));
+        } else {
+            populateLønTable((BEFireman) cboxBM.getSelectedItem(), dchoFra.getDate(), dchoTil.getDate());
+        }
     }
 
     private void populateAlarmList() {
@@ -299,7 +311,7 @@ public class ViewAdministration extends javax.swing.JFrame {
                 ViewChangeSalary frame = new ViewChangeSalary(bllAppearance.getAllAppearancesWithDateCriteria((BEFireman) cboxBM.getSelectedItem(), dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY)).get(tblBM.convertRowIndexToView(tblBM.getSelectedRow())));
                 frame.setVisible(true);
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Du skal huske at hente først!");
+                JOptionPane.showMessageDialog(this, "Du skal huske at hente først");
             }
         }
         tblBM.setModel(new TableModelLøn(bllAppearance.getAllAppearancesWithDateCriteria(null, dchoFra.getDate(), dchoTil.getDate())));
@@ -324,10 +336,9 @@ public class ViewAdministration extends javax.swing.JFrame {
 
     private void createPDF(ArrayList<BEAppearance> app) {
         try {
-            BLLLønPdf pdf = new BLLLønPdf(app, localLog, String.valueOf(dchoFra.getDate().getDate() +"-"+  dchoFra.getDate().getMonth() +"-"+  (dchoFra.getDate().getYear() + 1900)), String.valueOf(dchoTil.getDate().getDate() +"-"+  dchoTil.getDate().getMonth() +"-"+ (dchoTil.getDate().getYear()+1900)));
+            BLLLønPdf pdf = new BLLLønPdf(app, localLog, String.valueOf(dchoFra.getDate().getDate() + "-" + dchoFra.getDate().getMonth() + "-" + (dchoFra.getDate().getYear() + 1900)), String.valueOf(dchoTil.getDate().getDate() + "-" + dchoTil.getDate().getMonth() + "-" + (dchoTil.getDate().getYear() + 1900)));
         } catch (DocumentException | IOException ex) {
-            System.out.println("FEJL: " + ex);
-            JOptionPane.showMessageDialog(this, "Fejl ved at lave en PDF: " + ex);
+            JOptionPane.showMessageDialog(this, "Fejl ved at lave PDF.");
         }
         JOptionPane.showMessageDialog(this, "PDF'en er nu lavet på skrivebordet!");
     }
