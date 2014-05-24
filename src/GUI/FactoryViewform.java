@@ -18,10 +18,26 @@ public class FactoryViewform {
     public static void FactoryViewform() {
         
     }
+    
+public IViewType getFrame (String type){
+    if(type == null){
+        return null;
+    }
+    if(type.equalsIgnoreCase(type)){
+        return new ViewMain();
+    }
+    return null;
+}
+    
 
-    public static ViewMain createViewformMain() {
-        ViewMain main = new ViewMain();
-        return main;
+
+
+
+
+
+
+public static ViewMain createViewformMain() {
+       return new ViewMain();
     }
 
     public static ViewILIndsats createViewILIndsats(BELogin log) {
