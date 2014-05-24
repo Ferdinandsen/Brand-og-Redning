@@ -25,7 +25,7 @@ import javax.swing.JPanel;
  *
  * @author Team Kawabunga
  */
-public class ViewHLAfterActionStory extends javax.swing.JFrame {
+public class ViewHLAfterActionStory extends javax.swing.JDialog {
 
     ArrayList<BEAppearance> allappearances;
     BLLAlarm bllAlarm;
@@ -47,6 +47,8 @@ public class ViewHLAfterActionStory extends javax.swing.JFrame {
         initComponents();
         initOtherComponents();
         this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.setModal(true);
         this.setResizable(false);
         this.setTitle("Beretning");
     }

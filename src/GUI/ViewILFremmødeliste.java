@@ -319,6 +319,19 @@ public class ViewILFremmødeliste extends javax.swing.JFrame {
             }
         });
 
+        txtEvaNo.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+                char vChar = e.getKeyChar();
+                if (!(Character.isDigit(vChar)
+                        || (vChar == KeyEvent.VK_BACK_SPACE)
+                        || (vChar == KeyEvent.VK_DELETE))) {
+                    e.consume();
+                }
+            }
+        });
+
         txtGruppeNr.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -503,12 +516,11 @@ public class ViewILFremmødeliste extends javax.swing.JFrame {
     private boolean isInformationValid() {
         if (txtEvaNo.getText().isEmpty() && usageConfirmed) {
             JOptionPane.showMessageDialog(this, "Indtast venligst EVA nr.");
-        } else if (usageConfirmed && !txtEvaNo.getText().isEmpty()) {
+        } else if (!usageConfirmed && !txtEvaNo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Bekræft venligst forbrug");
-        } else {
+        } else if (txtEvaNo.getText().isEmpty() && !usageConfirmed) {
             JOptionPane.showMessageDialog(this, "Bekræft forbrug og indstast EVA nr.");
         }
-
         return !txtEvaNo.getText().isEmpty() && usageConfirmed;
     }
 

@@ -72,12 +72,12 @@ public class FactoryViewform {
         return new ViewChangeTime(app);
     }
 
-    public static ViewCheckIn createCheckInView() {
-        return new ViewCheckIn();
+    public static ViewCheckOut createCheckOutView() {
+        return new ViewCheckOut();
     }
 
-    public static ViewCheckOut createCheckOutView(BEFireman fm) {
-        return new ViewCheckOut(fm);
+    public static ViewFiremanCheckOut createCheckInView(BEFireman fm) {
+        return new ViewFiremanCheckOut(fm);
     }
 
     public static ViewFiremen createFiremenView() {

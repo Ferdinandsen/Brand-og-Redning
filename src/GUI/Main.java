@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
         FactoryViewform.createViewformMain().setVisible(true);
-//        FactoryViewform.createCheckInView().setVisible(true);
+//        FactoryViewform.createCheckOutView().setVisible(true);
 //        AddAppearanceView main = new AddAppearanceView();
 //        CheckInView main = new CheckInView();
 //        MainView main = new MainView();
