@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.text.html.parser.Element;
 
 /**
  *
@@ -70,10 +71,16 @@ public class CheckInView extends javax.swing.JFrame {
             JLabel label = new JLabel("Hold: " + i);
             Font f = new Font(Font.SANS_SERIF, Font.BOLD, 24);
             label.setFont(f);
+            label.setAlignmentY(CENTER_ALIGNMENT);
+            JPanel labelpanel = new JPanel(new FlowLayout());
+            labelpanel.setAlignmentX(CENTER_ALIGNMENT);
+            labelpanel.add(label);
+            labelpanel.setOpaque(false);
             GridLayout glayout = new GridLayout(9, 1);
             glayout.setVgap(10);
             panel.setPreferredSize(new Dimension(width / (bllFireman.getHighestTeamNumber() + 1), height));
             panel.setLayout(glayout);
+            panel.add(labelpanel);
             for (BEFireman fm : allFiremen) {
                 panel.setBackground(getColorTeam(i));
                 JButton b = new firemanButton(fm);
@@ -88,10 +95,11 @@ public class CheckInView extends javax.swing.JFrame {
                         frame.setVisible(true);
                     }
                 });
+
                 if (fm.getTeam() == amount) {
                     panel.add(b);
                 }
-                panel.add(label);
+//                panel.add(label);
             }
             panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             p.add(panel);
@@ -156,6 +164,7 @@ public class CheckInView extends javax.swing.JFrame {
             this.name = fm.getMedarbjeder().getFornavn() + " " + fm.getMedarbjeder().getEfternavn();
             this.setBackground(getColor());
             this.setText(name);
+ 
         }
 
         private Color getColor() {
