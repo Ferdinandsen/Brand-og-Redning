@@ -21,7 +21,8 @@ public class ILIndsats extends javax.swing.JFrame {
     BLLAlarm bllAlarm;
     BLLAppearance bllAppearance;
     private UnfinishedFremmødeModel model;
-BELogin localLogin;
+    BELogin localLogin;
+
     public ILIndsats(BELogin log) {
         localLogin = log;
         bllAlarm = BLLAlarm.getInstance();
@@ -60,6 +61,7 @@ BELogin localLogin;
                 dispose();
             }
         });
+        
         tblFremmøder.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -67,6 +69,7 @@ BELogin localLogin;
 
             }
         });
+        
         btnHent.addActionListener(new ActionListener() {
 
             @Override

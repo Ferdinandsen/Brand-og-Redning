@@ -6,8 +6,6 @@ import BE.BEUsage;
 import DAL.DALUsage;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -27,10 +25,18 @@ public class BLLUsage {
         }
     }
 
+    /**
+     * 
+     * @return 
+     */
     public ArrayList<BEUsage> getAllUsages() {
         return dalusage.getAllUsages();
     }
 
+    /**
+     * 
+     * @return 
+     */
     public static BLLUsage getInstance() {
         if (m_instance == null) {
             m_instance = new BLLUsage();
@@ -38,6 +44,10 @@ public class BLLUsage {
         return m_instance;
     }
 
+    /**
+     * 
+     * @param u 
+     */
     public void createReport(BEUsage u) {
         try {
             dalusage.createUsageReport(u);
@@ -47,10 +57,18 @@ public class BLLUsage {
         }
     }
 
+    /**
+     * 
+     * @return 
+     */
     public ArrayList<BEMateriel> getAllMats() {
         return dalusage.getAllMats();
     }
 
+    /**
+     * 
+     * @param bu 
+     */
     public void updateUsageReport(BEUsage bu) {
         try {
             dalusage.updateUsageReport(bu);
@@ -59,6 +77,10 @@ public class BLLUsage {
         }
     }
 
+    /**
+     * 
+     * @param mat 
+     */
     public void deleteMaterial(BEMateriel mat) {
         try {
             dalusage.deleteMaterial(mat);
@@ -67,6 +89,10 @@ public class BLLUsage {
         }
     }
 
+    /**
+     * 
+     * @param text 
+     */
     public void addMaterial(String text) {
         try {
             dalusage.addMaterial(text);
@@ -75,6 +101,11 @@ public class BLLUsage {
         }
     }
 
+    /**
+     * 
+     * @param localAlarm
+     * @return 
+     */
     public ArrayList<BEUsage> getAllUsagesForAlarm(BEAlarm localAlarm) {
         ArrayList<BEUsage> allUsages = new ArrayList<>();
         for (BEUsage usage : getAllUsages()) {

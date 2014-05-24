@@ -209,10 +209,11 @@ public class MainView extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                AdministrationChooseView view = new AdministrationChooseView();
+                AdministrationChooseView view = new AdministrationChooseView(log);
                 view.setVisible(true);
             }
         });
+        
         btnConfirmApp.addActionListener(new ActionListener() {
 
             @Override
@@ -230,6 +231,7 @@ public class MainView extends javax.swing.JFrame {
                 frame.setVisible(true);
             }
         });
+        
         btnIL.addActionListener(new ActionListener() {
 
             @Override

@@ -32,6 +32,10 @@ public class BLLAppearance {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public static BLLAppearance getInstance() {
         if (m_instance == null) {
             m_instance = new BLLAppearance();
@@ -39,6 +43,9 @@ public class BLLAppearance {
         return m_instance;
     }
 
+    /**
+     *
+     */
     public void populateAppearances() {
         try {
             dalAppearance.populateAppearances();
@@ -47,10 +54,18 @@ public class BLLAppearance {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<BEAppearance> getAllAppearances() {
         return dalAppearance.getAppearances();
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<BEAppearance> getAllAppearancesNotHlGodkendt() {
         ArrayList<BEAppearance> notHlGodkendt = new ArrayList<>();
         for (BEAppearance appearance : getAllAppearances()) {
@@ -61,6 +76,11 @@ public class BLLAppearance {
         return notHlGodkendt;
     }
 
+    /**
+     *
+     * @param alarm
+     * @return
+     */
     public ArrayList<BEAppearance> getAllHlGodkendtAppearances(BEAlarm alarm) {
         ArrayList<BEAppearance> hlGodkendtAppearances = new ArrayList<>();
         for (BEAppearance appearance : getAllAppearances()) {
@@ -71,6 +91,11 @@ public class BLLAppearance {
         return hlGodkendtAppearances;
     }
 
+    /**
+     *
+     * @param selectedAlarm
+     * @return
+     */
     public ArrayList<BEAppearance> getAppearancesWithSameAlarm(BEAlarm selectedAlarm) {
         ArrayList<BEAppearance> appearances = new ArrayList<>();
         for (BEAppearance appearance : getAllAppearancesNotHlGodkendt()) {
@@ -81,18 +106,29 @@ public class BLLAppearance {
         return appearances;
     }
 
+    /**
+     *
+     * @param fm
+     * @param from
+     * @param to
+     * @return
+     */
     public ArrayList<BEAppearance> getAllAppearancesWithDateCriteria(BEFireman fm, Date from, Date to) {
         ArrayList<BEAppearance> dateappearance = new ArrayList<>();
         for (BEAppearance a : getAllAppearances()) {
             if (fm == null && a.getAlarm().getTime().after(from) && a.getAlarm().getTime().before(to) && a.isIlGodkendt() && !a.isLønDone()) {
                 dateappearance.add(a);
-            } else if (a.getAlarm().getTime().after(from) && a.getAlarm().getTime().before(to) && a.getFireman().equals(fm) && a.isIlGodkendt()&& !a.isLønDone()) {
+            } else if (a.getAlarm().getTime().after(from) && a.getAlarm().getTime().before(to) && a.getFireman().equals(fm) && a.isIlGodkendt() && !a.isLønDone()) {
                 dateappearance.add(a);
             }
         }
         return dateappearance;
     }
 
+    /**
+     *
+     * @return
+     */
     private Timestamp time() {
         Calendar calendar = Calendar.getInstance();
         java.util.Date now = calendar.getTime();
@@ -100,6 +136,15 @@ public class BLLAppearance {
         return currentTime;
     }
 
+    /**
+     *
+     * @param alarm
+     * @param fireman
+     * @param veh
+     * @param hl
+     * @param ch
+     * @param st
+     */
     public void createEndShift(BEAlarm alarm, BEFireman fireman, BEVehicle veh, boolean hl, boolean ch, boolean st) {
         Timestamp time = time();
         int total = calculateTotalTime(alarm.getTime(), time);
@@ -111,6 +156,12 @@ public class BLLAppearance {
         }
     }
 
+    /**
+     *
+     * @param checkin
+     * @param checkout
+     * @return
+     */
     public int calculateTotalTime(Timestamp checkin, Timestamp checkout) {
         Timestamp ci = checkin;
         Timestamp co = checkout;
@@ -132,23 +183,33 @@ public class BLLAppearance {
         return d;
     }
 
+    /**
+     * sender det forkerte med vidre!
+     *
+     * @param log
+     * @param alarm
+     * @param comment
+     * @throws Exception
+     */
     public void confirmTeam(BELogin log, BEAlarm alarm, String comment) throws Exception {
         for (BEAppearance appearance : getAppearancesWithSameAlarm(alarm)) {
+            alarm.setHlBemærkning(comment);
+            alarm.setHlGodkendtTid(time());
+            appearance.setHlGodkendt(true);
+            appearance.setAlarm(alarm);
+            appearance.setLogin(log);
             try {
-                alarm.setHlBemærkning(comment);
-                alarm.setHlGodkendtTid(time());
                 dalAlarm.setHlBemærkning(alarm);
-                appearance.setHlGodkendt(true);
-                appearance.setAlarm(alarm);
-                appearance.setLogin(log);
                 dalAppearance.confirmTeam(appearance, comment);
-
             } catch (SQLException ex) {
                 System.out.println("fejl i confirmTeam" + ex);
             }
         }
     }
 
+    /**
+     *
+     */
     public void update() {
         try {
             dalAppearance.populateAppearances();
@@ -157,6 +218,10 @@ public class BLLAppearance {
         }
     }
 
+    /**
+     *
+     * @param appearance
+     */
     public void updateAppearance(BEAppearance appearance) {
         try {
             dalAppearance.updateAppearance(appearance);
@@ -165,6 +230,10 @@ public class BLLAppearance {
         }
     }
 
+    /**
+     *
+     * @param appearance
+     */
     public void deleteAppearance(BEAppearance appearance) {
         try {
             dalAppearance.deleteAppearance(appearance);
@@ -173,6 +242,17 @@ public class BLLAppearance {
         }
     }
 
+    /**
+     *
+     * @param fireman
+     * @param alarm
+     * @param veh
+     * @param ts
+     * @param hl
+     * @param ch
+     * @param st
+     * @param kørselstype
+     */
     public void addAppearance(BEFireman fireman, BEAlarm alarm, BEVehicle veh, Timestamp ts, boolean hl, boolean ch, boolean st, int kørselstype) {
         try {
             dalAppearance.createAppearance(fireman, calculateTotalTime(alarm.getTime(), ts), ts, alarm, veh, String.valueOf(ts.getHours() + ts.getMinutes()), hl, ch, st, (int) kørselstype);
@@ -182,6 +262,11 @@ public class BLLAppearance {
 
     }
 
+    /**
+     *
+     * @param a
+     * @param kørselType
+     */
     public void updateKørselType(BEAppearance a, int kørselType) {
         a.setKørselsType(kørselType);
         try {
@@ -191,6 +276,10 @@ public class BLLAppearance {
         }
     }
 
+    /**
+     *
+     * @param alarm
+     */
     public void confirmAlarmTeam(BEAlarm alarm) {
         for (BEAppearance appearance : getAllHlGodkendtAppearances(alarm)) {
             try {
@@ -202,6 +291,10 @@ public class BLLAppearance {
         }
     }
 
+    /**
+     *
+     * @param appearance
+     */
     public void updateFunction(BEAppearance appearance) {
         try {
             dalAppearance.updateFunction(appearance);
@@ -210,11 +303,15 @@ public class BLLAppearance {
         }
     }
 
+    /**
+     *
+     * @param app
+     */
     public void EndSalary(ArrayList<BEAppearance> app) {
         Timestamp time = time();
         try {
             for (BEAppearance a : app) {
-                dalAppearance.createSalary(a,time);
+                dalAppearance.createSalary(a, time);
                 a.setLønDone(true);
                 a.setLønTime(time);
             }

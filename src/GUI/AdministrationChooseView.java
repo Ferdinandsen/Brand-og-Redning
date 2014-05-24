@@ -1,11 +1,15 @@
 package GUI;
 
+import BE.BELogin;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AdministrationChooseView extends javax.swing.JFrame {
 
-    public AdministrationChooseView() {
+    BELogin localLog;
+
+    public AdministrationChooseView(BELogin log) {
+        localLog = log;
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         initComponents();
@@ -17,7 +21,7 @@ public class AdministrationChooseView extends javax.swing.JFrame {
         btnSalary.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Administration view = new Administration();
+                Administration view = new Administration(localLog);
                 view.setVisible(true);
                 dispose();
             }

@@ -1,8 +1,8 @@
 package Renderes;
 
+import GUI.UnfinishedFremmødeModel;
 import BE.BEAlarm;
 import BLL.BLLAppearance;
-import GUI.UnfinishedFremmødeModel;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -38,7 +38,6 @@ public class UnfinishedAlarmsCellRenderer extends DefaultTableCellRenderer {
         Font f = new Font(Font.SANS_SERIF, Font.BOLD, 13);
         BEAlarm a = model.getAlarmByRow(row);
         cell.setBackground(a.getColor());
-
         if (isSelected) {
             cell.setBackground(Color.DARK_GRAY);
             if (table.convertColumnIndexToModel(column) != 5) {
@@ -48,8 +47,6 @@ public class UnfinishedAlarmsCellRenderer extends DefaultTableCellRenderer {
         } else {
             cell.setForeground(Color.BLACK);
         }
-
         return cell;
     }
-
 }

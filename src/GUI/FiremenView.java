@@ -1,6 +1,7 @@
 package GUI;
 
 import BE.BEEmployee;
+import BE.BEFireman;
 import BLL.BLLEmployee;
 import BLL.BLLFireman;
 import java.awt.event.ActionEvent;
@@ -31,7 +32,6 @@ public class FiremenView extends javax.swing.JFrame {
     }
 
     private void initOtherComponents() {
-
         chckboxCH.setEnabled(false);
         chckboxHL.setEnabled(false);
         txtTeam.setEnabled(false);
@@ -41,6 +41,23 @@ public class FiremenView extends javax.swing.JFrame {
                 btnRemove.setEnabled(lstEmployees.getSelectedIndex() != 0 && lstEmployees.getSelectedIndex() != -1);
                 if (lstEmployees.getSelectedIndex() != 0 && lstEmployees.getSelectedIndex() != -1) {
                     BEEmployee emp = (BEEmployee) lstEmployees.getSelectedValue();
+                  
+                    chckboxFireman.setEnabled(emp.isIsFriviligBrand());
+                    if (emp.isIsFriviligBrand()) {
+                        BEFireman fireman = null;
+                        for (BEFireman fm : bllFireman.getAllfiremen()) {
+                            if (fm.getMedarbjeder().getMedarbejderNo() == emp.getMedarbejderNo()) {
+                                fireman = fm;
+                            }
+                        }
+                        txtTeam.setEnabled(true);
+                        txtTeam.setText(String.valueOf(fireman.getTeam()));
+                        chckboxHL.setSelected(fireman.isHoldleder());
+                        chckboxCH.setSelected(fireman.isChaffør());
+                    } else {
+                        txtTeam.setText("");
+                        txtTeam.setEnabled(false);
+                    }
                     txtFornavn.setText(emp.getFornavn());
                     txtMellemnavn.setText(emp.getMellemnavn());
                     txtEfternavn.setText(emp.getEfternavn());
@@ -55,6 +72,8 @@ public class FiremenView extends javax.swing.JFrame {
                     lblImage.setHorizontalAlignment(SwingConstants.CENTER);
                     lblImage.setIcon(new ImageIcon(((new ImageIcon("images/" + emp.getPortræt())).getImage()).getScaledInstance(110, 100, java.awt.Image.SCALE_SMOOTH)));
                 } else {
+                    txtTeam.setText("");
+                    txtTeam.setEnabled(false);
                     txtFornavn.setText("");
                     txtMellemnavn.setText("");
                     txtEfternavn.setText("");
@@ -72,25 +91,24 @@ public class FiremenView extends javax.swing.JFrame {
                 }
             }
         });
-        btnAdd.addActionListener(new ActionListener() {
 
+        btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 addEmployee();
             }
         });
-        chckboxFireman.addActionListener(new ActionListener() {
 
+        chckboxFireman.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 txtTeam.setEnabled(chckboxFireman.isSelected());
                 chckboxCH.setEnabled(chckboxFireman.isSelected());
                 chckboxHL.setEnabled(chckboxFireman.isSelected());
-
             }
         });
-        btnRemove.addActionListener(new ActionListener() {
 
+        btnRemove.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 removeEmployee();
@@ -99,10 +117,14 @@ public class FiremenView extends javax.swing.JFrame {
     }
 
     private void addEmployee() {
+        int gadenummer = !txtGadenummer.getText().isEmpty() ? Integer.parseInt(txtGadenummer.getText()) : 0;
+        int etage = !txtEtage.getText().isEmpty() ? Integer.parseInt(txtEtage.getText()) : 0;
+        int postNr = !txtPostNr.getText().isEmpty() ? Integer.parseInt(txtPostNr.getText()) : 0;
+
         if (txtFornavn.getText().isEmpty() && txtEfternavn.getText().isEmpty() && txtGadenavn.getText().isEmpty() && txtGadenummer.getText().isEmpty() && txtPostNr.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Udfyld venligst al information!");
         } else {
-            int adresseID = bllEmployee.addAddress(txtGadenavn.getText(), Integer.parseInt(txtGadenummer.getText()), Integer.parseInt(txtEtage.getText()), txtLejlighed.getText(), Integer.parseInt(txtPostNr.getText()));
+            int adresseID = bllEmployee.addAddress(txtGadenavn.getText(), gadenummer, etage, txtLejlighed.getText(), postNr);
             bllEmployee.addEmployee(txtFornavn.getText(), txtMellemnavn.getText(), txtEfternavn.getText(), txtCPR.getText(), txtImage.getText(), chckboxFireman.isSelected(), adresseID, chckboxCH.isSelected(), chckboxHL.isSelected(), !txtTeam.getText().isEmpty() ? Integer.parseInt(txtTeam.getText()) : 0);
             JOptionPane.showMessageDialog(this, "Medarbejderen er nu tilføjet!");
             fillList();
