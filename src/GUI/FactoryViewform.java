@@ -16,7 +16,7 @@ public class FactoryViewform {
     private static ViewHLAfterAction hl_Instance = null;
 
     public static void FactoryViewform() {
-
+        
     }
 
     public static ViewMain createViewformMain() {
