@@ -305,7 +305,7 @@ public class ViewFiremanCheckOut extends javax.swing.JDialog {
     }
 
     private void endShift() {
-        BEVehicle veh =  cboxVehicle.getSelectedIndex() == 0 ? null : (BEVehicle) cboxVehicle.getSelectedItem();
+        BEVehicle veh = cboxVehicle.getSelectedIndex() == 0 ? null : (BEVehicle) cboxVehicle.getSelectedItem();
         boolean hl = rbtnHoldleder.isSelected();
         boolean ch = rbtnChauffør.isSelected();
         boolean st = rbtnStVagt.isSelected();

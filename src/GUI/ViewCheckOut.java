@@ -38,9 +38,7 @@ public class ViewCheckOut extends javax.swing.JFrame {
     public ViewCheckOut() {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         bllFireman = BLLFireman.getInstance();
-
         this.setUndecorated(true);
-        this.setResizable(false);
         this.setResizable(false);
         this.setTitle("CHECK UD SCREEN");
         getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());

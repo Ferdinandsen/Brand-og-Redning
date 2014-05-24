@@ -20,7 +20,8 @@ public class FactoryViewform {
     }
 
     public static ViewMain createViewformMain() {
-        return new ViewMain();
+        ViewMain main = new ViewMain();
+        return main;
     }
 
     public static ViewILIndsats createViewILIndsats(BELogin log) {
