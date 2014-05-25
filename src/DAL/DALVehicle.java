@@ -32,7 +32,7 @@ public class DALVehicle {
 
     /**
      * Populates the ArrayList allVehicles
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void populateVehicle() throws SQLException {
         allVehicles = new ArrayList<>();
@@ -65,7 +65,7 @@ public class DALVehicle {
     /**
      * deletes the specific car from the database and the ArrayList
      * @param car - BECar
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void deleteVehicle(BEVehicle car) throws SQLException {
         String sql = "DELETE FROM KØTJ WHERE odinNo = ?";
@@ -76,13 +76,14 @@ public class DALVehicle {
     }
 
     /**
-     * creates a new vehicle in the database and adds it to the ArrayList allVehicles
+     * creates a new vehicle in the database and adds it to the ArrayList
+     * allVehicles
      * @param desc
      * @param bilNr
      * @param model
      * @param mærke
      * @param nummerplade
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void addVehicle(String desc, String bilNr, String model, String mærke, String nummerplade) throws SQLException {
         String sql = "INSERT INTO KØTJ VALUES (?,?,?,?,?)";

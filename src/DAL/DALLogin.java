@@ -34,7 +34,7 @@ public class DALLogin {
 
     /**
      * Populate the ArrayList allLogins
-     * @throws SQLException 
+     * @throws SQLException
      */
     private void populateLogins() throws SQLException {
         String sql = "SELECT * FROM Login";

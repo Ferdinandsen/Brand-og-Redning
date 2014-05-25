@@ -49,12 +49,12 @@ public class DALAppearance {
      * @param alarm BEAlarm
      * @param fireman BEFireman
      * @param veh BEVehicle
-     * @param hl boolean 
-     * @param ch boolean 
-     * @param st boolean 
+     * @param hl boolean
+     * @param ch boolean
+     * @param st boolean
      * @param total calculated total time
      * @param time Timestamp
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void endShift(BEAlarm alarm, BEFireman fireman, BEVehicle veh, boolean hl, boolean ch, boolean st, int total, Timestamp time) throws SQLException {
         String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -71,7 +71,7 @@ public class DALAppearance {
         ps.setBoolean(9, false);
         ps.setString(10, null);
         ps.setInt(11, alarm.getId());
-        
+
         if (veh == null) {
             ps.setString(12, null);
         } else {
@@ -85,7 +85,7 @@ public class DALAppearance {
 
     /**
      * Populates the allAppearances ArrayList
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void populateAppearances() throws SQLException {
         allAppearances = new ArrayList<>(); // ER DET HER NØDVENDIGT!?
@@ -148,7 +148,7 @@ public class DALAppearance {
 
     /**
      * Retrieve the ArrayList
-     * @return ArrayList of allAppearances 
+     * @return ArrayList of allAppearances
      */
     public ArrayList<BEAppearance> getAppearances() {
         return allAppearances;
@@ -156,8 +156,8 @@ public class DALAppearance {
 
     /**
      * Updates the appearance, mainly setting the hlgodkendt bit.
-     * @param appearance - BEAppearance 
-     * @throws SQLException 
+     * @param appearance - BEAppearance
+     * @throws SQLException
      */
     public void confirmTeam(BEAppearance appearance) throws SQLException {
         String sql = "UPDATE Fremmøde SET hlGodkendt = ?, kørselType = ?, alarmRef = ?, loginRef = ? WHERE id = ?";
@@ -174,7 +174,7 @@ public class DALAppearance {
     /**
      * Updates the kørselType in database
      * @param a - BEAppearance
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void updateKørselType(BEAppearance a) throws SQLException {
         String sql = "UPDATE Fremmøde SET kørselType = ? WHERE id = ?";
@@ -188,7 +188,7 @@ public class DALAppearance {
     /**
      * Updates the time in the database for the appearance
      * @param appearance BEAppearance
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void updateAppearance(BEAppearance appearance) throws SQLException {
         String sql = "UPDATE Fremmøde SET checkInTime = ?, checkOutTime = ?, totaltid = ? WHERE id = ?";
@@ -202,9 +202,9 @@ public class DALAppearance {
     }
 
     /**
-     * delete the specific ID 
+     * delete the specific ID
      * @param appearance
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void deleteAppearance(BEAppearance appearance) throws SQLException {
         String sql = "DELETE FROM Fremmøde WHERE id = ?";
@@ -226,7 +226,7 @@ public class DALAppearance {
      * @param ch
      * @param st
      * @param kørselstype
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void createAppearance(BEFireman fireman, int total, Timestamp time, BEAlarm alarm, BEVehicle veh, String checkOutTime, boolean hl, boolean ch, boolean st, int kørselstype) throws SQLException {
         String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) select @@identity";
@@ -264,9 +264,10 @@ public class DALAppearance {
     }
 
     /**
-     * Updates the appearance in the database - when IL has confirmed the action.
+     * Updates the appearance in the database - when IL has confirmed the
+     * action.
      * @param appearance
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void confirmAlarmTeam(BEAppearance appearance) throws SQLException {
         String sql = "UPDATE Fremmøde SET ilGodkendt = ? WHERE id = ?";
@@ -280,7 +281,7 @@ public class DALAppearance {
     /**
      * Updates the bit holdleder on appearance in database with the specific ID
      * @param appearance
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void updateFunction(BEAppearance appearance) throws SQLException {
         String sql = "UPDATE Fremmøde SET holdleder = ? WHERE id = ?";
@@ -290,13 +291,13 @@ public class DALAppearance {
         ps.setInt(2, appearance.getId());
         ps.execute();
     }
-    
-/**
- * Updates Fremmøde with salary information - on specific ID
- * @param a BEAppearance
- * @param ts Timestamp
- * @throws SQLException 
- */
+
+    /**
+     * Updates Fremmøde with salary information - on specific ID
+     * @param a BEAppearance
+     * @param ts Timestamp
+     * @throws SQLException
+     */
     public void createSalary(BEAppearance a, Timestamp ts) throws SQLException {
         String sql = "UPDATE Fremmøde SET lønDone = ?, lønTime =? where id = ?";
 

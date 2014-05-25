@@ -38,9 +38,10 @@ public class DALUsage {
     }
 
     /**
-     * Creates a new usage report and adds its ID to it. Adds it to ArrayList allUsages
+     * Creates a new usage report and adds its ID to it. Adds it to ArrayList
+     * allUsages
      * @param u -BEUsage
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void createUsageReport(BEUsage u) throws SQLException {
         String sql = "INSERT INTO Forbrug VALUES (?,?,?) select @@identity";
@@ -61,7 +62,7 @@ public class DALUsage {
 
     /**
      * populate the ArrayList allUsages
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void populateUsages() throws SQLException {
         String sql = "SELECT * FROM Forbrug";
@@ -97,7 +98,7 @@ public class DALUsage {
 
     /**
      * Populate the ArrayList allMaterials
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void populateMats() throws SQLException {
         String sql = "SELECT * FROM Brandmateriel";
@@ -118,7 +119,7 @@ public class DALUsage {
     /**
      * Updates a usage report
      * @param bu - BEUsage
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void updateUsageReport(BEUsage bu) throws SQLException {
         String sql = "UPDATE Forbrug SET amount = ? WHERE id = ?";
@@ -131,7 +132,7 @@ public class DALUsage {
     /**
      * removes a material from the ArrayList and database
      * @param mat - BEMateriel
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void deleteMaterial(BEMateriel mat) throws SQLException {
         String sql = "DELETE FROM Brandmateriel WHERE id = ?";
@@ -142,9 +143,10 @@ public class DALUsage {
     }
 
     /**
-     * creates a new material in the database and adds it to the ArrayList allMaterials
+     * creates a new material in the database and adds it to the ArrayList
+     * allMaterials
      * @param text
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void addMaterial(String text) throws SQLException {
         String sql = "INSERT INTO Brandmateriel VALUES (?)  select @@identity";
@@ -170,7 +172,7 @@ public class DALUsage {
         return allUsages;
     }
 
-    /** 
+    /**
      * returns the ArrayList
      * @return the allMateriel
      */

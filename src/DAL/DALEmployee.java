@@ -37,7 +37,7 @@ public class DALEmployee {
 
     /**
      * Populates the ArrayList allEmployees from the database
-     * @throws SQLException 
+     * @throws SQLException
      */
     private void populateEmployee() throws SQLException {
         allEmployees = new ArrayList<>();
@@ -73,7 +73,7 @@ public class DALEmployee {
 
     /**
      * Populates the ArrayList allAdresses
-     * @throws SQLException 
+     * @throws SQLException
      */
     private void populateAddress() throws SQLException {
         allAddresses = new ArrayList<>();
@@ -104,7 +104,7 @@ public class DALEmployee {
 
     /**
      * Populates the ArrayList allZipCodes
-     * @throws SQLException 
+     * @throws SQLException
      */
     private void populateZip() throws SQLException {
         allZipCodes = new ArrayList<>();
@@ -144,14 +144,15 @@ public class DALEmployee {
     }
 
     /**
-     * creates a new BEaddress with the created ID before adding to the ArrayList
+     * creates a new BEaddress with the created ID before adding to the
+     * ArrayList
      * @param gadenavn
      * @param gadenummer
      * @param etage
      * @param lejlighed
      * @param postnummer
      * @return the created addres' ID as int
-     * @throws SQLException 
+     * @throws SQLException
      */
     public int addAddress(String gadenavn, int gadenummer, int etage, String lejlighed, int postnummer) throws SQLException {
         String sql = "INSERT INTO Adresse VALUES (?,?,?,?,?) select @@identity";
@@ -170,8 +171,8 @@ public class DALEmployee {
             id = rs.getInt(1);
         }
         BEZipCode localZip = null;
-        for (BEZipCode zip : getAllZipCodes()){
-            if (zip.getZipCode() == postnummer){
+        for (BEZipCode zip : getAllZipCodes()) {
+            if (zip.getZipCode() == postnummer) {
                 localZip = zip;
             }
         }
@@ -181,7 +182,8 @@ public class DALEmployee {
     }
 
     /**
-     * creates a new BEemployee with the created ID before adding to the ArrayList
+     * creates a new BEemployee with the created ID before adding to the
+     * ArrayList
      * @param fornavn
      * @param mellemnavn
      * @param efternavn
@@ -189,8 +191,8 @@ public class DALEmployee {
      * @param portræt
      * @param fireman
      * @param adresseID
-     * @return the BEEmployee 
-     * @throws SQLException 
+     * @return the BEEmployee
+     * @throws SQLException
      */
     public BEEmployee addEmployee(String fornavn, String mellemnavn, String efternavn, String CPR, String portræt, boolean fireman, int adresseID) throws SQLException {
         String sql = "INSERT INTO Medarbejder VALUES (?,?,?,?,?,?,?) select @@identity";
@@ -204,20 +206,20 @@ public class DALEmployee {
         ps.setInt(6, adresseID);
         ps.setBoolean(7, fireman);
         ps.execute();
-        
+
         ResultSet rs = ps.getGeneratedKeys();
         int id = 0;
         if (rs.next()) {
             id = rs.getInt(1);
         }
-       
+
         BEAddress localAddress = null;
-        for (BEAddress add : getAllAddresses()){
-            if (add.getId() == adresseID){
+        for (BEAddress add : getAllAddresses()) {
+            if (add.getId() == adresseID) {
                 localAddress = add;
             }
         }
-        
+
         BEEmployee employee = new BEEmployee(id, fornavn, mellemnavn, efternavn, CPR, portræt, localAddress, fireman);
         allEmployees.add(employee);
         return employee;
@@ -226,7 +228,7 @@ public class DALEmployee {
     /**
      * Delete the specific employee from database and the ArrayList allEmployees
      * @param emp
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void deleteEmployee(BEEmployee emp) throws SQLException {
         String sql = "DELETE FROM Medarbejder WHERE medarbejderNo = ?";

@@ -34,7 +34,7 @@ public class DALFireman {
 
     /**
      * Populates the ArrayList allFiremen
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void populateFiremen() throws SQLException {
         allFiremen = new ArrayList<>();
@@ -70,12 +70,13 @@ public class DALFireman {
     }
 
     /**
-     * creates a firemen with roles and adds it to the database and the ArrayList allFiremen
+     * creates a firemen with roles and adds it to the database and the
+     * ArrayList allFiremen
      * @param emp - the selected employee
      * @param CH - Chauffør/driver
      * @param HL - Holdleder/teamleader
      * @param team - which team does he belong to
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void addEmployeeAsFireman(BEEmployee emp, boolean CH, boolean HL, int team) throws SQLException {
         String sql = "INSERT INTO Deltidsbrandmand VALUES (?,?,?,?,?) select @@identity";
@@ -93,9 +94,10 @@ public class DALFireman {
     }
 
     /**
-     * Delete a fireman from the deltidsbrandmand table and the ArrayList allFiremen
+     * Delete a fireman from the deltidsbrandmand table and the ArrayList
+     * allFiremen
      * @param emp - specific employee
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void deleteFireman(BEEmployee emp) throws SQLException {
 

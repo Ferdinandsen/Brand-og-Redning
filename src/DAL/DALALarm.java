@@ -76,8 +76,8 @@ public class DALALarm {
     }
 
     /**
-     *
-     * @return ArrayList with all odinalarms
+     * returns the ArrayList allOdinAlarms
+     * @return allOdinAlarms
      */
     public ArrayList<BEOdinAlarm> getAllOdinAlarms() {
         return allOdinAlarms;
@@ -85,7 +85,7 @@ public class DALALarm {
 
     /**
      * The getinstance for DALAlarm (singleton)
-     * @return m_instance of the DALAlarm 
+     * @return m_instance of the DALAlarm
      * @throws SQLException
      */
     public static DALALarm getInstance() throws SQLException {
@@ -168,9 +168,10 @@ public class DALALarm {
     }
 
     /**
-     * Updates the alarm with the specific ID 
+     * Updates the alarm with the specific ID
      * @param alarm - BEAlarm
-     * @param time Timestamp - the timestamp that needs to be put into the database
+     * @param time Timestamp - the timestamp that needs to be put into the
+     * database
      * @throws SQLException
      */
     public void confirmAlarm(BEAlarm alarm, Timestamp time) throws SQLException {
