@@ -27,6 +27,12 @@ public class DALReport {
         return m_instance;
     }
 
+    /**
+     * Create a new error report for a vehicle
+     * @param be - BEError
+     * @param veh - BEVehicle
+     * @throws SQLException 
+     */
     public void createErrorReport(BEError be, BEVehicle veh) throws SQLException {
         String sql = "INSERT INTO ErrorReport VALUES (?,?,?,?,?,?,?,?)";
 

@@ -29,11 +29,19 @@ public class DBConnection {
         ds.setPassword(PASSWORD);
         m_connection = ds.getConnection();
     }
-
+/**
+ * Returns the connection
+ * @return m_connection
+ */
     public Connection getConnection() {
         return m_connection;
     }
 
+    /**
+     * Retrieves the instance of the class
+     * @return m_instance
+     * @throws SQLServerException 
+     */
     public static DAL.DBConnection getInstance() throws SQLServerException {
         if (m_instance == null) {
             m_instance = new DAL.DBConnection();

@@ -30,11 +30,15 @@ public class DALVehicle {
         return m_instance;
     }
 
+    /**
+     * Populates the ArrayList allVehicles
+     * @throws SQLException 
+     */
     public void populateVehicle() throws SQLException {
         allVehicles = new ArrayList<>();
         String sql = "SELECT * FROM KØTJ ORDER by odinNo";
 
-        PreparedStatement ps = getM_connection().prepareStatement(sql);
+        PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.execute();
 
         ResultSet result = ps.getResultSet();
@@ -51,20 +55,7 @@ public class DALVehicle {
     }
 
     /**
-     * @return the m_connection
-     */
-    public Connection getM_connection() {
-        return m_connection;
-    }
-
-    /**
-     * @param m_connection the m_connection to set
-     */
-    public void setM_connection(Connection m_connection) {
-        this.m_connection = m_connection;
-    }
-
-    /**
+     * returns the ArrayList allvehicles
      * @return the vehicles
      */
     public ArrayList<BEVehicle> getVehicles() {
@@ -72,12 +63,10 @@ public class DALVehicle {
     }
 
     /**
-     * @param vehicles the vehicles to set
+     * deletes the specific car from the database and the ArrayList
+     * @param car - BECar
+     * @throws SQLException 
      */
-    public void setVehicles(ArrayList<BEVehicle> vehicles) {
-        this.allVehicles = vehicles;
-    }
-
     public void deleteVehicle(BEVehicle car) throws SQLException {
         String sql = "DELETE FROM KØTJ WHERE odinNo = ?";
         PreparedStatement ps = m_connection.prepareStatement(sql);
@@ -86,6 +75,15 @@ public class DALVehicle {
         allVehicles.remove(car);
     }
 
+    /**
+     * creates a new vehicle in the database and adds it to the ArrayList allVehicles
+     * @param desc
+     * @param bilNr
+     * @param model
+     * @param mærke
+     * @param nummerplade
+     * @throws SQLException 
+     */
     public void addVehicle(String desc, String bilNr, String model, String mærke, String nummerplade) throws SQLException {
         String sql = "INSERT INTO KØTJ VALUES (?,?,?,?,?)";
 

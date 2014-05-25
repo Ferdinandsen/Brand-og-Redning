@@ -77,15 +77,16 @@ public class DALALarm {
 
     /**
      *
-     * @return
+     * @return ArrayList with all odinalarms
      */
     public ArrayList<BEOdinAlarm> getAllOdinAlarms() {
         return allOdinAlarms;
     }
 
     /**
-     *
-     * @return @throws SQLException
+     * The getinstance for DALAlarm (singleton)
+     * @return m_instance of the DALAlarm 
+     * @throws SQLException
      */
     public static DALALarm getInstance() throws SQLException {
         if (m_instance == null) {
@@ -95,7 +96,7 @@ public class DALALarm {
     }
 
     /**
-     *
+     * Populates the allAlarm ArrayList from the database
      * @throws SQLException
      */
     private void populateAlarm() throws SQLException {
@@ -127,41 +128,16 @@ public class DALALarm {
     }
 
     /**
-     *
-     * @return
+     * returns allAlarms
+     * @return ArrayList allAlarms
      */
     public ArrayList<BEAlarm> getAllAlarms() {
         return allAlarms;
     }
 
-//    public BEAlarm createAlarm(Date date, String fremmøde, String time) throws SQLException {
-//        String sql = "INSERT INTO Alarm VALUES (?,?,?,?)select @@identity";
-//
-//        PreparedStatement ps = m_connection.prepareStatement(sql);
-//        String[] parts = time.split(":");
-//        int selectedHour = Integer.parseInt(parts[0]);
-//        int selectedMin = Integer.parseInt(parts[1]);
-//        Timestamp ts = new Timestamp(date.getYear(), date.getMonth(), date.getDate(), selectedHour, selectedMin, 0, 0);
-//
-//        ps.setString(1, null);
-//        ps.setTimestamp(2, ts);
-//        ps.setBoolean(3, false);
-//        ps.setString(4, fremmøde);
-//        ps.execute();
-//        
-//        ResultSet rs = ps.getGeneratedKeys();
-//        int id = 0;
-//        if (rs.next()){
-//            id = rs.getInt(1);
-//        }
-//        BEAlarm alarm = new BEAlarm(id, 0, ts, fremmøde, false);
-//        allAlarms.add(alarm);
-//        return alarm;
-//
-//    }
     /**
-     *
-     * @param a
+     * Updates the alarm with the specific ID
+     * @param a - BEAlarm
      * @throws SQLException
      */
     public void updateAlarm(BEAlarm a) throws SQLException {
@@ -177,8 +153,8 @@ public class DALALarm {
     }
 
     /**
-     *
-     * @param alarm
+     * Updates the hlbemærkning in the database
+     * @param alarm - BEAlarm
      * @throws SQLException
      */
     public void setHlBemærkning(BEAlarm alarm) throws SQLException {
@@ -192,9 +168,9 @@ public class DALALarm {
     }
 
     /**
-     *
-     * @param alarm
-     * @param time
+     * Updates the alarm with the specific ID 
+     * @param alarm - BEAlarm
+     * @param time Timestamp - the timestamp that needs to be put into the database
      * @throws SQLException
      */
     public void confirmAlarm(BEAlarm alarm, Timestamp time) throws SQLException {

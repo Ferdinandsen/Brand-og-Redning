@@ -32,6 +32,10 @@ public class DALLogin {
         return m_instance;
     }
 
+    /**
+     * Populate the ArrayList allLogins
+     * @throws SQLException 
+     */
     private void populateLogins() throws SQLException {
         String sql = "SELECT * FROM Login";
 
@@ -56,6 +60,10 @@ public class DALLogin {
         }
     }
 
+    /**
+     * returns the ArrayList
+     * @return allLogins
+     */
     public ArrayList<BELogin> getAllLogins() {
         return allLogins;
     }

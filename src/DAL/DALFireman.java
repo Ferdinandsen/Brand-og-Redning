@@ -32,6 +32,10 @@ public class DALFireman {
         return m_instance;
     }
 
+    /**
+     * Populates the ArrayList allFiremen
+     * @throws SQLException 
+     */
     public void populateFiremen() throws SQLException {
         allFiremen = new ArrayList<>();
         String sql = "SELECT * FROM Deltidsbrandmand";
@@ -57,10 +61,22 @@ public class DALFireman {
         }
     }
 
+    /**
+     * returns the ArrayList
+     * @return allFiremen
+     */
     public ArrayList<BEFireman> getAllFiremen() {
         return allFiremen;
     }
 
+    /**
+     * creates a firemen with roles and adds it to the database and the ArrayList allFiremen
+     * @param emp - the selected employee
+     * @param CH - Chauffør/driver
+     * @param HL - Holdleder/teamleader
+     * @param team - which team does he belong to
+     * @throws SQLException 
+     */
     public void addEmployeeAsFireman(BEEmployee emp, boolean CH, boolean HL, int team) throws SQLException {
         String sql = "INSERT INTO Deltidsbrandmand VALUES (?,?,?,?,?) select @@identity";
 
@@ -76,14 +92,11 @@ public class DALFireman {
         allFiremen.add(fireman);
     }
 
-//    public void changeBit(BEFireman fireman) throws SQLException {
-//        String sql = "UPDATE Deltidsbrandmand SET isCheckIn = ? WHERE medarbejderRef = ?";
-//
-//        PreparedStatement ps = m_connection.prepareStatement(sql);
-//        ps.setBoolean(1, fireman.isCheckedin());
-//        ps.setInt(2, fireman.getMedarbjeder().getMedarbejderNo());
-//        ps.execute();
-//    }
+    /**
+     * Delete a fireman from the deltidsbrandmand table and the ArrayList allFiremen
+     * @param emp - specific employee
+     * @throws SQLException 
+     */
     public void deleteFireman(BEEmployee emp) throws SQLException {
 
         String sql = "DELETE FROM Deltidsbrandmand WHERE medarbejderRef = ?";

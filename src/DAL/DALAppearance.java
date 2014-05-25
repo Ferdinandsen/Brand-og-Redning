@@ -44,6 +44,18 @@ public class DALAppearance {
         return m_instance;
     }
 
+    /**
+     * Creates the Appearance in the database
+     * @param alarm BEAlarm
+     * @param fireman BEFireman
+     * @param veh BEVehicle
+     * @param hl boolean 
+     * @param ch boolean 
+     * @param st boolean 
+     * @param total calculated total time
+     * @param time Timestamp
+     * @throws SQLException 
+     */
     public void endShift(BEAlarm alarm, BEFireman fireman, BEVehicle veh, boolean hl, boolean ch, boolean st, int total, Timestamp time) throws SQLException {
         String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -71,8 +83,12 @@ public class DALAppearance {
         ps.execute();
     }
 
+    /**
+     * Populates the allAppearances ArrayList
+     * @throws SQLException 
+     */
     public void populateAppearances() throws SQLException {
-        allAppearances = new ArrayList<>();
+        allAppearances = new ArrayList<>(); // ER DET HER NØDVENDIGT!?
         String sql = "SELECT * FROM Fremmøde";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
@@ -130,11 +146,20 @@ public class DALAppearance {
         }
     }
 
+    /**
+     * Retrieve the ArrayList
+     * @return ArrayList of allAppearances 
+     */
     public ArrayList<BEAppearance> getAppearances() {
         return allAppearances;
     }
 
-    public void confirmTeam(BEAppearance appearance, String comment) throws SQLException {
+    /**
+     * Updates the appearance, mainly setting the hlgodkendt bit.
+     * @param appearance - BEAppearance 
+     * @throws SQLException 
+     */
+    public void confirmTeam(BEAppearance appearance) throws SQLException {
         String sql = "UPDATE Fremmøde SET hlGodkendt = ?, kørselType = ?, alarmRef = ?, loginRef = ? WHERE id = ?";
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setBoolean(1, true);
@@ -146,6 +171,11 @@ public class DALAppearance {
         ps.execute();
     }
 
+    /**
+     * Updates the kørselType in database
+     * @param a - BEAppearance
+     * @throws SQLException 
+     */
     public void updateKørselType(BEAppearance a) throws SQLException {
         String sql = "UPDATE Fremmøde SET kørselType = ? WHERE id = ?";
 
@@ -155,6 +185,11 @@ public class DALAppearance {
         ps.execute();
     }
 
+    /**
+     * Updates the time in the database for the appearance
+     * @param appearance BEAppearance
+     * @throws SQLException 
+     */
     public void updateAppearance(BEAppearance appearance) throws SQLException {
         String sql = "UPDATE Fremmøde SET checkInTime = ?, checkOutTime = ?, totaltid = ? WHERE id = ?";
 
@@ -166,6 +201,11 @@ public class DALAppearance {
         ps.execute();
     }
 
+    /**
+     * delete the specific ID 
+     * @param appearance
+     * @throws SQLException 
+     */
     public void deleteAppearance(BEAppearance appearance) throws SQLException {
         String sql = "DELETE FROM Fremmøde WHERE id = ?";
         PreparedStatement ps = m_connection.prepareStatement(sql);
@@ -174,6 +214,20 @@ public class DALAppearance {
         allAppearances.remove(appearance);
     }
 
+    /**
+     * Creates an appearance in the database - this one is used from IL
+     * @param fireman
+     * @param total
+     * @param time
+     * @param alarm
+     * @param veh
+     * @param checkOutTime
+     * @param hl
+     * @param ch
+     * @param st
+     * @param kørselstype
+     * @throws SQLException 
+     */
     public void createAppearance(BEFireman fireman, int total, Timestamp time, BEAlarm alarm, BEVehicle veh, String checkOutTime, boolean hl, boolean ch, boolean st, int kørselstype) throws SQLException {
         String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) select @@identity";
 
@@ -209,6 +263,11 @@ public class DALAppearance {
         }
     }
 
+    /**
+     * Updates the appearance in the database - when IL has confirmed the action.
+     * @param appearance
+     * @throws SQLException 
+     */
     public void confirmAlarmTeam(BEAppearance appearance) throws SQLException {
         String sql = "UPDATE Fremmøde SET ilGodkendt = ? WHERE id = ?";
 
@@ -218,6 +277,11 @@ public class DALAppearance {
         ps.execute();
     }
 
+    /**
+     * Updates the bit holdleder on appearance in database with the specific ID
+     * @param appearance
+     * @throws SQLException 
+     */
     public void updateFunction(BEAppearance appearance) throws SQLException {
         String sql = "UPDATE Fremmøde SET holdleder = ? WHERE id = ?";
 
@@ -226,7 +290,13 @@ public class DALAppearance {
         ps.setInt(2, appearance.getId());
         ps.execute();
     }
-
+    
+/**
+ * Updates Fremmøde with salary information - on specific ID
+ * @param a BEAppearance
+ * @param ts Timestamp
+ * @throws SQLException 
+ */
     public void createSalary(BEAppearance a, Timestamp ts) throws SQLException {
         String sql = "UPDATE Fremmøde SET lønDone = ?, lønTime =? where id = ?";
 
