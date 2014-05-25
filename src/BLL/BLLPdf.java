@@ -61,8 +61,7 @@ public class BLLPdf {
             bllUsage = BLLUsage.getInstance();
             localAppearances = bllAppearance.getAllHlGodkendtAppearances(localAlarm);
             amount = localAppearances.size();
-            FILE = System.getProperty("user.home") + "/Desktop/" + localAlarm.getEvaNo() + " " + localAlarm.getDesc() + " - " + localAlarm.getIlGodkendtTid().getDay() + "-" + localAlarm.getIlGodkendtTid().getMonth() + "-" + localAlarm.getIlGodkendtTid().getYear() + ".pdf";
-
+            FILE = System.getProperty("user.home") + "/Desktop/" + localAlarm.getEvaNo() + " " + localAlarm.getDesc() + " - " + localAlarm.getIlGodkendtTid().getDate() + "-" + (localAlarm.getIlGodkendtTid().getMonth() + 1) + "-" + (localAlarm.getIlGodkendtTid().getYear() + 1900) + ".pdf";
             Document document = new Document(PageSize.A4.rotate()); //Roterer siden til at være landskab! Fjern parameter for at gøre den til normal  Document document = new Document(PageSize.LETTER.rotate()); 
             PdfWriter.getInstance(document, new FileOutputStream(FILE));
             document.open();
@@ -100,7 +99,7 @@ public class BLLPdf {
         p.setAlignment(Element.ALIGN_LEFT);
         preface.add(p);
 
-        p = (new Paragraph("Set af: " + localLog.getMedarbejder() + ", " + localAlarm.getIlGodkendtTidTimeString(), titleFont));
+        p = (new Paragraph("Set af: " + localLog.getMedarbejder() + ", " + localAlarm.getIlGodkendtTidTimeString() + " - " + localAlarm.getIlGodkendtTid().getDay() + "-" + (localAlarm.getIlGodkendtTid().getMonth() + 1), titleFont));
         p.setAlignment(Element.ALIGN_RIGHT);
         preface.add(p);
         addEmptyLine(preface, 1);
@@ -123,11 +122,15 @@ public class BLLPdf {
     private void addContent(Document document) throws DocumentException {
         Anchor anchor = new Anchor("Fremmøde", catFont);
         anchor.setName("Fremmøde");
-
+        Paragraph preface = new Paragraph();
         createFremmødeTable(document);
-        addEmptyLine(new Paragraph(), 2);
+        addEmptyLine(preface, 1);
+        document.add(preface);
+        addEmptyLine(new Paragraph(""), 1);
         createForbrugTable(document);
-        addEmptyLine(new Paragraph(), 2);
+        addEmptyLine(preface, 1);
+        document.add(preface);
+        addEmptyLine(new Paragraph(""), 1);
         createIndsatsStyrkeTable(document);
 
     }
@@ -175,10 +178,15 @@ public class BLLPdf {
             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(c1);
 
-            c1 = new PdfPCell(new Phrase(String.valueOf(kørselType)));
-            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(c1);
-
+            if (kørselType == 3) {
+                c1 = new PdfPCell(new Phrase("Ikke i brug"));
+                c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(c1);
+            } else {
+                c1 = new PdfPCell(new Phrase(String.valueOf(kørselType)));
+                c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(c1);
+            }
             c1 = new PdfPCell(new Phrase(String.valueOf(bemandingAmount)));
             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(c1);

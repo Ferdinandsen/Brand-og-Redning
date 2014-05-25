@@ -4,33 +4,32 @@ import BE.BELogin;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AdministrationChooseView extends javax.swing.JFrame {
+public class ViewAdministrationChoose extends javax.swing.JFrame {
 
     BELogin localLog;
 
-    public AdministrationChooseView(BELogin log) {
+    public ViewAdministrationChoose(BELogin log) {
         localLog = log;
+        this.setTitle("Admin");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+
         initComponents();
         initOtherComponents();
-
     }
 
     private void initOtherComponents() {
         btnSalary.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Administration view = new Administration(localLog);
-                view.setVisible(true);
+                FactoryViewform.createAdministration(localLog).setVisible(true);
                 dispose();
             }
         });
         btnCar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CarView view = new CarView();
-                view.setVisible(true);
+                FactoryViewform.createCarView().setVisible(true);
                 dispose();
             }
         });
@@ -38,8 +37,7 @@ public class AdministrationChooseView extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                ForbrugView view = new ForbrugView();
-                view.setVisible(true);
+                FactoryViewform.createForbrugView().setVisible(true);
                 dispose();
             }
         });
@@ -47,8 +45,7 @@ public class AdministrationChooseView extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                FiremenView view = new FiremenView();
-                view.setVisible(true);
+                FactoryViewform.createFiremenView().setVisible(true);
                 dispose();
             }
         });

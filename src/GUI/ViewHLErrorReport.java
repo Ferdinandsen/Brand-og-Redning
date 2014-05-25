@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  *
  * @author Team Kawabunga
  */
-public class HLErrorReport extends javax.swing.JFrame {
+public class ViewHLErrorReport extends javax.swing.JFrame {
 
     BLLVehicle bllVehicle;
     BLLReport bllreport;
@@ -20,7 +20,7 @@ public class HLErrorReport extends javax.swing.JFrame {
     /**
      * Creates new form HLErrorReport
      */
-    public HLErrorReport() {
+    public ViewHLErrorReport() {
         bllVehicle = BLLVehicle.getInstance();
         bllreport = BLLReport.getInstance();
         initComponents();
@@ -196,19 +196,23 @@ public class HLErrorReport extends javax.swing.JFrame {
 
     private void initOtherComponents() {
         lblHeader.setText("Reparation/Køretøjsmangler");
-          btnAcknowledge.setEnabled(true);
+        btnAcknowledge.setEnabled(true);
         btnAcknowledge.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!txtError.getText().isEmpty() && cboxKøretøj.getSelectedIndex() != -1 && !txtMadeBy.getText().isEmpty()) {
-                    bllreport.createErrorReport(errorAsBE(), (BEVehicle) cboxKøretøj.getSelectedItem());
-                    JOptionPane.showMessageDialog(null, "Fejl rapport sendt");
-                    dispose();
-                } else {
-                    msgbox("Indtast venligst hvilket køretøj, fejl og mangler samt hvem du er");
-                }
+                confirm();
             }
         });
+    }
+
+    private void confirm() {
+        if (!txtError.getText().isEmpty() && cboxKøretøj.getSelectedIndex() != -1 && !txtMadeBy.getText().isEmpty()) {
+            bllreport.createErrorReport(errorAsBE(), (BEVehicle) cboxKøretøj.getSelectedItem());
+            JOptionPane.showMessageDialog(this, "Fejl rapport sendt");
+            dispose();
+        } else {
+            msgbox("Indtast venligst hvilket køretøj, fejl og mangler samt hvem du er");
+        }
     }
 
     private void msgbox(String message) {

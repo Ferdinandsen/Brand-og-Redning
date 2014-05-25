@@ -1,6 +1,7 @@
 package GUI;
 
-import Renderes.FremmødeTableCellRenderer;
+import TableModels.TableModelFremmøde;
+import Renderes.RenderFremmødeTableCell;
 import BE.BEAlarm;
 import BE.BEAppearance;
 import BE.BELogin;
@@ -21,43 +22,32 @@ import javax.swing.table.TableColumn;
  *
  * @author Team Kawabunga
  */
-public class HLAfterAction extends javax.swing.JFrame {
+public class ViewHLAfterAction extends javax.swing.JFrame {
 
     BLLVehicle bllVehicle;
     BLLAppearance bllAppearance;
     BLLAlarm bllAlarm;
     BELogin localLog;
-    private FremmødeTableModel model;
-    private static HLAfterAction m_instance = null;
+    private TableModelFremmøde model;
 
-    private HLAfterAction(BELogin log) {
+    public ViewHLAfterAction(BELogin log) {
         localLog = log;
-        initComponents();
-        initOtherComponents();
         bllAlarm = BLLAlarm.getInstance();
         bllVehicle = BLLVehicle.getInstance();
         bllAppearance = BLLAppearance.getInstance();
-
+        initComponents();
+        initOtherComponents();
         this.setTitle("HL - Bekræft hold");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        cboxAlarm.setSelectedIndex(-1);
         populateFremmødeTable();
         addCellRenderer();
         fillCboxAlarm();
+        cboxAlarm.setSelectedIndex(0);
         lblCount.setText("Fremmødt: " + model.getRowCount());
     }
 
-    public static HLAfterAction getInstance(BELogin log) {
-        if (m_instance == null) {
-            m_instance = new HLAfterAction(log);
-        } else {
-            m_instance.update();
-        }
-        return m_instance;
-    }
-
-    private void update() {
+    public void update() {
         cboxAlarm.setSelectedIndex(0);
         bllVehicle.update();
         bllAppearance.update();
@@ -78,29 +68,22 @@ public class HLAfterAction extends javax.swing.JFrame {
         btnChangeTime.setEnabled(false);
         txtFremmøde.setEditable(false);
         btnBekæft.setEnabled(true);
+
         tblTider.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 btnChangeTime.setEnabled(tblTider.getSelectedRow() != -1);
-
             }
         });
-        
+
         btnChangeTime.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                BEAppearance appearance = null;
-                if (cboxAlarm.getSelectedIndex() == 0) {
-                    appearance = bllAppearance.getAllAppearances().get(tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
-                } else {
-                    appearance = bllAppearance.getAppearancesWithSameAlarm((BEAlarm) cboxAlarm.getSelectedItem()).get(tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
-                }
-                ChangeTimeView ctView = new ChangeTimeView(appearance);
-                ctView.setVisible(true);
+                changeTime();
                 updateTable();
             }
         });
-        
+
         cboxAlarm.addItemListener(new ItemListener() {
 
             @Override
@@ -133,11 +116,6 @@ public class HLAfterAction extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (model.getRowCount() != 0 && cboxAlarm.getSelectedIndex() != 0) {
                     confirmTeam();
-                    msgbox("Holdet er nu bekræftet!");
-                    HLAfterActionStory frame = new HLAfterActionStory(bllAppearance.getAllHlGodkendtAppearances((BEAlarm) cboxAlarm.getSelectedItem()), (BEAlarm) cboxAlarm.getSelectedItem());
-                    frame.setVisible(true);
-                    txtComment.setText(null);
-                    dispose();
                 } else {
                     msgbox("Udfyld venligst al information!");
                 }
@@ -145,22 +123,36 @@ public class HLAfterAction extends javax.swing.JFrame {
         });
     }
 
+    private void changeTime() {
+        BEAppearance appearance = null;
+        if (cboxAlarm.getSelectedIndex() == 0) {
+            appearance = bllAppearance.getAllAppearances().get(tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
+        } else {
+            appearance = bllAppearance.getAppearancesWithSameAlarm((BEAlarm) cboxAlarm.getSelectedItem()).get(tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
+        }
+        FactoryViewform.createChangeTimeView(appearance).setVisible(true);
+    }
+
     private void confirmTeam() {
         try {
             bllAppearance.confirmTeam(localLog, (BEAlarm) cboxAlarm.getSelectedItem(), txtComment.getText());
+            msgbox("Holdet er nu bekræftet!");
+            FactoryViewform.createHLAfterActionStory(bllAppearance.getAllHlGodkendtAppearances((BEAlarm) cboxAlarm.getSelectedItem()), (BEAlarm) cboxAlarm.getSelectedItem()).setVisible(true);
+            txtComment.setText(null);
+            dispose();
         } catch (Exception ex) {
             msgbox("fejl i confirmteam" + ex);
         }
     }
 
     private void populateFremmødeTable() {
-        model = new FremmødeTableModel(bllAppearance.getAllAppearancesNotHlGodkendt());
+        model = new TableModelFremmøde(bllAppearance.getAllAppearancesNotHlGodkendt());
         tblTider.setModel(model);
         model.fireTableDataChanged();
     }
 
     private void addCellRenderer() {
-        FremmødeTableCellRenderer renderer = new FremmødeTableCellRenderer();
+        RenderFremmødeTableCell renderer = new RenderFremmødeTableCell();
         for (int col = 0; col < model.getColumnCount(); col++) {
             renderer.setHorizontalAlignment(JLabel.CENTER);
             TableColumn tc = tblTider.getColumnModel().getColumn(col);

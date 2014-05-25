@@ -61,6 +61,7 @@ public class BLLLønPdf {
         }
 
         for (BEFireman fireman : usedFiremen) {
+            totalTimer = 0;
             firemanAppearances = new ArrayList<>();
             for (BEAppearance appearance : localAppearances) {
                 if (appearance.getFireman() == fireman) {
@@ -78,7 +79,6 @@ public class BLLLønPdf {
             p.setAlignment(Element.ALIGN_RIGHT);
             document.add(p);
             document.close();
-
         }
 
     }
@@ -200,7 +200,6 @@ public class BLLLønPdf {
             c1 = new PdfPCell(new Phrase(String.valueOf(app.getTotalTid())));
             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(c1);
-
         }
 
     }

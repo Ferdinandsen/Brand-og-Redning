@@ -25,7 +25,7 @@ import javax.swing.JPanel;
  *
  * @author Team Kawabunga
  */
-public class HLAfterActionStory extends javax.swing.JFrame {
+public class ViewHLAfterActionStory extends javax.swing.JDialog {
 
     ArrayList<BEAppearance> allappearances;
     BLLAlarm bllAlarm;
@@ -39,7 +39,7 @@ public class HLAfterActionStory extends javax.swing.JFrame {
      * @param a
      * @param alarm
      */
-    public HLAfterActionStory(ArrayList<BEAppearance> a, BEAlarm alarm) {
+    public ViewHLAfterActionStory(ArrayList<BEAppearance> a, BEAlarm alarm) {
         allappearances = a;
         localAlarm = alarm;
         bllAppearance = BLLAppearance.getInstance();
@@ -47,6 +47,8 @@ public class HLAfterActionStory extends javax.swing.JFrame {
         initComponents();
         initOtherComponents();
         this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.setModal(true);
         this.setResizable(false);
         this.setTitle("Beretning");
     }
@@ -238,15 +240,17 @@ public class HLAfterActionStory extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                getDataToIL();
-                JOptionPane.showMessageDialog(null, "Tak for bekræftigelsen");
-                dispose();
-                HLUsageReport frame = new HLUsageReport(localAlarm);
-                frame.setVisible(true);
+                confirm();
             }
         });
     }
 
+    private void confirm() {
+        getDataToIL();
+        JOptionPane.showMessageDialog(null, "Tak for bekræftigelsen");
+        dispose();
+        FactoryViewform.createHLUsageReport(localAlarm, null).setVisible(true);
+    }
 
     private void getDataToIL() {
         String alarmtype = "Normal Alarm";
@@ -260,7 +264,7 @@ public class HLAfterActionStory extends javax.swing.JFrame {
         if (rbtnBAlarm.isSelected()) {
             alarmtype = "Blind Alarm";
         }
-        
+
         if (rbtnFAlarm.isSelected()) {
             alarmtype = "Falsk Alarm";
         }
@@ -275,6 +279,7 @@ public class HLAfterActionStory extends javax.swing.JFrame {
             for (BEAppearance a : allappearances) {
                 if (a.getVeh() != null && a.getVeh().getOdinnummer() == kør.name) {
                     bllAppearance.updateKørselType(a, kør.getselected());
+
                 }
             }
         }

@@ -1,6 +1,6 @@
 package GUI;
 
-import Renderes.ActionListRenderer;
+import Renderes.RenderActionList;
 import BE.BELogin;
 import BE.BEOdinAlarm;
 import BLL.BLLAlarm;
@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  *
  * @author Team Kawabunga
  */
-public class MainView extends javax.swing.JFrame {
+public class ViewMain extends javax.swing.JFrame implements IViewType {
 
     BLLAlarm bllAlarm;
     BLLEmployee bllEmployee;
@@ -26,16 +26,19 @@ public class MainView extends javax.swing.JFrame {
     /**
      * Creates new form MainView
      */
-    public MainView() {
-        this.setResizable(false);
-        this.setTitle("Main View");
+    public ViewMain() {
         bllAlarm = BLLAlarm.getInstance();
         bllEmployee = BLLEmployee.getInstance();
+
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setTitle("Main View");
+
         initComponents();
         initLogInComponents();
         initOtherComponets();
 
-        ActionListRenderer renderer = new ActionListRenderer();
+        RenderActionList renderer = new RenderActionList();
         lstAction.setCellRenderer(renderer);
         fillListActions();
         lstAction.setModel(model);
@@ -189,11 +192,16 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
 
-    private void fillListActions(){
-        for (BEOdinAlarm odinAlarm : bllAlarm.getAllOdinAlarms()){
+    @Override
+    public void show(){
+        this.setVisible(true);
+    }
+    private void fillListActions() {
+        for (BEOdinAlarm odinAlarm : bllAlarm.getAllOdinAlarms()) {
             model.addElement(odinAlarm);
         }
     }
+
     private void initOtherComponets() {
         txtName.setNextFocusableComponent(txtPassword);
         txtPassword.setNextFocusableComponent(txtName);
@@ -204,22 +212,20 @@ public class MainView extends javax.swing.JFrame {
         btnIL.setEnabled(false);
         btnSalery.setEnabled(false);
         btnConfirmApp.setText("Bekræft fremmøder");
-        
+
         btnSalery.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                AdministrationChooseView view = new AdministrationChooseView(log);
-                view.setVisible(true);
+                FactoryViewform.createAdministrationChooseView(log).setVisible(true);
             }
         });
-        
+
         btnConfirmApp.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                HLAfterAction main = HLAfterAction.getInstance(log);
-                main.setVisible(true);
+                FactoryViewform.createHLAfterAction(log).setVisible(true);
             }
         });
 
@@ -227,18 +233,15 @@ public class MainView extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                HLErrorReport frame = new HLErrorReport();
-                frame.setVisible(true);
+                FactoryViewform.createHLErrorReport().setVisible(true);
             }
         });
-        
+
         btnIL.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-              ILIndsats view = new ILIndsats(log);
-              view.setLocationRelativeTo(null);
-              view.setVisible(true);
+                FactoryViewform.createViewILIndsats(log).setVisible(true);
             }
         });
     }
@@ -284,11 +287,12 @@ public class MainView extends javax.swing.JFrame {
                 btnLogOut.setEnabled(false);
             }
         });
-        
+
         btnIL.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
+                FactoryViewform.createViewILIndsats(log);
             }
         });
     }

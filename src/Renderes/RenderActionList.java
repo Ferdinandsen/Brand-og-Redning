@@ -7,16 +7,17 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
+import static javax.swing.SwingConstants.CENTER;
 
 /**
  *
  * @author Team Kawabunga
  */
-public class ComboboxRenderer extends JLabel implements ListCellRenderer {
+public class RenderActionList extends JLabel implements ListCellRenderer {
 
     DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
-    public ComboboxRenderer() {
+    public RenderActionList() {
         setOpaque(true);
         setHorizontalAlignment(CENTER);
         setVerticalAlignment(CENTER);
@@ -35,6 +36,7 @@ public class ComboboxRenderer extends JLabel implements ListCellRenderer {
         if (index != -1) {
             //Component cell = getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             lbl.setText(value.toString());
+
             if (index % 2 != 0) {
                 lbl.setBackground(new Color(229, 220, 220));
             }

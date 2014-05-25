@@ -9,21 +9,23 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class CarView extends javax.swing.JFrame {
+public class ViewCar extends javax.swing.JFrame {
 
     BLLVehicle bllVehicle;
     DefaultListModel model = new DefaultListModel();
 
-    public CarView() {
+    public ViewCar() {
         bllVehicle = BLLVehicle.getInstance();
-        initComponents();
-        fillList();
-        lstVehicles.setModel(model);
-        initOtherComponents();
+
         this.setResizable(false);
-        this.setTitle("Køretøjer");
+        this.setTitle("Køretøjs administration");
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+        initComponents();
+        initOtherComponents();
+        fillList();
+        lstVehicles.setModel(model);
     }
 
     private void fillList() {
@@ -35,10 +37,12 @@ public class CarView extends javax.swing.JFrame {
 
     private void initOtherComponents() {
         btnRemove.setEnabled(false);
+
         lstVehicles.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 btnRemove.setEnabled(lstVehicles.getSelectedIndex() != -1);
+                btnAdd.setEnabled(lstVehicles.getSelectedIndex() == 0);
                 if (lstVehicles.getSelectedIndex() != -1) {
                     BEVehicle veh = (BEVehicle) lstVehicles.getSelectedValue();
                     txtBilnr.setText(String.valueOf(veh.getOdinnummer()));
@@ -59,29 +63,37 @@ public class CarView extends javax.swing.JFrame {
         btnRemove.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                BEVehicle veh = (BEVehicle) lstVehicles.getSelectedValue();
-                bllVehicle.deleteVehicle(veh);
-                model.removeElement(veh);
-                JOptionPane.showMessageDialog(null, "Bilen er nu slettet!");
+                deleteCar();
             }
         });
 
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (txtBeskrivelse.getText().isEmpty() && txtBilnr.getText().isEmpty() && txtModel.getText().isEmpty() && txtMærke.getText().isEmpty() && txtNummerplade.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Udfyld venligst al information!");
-                } else {
-                    bllVehicle.addVehicle(txtBeskrivelse.getText(), txtBilnr.getText(), txtModel.getText(), txtMærke.getText(), txtNummerplade.getText());
-                    fillList();
-                    txtBilnr.setText("");
-                    txtNummerplade.setText("");
-                    txtMærke.setText("");
-                    txtModel.setText("");
-                    txtBeskrivelse.setText("");
-                }
+                createCar();
             }
         });
+    }
+
+    private void deleteCar() {
+        BEVehicle veh = (BEVehicle) lstVehicles.getSelectedValue();
+        bllVehicle.deleteVehicle(veh);
+        model.removeElement(veh);
+        JOptionPane.showMessageDialog(this, "Bilen er nu slettet!");
+    }
+
+    private void createCar() {
+        if (txtBeskrivelse.getText().isEmpty() && txtBilnr.getText().isEmpty() && txtModel.getText().isEmpty() && txtMærke.getText().isEmpty() && txtNummerplade.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Udfyld venligst al information!");
+        } else {
+            bllVehicle.addVehicle(txtBeskrivelse.getText(), txtBilnr.getText(), txtModel.getText(), txtMærke.getText(), txtNummerplade.getText());
+            fillList();
+            txtBilnr.setText("");
+            txtNummerplade.setText("");
+            txtMærke.setText("");
+            txtModel.setText("");
+            txtBeskrivelse.setText("");
+        }
     }
 
     @SuppressWarnings("unchecked")

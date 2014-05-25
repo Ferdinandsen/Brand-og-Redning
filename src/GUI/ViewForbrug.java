@@ -9,11 +9,12 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class ForbrugView extends javax.swing.JFrame {
+public class ViewForbrug extends javax.swing.JFrame {
+
     BLLUsage bllUsage;
     DefaultListModel model = new DefaultListModel();
-    
-    public ForbrugView() {
+
+    public ViewForbrug() {
         bllUsage = BLLUsage.getInstance();
         initComponents();
         fillList();
@@ -24,48 +25,55 @@ public class ForbrugView extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
+
     private void fillList() {
         model.clear();
         for (BEMateriel mat : bllUsage.getAllMats()) {
             model.addElement(mat);
         }
     }
-    
-     private void initOtherComponents() {
+
+    private void initOtherComponents() {
         btnRemove.setEnabled(false);
         lstMats.addListSelectionListener(new ListSelectionListener() {
 
             @Override
             public void valueChanged(ListSelectionEvent e) {
-               btnRemove.setEnabled(lstMats.getSelectedIndex() != -1);
-                
+                btnRemove.setEnabled(lstMats.getSelectedIndex() != -1);
             }
         });
-        
+
         btnRemove.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-               BEMateriel mat = (BEMateriel) lstMats.getSelectedValue();
-                bllUsage.deleteMaterial(mat);
-                model.removeElement(mat);
-                JOptionPane.showMessageDialog(null, "Bilen er nu slettet!");
+                delete();
             }
         });
-        
+
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (txtMat.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Udfyld venligst al information!");
-                } else {
-                    bllUsage.addMaterial(txtMat.getText());
-                    fillList();
-                    txtMat.setText("");
-                    
-                }
+                create();
             }
         });
+    }
+
+    private void create() {
+        if (txtMat.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Udfyld venligst al information!");
+        } else {
+            bllUsage.addMaterial(txtMat.getText());
+            fillList();
+            txtMat.setText("");
+        }
+    }
+
+    private void delete() {
+        BEMateriel mat = (BEMateriel) lstMats.getSelectedValue();
+        bllUsage.deleteMaterial(mat);
+        model.removeElement(mat);
+        JOptionPane.showMessageDialog(null, "Bilen er nu slettet!");
     }
 
     @SuppressWarnings("unchecked")

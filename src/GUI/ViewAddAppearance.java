@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  *
  * @author Team Kawabunga
  */
-public class AddAppearanceView extends javax.swing.JDialog {
+public class ViewAddAppearance extends javax.swing.JDialog {
 
     BLLAppearance bllAppearance;
     BLLFireman bllFireman;
@@ -29,15 +29,18 @@ public class AddAppearanceView extends javax.swing.JDialog {
     BLLVehicle bllVehicle;
     BEAlarm localAlarm;
 
-    public AddAppearanceView(BEAlarm alarm) {
+    public ViewAddAppearance(BEAlarm alarm) {
         localAlarm = alarm;
-        this.setModal(true);
-        this.setLocationRelativeTo(null);
         bllAppearance = BLLAppearance.getInstance();
         bllFireman = BLLFireman.getInstance();
         bllAlarm = BLLAlarm.getInstance();
         bllVehicle = BLLVehicle.getInstance();
+
         this.setResizable(false);
+        this.setModal(true);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+
         initComponents();
         initOtherComponents();
         fillCboxFireman();
@@ -123,11 +126,7 @@ public class AddAppearanceView extends javax.swing.JDialog {
         btnOk.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (txtCheckUdTid.getText().length() == 5) {
-                    addAppearance();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Skriv venligst et check ud tidspunkt");
-                }
+                addAppearance();
             }
         });
 
@@ -141,22 +140,26 @@ public class AddAppearanceView extends javax.swing.JDialog {
     }
 
     private void addAppearance() {
-        boolean hl = rbtnHoldleder.isSelected();
-        boolean ch = rbtnChauffør.isSelected();
-        boolean st = rbtnStVagt.isSelected();
+        if (txtCheckUdTid.getText().length() == 5) {
+            boolean hl = rbtnHoldleder.isSelected();
+            boolean ch = rbtnChauffør.isSelected();
+            boolean st = rbtnStVagt.isSelected();
 
-        BEVehicle veh = null;
-        if (cboxKøretøj.getSelectedIndex() != 0) {
-            veh = (BEVehicle) cboxKøretøj.getSelectedItem();
+            BEVehicle veh = null;
+            if (cboxKøretøj.getSelectedIndex() != 0) {
+                veh = (BEVehicle) cboxKøretøj.getSelectedItem();
+            }
+            Date date = dateChooser.getDate();
+            String[] test = txtCheckUdTid.getText().split(":");
+            int hour = Integer.parseInt(test[0]);
+            int min = Integer.parseInt(test[1]);
+            Timestamp thistime = new Timestamp(date.getYear(), date.getMonth(), date.getDate(), hour, min, 0, 0);
+            bllAppearance.addAppearance((BEFireman) cboxFireman.getSelectedItem(), (BEAlarm) cboxAlarm.getSelectedItem(), veh, thistime, hl, ch, st, (int) cboxKørselstype.getSelectedItem());
+            JOptionPane.showMessageDialog(this, cboxFireman.getSelectedItem() + " er nu tilføjet til listen!");
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Skriv venligst et check ud tidspunkt");
         }
-        Date date = dateChooser.getDate();
-        String[] test = txtCheckUdTid.getText().split(":");
-        int hour = Integer.parseInt(test[0]);
-        int min = Integer.parseInt(test[1]);
-        Timestamp thistime = new Timestamp(date.getYear(), date.getMonth(), date.getDate(), hour, min, 0, 0);
-        bllAppearance.addAppearance((BEFireman) cboxFireman.getSelectedItem(), (BEAlarm) cboxAlarm.getSelectedItem(), veh, thistime, hl, ch, st, (int) cboxKørselstype.getSelectedItem());
-        JOptionPane.showMessageDialog(this, cboxFireman.getSelectedItem() + " er nu tilføjet til listen!");
-        dispose();
     }
 
     private void fillCboxFireman() {
