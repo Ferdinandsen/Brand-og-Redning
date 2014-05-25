@@ -34,6 +34,7 @@ public class DALFireman {
 
     /**
      * Populates the ArrayList allFiremen
+     *
      * @throws SQLException
      */
     public void populateFiremen() throws SQLException {
@@ -63,6 +64,7 @@ public class DALFireman {
 
     /**
      * returns the ArrayList
+     *
      * @return allFiremen
      */
     public ArrayList<BEFireman> getAllFiremen() {
@@ -72,6 +74,7 @@ public class DALFireman {
     /**
      * creates a firemen with roles and adds it to the database and the
      * ArrayList allFiremen
+     *
      * @param emp - the selected employee
      * @param CH - Chauffør/driver
      * @param HL - Holdleder/teamleader
@@ -96,6 +99,7 @@ public class DALFireman {
     /**
      * Delete a fireman from the deltidsbrandmand table and the ArrayList
      * allFiremen
+     *
      * @param emp - specific employee
      * @throws SQLException
      */

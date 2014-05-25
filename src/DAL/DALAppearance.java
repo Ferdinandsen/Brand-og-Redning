@@ -21,7 +21,7 @@ public class DALAppearance {
 
     private Connection m_connection;
     private static DALAppearance m_instance = null;
-    private ArrayList<BEAppearance> allAppearances = new ArrayList<>();
+    private ArrayList<BEAppearance> allAppearances;
     private DALVehicle dalVehicle;
     private DALFireman dalFireman;
     private DALLogin dALLogin;
@@ -46,6 +46,7 @@ public class DALAppearance {
 
     /**
      * Creates the Appearance in the database
+     *
      * @param alarm BEAlarm
      * @param fireman BEFireman
      * @param veh BEVehicle
@@ -85,10 +86,11 @@ public class DALAppearance {
 
     /**
      * Populates the allAppearances ArrayList
+     *
      * @throws SQLException
      */
     public void populateAppearances() throws SQLException {
-        allAppearances = new ArrayList<>(); // ER DET HER NØDVENDIGT!?
+        allAppearances = new ArrayList<>();
         String sql = "SELECT * FROM Fremmøde";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
@@ -148,6 +150,7 @@ public class DALAppearance {
 
     /**
      * Retrieve the ArrayList
+     *
      * @return ArrayList of allAppearances
      */
     public ArrayList<BEAppearance> getAppearances() {
@@ -156,6 +159,7 @@ public class DALAppearance {
 
     /**
      * Updates the appearance, mainly setting the hlgodkendt bit.
+     *
      * @param appearance - BEAppearance
      * @throws SQLException
      */
@@ -173,6 +177,7 @@ public class DALAppearance {
 
     /**
      * Updates the kørselType in database
+     *
      * @param a - BEAppearance
      * @throws SQLException
      */
@@ -187,6 +192,7 @@ public class DALAppearance {
 
     /**
      * Updates the time in the database for the appearance
+     *
      * @param appearance BEAppearance
      * @throws SQLException
      */
@@ -203,6 +209,7 @@ public class DALAppearance {
 
     /**
      * delete the specific ID
+     *
      * @param appearance
      * @throws SQLException
      */
@@ -216,6 +223,7 @@ public class DALAppearance {
 
     /**
      * Creates an appearance in the database - this one is used from IL
+     *
      * @param fireman
      * @param total
      * @param time
@@ -266,6 +274,7 @@ public class DALAppearance {
     /**
      * Updates the appearance in the database - when IL has confirmed the
      * action.
+     *
      * @param appearance
      * @throws SQLException
      */
@@ -280,6 +289,7 @@ public class DALAppearance {
 
     /**
      * Updates the bit holdleder on appearance in database with the specific ID
+     *
      * @param appearance
      * @throws SQLException
      */
@@ -294,6 +304,7 @@ public class DALAppearance {
 
     /**
      * Updates Fremmøde with salary information - on specific ID
+     *
      * @param a BEAppearance
      * @param ts Timestamp
      * @throws SQLException

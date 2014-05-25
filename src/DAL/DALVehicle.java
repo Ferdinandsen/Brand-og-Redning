@@ -16,7 +16,7 @@ public class DALVehicle {
 
     private Connection m_connection;
     private static DALVehicle m_instance = null;
-    private ArrayList<BEVehicle> allVehicles = new ArrayList<>();
+    private ArrayList<BEVehicle> allVehicles;
 
     private DALVehicle() throws SQLException, SQLServerException {
         m_connection = DBConnection.getInstance().getConnection();
@@ -32,6 +32,7 @@ public class DALVehicle {
 
     /**
      * Populates the ArrayList allVehicles
+     *
      * @throws SQLException
      */
     public void populateVehicle() throws SQLException {
@@ -56,6 +57,7 @@ public class DALVehicle {
 
     /**
      * returns the ArrayList allvehicles
+     *
      * @return the vehicles
      */
     public ArrayList<BEVehicle> getVehicles() {
@@ -64,6 +66,7 @@ public class DALVehicle {
 
     /**
      * deletes the specific car from the database and the ArrayList
+     *
      * @param car - BECar
      * @throws SQLException
      */
@@ -78,6 +81,7 @@ public class DALVehicle {
     /**
      * creates a new vehicle in the database and adds it to the ArrayList
      * allVehicles
+     *
      * @param desc
      * @param bilNr
      * @param model

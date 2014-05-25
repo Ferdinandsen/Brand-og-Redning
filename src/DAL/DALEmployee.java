@@ -17,9 +17,9 @@ public class DALEmployee {
 
     Connection m_connection;
     private static DALEmployee m_instance = null;
-    private ArrayList<BEZipCode> allZipCodes = new ArrayList<>();
-    private ArrayList<BEAddress> allAddresses = new ArrayList<>();
-    private ArrayList<BEEmployee> allEmployees = new ArrayList<>();
+    private ArrayList<BEZipCode> allZipCodes;
+    private ArrayList<BEAddress> allAddresses;
+    private ArrayList<BEEmployee> allEmployees;
 
     private DALEmployee() throws SQLException {
         m_connection = DBConnection.getInstance().getConnection();
@@ -37,6 +37,7 @@ public class DALEmployee {
 
     /**
      * Populates the ArrayList allEmployees from the database
+     *
      * @throws SQLException
      */
     private void populateEmployee() throws SQLException {
@@ -73,6 +74,7 @@ public class DALEmployee {
 
     /**
      * Populates the ArrayList allAdresses
+     *
      * @throws SQLException
      */
     private void populateAddress() throws SQLException {
@@ -104,6 +106,7 @@ public class DALEmployee {
 
     /**
      * Populates the ArrayList allZipCodes
+     *
      * @throws SQLException
      */
     private void populateZip() throws SQLException {
@@ -146,6 +149,7 @@ public class DALEmployee {
     /**
      * creates a new BEaddress with the created ID before adding to the
      * ArrayList
+     *
      * @param gadenavn
      * @param gadenummer
      * @param etage
@@ -184,6 +188,7 @@ public class DALEmployee {
     /**
      * creates a new BEemployee with the created ID before adding to the
      * ArrayList
+     *
      * @param fornavn
      * @param mellemnavn
      * @param efternavn
@@ -227,6 +232,7 @@ public class DALEmployee {
 
     /**
      * Delete the specific employee from database and the ArrayList allEmployees
+     *
      * @param emp
      * @throws SQLException
      */

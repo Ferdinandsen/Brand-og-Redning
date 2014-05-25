@@ -29,6 +29,7 @@ public class DALReport {
 
     /**
      * Create a new error report for a vehicle
+     *
      * @param be - BEError
      * @param veh - BEVehicle
      * @throws SQLException

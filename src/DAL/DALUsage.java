@@ -18,8 +18,8 @@ public class DALUsage {
 
     private Connection m_connection;
     private static DALUsage m_instance = null;
-    private ArrayList<BEMateriel> allMaterials = new ArrayList<>();
-    private ArrayList<BEUsage> allUsages = new ArrayList<BEUsage>();
+    private ArrayList<BEMateriel> allMaterials;
+    private ArrayList<BEUsage> allUsages;
     private DALALarm dalAlarm;
 
     private DALUsage() throws SQLServerException, SQLException {
@@ -40,10 +40,12 @@ public class DALUsage {
     /**
      * Creates a new usage report and adds its ID to it. Adds it to ArrayList
      * allUsages
+     *
      * @param u -BEUsage
      * @throws SQLException
      */
     public void createUsageReport(BEUsage u) throws SQLException {
+        allUsages = new ArrayList<>();
         String sql = "INSERT INTO Forbrug VALUES (?,?,?) select @@identity";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
@@ -62,6 +64,7 @@ public class DALUsage {
 
     /**
      * populate the ArrayList allUsages
+     *
      * @throws SQLException
      */
     public void populateUsages() throws SQLException {
@@ -98,9 +101,11 @@ public class DALUsage {
 
     /**
      * Populate the ArrayList allMaterials
+     *
      * @throws SQLException
      */
     public void populateMats() throws SQLException {
+        allMaterials = new ArrayList<>();
         String sql = "SELECT * FROM Brandmateriel";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
@@ -118,6 +123,7 @@ public class DALUsage {
 
     /**
      * Updates a usage report
+     *
      * @param bu - BEUsage
      * @throws SQLException
      */
@@ -131,6 +137,7 @@ public class DALUsage {
 
     /**
      * removes a material from the ArrayList and database
+     *
      * @param mat - BEMateriel
      * @throws SQLException
      */
@@ -145,6 +152,7 @@ public class DALUsage {
     /**
      * creates a new material in the database and adds it to the ArrayList
      * allMaterials
+     *
      * @param text
      * @throws SQLException
      */
@@ -166,6 +174,7 @@ public class DALUsage {
 
     /**
      * returns the ArrayList
+     *
      * @return allUsages
      */
     public ArrayList<BEUsage> getAllUsages() {
@@ -174,6 +183,7 @@ public class DALUsage {
 
     /**
      * returns the ArrayList
+     *
      * @return the allMateriel
      */
     public ArrayList<BEMateriel> getAllMats() {

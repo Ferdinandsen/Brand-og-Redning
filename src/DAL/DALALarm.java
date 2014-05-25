@@ -77,6 +77,7 @@ public class DALALarm {
 
     /**
      * returns the ArrayList allOdinAlarms
+     *
      * @return allOdinAlarms
      */
     public ArrayList<BEOdinAlarm> getAllOdinAlarms() {
@@ -85,6 +86,7 @@ public class DALALarm {
 
     /**
      * The getinstance for DALAlarm (singleton)
+     *
      * @return m_instance of the DALAlarm
      * @throws SQLException
      */
@@ -97,6 +99,7 @@ public class DALALarm {
 
     /**
      * Populates the allAlarm ArrayList from the database
+     *
      * @throws SQLException
      */
     private void populateAlarm() throws SQLException {
@@ -129,6 +132,7 @@ public class DALALarm {
 
     /**
      * returns allAlarms
+     *
      * @return ArrayList allAlarms
      */
     public ArrayList<BEAlarm> getAllAlarms() {
@@ -137,6 +141,7 @@ public class DALALarm {
 
     /**
      * Updates the alarm with the specific ID
+     *
      * @param a - BEAlarm
      * @throws SQLException
      */
@@ -154,6 +159,7 @@ public class DALALarm {
 
     /**
      * Updates the hlbemærkning in the database
+     *
      * @param alarm - BEAlarm
      * @throws SQLException
      */
@@ -169,6 +175,7 @@ public class DALALarm {
 
     /**
      * Updates the alarm with the specific ID
+     *
      * @param alarm - BEAlarm
      * @param time Timestamp - the timestamp that needs to be put into the
      * database
