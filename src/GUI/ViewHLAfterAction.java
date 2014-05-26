@@ -122,7 +122,7 @@ public class ViewHLAfterAction extends javax.swing.JFrame {
             }
         });
     }
-
+    
     private void changeTime() {
         BEAppearance appearance = null;
         if (cboxAlarm.getSelectedIndex() == 0) {

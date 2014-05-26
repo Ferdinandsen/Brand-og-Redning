@@ -7,8 +7,8 @@ package GUI;
 public class Main {
 
     public static void main(String[] args) {
-//        FactoryViewform.createViewformMain().setVisible(true);
-        FactoryViewform.createCheckOutView().setVisible(true);
+        FactoryViewform.createViewformMain().setVisible(true);
+//        FactoryViewform.createCheckOutView().setVisible(true);
 //        AddAppearanceView main = new AddAppearanceView();
 //        CheckInView main = new CheckInView();
 //        MainView main = new MainView();
@@ -19,9 +19,9 @@ public class Main {
 //        main.setLocationRelativeTo(null);
 //        main.setVisible(true);
 
-        FactoryViewform factory = new FactoryViewform();
-        IViewType frame = factory.getFrame("mainview");
-        frame.show();
+//        FactoryViewform factory = new FactoryViewform();
+//        IViewType frame = factory.getFrame("mainview");
+//        frame.show();
 
     }
 }

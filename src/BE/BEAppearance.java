@@ -6,7 +6,7 @@ import java.sql.Timestamp;
  *
  * @author Team Kawabunga
  */
-public class BEAppearance {
+public class BEAppearance extends IBESubject{
 
     private int id;
     private BEFireman fireman;

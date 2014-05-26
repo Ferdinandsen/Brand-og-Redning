@@ -52,6 +52,7 @@ public class DALVehicle {
 
             BEVehicle bil = new BEVehicle(odin, reg, mark, mod, desc);
             allVehicles.add(bil);
+            
         }
     }
 

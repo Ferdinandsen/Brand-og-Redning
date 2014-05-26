@@ -8,7 +8,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Team Kawabunga
  */
-public class TableModelFremmøde extends AbstractTableModel {
+public class TableModelFremmøde extends AbstractTableModel implements ITableObserver{
 
     /**
      * the names of the columns in the table
@@ -122,5 +122,10 @@ public class TableModelFremmøde extends AbstractTableModel {
 
     public BEAppearance getAppearanceByRow(int row) {
         return appearances.get(row);
+    }
+
+    @Override
+    public void update() {
+      fireTableDataChanged();
     }
 }

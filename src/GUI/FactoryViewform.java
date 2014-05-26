@@ -30,12 +30,6 @@ public IViewType getFrame (String type){
 }
     
 
-
-
-
-
-
-
 public static ViewMain createViewformMain() {
        return new ViewMain();
     }

@@ -9,9 +9,10 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Team Kawabunga
  */
-public class TableModelLøn extends AbstractTableModel {
-final int HLLønkode = 447;
-final int BMLønkode = 446;
+public class TableModelLøn extends AbstractTableModel implements ITableObserver {
+
+    final int HLLønkode = 447;
+    final int BMLønkode = 446;
 
     /**
      * the names of the columns in the table
@@ -27,7 +28,7 @@ final int BMLønkode = 446;
         "Lønkode",
         "Total Timer"
     };
-    
+
     /**
      * the type definition for the columns
      */
@@ -78,7 +79,7 @@ final int BMLønkode = 446;
             case 5:
                 return a.isHoldleder() ? "Holdleder" : "Brandmand";
             case 6:
-               return a.isHoldleder() ? HLLønkode : BMLønkode;
+                return a.isHoldleder() ? HLLønkode : BMLønkode;
             case 7:
                 return a.getTotalTid();
         }
@@ -99,8 +100,8 @@ final int BMLønkode = 446;
     public boolean isCellEditable(int row, int col) {
         return false;
     }
-    
-    public BEAppearance getRow(int row){
+
+    public BEAppearance getRow(int row) {
         return appearances.get(row);
     }
 
@@ -110,5 +111,10 @@ final int BMLønkode = 446;
 
     public BEAppearance getAppearanceByRow(int row) {
         return appearances.get(row);
+    }
+
+    @Override
+    public void update() {
+        fireTableDataChanged();
     }
 }

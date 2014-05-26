@@ -2,6 +2,7 @@ package DAL;
 
 import BE.BEAlarm;
 import BE.BEOdinAlarm;
+import BE.IBESubject;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -127,7 +128,7 @@ public class DALALarm {
 
             BEAlarm alarm = new BEAlarm(id, title, desc, station, tid, done, alarmType, evaNo, gruppeNo, detekterNo, hlBemærkning, ilBemærkning, ilGodkendtTid, hlGodkendtTid);
             allAlarms.add(alarm);
-        }
+                   }
     }
 
     /**
