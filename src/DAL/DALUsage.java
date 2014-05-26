@@ -45,7 +45,6 @@ public class DALUsage {
      * @throws SQLException
      */
     public void createUsageReport(BEUsage u) throws SQLException {
-        allUsages = new ArrayList<>();
         String sql = "INSERT INTO Forbrug VALUES (?,?,?) select @@identity";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
@@ -68,6 +67,7 @@ public class DALUsage {
      * @throws SQLException
      */
     public void populateUsages() throws SQLException {
+        allUsages = new ArrayList<>();
         String sql = "SELECT * FROM Forbrug";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);

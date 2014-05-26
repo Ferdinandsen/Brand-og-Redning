@@ -76,7 +76,8 @@ public class ViewILIndsats extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 BEAlarm alarm = bllAlarm.getAllHLGodkendtAndNotILGodkend().get(tblFremmøder.convertRowIndexToView(tblFremmøder.getSelectedRow()));
-                FactoryViewform.createILFremmødeliste(alarm, localLogin).setVisible(true);
+                ViewILFremmødeliste frame = new ViewILFremmødeliste(alarm, localLogin);
+                frame.setVisible(true);
                 dispose();
             }
         });

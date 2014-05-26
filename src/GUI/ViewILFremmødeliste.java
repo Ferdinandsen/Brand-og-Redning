@@ -468,13 +468,15 @@ public class ViewILFremmødeliste extends javax.swing.JFrame {
                 localUsages.add(usage);
             }
         }
-        FactoryViewform.createHLUsageReport(localAlarm, localUsages).setVisible(true);
+        ViewHLUsageReport frame = new ViewHLUsageReport(localAlarm, localUsages);
+        frame.setVisible(true);
         usageConfirmed = true;
         btnUsage.setForeground(Color.GREEN);
     }
 
     private void cancel() {
-        FactoryViewform.createViewILIndsats(localLogin).setVisible(true);
+        ViewILIndsats frame = new ViewILIndsats(localLogin);
+        frame.setVisible(true);
         dispose();
     }
 
@@ -485,12 +487,14 @@ public class ViewILFremmødeliste extends javax.swing.JFrame {
     }
 
     private void updateAppearance() {
-        FactoryViewform.createChangeTimeView(bllAppearance.getAllHlGodkendtAppearances(localAlarm).get(tblFremmøde.convertRowIndexToView(tblFremmøde.getSelectedRow()))).setVisible(true);
+        ViewChangeTime frame = new ViewChangeTime(bllAppearance.getAllHlGodkendtAppearances(localAlarm).get(tblFremmøde.convertRowIndexToView(tblFremmøde.getSelectedRow())));
+        frame.setVisible(true);
         model.fireTableDataChanged();
     }
 
     private void addAppearance() {
-        FactoryViewform.createAddAppearanceView(localAlarm).setVisible(true);
+        ViewAddAppearance frame = new ViewAddAppearance(localAlarm);
+        frame.setVisible(true);
         model.setAppearanceList(bllAppearance.getAllHlGodkendtAppearances(localAlarm));
         model.fireTableDataChanged();
     }

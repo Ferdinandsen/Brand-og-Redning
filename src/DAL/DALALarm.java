@@ -146,7 +146,6 @@ public class DALALarm {
      * @throws SQLException
      */
     public void updateAlarm(BEAlarm a) throws SQLException {
-
         String sql = "UPDATE Alarm SET alarmType = ?, gruppeNo = ?, detekterNo = ? WHERE id = ?";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);

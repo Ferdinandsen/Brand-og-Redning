@@ -130,14 +130,15 @@ public class ViewHLAfterAction extends javax.swing.JFrame {
         } else {
             appearance = bllAppearance.getAppearancesWithSameAlarm((BEAlarm) cboxAlarm.getSelectedItem()).get(tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
         }
-        FactoryViewform.createChangeTimeView(appearance).setVisible(true);
+        ViewChangeTime frame = new ViewChangeTime(appearance);
+        frame.setVisible(true);
     }
 
     private void confirmTeam() {
         try {
             bllAppearance.confirmTeam(localLog, (BEAlarm) cboxAlarm.getSelectedItem(), txtComment.getText());
             msgbox("Holdet er nu bekræftet!");
-            FactoryViewform.createHLAfterActionStory(bllAppearance.getAllHlGodkendtAppearances((BEAlarm) cboxAlarm.getSelectedItem()), (BEAlarm) cboxAlarm.getSelectedItem()).setVisible(true);
+            ViewHLAfterActionStory frame = new ViewHLAfterActionStory(bllAppearance.getAllHlGodkendtAppearances((BEAlarm) cboxAlarm.getSelectedItem()), (BEAlarm) cboxAlarm.getSelectedItem());
             txtComment.setText(null);
             dispose();
         } catch (Exception ex) {
