@@ -195,12 +195,12 @@ public class BLLAppearance implements IBLLType{
         for (BEAppearance appearance : getAppearancesWithSameAlarm(alarm)) {
             alarm.setHlBemærkning(comment);
             alarm.setHlGodkendtTid(time());
-            appearance.setHlGodkendt(true);
+            appearance.setHlGodkendt(true); // HER ELLER I DAL?
             appearance.setAlarm(alarm);
             appearance.setLogin(log);
             try {
                 dalAlarm.setHlBemærkning(alarm);
-                dalAppearance.confirmTeam(appearance, comment);
+                dalAppearance.confirmTeam(appearance);
             } catch (SQLException ex) {
                 System.out.println("fejl i confirmTeam" + ex);
             }

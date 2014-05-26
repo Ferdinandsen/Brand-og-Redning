@@ -17,7 +17,7 @@ public class DALLogin {
     Connection m_connection;
     private static DALLogin m_instance = null;
     private DALEmployee dalEmployee;
-    private ArrayList<BELogin> allLogins = new ArrayList<>();
+    private ArrayList<BELogin> allLogins;
 
     private DALLogin() throws SQLException {
         m_connection = DBConnection.getInstance().getConnection();
@@ -32,7 +32,13 @@ public class DALLogin {
         return m_instance;
     }
 
+    /**
+     * Populate the ArrayList allLogins
+     *
+     * @throws SQLException
+     */
     private void populateLogins() throws SQLException {
+        allLogins = new ArrayList<>();
         String sql = "SELECT * FROM Login";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
@@ -56,6 +62,11 @@ public class DALLogin {
         }
     }
 
+    /**
+     * returns the ArrayList
+     *
+     * @return allLogins
+     */
     public ArrayList<BELogin> getAllLogins() {
         return allLogins;
     }

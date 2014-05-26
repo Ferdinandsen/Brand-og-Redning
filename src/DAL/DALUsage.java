@@ -18,8 +18,8 @@ public class DALUsage {
 
     private Connection m_connection;
     private static DALUsage m_instance = null;
-    private ArrayList<BEMateriel> allMaterials = new ArrayList<>();
-    private ArrayList<BEUsage> allUsages = new ArrayList<BEUsage>();
+    private ArrayList<BEMateriel> allMaterials;
+    private ArrayList<BEUsage> allUsages;
     private DALALarm dalAlarm;
 
     private DALUsage() throws SQLServerException, SQLException {
@@ -37,7 +37,15 @@ public class DALUsage {
         return m_instance;
     }
 
+    /**
+     * Creates a new usage report and adds its ID to it. Adds it to ArrayList
+     * allUsages
+     *
+     * @param u -BEUsage
+     * @throws SQLException
+     */
     public void createUsageReport(BEUsage u) throws SQLException {
+        allUsages = new ArrayList<>();
         String sql = "INSERT INTO Forbrug VALUES (?,?,?) select @@identity";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
@@ -54,6 +62,11 @@ public class DALUsage {
         allUsages.add(u);
     }
 
+    /**
+     * populate the ArrayList allUsages
+     *
+     * @throws SQLException
+     */
     public void populateUsages() throws SQLException {
         String sql = "SELECT * FROM Forbrug";
 
@@ -86,7 +99,13 @@ public class DALUsage {
         }
     }
 
+    /**
+     * Populate the ArrayList allMaterials
+     *
+     * @throws SQLException
+     */
     public void populateMats() throws SQLException {
+        allMaterials = new ArrayList<>();
         String sql = "SELECT * FROM Brandmateriel";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
@@ -102,6 +121,12 @@ public class DALUsage {
         }
     }
 
+    /**
+     * Updates a usage report
+     *
+     * @param bu - BEUsage
+     * @throws SQLException
+     */
     public void updateUsageReport(BEUsage bu) throws SQLException {
         String sql = "UPDATE Forbrug SET amount = ? WHERE id = ?";
         PreparedStatement ps = m_connection.prepareStatement(sql);
@@ -110,6 +135,12 @@ public class DALUsage {
         ps.execute();
     }
 
+    /**
+     * removes a material from the ArrayList and database
+     *
+     * @param mat - BEMateriel
+     * @throws SQLException
+     */
     public void deleteMaterial(BEMateriel mat) throws SQLException {
         String sql = "DELETE FROM Brandmateriel WHERE id = ?";
         PreparedStatement ps = m_connection.prepareStatement(sql);
@@ -118,6 +149,13 @@ public class DALUsage {
         allMaterials.remove(mat);
     }
 
+    /**
+     * creates a new material in the database and adds it to the ArrayList
+     * allMaterials
+     *
+     * @param text
+     * @throws SQLException
+     */
     public void addMaterial(String text) throws SQLException {
         String sql = "INSERT INTO Brandmateriel VALUES (?)  select @@identity";
 
@@ -135,15 +173,18 @@ public class DALUsage {
     }
 
     /**
+     * returns the ArrayList
      *
-     * @return
+     * @return allUsages
      */
     public ArrayList<BEUsage> getAllUsages() {
         return allUsages;
     }
 
     /**
-     * @return the materiel
+     * returns the ArrayList
+     *
+     * @return the allMateriel
      */
     public ArrayList<BEMateriel> getAllMats() {
         return allMaterials;
