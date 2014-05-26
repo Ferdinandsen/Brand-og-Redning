@@ -20,6 +20,7 @@ public class ViewFiremen extends javax.swing.JFrame {
     DefaultListModel model = new DefaultListModel();
 
     public ViewFiremen() {
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
         this.setTitle("Medarbejder administration");
         bllEmployee = BLLEmployee.getInstance();

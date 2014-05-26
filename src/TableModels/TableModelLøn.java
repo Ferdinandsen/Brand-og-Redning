@@ -2,10 +2,8 @@ package TableModels;
 
 import BE.BEAppearance;
 import GUI.IObserver;
-import GUI.ViewAdministration;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Observer;
 import javax.swing.table.AbstractTableModel;
 
 /**

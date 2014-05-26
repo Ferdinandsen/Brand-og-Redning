@@ -41,6 +41,12 @@ public class DALALarm {
         populateAlarm();
     }
 
+    /**
+     * 
+     * @param tag
+     * @param element
+     * @return 
+     */
     private String getValue(String tag, Element element) {
         NodeList nodes = element.getElementsByTagName(tag).item(0).getChildNodes();
         Node node = (Node) nodes.item(0);
@@ -85,7 +91,7 @@ public class DALALarm {
     }
 
     /**
-     * The getinstance for DALAlarm (singleton)
+     * The getInstance for DALAlarm (singleton)
      *
      * @return m_instance of the DALAlarm
      * @throws SQLException

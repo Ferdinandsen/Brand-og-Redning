@@ -10,18 +10,19 @@ import BLL.BLLAppearance;
 import BLL.BLLFireman;
 import BLL.BLLLønPdf;
 import Renderes.RenderFremmødeTableCell;
+import TableModels.Observerble;
 import com.itextpdf.text.DocumentException;
+import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Observable;
-import java.util.Observer;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -40,6 +41,8 @@ public class ViewAdministration extends javax.swing.JFrame {
     BLLAlarm bllAlarm;
     TableModelLøn model;
     DefaultListModel<String> alarmliste;
+    LabelPanel panel;
+    ListenerLabel l;
 
     /**
      * Creates new form Administration
@@ -81,7 +84,7 @@ public class ViewAdministration extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnHent = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
-        lblTid = new javax.swing.JLabel();
+        pnlcustom = showMofoPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -120,7 +123,16 @@ public class ViewAdministration extends javax.swing.JFrame {
 
         btnBack.setText("Tilbage");
 
-        lblTid.setText("Total tid:");
+        javax.swing.GroupLayout pnlcustomLayout = new javax.swing.GroupLayout(pnlcustom);
+        pnlcustom.setLayout(pnlcustomLayout);
+        pnlcustomLayout.setHorizontalGroup(
+            pnlcustomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        pnlcustomLayout.setVerticalGroup(
+            pnlcustomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 23, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,30 +143,29 @@ public class ViewAdministration extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnBack, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblTid, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cboxBM, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dchoFra, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dchoTil, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnHent, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 133, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEdit)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cboxBM, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(53, 53, 53)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dchoFra, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dchoTil, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnHent, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnBack)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(pnlcustom, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEdit, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -173,24 +184,26 @@ public class ViewAdministration extends javax.swing.JFrame {
                         .addComponent(jLabel1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(lblTid))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(pnlcustom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEdit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnOK)
-                            .addComponent(btnBack)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnBack))))
+                .addGap(13, 13, 13))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnEdit;
@@ -204,8 +217,8 @@ public class ViewAdministration extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lblTid;
     private javax.swing.JList lstAlarm;
+    private javax.swing.JPanel pnlcustom;
     private javax.swing.JTable tblBM;
     // End of variables declaration//GEN-END:variables
 
@@ -261,6 +274,17 @@ public class ViewAdministration extends javax.swing.JFrame {
         });
     }
 
+    public LabelPanel showMofoPanel() {
+        panel = new LabelPanel();
+        panel.setLayout(null);
+        l = new ListenerLabel();
+        l.setBounds(0, 0, 200, 30);
+        panel.add(l);
+        repaint();
+        return panel;
+
+    }
+
     private ArrayList<BEAppearance> confirm() throws HeadlessException {
         ArrayList<BEAppearance> app = new ArrayList<>();
         TableModelLøn løn = (TableModelLøn) tblBM.getModel();
@@ -275,9 +299,11 @@ public class ViewAdministration extends javax.swing.JFrame {
     private void hentInfo() {
         if (cboxBM.getSelectedIndex() == 0) {
             BEFireman localFireman = null;
-            populateLønTable(localFireman, dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY));
+            model.setAppearanceList(bllAppearance.getAllAppearancesWithDateCriteria(localFireman, dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY)));
+            tblBM.setModel(model);
         } else {
-            populateLønTable((BEFireman) cboxBM.getSelectedItem(), dchoFra.getDate(), dchoTil.getDate());
+            model.setAppearanceList(bllAppearance.getAllAppearancesWithDateCriteria((BEFireman) cboxBM.getSelectedItem(), dchoFra.getDate(), dchoTil.getDate()));
+            tblBM.setModel(model);
         }
     }
 
@@ -292,7 +318,6 @@ public class ViewAdministration extends javax.swing.JFrame {
     private void populateLønTable(BEFireman localFireman, Date from, Date to) {
         model = new TableModelLøn(bllAppearance.getAllAppearancesWithDateCriteria(localFireman, from, to));
         tblBM.setModel(model);
-        model.fireTableDataChanged();
         setTotalTime();
     }
 
@@ -316,7 +341,8 @@ public class ViewAdministration extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Du skal huske at hente først");
             }
         }
-        tblBM.setModel(new TableModelLøn(bllAppearance.getAllAppearancesWithDateCriteria(null, dchoFra.getDate(), dchoTil.getDate())));
+        model.setAppearanceList(bllAppearance.getAllAppearancesWithDateCriteria(null, dchoFra.getDate(), dchoTil.getDate()));
+        tblBM.setModel(model);
     }
 
     private void setTotalTime() {
@@ -324,7 +350,7 @@ public class ViewAdministration extends javax.swing.JFrame {
         for (int i = 0; i < tblBM.getRowCount(); i++) {
             amount += (int) tblBM.getModel().getValueAt(i, 7);
         }
-        lblTid.setText("Total Tid: " + amount);
+        l.setText("Total Tid: " + amount);
     }
 
     private void addCellRenderer() {
@@ -345,18 +371,34 @@ public class ViewAdministration extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "PDF'en er nu lavet på skrivebordet!");
     }
 
+    public class LabelPanel extends JPanel {
+
+        JLabel lbl;
+
+        public LabelPanel() {
+            lbl = new JLabel();
+            setPreferredSize(new Dimension(100, 40));
+        }
+
+        public JLabel getLabel() {
+            return lbl;
+        }
+
+        public void setTextLbl(String s) {
+            lbl.setText(s);
+        }
+    }
+
     public class ListenerLabel extends JLabel implements IObserver {
 
-        String name;
-
         public ListenerLabel() {
-
+            setPreferredSize(new Dimension(50, 30));
+            Observerble.observer.add(this);
         }
 
         @Override
         public void notifyObserver() {
             setTotalTime();
         }
-
     }
 }
