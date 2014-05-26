@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
 //        AddAppearanceView main = new AddAppearanceView();
-//        CheckInView main = new CheckInView();
+//        ViewCheckOut main = new ViewCheckOut();
             ViewMain main = new ViewMain();
 //        HLAfterAction1 main = HLAfterAction1.getInstance();
 //        HLErrorReport main = new HLErrorReport());

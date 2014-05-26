@@ -30,7 +30,6 @@ public class ViewMain extends javax.swing.JFrame {
         bllAlarm = BLLAlarm.getInstance();
         bllEmployee = BLLEmployee.getInstance();
 
-        this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setTitle("Main View");
 
@@ -43,6 +42,7 @@ public class ViewMain extends javax.swing.JFrame {
         fillListActions();
         lstAction.setModel(model);
         txtName.requestFocus();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -285,15 +285,6 @@ public class ViewMain extends javax.swing.JFrame {
                 clearlogintxt();
                 btnLogIn.setEnabled(true);
                 btnLogOut.setEnabled(false);
-            }
-        });
-
-        btnIL.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                ViewILIndsats frame = new ViewILIndsats(log);
-                frame.setVisible(true);
             }
         });
     }

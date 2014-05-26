@@ -291,7 +291,7 @@ public class ViewAdministration extends javax.swing.JFrame {
 
     private void populateLønTable(BEFireman localFireman, Date from, Date to) {
         model = new TableModelLøn(bllAppearance.getAllAppearancesWithDateCriteria(localFireman, from, to));
-//        tblBM.setModel(model);
+        tblBM.setModel(model);
         model.fireTableDataChanged();
         setTotalTime();
     }
@@ -321,8 +321,8 @@ public class ViewAdministration extends javax.swing.JFrame {
 
     private void setTotalTime() {
         int amount = 0;
-        for (int i = 0; i < tblBM.getRowCount(); i++) {
-            amount += (int) tblBM.getModel().getValueAt(i, 7);
+        for (BEAppearance appearance : bllAppearance.getAllAppearancesWithDateCriteria(null, dchoFra.getDate(), dchoTil.getDate())) {
+            amount += appearance.getTotalTid();
         }
         lblTid.setText("Total Tid: " + amount);
     }

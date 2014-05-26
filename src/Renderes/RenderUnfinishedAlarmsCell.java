@@ -16,9 +16,6 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class RenderUnfinishedAlarmsCell extends DefaultTableCellRenderer {
 
-    ArrayList<BEAlarm> allAlarms;
-    BLLAppearance bllAppearance;
-
     public RenderUnfinishedAlarmsCell() {
 
     }
@@ -33,13 +30,13 @@ public class RenderUnfinishedAlarmsCell extends DefaultTableCellRenderer {
         Component cell = super.getTableCellRendererComponent(
                 table, obj, isSelected, hasFocus, row, column);
 
-        cell.setBackground(Color.WHITE);
-
         Font f = new Font(Font.SANS_SERIF, Font.BOLD, 13);
         BEAlarm a = model.getAlarmByRow(row);
         cell.setBackground(a.getColor());
-        if (isSelected) {
-            cell.setBackground(Color.DARK_GRAY);
+        
+        
+          if (isSelected) {
+            cell.setBackground(Color.GRAY);
             if (table.convertColumnIndexToModel(column) != 5) {
                 cell.setForeground(Color.WHITE);
             }

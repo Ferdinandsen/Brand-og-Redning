@@ -107,6 +107,7 @@ public class ViewILFremmødeliste extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblFremmøde.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblFremmøde);
 
         txtABem.setColumns(20);

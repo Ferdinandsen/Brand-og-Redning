@@ -19,8 +19,8 @@ public class TableModelUnfinishedFremmøde extends AbstractTableModel {
         "Titel",
         "Beskrivelse",
         "Tid",
-    "Godkendt tid"};
-    
+        "Godkendt tid"};
+
     /**
      * the type definition for the columns
      */
@@ -55,7 +55,7 @@ public class TableModelUnfinishedFremmøde extends AbstractTableModel {
         BEAlarm a = alarms.get(row);
         switch (col) {
             case 0:
-                
+
                 return a.getTitle();
             case 1:
                 return a.getDesc();
