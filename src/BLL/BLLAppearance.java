@@ -17,7 +17,7 @@ import java.util.Date;
  *
  * @author Team Kawabunga
  */
-public class BLLAppearance {
+public class BLLAppearance implements IBLLType{
 
     DALAppearance dalAppearance;
     DALALarm dalAlarm;
@@ -318,5 +318,10 @@ public class BLLAppearance {
         } catch (SQLException ex) {
             System.out.println("Fejl i endSalary" + ex);
         }
+    }
+
+    @Override
+    public void create() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

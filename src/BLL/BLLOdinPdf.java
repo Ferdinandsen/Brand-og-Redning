@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class BLLPdf {
+public class BLLOdinPdf implements IBLLType{
 
     private String FILE;
     private Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
@@ -52,7 +52,7 @@ public class BLLPdf {
     BELogin localLog;
     BLLVehicle bllVehicle;
 
-    public BLLPdf(BEAlarm alarm, BELogin log) {
+    public BLLOdinPdf(BEAlarm alarm, BELogin log) {
         try {
             localLog = log;
             localAlarm = alarm;
@@ -69,7 +69,7 @@ public class BLLPdf {
             try {
                 addTitlePage(document);
             } catch (IOException ex) {
-                Logger.getLogger(BLLPdf.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(BLLOdinPdf.class.getName()).log(Level.SEVERE, null, ex);
             }
             addContent(document);
             document.close();
@@ -375,5 +375,10 @@ public class BLLPdf {
         for (int i = 0; i < number; i++) {
             paragraph.add(new Paragraph(" "));
         }
+    }
+
+    @Override
+    public void create() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -11,17 +11,28 @@ package BLL;
  */
 public class BLLFactory {
 
-    static enum bllType {
-        BLLALARM, BLLAPPEARANCE, BLLEMPLOYEE, BLLFIREMAN, BLLLØNPDF, BLLODINPDF, BLLREPORT, BLLUSAGE, BLLVEHICLE
+    public enum bllType {
+
+        BLLALARM, BLLAPPEARANCE, BLLEMPLOYEE, BLLFIREMAN, BLLREPORT, BLLUSAGE, BLLVEHICLE
     }
 
-    public BLLFactory() {
-
+    public IBLLType createClass(bllType type) {
+        switch (type) {
+            case BLLALARM:
+                return BLLAlarm.getInstance();
+            case BLLAPPEARANCE:
+                return BLLAppearance.getInstance();
+            case BLLEMPLOYEE:
+                return BLLEmployee.getInstance();
+            case BLLFIREMAN:
+                return BLLFireman.getInstance();
+            case BLLREPORT:
+                return BLLReport.getInstance();
+            case BLLUSAGE:
+                return BLLUsage.getInstance();
+            case BLLVEHICLE:
+                return BLLVehicle.getInstance();
+        }
+        return null;
     }
-    public IBLLType create(enum lol){
-        switch(){
-            case BLLALARM :
-                    
-        
-}
 }
