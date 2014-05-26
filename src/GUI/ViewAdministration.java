@@ -321,8 +321,8 @@ public class ViewAdministration extends javax.swing.JFrame {
 
     private void setTotalTime() {
         int amount = 0;
-        for (BEAppearance appearance : bllAppearance.getAllAppearancesWithDateCriteria(null, dchoFra.getDate(), dchoTil.getDate())) {
-            amount += appearance.getTotalTid();
+        for (int i = 0; i < tblBM.getRowCount(); i++) {
+            amount += (int) tblBM.getModel().getValueAt(i, 7);
         }
         lblTid.setText("Total Tid: " + amount);
     }
