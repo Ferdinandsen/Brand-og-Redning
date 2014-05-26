@@ -1,17 +1,21 @@
 package TableModels;
 
 import BE.BEAppearance;
+import GUI.IObserver;
+import GUI.ViewAdministration;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Observer;
 import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author Team Kawabunga
  */
-public class TableModelLøn extends AbstractTableModel {
-final int HLLønkode = 447;
-final int BMLønkode = 446;
+public class TableModelLøn extends AbstractTableModel implements Observerble {
+
+    final int HLLønkode = 447;
+    final int BMLønkode = 446;
 
     /**
      * the names of the columns in the table
@@ -27,7 +31,7 @@ final int BMLønkode = 446;
         "Lønkode",
         "Total Timer"
     };
-    
+
     /**
      * the type definition for the columns
      */
@@ -78,7 +82,7 @@ final int BMLønkode = 446;
             case 5:
                 return a.isHoldleder() ? "Holdleder" : "Brandmand";
             case 6:
-               return a.isHoldleder() ? HLLønkode : BMLønkode;
+                return a.isHoldleder() ? HLLønkode : BMLønkode;
             case 7:
                 return a.getTotalTid();
         }
@@ -99,16 +103,34 @@ final int BMLønkode = 446;
     public boolean isCellEditable(int row, int col) {
         return false;
     }
-    
-    public BEAppearance getRow(int row){
+
+    public BEAppearance getRow(int row) {
         return appearances.get(row);
     }
 
     public void setAppearanceList(ArrayList<BEAppearance> appearance) {
         this.appearances = appearance;
+        notifyObservers();
     }
 
     public BEAppearance getAppearanceByRow(int row) {
         return appearances.get(row);
+    }
+
+    @Override
+    public void addObserver(IObserver o) {
+        observer.add(o);
+    }
+
+    @Override
+    public void removeObserver(IObserver o) {
+        observer.remove(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+       for(IObserver o : observer){
+           o.notifyObserver();
+       }
     }
 }

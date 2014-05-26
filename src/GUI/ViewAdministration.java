@@ -17,6 +17,8 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -336,10 +338,25 @@ public class ViewAdministration extends javax.swing.JFrame {
 
     private void createPDF(ArrayList<BEAppearance> app) {
         try {
-            BLLLønPdf pdf = new BLLLønPdf(app, localLog, String.valueOf(dchoFra.getDate().getDate() +"-"+  (dchoFra.getDate().getMonth()+1) +"-"+  (dchoFra.getDate().getYear() + 1900)), String.valueOf(dchoTil.getDate().getDate() +"-"+  dchoTil.getDate().getMonth() +"-"+ (dchoTil.getDate().getYear()+1900)));
+            BLLLønPdf pdf = new BLLLønPdf(app, localLog, String.valueOf(dchoFra.getDate().getDate() + "-" + (dchoFra.getDate().getMonth() + 1) + "-" + (dchoFra.getDate().getYear() + 1900)), String.valueOf(dchoTil.getDate().getDate() + "-" + dchoTil.getDate().getMonth() + "-" + (dchoTil.getDate().getYear() + 1900)));
         } catch (DocumentException | IOException ex) {
             JOptionPane.showMessageDialog(this, "Fejl ved at lave PDF.");
         }
         JOptionPane.showMessageDialog(this, "PDF'en er nu lavet på skrivebordet!");
+    }
+
+    public class ListenerLabel extends JLabel implements IObserver {
+
+        String name;
+
+        public ListenerLabel() {
+
+        }
+
+        @Override
+        public void notifyObserver() {
+            setTotalTime();
+        }
+
     }
 }
