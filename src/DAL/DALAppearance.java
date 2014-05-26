@@ -141,7 +141,7 @@ public class DALAppearance {
             }
             BEAppearance appearance = new BEAppearance(id, localFireman, checkIn, checkOut, totalTid, hlGodkendt, ilGodkendt,
                     holdleder, chauffør, stationsvagt, type, localAlarm, localVeh, localLogin, lønDone, lønTime);
-            if (appearance.getFireman().getMedarbjeder().getFornavn().equalsIgnoreCase("gæst")) {
+            if (appearance.getLogin().getMedarbejder().getFornavn().equalsIgnoreCase("gæst")) {
                 appearance.getAlarm().setGuestConfirmed(true);
             }
             allAppearances.add(appearance);

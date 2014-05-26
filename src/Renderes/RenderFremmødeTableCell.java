@@ -35,7 +35,7 @@ public class RenderFremmødeTableCell extends DefaultTableCellRenderer {
             cell.setForeground(Color.WHITE);
         }
         if (isSelected) {
-            cell.setBackground(Color.DARK_GRAY);
+            cell.setBackground(Color.GRAY);
             if (table.convertColumnIndexToModel(column) != 5) {
                 cell.setForeground(Color.WHITE);
             }

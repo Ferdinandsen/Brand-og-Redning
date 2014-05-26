@@ -56,6 +56,7 @@ public class ViewFiremanCheckOut extends javax.swing.JDialog {
         RenderCombobox renderer = new RenderCombobox();
         cboxAlarm.setRenderer(renderer);
         cboxVehicle.setRenderer(renderer);
+        this.setLocationRelativeTo(null);
     }
 
     private void initMetaData() {
@@ -63,7 +64,6 @@ public class ViewFiremanCheckOut extends javax.swing.JDialog {
         this.setTitle("CHECK UD");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
-        this.setLocationRelativeTo(null);
         this.setModal(true);
     }
 

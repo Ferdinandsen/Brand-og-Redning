@@ -29,12 +29,12 @@ public class ViewILIndsats extends javax.swing.JFrame {
         bllAlarm = BLLAlarm.getInstance();
         bllAppearance = BLLAppearance.getInstance();
         this.setResizable(false);
-        this.setLocationRelativeTo(null);
-        this.setTitle("Indsatsleder - Fremmødeliste");
+        this.setTitle("Indsatsleder - Indsatser");
         initComponents();
         initOtherComponents();
         populateFremmødeTable();
         addCellRenderer();
+        this.setLocationRelativeTo(null);
     }
 
     private void addCellRenderer() {
