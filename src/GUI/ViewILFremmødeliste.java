@@ -476,7 +476,7 @@ public class ViewILFremmødeliste extends javax.swing.JFrame {
     }
 
     private void cancel() {
-        ViewILIndsats frame = new ViewILIndsats(localLogin);
+        ViewILIndsats frame = ViewILIndsats.getInstance(localLogin);
         frame.setVisible(true);
         dispose();
     }

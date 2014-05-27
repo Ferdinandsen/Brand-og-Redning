@@ -222,7 +222,7 @@ public class ViewMain extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewHLAfterAction frame = new ViewHLAfterAction(log);
+                ViewHLAfterAction frame = ViewHLAfterAction.getInstance(log);
                 frame.setVisible(true);
             }
         });
@@ -240,7 +240,7 @@ public class ViewMain extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewILIndsats frame = new ViewILIndsats(log);
+                ViewILIndsats frame = ViewILIndsats.getInstance(log);
                 frame.setVisible(true);
             }
         });

@@ -23,8 +23,9 @@ public class ViewILIndsats extends javax.swing.JFrame {
     BLLAppearance bllAppearance;
     private TableModelUnfinishedFremmøde model;
     BELogin localLogin;
+    private static ViewILIndsats m_instance = null;
 
-    public ViewILIndsats(BELogin log) {
+    private ViewILIndsats(BELogin log) {
         localLogin = log;
         bllAlarm = BLLAlarm.getInstance();
         bllAppearance = BLLAppearance.getInstance();
@@ -35,6 +36,15 @@ public class ViewILIndsats extends javax.swing.JFrame {
         populateFremmødeTable();
         addCellRenderer();
         this.setLocationRelativeTo(null);
+    }
+
+    public static ViewILIndsats getInstance(BELogin log) {
+        if (m_instance == null) {
+            m_instance = new ViewILIndsats(log);
+        }
+//        bllAlarm.update();
+//        bllAppearance.update();
+        return m_instance;
     }
 
     private void addCellRenderer() {
