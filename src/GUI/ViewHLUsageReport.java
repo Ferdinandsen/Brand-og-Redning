@@ -53,7 +53,7 @@ public class ViewHLUsageReport extends javax.swing.JDialog {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
         this.setSize(width, height);
-        this.setTitle("Holdleder Forbrugs Rapport");
+        this.setTitle("Forbrugs Rapport");
         this.setModal(true);
         this.setLocationRelativeTo(null);
     }
@@ -70,7 +70,7 @@ public class ViewHLUsageReport extends javax.swing.JDialog {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
         this.setSize(width, height);
-        this.setTitle("Holdleder Forbrugs Rapport");
+        this.setTitle("Forbrugs Rapport");
         this.setModal(true);
         this.setLocationRelativeTo(null);
         fillInfo();
@@ -106,7 +106,7 @@ public class ViewHLUsageReport extends javax.swing.JDialog {
         JPanel p = new JPanel();
         FlowLayout fl = new FlowLayout();
         p.setLayout(fl);
-        JButton a = new JButton(("Intet Forbrug"));
+        JButton a = new JButton(("Intet forbrug"));
         JButton b = new JButton(("Bekræft"));
         if (update) {
             a.setText("Tilbage");

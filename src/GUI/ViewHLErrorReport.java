@@ -28,7 +28,7 @@ public class ViewHLErrorReport extends JDialog {
         initOtherComponents();
         fillCboxKøretøj();
         this.setModal(true);
-        this.setTitle("Reparation/Køretøjsmangler");
+        this.setTitle("Fejl/Mangler");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -197,7 +197,7 @@ public class ViewHLErrorReport extends JDialog {
     }
 
     private void initOtherComponents() {
-        lblHeader.setText("Reparation/Køretøjsmangler");
+        lblHeader.setText("Fejl og mangler");
         btnAcknowledge.setEnabled(true);
         btnAcknowledge.addActionListener(new ActionListener() {
             @Override

@@ -23,7 +23,7 @@ public class ViewForbrug extends JDialog {
         initOtherComponents();
         this.setModal(true);
         this.setResizable(false);
-        this.setTitle("Forbrugs administration");
+        this.setTitle("Administration - Forbrug");
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
@@ -75,7 +75,7 @@ public class ViewForbrug extends JDialog {
         BEMateriel mat = (BEMateriel) lstMats.getSelectedValue();
         bllUsage.deleteMaterial(mat);
         model.removeElement(mat);
-        JOptionPane.showMessageDialog(null, "Bilen er nu slettet!");
+        JOptionPane.showMessageDialog(null, "Genstanden er nu slettet!");
     }
 
     @SuppressWarnings("unchecked")

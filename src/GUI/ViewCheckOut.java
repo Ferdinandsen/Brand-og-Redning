@@ -40,7 +40,7 @@ public class ViewCheckOut extends javax.swing.JFrame {
         bllFireman = BLLFireman.getInstance();
         this.setUndecorated(true);
         this.setResizable(false);
-        this.setTitle("CHECK UD SCREEN");
+        this.setTitle("Check ud");
         getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         pack();
         width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();

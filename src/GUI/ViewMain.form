@@ -131,7 +131,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnErrorReport">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Fejl rapport"/>
+        <Property name="text" type="java.lang.String" value="Fejl Rapport"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnConfirmApp">
@@ -141,7 +141,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnIL">
       <Properties>
-        <Property name="text" type="java.lang.String" value="IndsatsLeder"/>
+        <Property name="text" type="java.lang.String" value="Indsatsleder"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnSalery">

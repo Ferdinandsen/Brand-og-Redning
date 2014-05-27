@@ -65,7 +65,7 @@ public class ViewAdministration extends JDialog {
         this.setModal(true);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        this.setTitle("Administration");
+        this.setTitle("Administration - Løn");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
@@ -330,7 +330,7 @@ public class ViewAdministration extends JDialog {
     }
 
     /**
-     * filss the alarmliste, with all unfinishedalarms(do not have a timestamp
+     * fills the alarmliste, with all unfinishedalarms(do not have a timestamp
      * from IL)
      */
     private void populateAlarmList() {
@@ -365,7 +365,7 @@ public class ViewAdministration extends JDialog {
     }
 
     /**
-     * opens the selected firemans apperance, so the user can change the time
+     * opens the selected firemans appearance, so the user can change the time
      * stamps. either when no firemen is selected or when there is.
      */
     private void updateSalary() {
@@ -389,7 +389,7 @@ public class ViewAdministration extends JDialog {
     }
 
     /**
-     * sets the text on the label lisnter.
+     * sets the text on the label listener.
      */
     private void setTotalTime() {
         int amount = 0;
@@ -423,7 +423,7 @@ public class ViewAdministration extends JDialog {
     }
 
     /**
-     * a panel to put in, too add our listner label to
+     * a panel to put in, too add our listener label to
      */
     public class LabelPanel extends JPanel {
 
@@ -433,7 +433,7 @@ public class ViewAdministration extends JDialog {
         }
     }
 /**
- * a label with an observer, so it changes every time u set the appearancelist on the model
+ * a label with an observer, so it changes every time you invoke the setAppearanceList method on the model
  */
     public class ListenerLabel extends JLabel implements IObserver {
 

@@ -35,7 +35,7 @@ public class ViewChangeTime extends javax.swing.JDialog {
         this.setModal(true);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setTitle("Ændre tiden");
+        this.setTitle("Rediger tid");
         fillInformation();
         calculateHours();
     }

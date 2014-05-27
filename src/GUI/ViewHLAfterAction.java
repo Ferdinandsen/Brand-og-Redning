@@ -40,7 +40,7 @@ public class ViewHLAfterAction extends JDialog {
         initComponents();
         initOtherComponents();
         this.setModal(true);
-        this.setTitle("HL - Bekræft hold");
+        this.setTitle("Holdleder - Hold bekræftigelse");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -133,7 +133,7 @@ public class ViewHLAfterAction extends JDialog {
             frame.setVisible(true);
             txtComment.setText(null);
         } catch (Exception ex) {
-            msgbox("fejl i confirmteam" + ex);
+            msgbox("fejl i confirmteam");
         }
     }
 

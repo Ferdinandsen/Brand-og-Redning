@@ -61,7 +61,7 @@ public class ViewFiremanCheckOut extends javax.swing.JDialog {
     }
 
     private void initMetaData() {
-        this.setTitle("CHECK UD");
+        this.setTitle("Check ud");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
         this.setModal(true);
