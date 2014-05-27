@@ -13,7 +13,9 @@ public class ViewCar extends javax.swing.JFrame {
 
     BLLVehicle bllVehicle;
     DefaultListModel model = new DefaultListModel();
-
+/**
+ * creates the form for ViewCar
+ */
     public ViewCar() {
         bllVehicle = BLLVehicle.getInstance();
 
@@ -27,14 +29,18 @@ public class ViewCar extends javax.swing.JFrame {
         fillList();
         lstVehicles.setModel(model);
     }
-
+/**
+ * fills the lsit with all the Vehicles
+ */
     private void fillList() {
         model.clear();
         for (BEVehicle veh : bllVehicle.getAllVehicles()) {
             model.addElement(veh);
         }
     }
-
+/**
+ * adds the listeners to the lst and btns
+ */
     private void initOtherComponents() {
         btnRemove.setEnabled(false);
 
@@ -74,14 +80,18 @@ public class ViewCar extends javax.swing.JFrame {
             }
         });
     }
-
+/**
+ * removes the selected car from the model, and goes to BLLVehicle.deleteVehicle with the Vehicle
+ */
     private void deleteCar() {
         BEVehicle veh = (BEVehicle) lstVehicles.getSelectedValue();
         bllVehicle.deleteVehicle(veh);
         model.removeElement(veh);
         JOptionPane.showMessageDialog(this, "Bilen er nu slettet!");
     }
-
+/**
+ * goes to BLLVEhicle with the information that have been filed and runs the fillList. 4wea,200000000000000000000000000
+ */
     private void createCar() {
         if (txtBeskrivelse.getText().isEmpty() && txtBilnr.getText().isEmpty() && txtModel.getText().isEmpty() && txtMærke.getText().isEmpty() && txtNummerplade.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Udfyld venligst al information!");

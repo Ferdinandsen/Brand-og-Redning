@@ -34,7 +34,7 @@ import javax.swing.table.TableColumn;
  */
 public class ViewAdministration extends javax.swing.JFrame {
 
-    final long DAY = 86400000; //1 day in milliseconds
+    final long DAY = 86400000; // 1 day in milliseconds
     BELogin localLog;
     BLLAppearance bllAppearance;
     BLLFireman bllFireman;
@@ -46,6 +46,7 @@ public class ViewAdministration extends javax.swing.JFrame {
 
     /**
      * Creates new form Administration
+     * @param log gets the login from the form that opened this
      */
     public ViewAdministration(BELogin log) {
         localLog = log;
@@ -221,12 +222,15 @@ public class ViewAdministration extends javax.swing.JFrame {
     private javax.swing.JPanel pnlcustom;
     private javax.swing.JTable tblBM;
     // End of variables declaration//GEN-END:variables
-
+/**
+ * sets the datechoosers and the btn
+ * adds the listeners the the different btns and tbl.
+ */
     private void initOtherComponents() {
         lstAlarm.setEnabled(false);
-        long dagenstal = new Date().getDate() * DAY - DAY;// den første i måneden, fra dd.
-        dchoFra.setDate(new Date(new Date().getTime() - dagenstal));
-        dchoTil.setDate(new Date());
+        long firstDayOfMonth = new Date().getDate() * DAY - DAY;// the first in the current month.
+        dchoFra.setDate(new Date(new Date().getTime() - firstDayOfMonth));
+        dchoTil.setDate(new Date()); // actual date "today"
         btnEdit.setEnabled(false);
         tblBM.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -274,6 +278,12 @@ public class ViewAdministration extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * creates the panel that contains the labelpanel witch contains the
+     * observer label
+     *
+     * @return the panel
+     */
     public LabelPanel showMofoPanel() {
         panel = new LabelPanel();
         panel.setLayout(null);
@@ -285,6 +295,11 @@ public class ViewAdministration extends javax.swing.JFrame {
 
     }
 
+    /**
+     *
+     * @return !#!#!#!#!#!#!#!#!#!#1#!#!#!#!"#!#@throws HeadlessException wtf is
+     * this shit "!!!"!"#!#!#!#!#!¤!¤!¤!"¤!"¤
+     */
     private ArrayList<BEAppearance> confirm() throws HeadlessException {
         ArrayList<BEAppearance> app = new ArrayList<>();
         TableModelLøn løn = (TableModelLøn) tblBM.getModel();
@@ -296,6 +311,11 @@ public class ViewAdministration extends javax.swing.JFrame {
         return app;
     }
 
+    /**
+     * ???? skal den her ikk kun repainte eller noget
+     * ??????????????????????????????????????????????????????????? sets the
+     * model for the table with an arraylist
+     */
     private void hentInfo() {
         if (cboxBM.getSelectedIndex() == 0) {
             BEFireman localFireman = null;
@@ -307,6 +327,10 @@ public class ViewAdministration extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * filss the alarmliste, with all unfinishedalarms(do not have a timestamp
+     * from IL)
+     */
     private void populateAlarmList() {
         alarmliste = new DefaultListModel<>();
         lstAlarm.setModel(alarmliste);
@@ -315,12 +339,22 @@ public class ViewAdministration extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * populates the table with
+     *
+     * @param localFireman the firemans apperances
+     * @param from
+     * @param to
+     */
     private void populateLønTable(BEFireman localFireman, Date from, Date to) {
         model = new TableModelLøn(bllAppearance.getAllAppearancesWithDateCriteria(localFireman, from, to));
         tblBM.setModel(model);
         setTotalTime();
     }
 
+    /**
+     * fills the cboxBrandmand with all firemen.
+     */
     private void fillcboxBrandMand() {
         cboxBM.addItem("Alle Brandmænd");
         for (BEFireman bm : bllFireman.getAllfiremen()) {
@@ -328,12 +362,16 @@ public class ViewAdministration extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * opens the selected firemans apperance, so the user can change the time
+     * stamps. either when no firemen is selected or when there is.
+     */
     private void updateSalary() {
         if (cboxBM.getSelectedIndex() == 0) {
             BEFireman localFireman = null;
             ViewChangeSalary frame = new ViewChangeSalary(bllAppearance.getAllAppearancesWithDateCriteria(localFireman, dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY)).get(tblBM.convertRowIndexToView(tblBM.getSelectedRow())));
             frame.setVisible(true);
-             model.setAppearanceList(bllAppearance.getAllAppearancesWithDateCriteria(null, dchoFra.getDate(), dchoTil.getDate()));
+            model.setAppearanceList(bllAppearance.getAllAppearancesWithDateCriteria(null, dchoFra.getDate(), dchoTil.getDate()));
         } else {
             try {
                 ViewChangeSalary frame = new ViewChangeSalary(bllAppearance.getAllAppearancesWithDateCriteria((BEFireman) cboxBM.getSelectedItem(), dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY)).get(tblBM.convertRowIndexToView(tblBM.getSelectedRow())));
@@ -343,14 +381,17 @@ public class ViewAdministration extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Du skal huske at hente først");
             }
         }
-       
+
         tblBM.setModel(model);
     }
 
+    /**
+     * sets the text on the label lisnter.
+     */
     private void setTotalTime() {
         int amount = 0;
         for (int i = 0; i < tblBM.getRowCount(); i++) {
-            amount += (int) tblBM.getModel().getValueAt(i, 7);
+            amount += (int) tblBM.getModel().getValueAt(i, 7);// 7 is the colum where time is.
         }
         l.setText("Total Tid: " + amount);
     }
@@ -364,6 +405,11 @@ public class ViewAdministration extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * creates the pdf for løn!
+     *
+     * @param app all the appearances to make løn from!
+     */
     private void createPDF(ArrayList<BEAppearance> app) {
         try {
             BLLLønPdf pdf = new BLLLønPdf(app, localLog, String.valueOf(dchoFra.getDate().getDate() + "-" + (dchoFra.getDate().getMonth() + 1) + "-" + (dchoFra.getDate().getYear() + 1900)), String.valueOf(dchoTil.getDate().getDate() + "-" + dchoTil.getDate().getMonth() + "-" + (dchoTil.getDate().getYear() + 1900)));
@@ -373,24 +419,19 @@ public class ViewAdministration extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "PDF'en er nu lavet på skrivebordet!");
     }
 
+    /**
+     * a panel to put in, too add our listner label to
+     */
     public class LabelPanel extends JPanel {
 
-        JLabel lbl;
-
         public LabelPanel() {
-            lbl = new JLabel();
+
             setPreferredSize(new Dimension(100, 40));
         }
-
-        public JLabel getLabel() {
-            return lbl;
-        }
-
-        public void setTextLbl(String s) {
-            lbl.setText(s);
-        }
     }
-
+/**
+ * a label with an observer, so it changes every time u set the appearancelist on the model
+ */
     public class ListenerLabel extends JLabel implements IObserver {
 
         public ListenerLabel() {

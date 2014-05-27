@@ -7,7 +7,10 @@ import java.awt.event.ActionListener;
 public class ViewAdministrationChoose extends javax.swing.JFrame {
 
     BELogin localLog;
-
+/**
+ * creates new form ViewAdministrationsChoose
+ * @param log gets the login from the form that opened this. 
+ */
     public ViewAdministrationChoose(BELogin log) {
         localLog = log;
         this.setTitle("Admin");
@@ -16,7 +19,9 @@ public class ViewAdministrationChoose extends javax.swing.JFrame {
         initOtherComponents();
         this.setLocationRelativeTo(null);
     }
-
+/**
+ * adds the listners to the different btns
+ */
     private void initOtherComponents() {
         btnSalary.addActionListener(new ActionListener() {
             @Override
