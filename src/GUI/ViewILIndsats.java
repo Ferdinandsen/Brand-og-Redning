@@ -8,6 +8,7 @@ import BLL.BLLAlarm;
 import BLL.BLLAppearance;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -17,7 +18,7 @@ import javax.swing.table.TableColumn;
  *
  * @author Team Kawabunga
  */
-public class ViewILIndsats extends javax.swing.JFrame {
+public class ViewILIndsats extends JDialog {
 
     BLLAlarm bllAlarm;
     BLLAppearance bllAppearance;
@@ -29,13 +30,15 @@ public class ViewILIndsats extends javax.swing.JFrame {
         localLogin = log;
         bllAlarm = BLLAlarm.getInstance();
         bllAppearance = BLLAppearance.getInstance();
-        this.setResizable(false);
-        this.setTitle("Indsatsleder - Indsatser");
         initComponents();
         initOtherComponents();
         populateFremmødeTable();
         addCellRenderer();
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setResizable(false);
+        this.setTitle("Indsatsleder - Indsatser");
         this.setLocationRelativeTo(null);
+        this.setModal(true);
     }
 
     public static ViewILIndsats getInstance(BELogin log) {
@@ -103,6 +106,7 @@ public class ViewILIndsats extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(800, 370));
 
         tblFremmøder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -145,7 +149,7 @@ public class ViewILIndsats extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHent)

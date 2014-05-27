@@ -5,11 +5,12 @@ import BLL.BLLUsage;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.DefaultListModel;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class ViewForbrug extends javax.swing.JFrame {
+public class ViewForbrug extends JDialog {
 
     BLLUsage bllUsage;
     DefaultListModel model = new DefaultListModel();
@@ -20,6 +21,7 @@ public class ViewForbrug extends javax.swing.JFrame {
         fillList();
         lstMats.setModel(model);
         initOtherComponents();
+        this.setModal(true);
         this.setResizable(false);
         this.setTitle("Forbrugs administration");
         this.setLocationRelativeTo(null);

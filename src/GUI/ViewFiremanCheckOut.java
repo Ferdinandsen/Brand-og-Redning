@@ -34,8 +34,6 @@ public class ViewFiremanCheckOut extends javax.swing.JDialog {
      * @param fireman
      */
     public ViewFiremanCheckOut(BEFireman fireman) {
-        initMetaData();
-
         bllFireman = BLLFireman.getInstance();
         bllvehicle = BLLVehicle.getInstance();
         bllAlarm = BLLAlarm.getInstance();
@@ -44,6 +42,7 @@ public class ViewFiremanCheckOut extends javax.swing.JDialog {
         initComponents();
         initComponentSettings();
         initOtherComponents();
+        initMetaData();
         fillCboxVehicle();
         fillCboxAlarm();
 

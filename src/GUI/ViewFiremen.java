@@ -8,12 +8,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class ViewFiremen extends javax.swing.JFrame {
+public class ViewFiremen extends JDialog {
 
     BLLFireman bllFireman;
     BLLEmployee bllEmployee;
@@ -26,6 +27,7 @@ public class ViewFiremen extends javax.swing.JFrame {
         initOtherComponents();
         lstEmployees.setModel(model);
         fillList();
+        this.setModal(true);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
         this.setLocationRelativeTo(null);

@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultListModel;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -32,7 +33,7 @@ import javax.swing.table.TableColumn;
  *
  * @author Team Kawabunga
  */
-public class ViewAdministration extends javax.swing.JFrame {
+public class ViewAdministration extends JDialog {
 
     final long DAY = 86400000; //1 day in milliseconds
     BELogin localLog;
@@ -60,6 +61,7 @@ public class ViewAdministration extends javax.swing.JFrame {
         populateAlarmList();
         addCellRenderer();
         
+        this.setModal(true);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setTitle("Administration");
