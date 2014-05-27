@@ -9,7 +9,7 @@ import java.sql.SQLException;
  *
  * @author Team Kawabunga
  */
-public class BLLReport implements IBLLType{
+public class BLLReport {
 
     DAL.DALReport dalreport;
     private static BLLReport m_instance = null;
@@ -44,10 +44,5 @@ public class BLLReport implements IBLLType{
         } catch (SQLException e) {
             System.out.println("Fejl i report" + e);
         }
-    }
-
-    @Override
-    public void create() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

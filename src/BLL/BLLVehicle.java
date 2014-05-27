@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author Team Kawabunga
  */
-public class BLLVehicle implements IBLLType{
+public class BLLVehicle {
 
     DAL.DALVehicle dalvehicle;
     private static BLLVehicle m_instance = null;
@@ -94,10 +94,5 @@ public class BLLVehicle implements IBLLType{
             }
         }
         return vehicles;
-    }
-
-    @Override
-    public void create() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -41,8 +41,8 @@
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="btnLogIn" min="-2" pref="73" max="-2" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="btnLogOut" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="btnLogOut" min="-2" pref="76" max="-2" attributes="0"/>
                                               </Group>
                                               <Component id="lblLogIn" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
                                           </Group>
@@ -54,9 +54,9 @@
                                               <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace pref="10" max="32767" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="txtName" min="-2" pref="91" max="-2" attributes="0"/>
-                                              <Component id="txtPassword" min="-2" pref="91" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="txtName" pref="91" max="32767" attributes="0"/>
+                                              <Component id="txtPassword" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                       </Group>
@@ -108,9 +108,9 @@
                   <Group type="102" attributes="0">
                       <Component id="lblLogIn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnLogOut" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnLogIn" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnLogIn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnLogOut" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="btnIL" alignment="0" max="32767" attributes="0"/>

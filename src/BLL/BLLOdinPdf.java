@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class BLLOdinPdf implements IBLLType{
+public class BLLOdinPdf{
 
     private String FILE;
     private Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
@@ -375,10 +375,5 @@ public class BLLOdinPdf implements IBLLType{
         for (int i = 0; i < number; i++) {
             paragraph.add(new Paragraph(" "));
         }
-    }
-
-    @Override
-    public void create() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
