@@ -3,13 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BLL;
+
+package GUI;
 
 /**
  *
  * @author Shadowleet
  */
-public interface IBLLType {
-
-    public void create();
+public interface IObserver {
+    
+    
+   public void notifyObserver();
+    
 }

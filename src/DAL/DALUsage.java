@@ -20,13 +20,13 @@ public class DALUsage {
     private static DALUsage m_instance = null;
     private ArrayList<BEMateriel> allMaterials;
     private ArrayList<BEUsage> allUsages;
-    private DALALarm dalAlarm;
+    private final DALALarm dalAlarm; //final ??
 
     private DALUsage() throws SQLServerException, SQLException {
         m_connection = DBConnection.getInstance().getConnection();
         dalAlarm = DALALarm.getInstance();
-        populateMats();
-        populateUsages();
+        populateMats(); 
+        populateUsages(); 
 
     }
 
@@ -41,11 +41,10 @@ public class DALUsage {
      * Creates a new usage report and adds its ID to it. Adds it to ArrayList
      * allUsages
      *
-     * @param u -BEUsage
+     * @param u - BEUsage
      * @throws SQLException
      */
     public void createUsageReport(BEUsage u) throws SQLException {
-        allUsages = new ArrayList<>();
         String sql = "INSERT INTO Forbrug VALUES (?,?,?) select @@identity";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
@@ -68,6 +67,7 @@ public class DALUsage {
      * @throws SQLException
      */
     public void populateUsages() throws SQLException {
+        allUsages = new ArrayList<>();
         String sql = "SELECT * FROM Forbrug";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);

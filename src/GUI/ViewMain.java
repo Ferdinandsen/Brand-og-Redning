@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  *
  * @author Team Kawabunga
  */
-public class ViewMain extends javax.swing.JFrame implements IViewType {
+public class ViewMain extends javax.swing.JFrame {
 
     BLLAlarm bllAlarm;
     BLLEmployee bllEmployee;
@@ -30,7 +30,6 @@ public class ViewMain extends javax.swing.JFrame implements IViewType {
         bllAlarm = BLLAlarm.getInstance();
         bllEmployee = BLLEmployee.getInstance();
 
-        this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setTitle("Main View");
 
@@ -43,6 +42,7 @@ public class ViewMain extends javax.swing.JFrame implements IViewType {
         fillListActions();
         lstAction.setModel(model);
         txtName.requestFocus();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -192,10 +192,6 @@ public class ViewMain extends javax.swing.JFrame implements IViewType {
     private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
 
-//    @Override
-//    public void show(){
-//        this.setVisible(true);
-//    }
     private void fillListActions() {
         for (BEOdinAlarm odinAlarm : bllAlarm.getAllOdinAlarms()) {
             model.addElement(odinAlarm);
@@ -217,7 +213,8 @@ public class ViewMain extends javax.swing.JFrame implements IViewType {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                FactoryViewform.createAdministrationChooseView(log).setVisible(true);
+                ViewAdministrationChoose frame = new ViewAdministrationChoose(log);
+                frame.setVisible(true);
             }
         });
 
@@ -225,7 +222,8 @@ public class ViewMain extends javax.swing.JFrame implements IViewType {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                FactoryViewform.createHLAfterAction(log).setVisible(true);
+                ViewHLAfterAction frame = new ViewHLAfterAction(log);
+                frame.setVisible(true);
             }
         });
 
@@ -233,7 +231,8 @@ public class ViewMain extends javax.swing.JFrame implements IViewType {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                FactoryViewform.createHLErrorReport().setVisible(true);
+                ViewHLErrorReport frame = new ViewHLErrorReport();
+                frame.setVisible(true);
             }
         });
 
@@ -241,7 +240,8 @@ public class ViewMain extends javax.swing.JFrame implements IViewType {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                FactoryViewform.createViewILIndsats(log).setVisible(true);
+                ViewILIndsats frame = new ViewILIndsats(log);
+                frame.setVisible(true);
             }
         });
     }
@@ -285,14 +285,6 @@ public class ViewMain extends javax.swing.JFrame implements IViewType {
                 clearlogintxt();
                 btnLogIn.setEnabled(true);
                 btnLogOut.setEnabled(false);
-            }
-        });
-
-        btnIL.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                FactoryViewform.createViewILIndsats(log);
             }
         });
     }

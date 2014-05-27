@@ -17,7 +17,7 @@ import java.util.Date;
  *
  * @author Team Kawabunga
  */
-public class BLLAppearance implements IBLLType{
+public class BLLAppearance{
 
     DALAppearance dalAppearance;
     DALALarm dalAlarm;
@@ -320,8 +320,5 @@ public class BLLAppearance implements IBLLType{
         }
     }
 
-    @Override
-    public void create() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  
 }

@@ -29,12 +29,12 @@ public class ViewILIndsats extends javax.swing.JFrame {
         bllAlarm = BLLAlarm.getInstance();
         bllAppearance = BLLAppearance.getInstance();
         this.setResizable(false);
-        this.setLocationRelativeTo(null);
-        this.setTitle("Indsatsleder - Fremmødeliste");
+        this.setTitle("Indsatsleder - Indsatser");
         initComponents();
         initOtherComponents();
         populateFremmødeTable();
         addCellRenderer();
+        this.setLocationRelativeTo(null);
     }
 
     private void addCellRenderer() {
@@ -76,7 +76,8 @@ public class ViewILIndsats extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 BEAlarm alarm = bllAlarm.getAllHLGodkendtAndNotILGodkend().get(tblFremmøder.convertRowIndexToView(tblFremmøder.getSelectedRow()));
-                FactoryViewform.createILFremmødeliste(alarm, localLogin).setVisible(true);
+                ViewILFremmødeliste frame = new ViewILFremmødeliste(alarm, localLogin);
+                frame.setVisible(true);
                 dispose();
             }
         });

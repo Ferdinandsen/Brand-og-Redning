@@ -12,7 +12,7 @@ import java.util.Calendar;
  *
  * @author Team Kawabunga
  */
-public class BLLAlarm implements IBLLType{
+public class BLLAlarm{
 
     private static BLLAlarm m_instance = null;
     DALALarm dalAlarm;
@@ -132,9 +132,5 @@ public class BLLAlarm implements IBLLType{
         }
     }
 
-    @Override
-    public void create() {
-        getInstance();
-    }
 
       }

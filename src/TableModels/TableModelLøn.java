@@ -1,6 +1,7 @@
 package TableModels;
 
 import BE.BEAppearance;
+import GUI.IObserver;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
@@ -9,7 +10,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Team Kawabunga
  */
-public class TableModelLøn extends AbstractTableModel implements ITableObserver {
+public class TableModelLøn extends AbstractTableModel implements Observerble {
 
     final int HLLønkode = 447;
     final int BMLønkode = 446;
@@ -107,6 +108,7 @@ public class TableModelLøn extends AbstractTableModel implements ITableObserver
 
     public void setAppearanceList(ArrayList<BEAppearance> appearance) {
         this.appearances = appearance;
+        notifyObservers();
     }
 
     public BEAppearance getAppearanceByRow(int row) {
@@ -114,7 +116,19 @@ public class TableModelLøn extends AbstractTableModel implements ITableObserver
     }
 
     @Override
-    public void update() {
-        fireTableDataChanged();
+    public void addObserver(IObserver o) {
+        observer.add(o);
+    }
+
+    @Override
+    public void removeObserver(IObserver o) {
+        observer.remove(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+       for(IObserver o : observer){
+           o.notifyObserver();
+       }
     }
 }

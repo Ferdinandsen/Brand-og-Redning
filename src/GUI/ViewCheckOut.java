@@ -91,7 +91,8 @@ public class ViewCheckOut extends javax.swing.JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         ViewCheckOut.firemanButton fb = (ViewCheckOut.firemanButton) e.getSource();
-                        FactoryViewform.createCheckInView(fb.localFireman).setVisible(true);
+                        ViewFiremanCheckOut frame = new ViewFiremanCheckOut(fb.localFireman);
+                        frame.setVisible(true);
                     }
                 });
                 if (fm.getTeam() == amount) {
