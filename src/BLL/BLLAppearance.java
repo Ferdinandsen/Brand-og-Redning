@@ -34,7 +34,7 @@ public class BLLAppearance {
 
     /**
      *
-     * @return
+     * @return a new instance, if an instance isn't already createds
      */
     public static BLLAppearance getInstance() {
         if (m_instance == null) {
@@ -56,7 +56,7 @@ public class BLLAppearance {
 
     /**
      *
-     * @return
+     * @return all appearances
      */
     public ArrayList<BEAppearance> getAllAppearances() {
         return dalAppearance.getAppearances();
@@ -64,7 +64,7 @@ public class BLLAppearance {
 
     /**
      *
-     * @return
+     * @return all appearances that a HL haven't confirmed
      */
     public ArrayList<BEAppearance> getAllAppearancesNotHlGodkendt() {
         ArrayList<BEAppearance> notHlGodkendt = new ArrayList<>();
@@ -79,7 +79,7 @@ public class BLLAppearance {
     /**
      *
      * @param alarm
-     * @return
+     * @return all appearances, that a HL have confirmed on a specific alarm
      */
     public ArrayList<BEAppearance> getAllHlGodkendtAppearances(BEAlarm alarm) {
         ArrayList<BEAppearance> hlGodkendtAppearances = new ArrayList<>();
@@ -94,7 +94,7 @@ public class BLLAppearance {
     /**
      *
      * @param selectedAlarm
-     * @return
+     * @return all appearances, with the same alarm, with a specific alarm
      */
     public ArrayList<BEAppearance> getAppearancesWithSameAlarm(BEAlarm selectedAlarm) {
         ArrayList<BEAppearance> appearances = new ArrayList<>();
@@ -108,10 +108,10 @@ public class BLLAppearance {
 
     /**
      *
-     * @param fm
-     * @param from
-     * @param to
-     * @return
+     * @param fm = fireman
+     * @param from = from date
+     * @param to = to date
+     * @return all appearances, that is between the from and to date, 
      */
     public ArrayList<BEAppearance> getAllAppearancesWithDateCriteria(BEFireman fm, Date from, Date to) {
         ArrayList<BEAppearance> dateappearance = new ArrayList<>();
@@ -127,7 +127,7 @@ public class BLLAppearance {
 
     /**
      *
-     * @return
+     * @return the time RIGHT NOW
      */
     private Timestamp time() {
         Calendar calendar = Calendar.getInstance();
@@ -160,7 +160,7 @@ public class BLLAppearance {
      *
      * @param checkin
      * @param checkout
-     * @return
+     * @return the total time between the checkin (alarm time) and checkout (when the fireman arrived back at the station)
      */
     public int calculateTotalTime(Timestamp checkin, Timestamp checkout) {
         Timestamp ci = checkin;
@@ -184,8 +184,6 @@ public class BLLAppearance {
     }
 
     /**
-     * sender det forkerte med vidre!
-     *
      * @param log
      * @param alarm
      * @param comment

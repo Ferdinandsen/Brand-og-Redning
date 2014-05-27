@@ -32,7 +32,7 @@ public class BLLEmployee {
 
     /**
      *
-     * @return
+     * @return a new instance, if an instance isn't already created
      */
     public static BLLEmployee getInstance() {
         if (m_instance == null) {
@@ -45,7 +45,7 @@ public class BLLEmployee {
      *
      * @param name
      * @param password
-     * @return
+     * @return a boolean that represents if the user exists
      */
     public boolean doesUserExist(String name, char[] password) {
         for (BELogin login : dalLogin.getAllLogins()) {
@@ -60,7 +60,7 @@ public class BLLEmployee {
      *
      * @param password
      * @param login
-     * @return
+     * @return a boolean representing if the entered password is correct
      */
     private boolean isPasswordCorrect(char[] password, BELogin login) {
         boolean isCorrect;
@@ -80,7 +80,7 @@ public class BLLEmployee {
     /**
      *
      * @param name
-     * @return
+     * @return a login entity
      */
     public BELogin getLogin(String name) {
         for (BELogin login : dalLogin.getAllLogins()) {
@@ -106,7 +106,7 @@ public class BLLEmployee {
      * @param etage
      * @param lejlighed
      * @param postnummer
-     * @return
+     * @return the ID of the newly created address
      */
     public int addAddress(String gadenavn, int gadenummer, int etage, String lejlighed, int postnummer) {
         try {

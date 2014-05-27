@@ -25,7 +25,7 @@ public class BLLVehicle {
 
     /**
      * 
-     * @return 
+     * @return a new instance, if an instance isn't already created
      */
     public static BLLVehicle getInstance() {
         if (m_instance == null) {
@@ -36,7 +36,7 @@ public class BLLVehicle {
 
     /**
      * 
-     * @return 
+     * @return all vehicles
      */
     public ArrayList<BEVehicle> getAllVehicles() {
         return dalvehicle.getVehicles();
@@ -84,7 +84,7 @@ public class BLLVehicle {
     /**
      * 
      * @param allHlGodkendtAppearances
-     * @return 
+     * @return all vehicles on the appearance ArrayList
      */
     public ArrayList<BEVehicle> getAllVehiclesFromAppearances(ArrayList<BEAppearance> allHlGodkendtAppearances) {
         ArrayList<BEVehicle> vehicles = new ArrayList<>();

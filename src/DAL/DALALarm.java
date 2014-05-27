@@ -38,7 +38,7 @@ public class DALALarm {
 
         m_connection = DBConnection.getInstance().getConnection();
         dalVehicle = DALVehicle.getInstance();
-        getXmlAlarms();
+        populateXMLAlarms();
         populateAlarm();
     }
 
@@ -57,7 +57,7 @@ public class DALALarm {
     /**
      *
      */
-    private void getXmlAlarms() {
+    private void populateXMLAlarms() {
         allOdinAlarms = new ArrayList<>();
         try {
             URL url = new URL("https://www.odin.dk/RSS/RSS.aspx?beredskabsID=2d58cb9b-3219-42f7-885d-3905cec3c40e");

@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author Team Kawabunga
  */
-public class BLLFireman { 
+public class BLLFireman {
 
     DALFireman dalFireman;
     private static BLLFireman m_instance = null;
@@ -24,8 +24,8 @@ public class BLLFireman {
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return a new instance, if an instance isn't already created
      */
     public static BLLFireman getInstance() {
         if (m_instance == null) {
@@ -35,7 +35,7 @@ public class BLLFireman {
     }
 
     /**
-     * 
+     *
      */
     public void update() {
         try {
@@ -46,16 +46,16 @@ public class BLLFireman {
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return all firemen
      */
     public ArrayList<BEFireman> getAllfiremen() {
         return dalFireman.getAllFiremen();
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return the highest number of the teams
      */
     public int getHighestTeamNumber() {
         int number = 0;
@@ -68,8 +68,8 @@ public class BLLFireman {
     }
 
     /**
-     * 
-     * @param emp 
+     *
+     * @param emp
      */
     public void deleteFireman(BEEmployee emp) {
         try {
@@ -79,6 +79,12 @@ public class BLLFireman {
         }
     }
 
+    /**
+     *
+     * @param emp
+     * @param fireman
+     * @return the fireman, with the same employee number as emp
+     */
     public BEFireman getFiremanByMedabejderNo(BEEmployee emp, BEFireman fireman) {
         for (BEFireman fm : getAllfiremen()) {
             if (fm.getMedarbjeder().getMedarbejderNo() == emp.getMedarbejderNo()) {
@@ -86,5 +92,5 @@ public class BLLFireman {
             }
         }
         return fireman;
-    }   
+    }
 }

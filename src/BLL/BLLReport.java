@@ -24,7 +24,7 @@ public class BLLReport {
 
     /**
      * 
-     * @return 
+     * @return a new instance, if an instance isn't already created
      */
     public static BLLReport getInstance() {
         if (m_instance == null) {
