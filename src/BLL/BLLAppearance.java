@@ -17,7 +17,7 @@ import java.util.Date;
  *
  * @author Team Kawabunga
  */
-public class BLLAppearance{
+public class BLLAppearance {
 
     DALAppearance dalAppearance;
     DALALarm dalAlarm;
@@ -193,6 +193,9 @@ public class BLLAppearance{
      */
     public void confirmTeam(BELogin log, BEAlarm alarm, String comment) throws Exception {
         for (BEAppearance appearance : getAppearancesWithSameAlarm(alarm)) {
+            if (log.getMedarbejder().getFornavn().equalsIgnoreCase("gæst")) {
+                alarm.setGuestConfirmed(true);
+            }
             alarm.setHlBemærkning(comment);
             alarm.setHlGodkendtTid(time());
             appearance.setHlGodkendt(true); // HER ELLER I DAL?
@@ -204,17 +207,6 @@ public class BLLAppearance{
             } catch (SQLException ex) {
                 System.out.println("fejl i confirmTeam" + ex);
             }
-        }
-    }
-
-    /**
-     *
-     */
-    public void update() {
-        try {
-            dalAppearance.populateAppearances();
-        } catch (SQLException ex) {
-            System.out.println("fejl i update inde i appearance" + ex);
         }
     }
 
@@ -320,5 +312,4 @@ public class BLLAppearance{
         }
     }
 
-  
 }

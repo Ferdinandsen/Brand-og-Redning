@@ -109,7 +109,7 @@ public class DALALarm {
      *
      * @throws SQLException
      */
-    private void populateAlarm() throws SQLException {
+    public void populateAlarm() throws SQLException {
         allAlarms = new ArrayList<>();
         String sql = "SELECT * FROM Alarm";
 

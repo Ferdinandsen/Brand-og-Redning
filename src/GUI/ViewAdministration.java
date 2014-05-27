@@ -366,7 +366,7 @@ public class ViewAdministration extends JDialog {
 
     private void createPDF(ArrayList<BEAppearance> app) {
         try {
-            BLLLønPdf pdf = new BLLLønPdf(app, localLog, String.valueOf(dchoFra.getDate().getDate() + "-" + (dchoFra.getDate().getMonth() + 1) + "-" + (dchoFra.getDate().getYear() + 1900)), String.valueOf(dchoTil.getDate().getDate() + "-" + dchoTil.getDate().getMonth() + "-" + (dchoTil.getDate().getYear() + 1900)));
+            new BLLLønPdf(app, localLog, String.valueOf(dchoFra.getDate().getDate() + "-" + (dchoFra.getDate().getMonth() + 1) + "-" + (dchoFra.getDate().getYear() + 1900)), String.valueOf(dchoTil.getDate().getDate() + "-" + dchoTil.getDate().getMonth() + "-" + (dchoTil.getDate().getYear() + 1900)));
         } catch (DocumentException | IOException ex) {
             JOptionPane.showMessageDialog(this, "Fejl ved at lave PDF.");
         }

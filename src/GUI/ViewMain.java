@@ -79,7 +79,7 @@ public class ViewMain extends javax.swing.JFrame {
 
         btnIL.setText("IndsatsLeder");
 
-        btnSalery.setText("LØN **");
+        btnSalery.setText("Administration");
 
         txtNote.setText("Husk Der er Øvelse d. 21/6 Kl13.00");
 
@@ -169,7 +169,8 @@ public class ViewMain extends javax.swing.JFrame {
                     .addComponent(btnIL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSalery, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNote, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtNote, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -222,7 +223,7 @@ public class ViewMain extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewHLAfterAction frame = ViewHLAfterAction.getInstance(log);
+                ViewHLAfterAction frame = new ViewHLAfterAction(log);
                 frame.setVisible(true);
             }
         });
@@ -285,6 +286,9 @@ public class ViewMain extends javax.swing.JFrame {
                 clearlogintxt();
                 btnLogIn.setEnabled(true);
                 btnLogOut.setEnabled(false);
+                txtName.setEnabled(true);
+                txtPassword.setEnabled(true);
+                txtName.requestFocus();
             }
         });
     }
@@ -302,12 +306,15 @@ public class ViewMain extends javax.swing.JFrame {
                     lblLogIn.setText("Velkommen " + log.getMedarbejder().toString());
                     btnLogIn.setEnabled(false);
                     btnLogOut.setEnabled(true);
+                    txtName.setEnabled(false);
+                    txtPassword.setEnabled(false);
                     clearlogintxt();
                     if (log.isHoldleder()) {
                         btnConfirmApp.setEnabled(true);
                         btnErrorReport.setEnabled(true);
                     }
                     if (log.isAdmin()) {
+                        btnConfirmApp.setEnabled(true);
                         btnIL.setEnabled(true);
                         btnSalery.setEnabled(true);
                         btnErrorReport.setEnabled(true);
