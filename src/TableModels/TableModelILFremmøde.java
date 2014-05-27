@@ -1,6 +1,7 @@
 package TableModels;
 
 import BE.BEAppearance;
+import BE.IBESubject;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
@@ -8,7 +9,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Team Kawabunga
  */
-public class TableModelILFremmøde extends AbstractTableModel {
+public class TableModelILFremmøde extends AbstractTableModel implements ITableObserver {
 
     /**
      * the names of the columns in the table
@@ -24,7 +25,7 @@ public class TableModelILFremmøde extends AbstractTableModel {
         "Chauffør",
         "ST Vagt"
     };
-    
+
     /**
      * the type definition for the columns
      */
@@ -42,9 +43,11 @@ public class TableModelILFremmøde extends AbstractTableModel {
     /**
      *
      * @param allAppearances
+     * @param sub
      */
     public TableModelILFremmøde(ArrayList<BEAppearance> allAppearances) {
         appearances = allAppearances;
+
         fireTableDataChanged();
     }
 
@@ -59,7 +62,8 @@ public class TableModelILFremmøde extends AbstractTableModel {
     }
 
     @Override
-    public Object getValueAt(int row, int col) {
+    public Object getValueAt(int row, int col
+    ) {
         BEAppearance a = appearances.get(row);
         switch (col) {
             case 0:
@@ -97,17 +101,20 @@ public class TableModelILFremmøde extends AbstractTableModel {
     }
 
     @Override
-    public String getColumnName(int col) {
+    public String getColumnName(int col
+    ) {
         return colNames[col];
     }
 
     @Override
-    public Class<?> getColumnClass(int col) {
+    public Class<?> getColumnClass(int col
+    ) {
         return classes[col];
     }
 
     @Override
-    public boolean isCellEditable(int row, int col) {
+    public boolean isCellEditable(int row, int col
+    ) {
         return false;
     }
 
@@ -118,4 +125,10 @@ public class TableModelILFremmøde extends AbstractTableModel {
     public BEAppearance getAppearanceByRow(int row) {
         return appearances.get(row);
     }
+
+    @Override
+    public void update() {
+        fireTableDataChanged();
+    }
+
 }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author Team Kawabunga
  */
-public class BLLFireman {
+public class BLLFireman { 
 
     DALFireman dalFireman;
     private static BLLFireman m_instance = null;

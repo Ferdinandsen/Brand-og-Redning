@@ -7,7 +7,7 @@ import BE.BELogin;
 import BE.BEUsage;
 import BLL.BLLAlarm;
 import BLL.BLLAppearance;
-import BLL.BLLPdf;
+import BLL.BLLOdinPdf;
 import BLL.BLLUsage;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -530,7 +530,7 @@ public class ViewILFremmødeliste extends javax.swing.JFrame {
     }
 
     private void createPDF() {
-        BLLPdf pdf = new BLLPdf(localAlarm, localLogin);
+        BLLOdinPdf pdf = new BLLOdinPdf(localAlarm, localLogin);
         JOptionPane.showMessageDialog(this, "PDF'en er nu lavet på skrivebordet!");
     }
 }

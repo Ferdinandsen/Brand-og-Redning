@@ -4,7 +4,7 @@ package BE;
  *
  * @author Team Kawabunga
  */
-public class BEAddress {
+public class BEAddress extends IBESubject{
 
     private int ID;
     private String streetName;
@@ -12,6 +12,7 @@ public class BEAddress {
     private int floor;
     private String apartmnet;
     private BEZipCode zip;
+  
 
     public BEAddress(int id, String streetname, int streetNumber, int floor, String apartment, BEZipCode zip) {
         this.ID = id;

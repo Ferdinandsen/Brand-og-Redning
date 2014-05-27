@@ -17,15 +17,15 @@ public class ViewCar extends javax.swing.JFrame {
     public ViewCar() {
         bllVehicle = BLLVehicle.getInstance();
 
-        this.setResizable(false);
-        this.setTitle("Køretøjs administration");
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
         initComponents();
         initOtherComponents();
         fillList();
         lstVehicles.setModel(model);
+
+        this.setResizable(false);
+        this.setTitle("Køretøjs administration");
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     private void fillList() {
@@ -115,7 +115,7 @@ public class ViewCar extends javax.swing.JFrame {
         txtBeskrivelse = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lstVehicles.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(lstVehicles);

@@ -20,15 +20,16 @@ public class ViewFiremen extends javax.swing.JFrame {
     DefaultListModel model = new DefaultListModel();
 
     public ViewFiremen() {
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setResizable(false);
-        this.setTitle("Medarbejder administration");
         bllEmployee = BLLEmployee.getInstance();
         bllFireman = BLLFireman.getInstance();
         initComponents();
         initOtherComponents();
         lstEmployees.setModel(model);
         fillList();
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.setTitle("Medarbejder administration");
     }
 
     private void initOtherComponents() {
@@ -203,7 +204,7 @@ public class ViewFiremen extends javax.swing.JFrame {
 
         jLabel11.setText("jLabel11");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lstEmployees.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(lstEmployees);

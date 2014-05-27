@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  *
  * @author Team Kawabunga
  */
-public class BLLAlarm {
+public class BLLAlarm{
 
     private static BLLAlarm m_instance = null;
     DALALarm dalAlarm;
@@ -40,7 +40,7 @@ public class BLLAlarm {
      *
      * @return
      */
-    public static BLLAlarm getInstance() {
+        public static BLLAlarm getInstance() {
         if (m_instance == null) {
             m_instance = new BLLAlarm();
         }
@@ -142,7 +142,5 @@ public class BLLAlarm {
         }
     }
 
-    /**
-     *
-     */
-}
+
+      }

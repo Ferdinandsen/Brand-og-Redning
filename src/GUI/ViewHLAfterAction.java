@@ -132,7 +132,7 @@ public class ViewHLAfterAction extends javax.swing.JFrame {
             }
         });
     }
-
+    
     private void changeTime() {
         BEAppearance appearance = null;
         if (cboxAlarm.getSelectedIndex() == 0) {
@@ -195,6 +195,7 @@ public class ViewHLAfterAction extends javax.swing.JFrame {
         btnChangeTime = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(800, 370));
 
         btnBekæft.setText("Bekræft hold");
 
@@ -273,7 +274,7 @@ public class ViewHLAfterAction extends javax.swing.JFrame {
                     .addComponent(txtFremmøde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblCount)
                     .addComponent(btnChangeTime))

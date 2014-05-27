@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Team Kawabunga
  */
-public class BLLUsage {
+public class BLLUsage{
 
     DALUsage dalusage;
     private static BLLUsage m_instance = null;
