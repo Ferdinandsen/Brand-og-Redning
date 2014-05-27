@@ -249,7 +249,7 @@ public class ViewHLAfterActionStory extends javax.swing.JDialog {
         getDataToIL();
         JOptionPane.showMessageDialog(null, "Tak for bekræftigelsen");
         dispose();
-        ViewHLUsageReport frame = new ViewHLUsageReport(localAlarm, null);
+        ViewHLUsageReport frame = new ViewHLUsageReport(localAlarm);
         frame.setVisible(true);
     }
 

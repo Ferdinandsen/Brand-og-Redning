@@ -478,9 +478,10 @@ public class ViewILFremmødeliste extends JDialog {
     }
 
     private void cancel() {
-        ViewILIndsats frame = ViewILIndsats.getInstance(localLogin);
-        frame.setVisible(true);
+        ViewILIndsats frame = new ViewILIndsats(localLogin);
         dispose();
+        frame.setVisible(true);
+
     }
 
     private void deleteAppearance() {
