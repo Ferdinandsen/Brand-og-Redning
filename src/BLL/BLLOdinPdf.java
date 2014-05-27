@@ -99,7 +99,7 @@ public class BLLOdinPdf{
         p.setAlignment(Element.ALIGN_LEFT);
         preface.add(p);
 
-        p = (new Paragraph("Set af: " + localLog.getMedarbejder() + ", " + localAlarm.getIlGodkendtTidTimeString() + " - " + localAlarm.getIlGodkendtTid().getDate() + "-" + (localAlarm.getIlGodkendtTid().getMonth() + 1), titleFont));
+        p = (new Paragraph("Set af: " + localLog.getMedarbejder() + ", " + localAlarm.getIlGodkendtTidTimeString() + " - " + localAlarm.getIlGodkendtTid().getDate() + "-" + (localAlarm.getIlGodkendtTid().getMonth() + 1) + "-" + (localAlarm.getIlGodkendtTid().getYear()), titleFont));
         p.setAlignment(Element.ALIGN_RIGHT);
         preface.add(p);
         addEmptyLine(preface, 1);
