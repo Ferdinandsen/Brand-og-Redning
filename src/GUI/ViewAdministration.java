@@ -87,7 +87,7 @@ public class ViewAdministration extends JDialog {
         jLabel3 = new javax.swing.JLabel();
         btnHent = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
-        pnlcustom = showMofoPanel();
+        pnlcustom = showLabelPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -225,8 +225,8 @@ public class ViewAdministration extends JDialog {
     private javax.swing.JTable tblBM;
     // End of variables declaration//GEN-END:variables
 /**
- * sets the datechoosers and the btn
- * adds the listeners the the different btns and tbl.
+ * sets the datechoosers and the button
+ * adds the listeners the the different buttons and tables.
  */
     private void initOtherComponents() {
         lstAlarm.setEnabled(false);
@@ -286,7 +286,7 @@ public class ViewAdministration extends JDialog {
      *
      * @return the panel
      */
-    public LabelPanel showMofoPanel() {
+    public LabelPanel showLabelPanel() {
         panel = new LabelPanel();
         panel.setLayout(null);
         l = new ListenerLabel();

@@ -203,7 +203,7 @@
     </Component>
     <Container class="javax.swing.JPanel" name="pnlcustom">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="showMofoPanel()"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="showLabelPanel()"/>
       </AuxValues>
 
       <Layout>
