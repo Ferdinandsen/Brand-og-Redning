@@ -27,7 +27,6 @@ public class DALAppearance {
     private DALVehicle dalVehicle;
     private DALFireman dalFireman;
     private DALLogin dALLogin;
-    private ITableObserver tableObserver;
     DALALarm dalAlarm;
 
 

@@ -31,7 +31,7 @@ public class ViewHLAfterAction extends javax.swing.JFrame {
     private TableModelFremmøde model;
     private static ViewHLAfterAction m_instance = null;
 
-    private ViewHLAfterAction(BELogin log) {
+    public ViewHLAfterAction(BELogin log) {
         localLog = log;
         bllAlarm = BLLAlarm.getInstance();
         bllVehicle = BLLVehicle.getInstance();
@@ -47,24 +47,7 @@ public class ViewHLAfterAction extends javax.swing.JFrame {
         cboxAlarm.setSelectedIndex(0);
         lblCount.setText("Fremmødt: " + model.getRowCount());
     }
-
-    public static ViewHLAfterAction getInstance(BELogin log) {
-        if (m_instance == null) {
-            m_instance = new ViewHLAfterAction(log);
-        }
-//        update();
-        return m_instance;
-    }
     
-
-    public void update() {
-        cboxAlarm.setSelectedIndex(0);
-        bllVehicle.update();
-        bllAppearance.update();
-        model.setAppearanceList(bllAppearance.getAllAppearancesNotHlGodkendt());
-        model.fireTableDataChanged();
-        lblCount.setText("Fremmødt: " + model.getRowCount());
-    }
 
     private void msgbox(String message) {
         JOptionPane.showMessageDialog(this, message);
@@ -149,6 +132,7 @@ public class ViewHLAfterAction extends javax.swing.JFrame {
             bllAppearance.confirmTeam(localLog, (BEAlarm) cboxAlarm.getSelectedItem(), txtComment.getText());
             msgbox("Holdet er nu bekræftet!");
             ViewHLAfterActionStory frame = new ViewHLAfterActionStory(bllAppearance.getAllHlGodkendtAppearances((BEAlarm) cboxAlarm.getSelectedItem()), (BEAlarm) cboxAlarm.getSelectedItem());
+            frame.setVisible(true);
             txtComment.setText(null);
             dispose();
         } catch (Exception ex) {

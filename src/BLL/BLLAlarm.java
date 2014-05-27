@@ -28,13 +28,13 @@ public class BLLAlarm{
         }
     }
 
-//    public void update() {
-//        try {
-//            dalAlarm.populateAlarm();
-//        } catch (SQLException ex) {
-//             System.out.println("fejl i dalAlarm: " + ex.getMessage());
-//        }
-//    }
+    public void update() {
+        try {
+            dalAlarm.populateAlarm();
+        } catch (SQLException ex) {
+             System.out.println("fejl i dalAlarm: " + ex.getMessage());
+        }
+    }
 
     /**
      *

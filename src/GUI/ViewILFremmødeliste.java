@@ -530,7 +530,7 @@ public class ViewILFremmødeliste extends javax.swing.JFrame {
     }
 
     private void createPDF() {
-        BLLOdinPdf pdf = new BLLOdinPdf(localAlarm, localLogin);
+        new BLLOdinPdf(localAlarm, localLogin);
         JOptionPane.showMessageDialog(this, "PDF'en er nu lavet på skrivebordet!");
     }
 }
