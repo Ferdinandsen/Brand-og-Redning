@@ -36,17 +36,17 @@ public class ViewAddAppearance extends javax.swing.JDialog {
         bllAlarm = BLLAlarm.getInstance();
         bllVehicle = BLLVehicle.getInstance();
 
-        this.setResizable(false);
-        this.setModal(true);
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-
         initComponents();
         initOtherComponents();
         fillCboxFireman();
         fillCboxAlarm();
         fillCboxVehicle();
         fillCboxKørselstype();
+        
+        this.setResizable(false);
+        this.setModal(true);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
 
     private void initOtherComponents() {

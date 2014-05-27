@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -25,7 +26,7 @@ import javax.swing.table.TableColumn;
  *
  * @author Team Kawabunga
  */
-public class ViewILFremmødeliste extends javax.swing.JFrame {
+public class ViewILFremmødeliste extends JDialog {
 
     BLLAppearance bllAppearance;
     BLLAlarm bllAlarm;
@@ -47,6 +48,7 @@ public class ViewILFremmødeliste extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setModal(true);
         getInfo();
         populateFremmødeTable();
         addCellRenderer();

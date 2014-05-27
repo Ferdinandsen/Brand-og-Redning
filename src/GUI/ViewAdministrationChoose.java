@@ -3,8 +3,9 @@ package GUI;
 import BE.BELogin;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JDialog;
 
-public class ViewAdministrationChoose extends javax.swing.JFrame {
+public class ViewAdministrationChoose extends JDialog {
 
     BELogin localLog;
 
@@ -12,6 +13,7 @@ public class ViewAdministrationChoose extends javax.swing.JFrame {
         localLog = log;
         initComponents();
         initOtherComponents();
+        this.setModal(true);
         this.setLocationRelativeTo(null);
         this.setTitle("Admin");
         this.setResizable(false);

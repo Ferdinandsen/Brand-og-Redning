@@ -5,11 +5,12 @@ import BLL.BLLVehicle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.DefaultListModel;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class ViewCar extends javax.swing.JFrame {
+public class ViewCar extends JDialog {
 
     BLLVehicle bllVehicle;
     DefaultListModel model = new DefaultListModel();
@@ -21,11 +22,12 @@ public class ViewCar extends javax.swing.JFrame {
         initOtherComponents();
         fillList();
         lstVehicles.setModel(model);
-
+        
+        this.setModal(true);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
         this.setTitle("Køretøjs administration");
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     private void fillList() {

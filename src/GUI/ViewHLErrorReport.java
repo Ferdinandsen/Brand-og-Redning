@@ -6,13 +6,14 @@ import BLL.BLLVehicle;
 import BLL.BLLReport;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Team Kawabunga
  */
-public class ViewHLErrorReport extends javax.swing.JFrame {
+public class ViewHLErrorReport extends JDialog {
 
     BLLVehicle bllVehicle;
     BLLReport bllreport;
@@ -26,6 +27,7 @@ public class ViewHLErrorReport extends javax.swing.JFrame {
         initComponents();
         initOtherComponents();
         fillCboxKøretøj();
+        this.setModal(true);
         this.setTitle("Reparation/Køretøjsmangler");
         this.setLocationRelativeTo(null);
         this.setResizable(false);

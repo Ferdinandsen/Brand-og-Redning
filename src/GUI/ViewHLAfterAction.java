@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -22,7 +23,7 @@ import javax.swing.table.TableColumn;
  *
  * @author Team Kawabunga
  */
-public class ViewHLAfterAction extends javax.swing.JFrame {
+public class ViewHLAfterAction extends JDialog {
 
     BLLVehicle bllVehicle;
     BLLAppearance bllAppearance;
@@ -38,9 +39,11 @@ public class ViewHLAfterAction extends javax.swing.JFrame {
         bllAppearance = BLLAppearance.getInstance();
         initComponents();
         initOtherComponents();
+        this.setModal(true);
         this.setTitle("HL - Bekræft hold");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         populateFremmødeTable();
         addCellRenderer();
         fillCboxAlarm();

@@ -24,9 +24,7 @@ public class ViewChangeTime extends javax.swing.JDialog {
     BEAppearance localAppearance;
 
     public ViewChangeTime(BEAppearance appearance) {
-        this.setModal(true);
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+       
         
         localAppearance = appearance;
         bllAppearance = BLLAppearance.getInstance();
@@ -34,6 +32,10 @@ public class ViewChangeTime extends javax.swing.JDialog {
         initComponents();
         initOtherComponents();
 
+        this.setModal(true);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setTitle("Ændre tiden");
         fillInformation();
         calculateHours();
     }
