@@ -10,11 +10,12 @@ public class ViewAdministrationChoose extends javax.swing.JFrame {
 
     public ViewAdministrationChoose(BELogin log) {
         localLog = log;
-        this.setTitle("Admin");
-        this.setResizable(false);
         initComponents();
         initOtherComponents();
         this.setLocationRelativeTo(null);
+        this.setTitle("Admin");
+        this.setResizable(false);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     private void initOtherComponents() {

@@ -28,12 +28,12 @@ public class ViewILIndsats extends javax.swing.JFrame {
         localLogin = log;
         bllAlarm = BLLAlarm.getInstance();
         bllAppearance = BLLAppearance.getInstance();
-        this.setResizable(false);
-        this.setTitle("Indsatsleder - Indsatser");
         initComponents();
         initOtherComponents();
         populateFremmødeTable();
         addCellRenderer();
+        this.setResizable(false);
+        this.setTitle("Indsatsleder - Indsatser");
         this.setLocationRelativeTo(null);
     }
 
@@ -93,6 +93,7 @@ public class ViewILIndsats extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(800, 370));
 
         tblFremmøder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
