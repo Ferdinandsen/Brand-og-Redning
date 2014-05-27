@@ -27,7 +27,6 @@ public class DALAppearance {
     private DALVehicle dalVehicle;
     private DALFireman dalFireman;
     private DALLogin dALLogin;
-    private ITableObserver tableObserver;
     DALALarm dalAlarm;
 
 
@@ -240,7 +239,7 @@ public class DALAppearance {
      * @param kørselstype
      * @throws SQLException
      */
-    public void createAppearance(BEFireman fireman, int total, Timestamp time, BEAlarm alarm, BEVehicle veh, String checkOutTime, boolean hl, boolean ch, boolean st, int kørselstype) throws SQLException {
+    public void createAppearance(BEFireman fireman, int total, Timestamp time, BEAlarm alarm, BEVehicle veh, String checkOutTime, boolean hl, boolean ch, boolean st, int kørselstype, BELogin log) throws SQLException {
         String sql = "INSERT INTO Fremmøde VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) select @@identity";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
@@ -261,7 +260,7 @@ public class DALAppearance {
         } else {
             ps.setInt(12, veh.getOdinnummer());
         }
-        ps.setString(13, null);
+        ps.setInt(13, log.getMedarbejder().getMedarbejderNo());
         ps.setBoolean(14, false);
         ps.setTimestamp(15, null);
         ps.execute();
@@ -270,7 +269,7 @@ public class DALAppearance {
         int id = 0;
         if (rs.next()) {
             id = rs.getInt(1);
-            BEAppearance appearance = new BEAppearance(id, fireman, alarm.getTime(), time, total, true, false, hl, ch, st, kørselstype, alarm, veh, null, false, null);
+            BEAppearance appearance = new BEAppearance(id, fireman, alarm.getTime(), time, total, true, false, hl, ch, st, kørselstype, alarm, veh, log, false, null);
             allAppearances.add(appearance);
         }
     }

@@ -30,20 +30,13 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class BLLOdinPdf{
+public class BLLOdinPdf {
 
     private String FILE;
     private Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.NORMAL, BaseColor.RED);
     private Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
-    private Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
-            Font.NORMAL, BaseColor.RED);
-    private Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16,
-            Font.BOLD);
-    private Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
-            Font.BOLD);
-
     ArrayList<BEAppearance> localAppearances;
     private int amount = 0;
     BEAlarm localAlarm;
@@ -89,17 +82,15 @@ public class BLLOdinPdf{
     private void addTitlePage(Document document)
             throws DocumentException, IOException {
         Paragraph preface = new Paragraph();
-        // We add one empty line
         Image image1 = Image.getInstance("brandogredning.jpg");
         preface.add(image1);
         addEmptyLine(preface, 1);
-        // Lets write a big header
         addEmptyLine(preface, 1);
         Paragraph p = new Paragraph("Brand & Redning, Esbjerg - Station 4.24 \t \t \t ");
         p.setAlignment(Element.ALIGN_LEFT);
         preface.add(p);
 
-        p = (new Paragraph("Set af: " + localLog.getMedarbejder() + ", " + localAlarm.getIlGodkendtTidTimeString() + " - " + localAlarm.getIlGodkendtTid().getDay() + "-" + (localAlarm.getIlGodkendtTid().getMonth() + 1), titleFont));
+        p = (new Paragraph("Set af: " + localLog.getMedarbejder() + ", " + localAlarm.getIlGodkendtTidTimeString() + " - " + localAlarm.getIlGodkendtTid().getDate() + "-" + (localAlarm.getIlGodkendtTid().getMonth() + 1) + "-" + (localAlarm.getIlGodkendtTid().getYear()), titleFont));
         p.setAlignment(Element.ALIGN_RIGHT);
         preface.add(p);
         addEmptyLine(preface, 1);
@@ -115,23 +106,21 @@ public class BLLOdinPdf{
         preface.add(new Paragraph("Indsatsleder bemærkning: " + localAlarm.getIlBemærkning()));
         addEmptyLine(preface, 1);
         document.add(preface);
-        // Start a new page
-//        document.newPage();
     }
 
     private void addContent(Document document) throws DocumentException {
         Anchor anchor = new Anchor("Fremmøde", catFont);
         anchor.setName("Fremmøde");
         Paragraph preface = new Paragraph();
-        createFremmødeTable(document);
+        createFremmødeTable(document); //creates the appearance table
         addEmptyLine(preface, 1);
         document.add(preface);
         addEmptyLine(new Paragraph(""), 1);
-        createForbrugTable(document);
+        createForbrugTable(document); //creates the usage table
         addEmptyLine(preface, 1);
         document.add(preface);
         addEmptyLine(new Paragraph(""), 1);
-        createIndsatsStyrkeTable(document);
+        createIndsatsStyrkeTable(document); //creates the indsats table
 
     }
 
@@ -361,14 +350,6 @@ public class BLLOdinPdf{
                 }
             }
         }
-    }
-
-    private static void createList(Section subCatPart) {
-        List list = new List(true, false, 10);
-        list.add(new ListItem("First point"));
-        list.add(new ListItem("Second point"));
-        list.add(new ListItem("Third point"));
-        subCatPart.add(list);
     }
 
     private static void addEmptyLine(Paragraph paragraph, int number) {

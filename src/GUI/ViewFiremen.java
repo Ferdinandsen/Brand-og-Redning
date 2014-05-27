@@ -8,27 +8,30 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class ViewFiremen extends javax.swing.JFrame {
+public class ViewFiremen extends JDialog {
 
     BLLFireman bllFireman;
     BLLEmployee bllEmployee;
     DefaultListModel model = new DefaultListModel();
 
     public ViewFiremen() {
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setResizable(false);
-        this.setTitle("Medarbejder administration");
         bllEmployee = BLLEmployee.getInstance();
         bllFireman = BLLFireman.getInstance();
         initComponents();
         initOtherComponents();
         lstEmployees.setModel(model);
         fillList();
+        this.setModal(true);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.setTitle("Medarbejder administration");
     }
 
     private void initOtherComponents() {
@@ -424,7 +427,7 @@ public class ViewFiremen extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnRemove)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();

@@ -27,7 +27,7 @@ public class BLLUsage{
 
     /**
      * 
-     * @return 
+     * @return all usages
      */
     public ArrayList<BEUsage> getAllUsages() {
         return dalusage.getAllUsages();
@@ -35,7 +35,7 @@ public class BLLUsage{
 
     /**
      * 
-     * @return 
+     * @return a new instance, if an instance isn't already created
      */
     public static BLLUsage getInstance() {
         if (m_instance == null) {
@@ -59,7 +59,7 @@ public class BLLUsage{
 
     /**
      * 
-     * @return 
+     * @return all materials
      */
     public ArrayList<BEMateriel> getAllMats() {
         return dalusage.getAllMats();
@@ -104,7 +104,7 @@ public class BLLUsage{
     /**
      * 
      * @param localAlarm
-     * @return 
+     * @return an ArrayList of usages for a specific alarm
      */
     public ArrayList<BEUsage> getAllUsagesForAlarm(BEAlarm localAlarm) {
         ArrayList<BEUsage> allUsages = new ArrayList<>();
@@ -115,4 +115,4 @@ public class BLLUsage{
         }
         return allUsages;
     }
-   }
+}

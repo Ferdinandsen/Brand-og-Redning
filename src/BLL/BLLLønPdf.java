@@ -24,20 +24,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class BLLLønPdf{
+public class BLLLønPdf {
 
     private String FILE;
     private Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.NORMAL, BaseColor.RED);
     private Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
-    private Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
-            Font.NORMAL, BaseColor.RED);
-    private Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16,
-            Font.BOLD);
-    private Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
-            Font.BOLD);
-
     ArrayList<BEAppearance> localAppearances = new ArrayList<>();
     BEAlarm localAlarm;
     BLLUsage bllUsage;
@@ -54,22 +47,22 @@ public class BLLLønPdf{
         bllAppearance = BLLAppearance.getInstance();
         bllVehicle = BLLVehicle.getInstance();
         bllUsage = BLLUsage.getInstance();
-        for (BEAppearance appearance : localAppearances) {
+        for (BEAppearance appearance : localAppearances) { //puts all fireman in an arraylist, and avoid duplicates
             if (!usedFiremen.contains(appearance.getFireman())) {
                 usedFiremen.add(appearance.getFireman());
             }
         }
 
-        for (BEFireman fireman : usedFiremen) {
+        for (BEFireman fireman : usedFiremen) { //loops through each unique fireman
             totalTimer = 0;
             firemanAppearances = new ArrayList<>();
-            for (BEAppearance appearance : localAppearances) {
+            for (BEAppearance appearance : localAppearances) { //loops through the whole list
                 if (appearance.getFireman() == fireman) {
-                    firemanAppearances.add(appearance);
+                    firemanAppearances.add(appearance); //adds the appearance to an ArrayList
                 }
             }
             FILE = System.getProperty("user.home") + "/Desktop/" + fireman.getMedarbjeder().getFornavn() + fireman.getMedarbjeder().getEfternavn() + " " + fromDate + " " + toDate + ".pdf";
-            Document document = new Document(PageSize.A4.rotate()); //Roterer siden til at være landskab! Fjern parameter for at gøre den til normal  Document document = new Document(PageSize.LETTER.rotate()); 
+            Document document = new Document(PageSize.A4.rotate());
             PdfWriter.getInstance(document, new FileOutputStream(FILE));
             document.open();
             addMetaData(document);
@@ -80,7 +73,6 @@ public class BLLLønPdf{
             document.add(p);
             document.close();
         }
-
     }
 
     private void addMetaData(Document document) {
@@ -94,11 +86,9 @@ public class BLLLønPdf{
     private void addTitlePage(Document document)
             throws DocumentException, IOException {
         Paragraph preface = new Paragraph();
-        // We add one empty line
         Image image1 = Image.getInstance("brandogredning.jpg");
         preface.add(image1);
         addEmptyLine(preface, 1);
-        // Lets write a big header
         addEmptyLine(preface, 1);
         Paragraph p = new Paragraph("Brand & Redning, Esbjerg - Station 4.24");
         p.setAlignment(Element.ALIGN_LEFT);
@@ -117,7 +107,7 @@ public class BLLLønPdf{
         Anchor anchor = new Anchor("Løn", catFont);
         anchor.setName("Løn");
 
-        createFremmødeTable(document);
+        createFremmødeTable(document); //creates the table, that shows all his appearances
         addEmptyLine(new Paragraph(), 1);
 
     }

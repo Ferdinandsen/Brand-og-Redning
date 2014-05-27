@@ -6,13 +6,14 @@ import BLL.BLLVehicle;
 import BLL.BLLReport;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Team Kawabunga
  */
-public class ViewHLErrorReport extends javax.swing.JFrame {
+public class ViewHLErrorReport extends JDialog {
 
     BLLVehicle bllVehicle;
     BLLReport bllreport;
@@ -26,6 +27,7 @@ public class ViewHLErrorReport extends javax.swing.JFrame {
         initComponents();
         initOtherComponents();
         fillCboxKøretøj();
+        this.setModal(true);
         this.setTitle("Reparation/Køretøjsmangler");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -57,7 +59,7 @@ public class ViewHLErrorReport extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtMadeBy = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblHeader.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
 

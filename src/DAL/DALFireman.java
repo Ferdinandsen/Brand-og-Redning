@@ -82,13 +82,12 @@ public class DALFireman {
      * @throws SQLException
      */
     public void addEmployeeAsFireman(BEEmployee emp, boolean CH, boolean HL, int team) throws SQLException {
-        String sql = "INSERT INTO Deltidsbrandmand VALUES (?,?,?,?,?) select @@identity";
+        String sql = "INSERT INTO Deltidsbrandmand VALUES (?,?,?,?) select @@identity";
 
         PreparedStatement ps = m_connection.prepareStatement(sql);
         ps.setInt(1, emp.getMedarbejderNo());
         ps.setBoolean(2, HL);
         ps.setBoolean(3, CH);
-        ps.setBoolean(4, false);
         ps.setInt(5, team);
         ps.execute();
 

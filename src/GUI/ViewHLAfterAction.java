@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -22,7 +23,7 @@ import javax.swing.table.TableColumn;
  *
  * @author Team Kawabunga
  */
-public class ViewHLAfterAction extends javax.swing.JFrame {
+public class ViewHLAfterAction extends JDialog {
 
     BLLVehicle bllVehicle;
     BLLAppearance bllAppearance;
@@ -31,37 +32,22 @@ public class ViewHLAfterAction extends javax.swing.JFrame {
     private TableModelFremmøde model;
     private static ViewHLAfterAction m_instance = null;
 
-    private ViewHLAfterAction(BELogin log) {
+    public ViewHLAfterAction(BELogin log) {
         localLog = log;
         bllAlarm = BLLAlarm.getInstance();
         bllVehicle = BLLVehicle.getInstance();
         bllAppearance = BLLAppearance.getInstance();
         initComponents();
         initOtherComponents();
+        this.setModal(true);
         this.setTitle("HL - Bekræft hold");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         populateFremmødeTable();
         addCellRenderer();
         fillCboxAlarm();
         cboxAlarm.setSelectedIndex(0);
-        lblCount.setText("Fremmødt: " + model.getRowCount());
-    }
-
-    public static ViewHLAfterAction getInstance(BELogin log) {
-        if (m_instance == null) {
-            m_instance = new ViewHLAfterAction(log);
-        }
-//        update();
-        return m_instance;
-    }
-
-    public void update() {
-        cboxAlarm.setSelectedIndex(0);
-        bllVehicle.update();
-        bllAppearance.update();
-        model.setAppearanceList(bllAppearance.getAllAppearancesNotHlGodkendt());
-        model.fireTableDataChanged();
         lblCount.setText("Fremmødt: " + model.getRowCount());
     }
 
@@ -130,7 +116,7 @@ public class ViewHLAfterAction extends javax.swing.JFrame {
     private void changeTime() {
         BEAppearance appearance = null;
         if (cboxAlarm.getSelectedIndex() == 0) {
-            appearance = bllAppearance.getAllAppearances().get(tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
+            appearance = bllAppearance.getAllAppearancesNotHlGodkendt().get(tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
         } else {
             appearance = bllAppearance.getAppearancesWithSameAlarm((BEAlarm) cboxAlarm.getSelectedItem()).get(tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
         }
@@ -143,8 +129,9 @@ public class ViewHLAfterAction extends javax.swing.JFrame {
             bllAppearance.confirmTeam(localLog, (BEAlarm) cboxAlarm.getSelectedItem(), txtComment.getText());
             msgbox("Holdet er nu bekræftet!");
             ViewHLAfterActionStory frame = new ViewHLAfterActionStory(bllAppearance.getAllHlGodkendtAppearances((BEAlarm) cboxAlarm.getSelectedItem()), (BEAlarm) cboxAlarm.getSelectedItem());
-            txtComment.setText(null);
             dispose();
+            frame.setVisible(true);
+            txtComment.setText(null);
         } catch (Exception ex) {
             msgbox("fejl i confirmteam" + ex);
         }
@@ -168,7 +155,11 @@ public class ViewHLAfterAction extends javax.swing.JFrame {
     private void fillCboxAlarm() {
         cboxAlarm.addItem("Ingen alarm");
         for (BEAlarm alarm : bllAlarm.getAllUnfinishedAlarms()) {
-            cboxAlarm.addItem(alarm);
+            for (BEAppearance a : bllAppearance.getAllAppearancesNotHlGodkendt()) {
+                if (a.getAlarm().equals(alarm)) {
+                    cboxAlarm.addItem(alarm);
+                }
+            }
         }
     }
 
@@ -193,7 +184,7 @@ public class ViewHLAfterAction extends javax.swing.JFrame {
         btnChangeTime = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 350));
+        setPreferredSize(new java.awt.Dimension(800, 370));
 
         btnBekæft.setText("Bekræft hold");
 
@@ -275,7 +266,7 @@ public class ViewHLAfterAction extends javax.swing.JFrame {
                     .addComponent(txtFremmøde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblCount)
                     .addComponent(btnChangeTime))

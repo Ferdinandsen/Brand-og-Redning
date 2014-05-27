@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -28,17 +26,17 @@ public class BLLAlarm{
         }
     }
 
-//    public void update() {
-//        try {
-//            dalAlarm.populateAlarm();
-//        } catch (SQLException ex) {
-//             System.out.println("fejl i dalAlarm: " + ex.getMessage());
-//        }
-//    }
+    public void update() {
+        try {
+            dalAlarm.populateAlarm();
+        } catch (SQLException ex) {
+             System.out.println("fejl i dalAlarm: " + ex.getMessage());
+        }
+    }
 
     /**
      *
-     * @return
+     * @return a new instance, if an instance isn't already created
      */
         public static BLLAlarm getInstance() {
         if (m_instance == null) {
@@ -49,7 +47,7 @@ public class BLLAlarm{
 
     /**
      *
-     * @return
+     * @return all alarms
      */
     public ArrayList<BEAlarm> getAllAlarms() {
         return dalAlarm.getAllAlarms();
@@ -57,7 +55,7 @@ public class BLLAlarm{
 
     /**
      *
-     * @return
+     * @return all OdinAlarms (only used for our main screen)
      */
     public ArrayList<BEOdinAlarm> getAllOdinAlarms() {
         return dalAlarm.getAllOdinAlarms();
@@ -65,7 +63,7 @@ public class BLLAlarm{
 
     /**
      *
-     * @return
+     * @return all unfinished alarms (boolean done set to false)
      */
     public ArrayList<BEAlarm> getAllUnfinishedAlarms() {
         ArrayList<BEAlarm> unfinishedAlarms = new ArrayList<>();
@@ -79,7 +77,7 @@ public class BLLAlarm{
 
     /**
      *
-     * @return
+     * @return all alarms, that a HL haven't confirmed
      */
     public ArrayList<BEAlarm> getAllIkkeHLGodkendt() {
         ArrayList<BEAlarm> hlgodkendt = new ArrayList<>();
@@ -93,7 +91,7 @@ public class BLLAlarm{
 
     /**
      *
-     * @return
+     * @return all alarms, that are HL confirmed but NOT IL confirmed
      */
     public ArrayList<BEAlarm> getAllHLGodkendtAndNotILGodkend() {
         ArrayList<BEAlarm> hlgodkendt = new ArrayList<>();
@@ -119,7 +117,7 @@ public class BLLAlarm{
 
     /**
      *
-     * @return
+     * @return the time right NOW
      */
     private Timestamp time() {
         Calendar calendar = Calendar.getInstance();

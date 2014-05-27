@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultListModel;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -32,7 +33,7 @@ import javax.swing.table.TableColumn;
  *
  * @author Team Kawabunga
  */
-public class ViewAdministration extends javax.swing.JFrame {
+public class ViewAdministration extends JDialog {
 
     final long DAY = 86400000; // 1 day in milliseconds
     BELogin localLog;
@@ -54,17 +55,18 @@ public class ViewAdministration extends javax.swing.JFrame {
         bllFireman = BLLFireman.getInstance();
         bllAlarm = BLLAlarm.getInstance();
 
+        initComponents();
+        initOtherComponents();
+        populateLønTable(null, dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY));
+        fillcboxBrandMand();
+        populateAlarmList();
+        addCellRenderer();
+        
+        this.setModal(true);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setTitle("Administration");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
-        initComponents();
-        initOtherComponents();
-        populateLønTable(null, dchoFra.getDate(), dchoTil.getDate());
-        fillcboxBrandMand();
-        populateAlarmList();
-        addCellRenderer();
     }
 
     @SuppressWarnings("unchecked")
@@ -87,7 +89,7 @@ public class ViewAdministration extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
         pnlcustom = showMofoPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tblBM.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -184,8 +186,8 @@ public class ViewAdministration extends javax.swing.JFrame {
                             .addComponent(btnHent))
                         .addComponent(jLabel1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
@@ -322,7 +324,7 @@ public class ViewAdministration extends javax.swing.JFrame {
             model.setAppearanceList(bllAppearance.getAllAppearancesWithDateCriteria(localFireman, dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY)));
             tblBM.setModel(model);
         } else {
-            model.setAppearanceList(bllAppearance.getAllAppearancesWithDateCriteria((BEFireman) cboxBM.getSelectedItem(), dchoFra.getDate(), dchoTil.getDate()));
+            model.setAppearanceList(bllAppearance.getAllAppearancesWithDateCriteria((BEFireman) cboxBM.getSelectedItem(), dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY)));
             tblBM.setModel(model);
         }
     }
@@ -381,8 +383,9 @@ public class ViewAdministration extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Du skal huske at hente først");
             }
         }
-
-        tblBM.setModel(model);
+        model.setAppearanceList(bllAppearance.getAllAppearancesWithDateCriteria(null, dchoFra.getDate(), dchoTil.getDate()));
+//        tblBM.setModel(model);
+//        tblBM.repaint();
     }
 
     /**
@@ -412,7 +415,7 @@ public class ViewAdministration extends javax.swing.JFrame {
      */
     private void createPDF(ArrayList<BEAppearance> app) {
         try {
-            BLLLønPdf pdf = new BLLLønPdf(app, localLog, String.valueOf(dchoFra.getDate().getDate() + "-" + (dchoFra.getDate().getMonth() + 1) + "-" + (dchoFra.getDate().getYear() + 1900)), String.valueOf(dchoTil.getDate().getDate() + "-" + dchoTil.getDate().getMonth() + "-" + (dchoTil.getDate().getYear() + 1900)));
+            new BLLLønPdf(app, localLog, String.valueOf(dchoFra.getDate().getDate() + "-" + (dchoFra.getDate().getMonth() + 1) + "-" + (dchoFra.getDate().getYear() + 1900)), String.valueOf(dchoTil.getDate().getDate() + "-" + dchoTil.getDate().getMonth() + "-" + (dchoTil.getDate().getYear() + 1900)));
         } catch (DocumentException | IOException ex) {
             JOptionPane.showMessageDialog(this, "Fejl ved at lave PDF.");
         }

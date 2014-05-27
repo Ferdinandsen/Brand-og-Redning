@@ -2,6 +2,7 @@ package GUI;
 
 import BE.BEAlarm;
 import BE.BEFireman;
+import BE.BELogin;
 import BE.BEVehicle;
 import BLL.BLLAlarm;
 import BLL.BLLAppearance;
@@ -28,18 +29,15 @@ public class ViewAddAppearance extends javax.swing.JDialog {
     BLLAlarm bllAlarm;
     BLLVehicle bllVehicle;
     BEAlarm localAlarm;
+    BELogin localLog;
 
-    public ViewAddAppearance(BEAlarm alarm) {
+    public ViewAddAppearance(BEAlarm alarm, BELogin log) {
         localAlarm = alarm;
+        localLog = log;
         bllAppearance = BLLAppearance.getInstance();
         bllFireman = BLLFireman.getInstance();
         bllAlarm = BLLAlarm.getInstance();
         bllVehicle = BLLVehicle.getInstance();
-
-        this.setResizable(false);
-        this.setModal(true);
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
 
         initComponents();
         initOtherComponents();
@@ -47,6 +45,11 @@ public class ViewAddAppearance extends javax.swing.JDialog {
         fillCboxAlarm();
         fillCboxVehicle();
         fillCboxKørselstype();
+        
+        this.setResizable(false);
+        this.setModal(true);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
 /**
  * 
@@ -160,7 +163,7 @@ public class ViewAddAppearance extends javax.swing.JDialog {
             int hour = Integer.parseInt(test[0]);
             int min = Integer.parseInt(test[1]);
             Timestamp thistime = new Timestamp(date.getYear(), date.getMonth(), date.getDate(), hour, min, 0, 0);
-            bllAppearance.addAppearance((BEFireman) cboxFireman.getSelectedItem(), (BEAlarm) cboxAlarm.getSelectedItem(), veh, thistime, hl, ch, st, (int) cboxKørselstype.getSelectedItem());
+            bllAppearance.addAppearance((BEFireman) cboxFireman.getSelectedItem(), (BEAlarm) cboxAlarm.getSelectedItem(), veh, thistime, hl, ch, st, (int) cboxKørselstype.getSelectedItem(),localLog);
             JOptionPane.showMessageDialog(this, cboxFireman.getSelectedItem() + " er nu tilføjet til listen!");
             dispose();
         } else {

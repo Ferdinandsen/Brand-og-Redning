@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -25,7 +26,7 @@ import javax.swing.table.TableColumn;
  *
  * @author Team Kawabunga
  */
-public class ViewILFremmødeliste extends javax.swing.JFrame {
+public class ViewILFremmødeliste extends JDialog {
 
     BLLAppearance bllAppearance;
     BLLAlarm bllAlarm;
@@ -47,6 +48,7 @@ public class ViewILFremmødeliste extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setModal(true);
         getInfo();
         populateFremmødeTable();
         addCellRenderer();
@@ -94,7 +96,7 @@ public class ViewILFremmødeliste extends javax.swing.JFrame {
         txtGruppeNr = new javax.swing.JTextField();
         txtDetektorNr = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tblFremmøde.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -476,9 +478,10 @@ public class ViewILFremmødeliste extends javax.swing.JFrame {
     }
 
     private void cancel() {
-        ViewILIndsats frame = ViewILIndsats.getInstance(localLogin);
-        frame.setVisible(true);
+        ViewILIndsats frame = new ViewILIndsats(localLogin);
         dispose();
+        frame.setVisible(true);
+
     }
 
     private void deleteAppearance() {
@@ -494,7 +497,7 @@ public class ViewILFremmødeliste extends javax.swing.JFrame {
     }
 
     private void addAppearance() {
-        ViewAddAppearance frame = new ViewAddAppearance(localAlarm);
+        ViewAddAppearance frame = new ViewAddAppearance(localAlarm, localLogin);
         frame.setVisible(true);
         model.setAppearanceList(bllAppearance.getAllHlGodkendtAppearances(localAlarm));
         model.fireTableDataChanged();
@@ -530,7 +533,7 @@ public class ViewILFremmødeliste extends javax.swing.JFrame {
     }
 
     private void createPDF() {
-        BLLOdinPdf pdf = new BLLOdinPdf(localAlarm, localLogin);
+        new BLLOdinPdf(localAlarm, localLogin);
         JOptionPane.showMessageDialog(this, "PDF'en er nu lavet på skrivebordet!");
     }
 }

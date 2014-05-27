@@ -1,6 +1,7 @@
 package Renderes;
 
 import BE.BEAppearance;
+import TableModels.TableModelILFremmøde;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -32,16 +33,11 @@ public class RenderILFremmødeTableCell extends DefaultTableCellRenderer {
         Component cell = super.getTableCellRendererComponent(
                 table, obj, isSelected, hasFocus, row, column);
 
-//        cell.setBackground(row % 2 == 0 ? Color.WHITE : Color.lightGray);
+        TableModelILFremmøde model = (TableModelILFremmøde) table.getModel();
         Font f = new Font(Font.SANS_SERIF, Font.BOLD, 13);
+        BEAppearance a = model.getAppearanceByRow(row);
+        cell.setBackground(a.getAlarm().getColor());
 
-        if (allAppearances.get(row).getLogin().getMedarbejder().getFornavn().equalsIgnoreCase("gæst")) {
-            cell.setBackground(Color.ORANGE);
-        } else {
-            cell.setBackground(Color.GREEN);
-        }
-        
-        
         if (isSelected) {
             cell.setBackground(Color.GRAY);
             if (table.convertColumnIndexToModel(column) != 5) {

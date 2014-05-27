@@ -34,8 +34,7 @@ public class ViewFiremanCheckOut extends javax.swing.JDialog {
      * @param fireman
      */
     public ViewFiremanCheckOut(BEFireman fireman) {
-        initMetaData();
-
+        this.setUndecorated(true);
         bllFireman = BLLFireman.getInstance();
         bllvehicle = BLLVehicle.getInstance();
         bllAlarm = BLLAlarm.getInstance();
@@ -44,6 +43,7 @@ public class ViewFiremanCheckOut extends javax.swing.JDialog {
         initComponents();
         initComponentSettings();
         initOtherComponents();
+        initMetaData();
         fillCboxVehicle();
         fillCboxAlarm();
 
@@ -56,11 +56,11 @@ public class ViewFiremanCheckOut extends javax.swing.JDialog {
         RenderCombobox renderer = new RenderCombobox();
         cboxAlarm.setRenderer(renderer);
         cboxVehicle.setRenderer(renderer);
+
         this.setLocationRelativeTo(null);
     }
 
     private void initMetaData() {
-        this.setUndecorated(true);
         this.setTitle("CHECK UD");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);

@@ -3,8 +3,9 @@ package GUI;
 import BE.BELogin;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JDialog;
 
-public class ViewAdministrationChoose extends javax.swing.JFrame {
+public class ViewAdministrationChoose extends JDialog {
 
     BELogin localLog;
 /**
@@ -13,11 +14,13 @@ public class ViewAdministrationChoose extends javax.swing.JFrame {
  */
     public ViewAdministrationChoose(BELogin log) {
         localLog = log;
-        this.setTitle("Admin");
-        this.setResizable(false);
         initComponents();
         initOtherComponents();
+        this.setModal(true);
         this.setLocationRelativeTo(null);
+        this.setTitle("Admin");
+        this.setResizable(false);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 /**
  * adds the listners to the different btns

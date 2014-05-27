@@ -72,7 +72,7 @@ public class TableModelLøn extends AbstractTableModel implements Observerble {
             case 1:
                 return a.getFireman().getMedarbjeder().getEfternavn();
             case 2:
-                return a.getAlarm().getTime();
+                return a.getCheckOut();
             case 3:
                 return a.getAlarm().getDesc();
             case 4:
@@ -107,7 +107,7 @@ public class TableModelLøn extends AbstractTableModel implements Observerble {
     }
 
     public void setAppearanceList(ArrayList<BEAppearance> appearance) {
-        this.appearances = appearance;
+        appearances = appearance;
         fireTableDataChanged();
         notifyObservers();
     }
@@ -128,8 +128,8 @@ public class TableModelLøn extends AbstractTableModel implements Observerble {
 
     @Override
     public void notifyObservers() {
-       for(IObserver o : observer){
-           o.notifyObserver();
-       }
+        for (IObserver o : observer) {
+            o.notifyObserver();
+        }
     }
 }
