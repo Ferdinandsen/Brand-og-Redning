@@ -56,7 +56,7 @@ public class ViewAdministration extends JDialog {
 
         initComponents();
         initOtherComponents();
-        populateLønTable(null, dchoFra.getDate(), dchoTil.getDate());
+        populateLønTable(null, dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY));
         fillcboxBrandMand();
         populateAlarmList();
         addCellRenderer();
@@ -301,10 +301,10 @@ public class ViewAdministration extends JDialog {
     private void hentInfo() {
         if (cboxBM.getSelectedIndex() == 0) {
             BEFireman localFireman = null;
-            model.setAppearanceList(bllAppearance.getAllAppearancesWithDateCriteria(localFireman, dchoFra.getDate(),dchoTil.getDate()));
+            model.setAppearanceList(bllAppearance.getAllAppearancesWithDateCriteria(localFireman, dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY)));
             tblBM.setModel(model);
         } else {
-            model.setAppearanceList(bllAppearance.getAllAppearancesWithDateCriteria((BEFireman) cboxBM.getSelectedItem(), dchoFra.getDate(), dchoTil.getDate()));
+            model.setAppearanceList(bllAppearance.getAllAppearancesWithDateCriteria((BEFireman) cboxBM.getSelectedItem(), dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY)));
             tblBM.setModel(model);
         }
     }
