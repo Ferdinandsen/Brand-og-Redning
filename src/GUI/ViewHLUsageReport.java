@@ -129,6 +129,7 @@ public class ViewHLUsageReport extends javax.swing.JDialog {
         });
         return p;
     }
+   
 
     private JPanel getGroupLayout() {
         allMats = bllusage.getAllMats();
@@ -213,8 +214,7 @@ public class ViewHLUsageReport extends javax.swing.JDialog {
          * Creates new form ForbrugPanel
          */
         public ForbrugPanel(BEMateriel m) {
-
-            lbl = new JLabel();
+           lbl = new JLabel();
             tf = new JTextField();
             if (localUsage != null) {
                 for (BEMateriel mat : allMats) {

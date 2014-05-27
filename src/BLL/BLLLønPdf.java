@@ -24,7 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class BLLLønPdf {
+public class BLLLønPdf implements IBLLType{
 
     private String FILE;
     private Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
@@ -208,5 +208,10 @@ public class BLLLønPdf {
         for (int i = 0; i < number; i++) {
             paragraph.add(new Paragraph(" "));
         }
+    }
+
+    @Override
+    public void create() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

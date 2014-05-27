@@ -17,7 +17,7 @@ import java.util.Date;
  *
  * @author Team Kawabunga
  */
-public class BLLAppearance {
+public class BLLAppearance{
 
     DALAppearance dalAppearance;
     DALALarm dalAlarm;
@@ -319,4 +319,6 @@ public class BLLAppearance {
             System.out.println("Fejl i endSalary" + ex);
         }
     }
+
+  
 }

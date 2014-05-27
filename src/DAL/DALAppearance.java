@@ -5,6 +5,8 @@ import BE.BEAppearance;
 import BE.BEFireman;
 import BE.BELogin;
 import BE.BEVehicle;
+import TableModels.ITableObserver;
+import TableModels.TableModelFremmøde;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,7 +27,9 @@ public class DALAppearance {
     private DALVehicle dalVehicle;
     private DALFireman dalFireman;
     private DALLogin dALLogin;
+    private ITableObserver tableObserver;
     DALALarm dalAlarm;
+
 
     private DALAppearance() throws SQLServerException, SQLException {
         m_connection = DBConnection.getInstance().getConnection();
@@ -145,7 +149,7 @@ public class DALAppearance {
                 appearance.getAlarm().setGuestConfirmed(true);
             }
             allAppearances.add(appearance);
-        }
+             }
     }
 
     /**

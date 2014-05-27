@@ -9,7 +9,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Team Kawabunga
  */
-public class TableModelUnfinishedFremmøde extends AbstractTableModel {
+public class TableModelUnfinishedFremmøde extends AbstractTableModel implements ITableObserver {
 
     /**
      * the names of the columns in the table
@@ -88,5 +88,10 @@ public class TableModelUnfinishedFremmøde extends AbstractTableModel {
 
     public BEAlarm getAlarmByRow(int row) {
         return alarms.get(row);
+    }
+
+    @Override
+    public void update() {
+        fireTableDataChanged();
     }
 }

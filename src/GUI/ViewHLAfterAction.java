@@ -29,8 +29,9 @@ public class ViewHLAfterAction extends javax.swing.JFrame {
     BLLAlarm bllAlarm;
     BELogin localLog;
     private TableModelFremmøde model;
+    private static ViewHLAfterAction m_instance = null;
 
-    public ViewHLAfterAction(BELogin log) {
+    private ViewHLAfterAction(BELogin log) {
         localLog = log;
         bllAlarm = BLLAlarm.getInstance();
         bllVehicle = BLLVehicle.getInstance();
@@ -46,6 +47,15 @@ public class ViewHLAfterAction extends javax.swing.JFrame {
         cboxAlarm.setSelectedIndex(0);
         lblCount.setText("Fremmødt: " + model.getRowCount());
     }
+
+    public static ViewHLAfterAction getInstance(BELogin log) {
+        if (m_instance == null) {
+            m_instance = new ViewHLAfterAction(log);
+        }
+//        update();
+        return m_instance;
+    }
+    
 
     public void update() {
         cboxAlarm.setSelectedIndex(0);
@@ -122,7 +132,7 @@ public class ViewHLAfterAction extends javax.swing.JFrame {
             }
         });
     }
-
+    
     private void changeTime() {
         BEAppearance appearance = null;
         if (cboxAlarm.getSelectedIndex() == 0) {

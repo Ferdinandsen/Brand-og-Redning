@@ -23,18 +23,28 @@ public class ViewILIndsats extends javax.swing.JFrame {
     BLLAppearance bllAppearance;
     private TableModelUnfinishedFremmøde model;
     BELogin localLogin;
+    private static ViewILIndsats m_instance = null;
 
-    public ViewILIndsats(BELogin log) {
+    private ViewILIndsats(BELogin log) {
         localLogin = log;
         bllAlarm = BLLAlarm.getInstance();
         bllAppearance = BLLAppearance.getInstance();
+        this.setResizable(false);
+        this.setTitle("Indsatsleder - Indsatser");
         initComponents();
         initOtherComponents();
         populateFremmødeTable();
         addCellRenderer();
-        this.setResizable(false);
-        this.setTitle("Indsatsleder - Indsatser");
         this.setLocationRelativeTo(null);
+    }
+
+    public static ViewILIndsats getInstance(BELogin log) {
+        if (m_instance == null) {
+            m_instance = new ViewILIndsats(log);
+        }
+//        bllAlarm.update();
+//        bllAppearance.update();
+        return m_instance;
     }
 
     private void addCellRenderer() {
@@ -93,7 +103,6 @@ public class ViewILIndsats extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 370));
 
         tblFremmøder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

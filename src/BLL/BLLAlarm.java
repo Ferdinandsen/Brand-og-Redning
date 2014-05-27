@@ -7,12 +7,14 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Team Kawabunga
  */
-public class BLLAlarm {
+public class BLLAlarm{
 
     private static BLLAlarm m_instance = null;
     DALALarm dalAlarm;
@@ -26,36 +28,44 @@ public class BLLAlarm {
         }
     }
 
+//    public void update() {
+//        try {
+//            dalAlarm.populateAlarm();
+//        } catch (SQLException ex) {
+//             System.out.println("fejl i dalAlarm: " + ex.getMessage());
+//        }
+//    }
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public static BLLAlarm getInstance() {
+        public static BLLAlarm getInstance() {
         if (m_instance == null) {
             m_instance = new BLLAlarm();
         }
         return m_instance;
     }
-    
-/**
- * 
- * @return 
- */
+
+    /**
+     *
+     * @return
+     */
     public ArrayList<BEAlarm> getAllAlarms() {
         return dalAlarm.getAllAlarms();
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public ArrayList<BEOdinAlarm> getAllOdinAlarms() {
         return dalAlarm.getAllOdinAlarms();
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public ArrayList<BEAlarm> getAllUnfinishedAlarms() {
         ArrayList<BEAlarm> unfinishedAlarms = new ArrayList<>();
@@ -68,8 +78,8 @@ public class BLLAlarm {
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public ArrayList<BEAlarm> getAllIkkeHLGodkendt() {
         ArrayList<BEAlarm> hlgodkendt = new ArrayList<>();
@@ -82,8 +92,8 @@ public class BLLAlarm {
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public ArrayList<BEAlarm> getAllHLGodkendtAndNotILGodkend() {
         ArrayList<BEAlarm> hlgodkendt = new ArrayList<>();
@@ -96,8 +106,8 @@ public class BLLAlarm {
     }
 
     /**
-     * 
-     * @param a 
+     *
+     * @param a
      */
     public void updateAlarm(BEAlarm a) {
         try {
@@ -108,8 +118,8 @@ public class BLLAlarm {
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     private Timestamp time() {
         Calendar calendar = Calendar.getInstance();
@@ -119,8 +129,8 @@ public class BLLAlarm {
     }
 
     /**
-     * 
-     * @param localAlarm 
+     *
+     * @param localAlarm
      */
     public void confirmAlarm(BEAlarm localAlarm) {
         Timestamp time = time();
@@ -132,10 +142,5 @@ public class BLLAlarm {
         }
     }
 
-    /**
-     * 
-     */
-    public void setGuestsOnAlarms() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-}
+
+      }
