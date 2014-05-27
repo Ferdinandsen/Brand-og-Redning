@@ -96,7 +96,7 @@ public class ViewILFremmødeliste extends JDialog {
         txtGruppeNr = new javax.swing.JTextField();
         txtDetektorNr = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tblFremmøde.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

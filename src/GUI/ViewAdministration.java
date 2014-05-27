@@ -88,7 +88,7 @@ public class ViewAdministration extends JDialog {
         btnBack = new javax.swing.JButton();
         pnlcustom = showMofoPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tblBM.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
