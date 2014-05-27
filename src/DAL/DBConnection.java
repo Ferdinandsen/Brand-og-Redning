@@ -13,7 +13,7 @@ public class DBConnection {
     private final Connection m_connection;
     private static DAL.DBConnection m_instance = null;
 
-    private static final String SERVER_NAME = "localhost";//"10.153.0.143"; //"localhost"; 
+    private static final String SERVER_NAME = "10.153.0.143";//"10.153.0.143"; //"localhost"; 
     private static final String DATABASE_INSTANCE = "SQLEXPRESS";
     private static final int PORTNO = 58828;//49197; // 58828; //1433;
     private static final String DATABASE_NAME = "Brand og Redning";

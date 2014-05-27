@@ -51,7 +51,9 @@ public class ViewAddAppearance extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
     }
-
+/**
+ * 
+ */
     private void initOtherComponents() {
 
         btnGroup.add(rbtnStVagt);
@@ -141,7 +143,11 @@ public class ViewAddAppearance extends javax.swing.JDialog {
             }
         });
     }
-
+/**
+ * Gathers all the information that the user have put in, to make an appearance
+ * Splits the date from dateChooser into hour and min
+ * Calls the addApperance in BLLAppearance
+ */
     private void addAppearance() {
         if (txtCheckUdTid.getText().length() == 5) {
             boolean hl = rbtnHoldleder.isSelected();
@@ -164,25 +170,39 @@ public class ViewAddAppearance extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Skriv venligst et check ud tidspunkt");
         }
     }
-
+/**
+ * Fills the cboxFiremen with all firemen
+ * But first it adds an item "ingen brandmand"
+ * 
+ */
     private void fillCboxFireman() {
         cboxFireman.addItem("Ingen brandmand valgt");
         for (BEFireman fireman : bllFireman.getAllfiremen()) {
             cboxFireman.addItem(fireman);
         }
     }
-
+/**
+ * Fills the cboxAlam with the alarm 
+ * That the IL have choosen to add an appaerance to
+ */
     private void fillCboxAlarm() {
         cboxAlarm.addItem(localAlarm);
     }
-
+/**
+ * Fills the cboxVehicle with all vehicles
+ * But first it adds an item "intet køretøj valgt"
+ */
     private void fillCboxVehicle() {
         cboxKøretøj.addItem("Intet køretøj valgt");
         for (BEVehicle veh : bllVehicle.getAllVehicles()) {
             cboxKøretøj.addItem(veh);
         }
     }
-
+/**
+ * Fills the cboxKørselstype, with the 2 options 
+ * 1 "udrykning"
+ * 2 "alm kørsel"
+ */
     private void fillCboxKørselstype() {
         cboxKørselstype.addItem(1);
         cboxKørselstype.addItem(2);
