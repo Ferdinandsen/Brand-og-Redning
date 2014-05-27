@@ -301,7 +301,7 @@ public class ViewAdministration extends JDialog {
     private void hentInfo() {
         if (cboxBM.getSelectedIndex() == 0) {
             BEFireman localFireman = null;
-            model.setAppearanceList(bllAppearance.getAllAppearancesWithDateCriteria(localFireman, dchoFra.getDate(), new Date(dchoTil.getDate().getTime() + DAY)));
+            model.setAppearanceList(bllAppearance.getAllAppearancesWithDateCriteria(localFireman, dchoFra.getDate(),dchoTil.getDate()));
             tblBM.setModel(model);
         } else {
             model.setAppearanceList(bllAppearance.getAllAppearancesWithDateCriteria((BEFireman) cboxBM.getSelectedItem(), dchoFra.getDate(), dchoTil.getDate()));
@@ -344,7 +344,8 @@ public class ViewAdministration extends JDialog {
             }
         }
         model.setAppearanceList(bllAppearance.getAllAppearancesWithDateCriteria(null, dchoFra.getDate(), dchoTil.getDate()));
-        tblBM.setModel(model);
+//        tblBM.setModel(model);
+//        tblBM.repaint();
     }
 
     private void setTotalTime() {

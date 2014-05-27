@@ -1,6 +1,7 @@
 package TableModels;
 
 import BE.BEAlarm;
+import BE.BEAppearance;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;

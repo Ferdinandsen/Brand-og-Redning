@@ -160,7 +160,11 @@ public class ViewHLAfterAction extends JDialog {
     private void fillCboxAlarm() {
         cboxAlarm.addItem("Ingen alarm");
         for (BEAlarm alarm : bllAlarm.getAllUnfinishedAlarms()) {
-            cboxAlarm.addItem(alarm);
+            for (BEAppearance a : bllAppearance.getAllAppearancesNotHlGodkendt()) {
+                if (a.getAlarm().equals(alarm)) {
+                    cboxAlarm.addItem(alarm);
+                }
+            }
         }
     }
 

@@ -116,9 +116,9 @@ public class BLLAppearance {
     public ArrayList<BEAppearance> getAllAppearancesWithDateCriteria(BEFireman fm, Date from, Date to) {
         ArrayList<BEAppearance> dateappearance = new ArrayList<>();
         for (BEAppearance a : getAllAppearances()) {
-            if (fm == null && a.getAlarm().getTime().after(from) && a.getAlarm().getTime().before(to) && a.isIlGodkendt() && !a.isLønDone()) {
+            if (fm == null && a.getCheckOut().before(to) && a.isIlGodkendt() && !a.isLønDone()) {
                 dateappearance.add(a);
-            } else if (a.getAlarm().getTime().after(from) && a.getAlarm().getTime().before(to) && a.getFireman().equals(fm) && a.isIlGodkendt() && !a.isLønDone()) {
+            } else if (a.getCheckOut().before(to) && a.getFireman().equals(fm) && a.isIlGodkendt() && !a.isLønDone()) {
                 dateappearance.add(a);
             }
         }
@@ -245,9 +245,9 @@ public class BLLAppearance {
      * @param st
      * @param kørselstype
      */
-    public void addAppearance(BEFireman fireman, BEAlarm alarm, BEVehicle veh, Timestamp ts, boolean hl, boolean ch, boolean st, int kørselstype) {
+    public void addAppearance(BEFireman fireman, BEAlarm alarm, BEVehicle veh, Timestamp ts, boolean hl, boolean ch, boolean st, int kørselstype, BELogin log) {
         try {
-            dalAppearance.createAppearance(fireman, calculateTotalTime(alarm.getTime(), ts), ts, alarm, veh, String.valueOf(ts.getHours() + ts.getMinutes()), hl, ch, st, (int) kørselstype);
+            dalAppearance.createAppearance(fireman, calculateTotalTime(alarm.getTime(), ts), ts, alarm, veh, String.valueOf(ts.getHours() + ts.getMinutes()), hl, ch, st, (int) kørselstype, log);
         } catch (SQLException ex) {
             System.out.println("fejl i add Appearance " + ex);
         }

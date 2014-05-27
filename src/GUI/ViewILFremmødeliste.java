@@ -497,7 +497,7 @@ public class ViewILFremmødeliste extends JDialog {
     }
 
     private void addAppearance() {
-        ViewAddAppearance frame = new ViewAddAppearance(localAlarm);
+        ViewAddAppearance frame = new ViewAddAppearance(localAlarm, localLogin);
         frame.setVisible(true);
         model.setAppearanceList(bllAppearance.getAllHlGodkendtAppearances(localAlarm));
         model.fireTableDataChanged();
