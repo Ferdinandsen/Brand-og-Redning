@@ -121,7 +121,7 @@ public class ViewHLAfterAction extends JDialog {
     private void changeTime() {
         BEAppearance appearance = null;
         if (cboxAlarm.getSelectedIndex() == 0) {
-            appearance = bllAppearance.getAllAppearances().get(tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
+            appearance = bllAppearance.getAllAppearancesNotHlGodkendt().get(tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
         } else {
             appearance = bllAppearance.getAppearancesWithSameAlarm((BEAlarm) cboxAlarm.getSelectedItem()).get(tblTider.convertRowIndexToView(tblTider.getSelectedRow()));
         }
