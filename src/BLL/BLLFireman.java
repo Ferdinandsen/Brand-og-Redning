@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author Team Kawabunga
  */
-public class BLLFireman implements IBLLType{ 
+public class BLLFireman{ 
 
     DALFireman dalFireman;
     private static BLLFireman m_instance = null;
@@ -87,9 +87,4 @@ public class BLLFireman implements IBLLType{
         }
         return fireman;
     }   
-
-    @Override
-    public void create() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-}
+   }

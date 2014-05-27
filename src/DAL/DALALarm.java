@@ -134,7 +134,7 @@ public class DALALarm {
 
             BEAlarm alarm = new BEAlarm(id, title, desc, station, tid, done, alarmType, evaNo, gruppeNo, detekterNo, hlBemærkning, ilBemærkning, ilGodkendtTid, hlGodkendtTid);
             allAlarms.add(alarm);
-                   }
+      }
     }
 
     /**

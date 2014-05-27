@@ -13,7 +13,7 @@ import java.util.Arrays;
  *
  * @author Team Kawabunga
  */
-public class BLLEmployee implements IBLLType{
+public class BLLEmployee{
 
     DALEmployee dalEmployee;
     DALLogin dalLogin;
@@ -152,10 +152,5 @@ public class BLLEmployee implements IBLLType{
         } catch (SQLException ex) {
             System.out.println("fejl i delete i bllEmployee " + ex);
         }
-    }
-
-    @Override
-    public void create() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

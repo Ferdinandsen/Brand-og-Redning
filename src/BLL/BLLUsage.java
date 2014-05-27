@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Team Kawabunga
  */
-public class BLLUsage implements IBLLType{
+public class BLLUsage{
 
     DALUsage dalusage;
     private static BLLUsage m_instance = null;
@@ -115,9 +115,4 @@ public class BLLUsage implements IBLLType{
         }
         return allUsages;
     }
-
-    @Override
-    public void create() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-}
+   }

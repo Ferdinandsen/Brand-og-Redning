@@ -108,6 +108,7 @@ public class TableModelLøn extends AbstractTableModel implements Observerble {
 
     public void setAppearanceList(ArrayList<BEAppearance> appearance) {
         this.appearances = appearance;
+        fireTableDataChanged();
         notifyObservers();
     }
 
