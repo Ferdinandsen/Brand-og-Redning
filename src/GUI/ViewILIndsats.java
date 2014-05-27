@@ -24,9 +24,8 @@ public class ViewILIndsats extends JDialog {
     BLLAppearance bllAppearance;
     private TableModelUnfinishedFremmøde model;
     BELogin localLogin;
-    private static ViewILIndsats m_instance = null;
 
-    private ViewILIndsats(BELogin log) {
+    public ViewILIndsats(BELogin log) {
         localLogin = log;
         bllAlarm = BLLAlarm.getInstance();
         bllAppearance = BLLAppearance.getInstance();
@@ -41,14 +40,6 @@ public class ViewILIndsats extends JDialog {
         this.setModal(true);
     }
 
-    public static ViewILIndsats getInstance(BELogin log) {
-        if (m_instance == null) {
-            m_instance = new ViewILIndsats(log);
-        }
-//        bllAlarm.update();
-//        bllAppearance.update();
-        return m_instance;
-    }
 
     private void addCellRenderer() {
         RenderUnfinishedAlarmsCell renderer = new RenderUnfinishedAlarmsCell();
@@ -90,8 +81,9 @@ public class ViewILIndsats extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 BEAlarm alarm = bllAlarm.getAllHLGodkendtAndNotILGodkend().get(tblFremmøder.convertRowIndexToView(tblFremmøder.getSelectedRow()));
                 ViewILFremmødeliste frame = new ViewILFremmødeliste(alarm, localLogin);
-                frame.setVisible(true);
                 dispose();
+                frame.setVisible(true);
+
             }
         });
     }

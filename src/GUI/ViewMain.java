@@ -241,7 +241,7 @@ public class ViewMain extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewILIndsats frame = ViewILIndsats.getInstance(log);
+                ViewILIndsats frame = new ViewILIndsats(log);
                 frame.setVisible(true);
             }
         });

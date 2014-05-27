@@ -50,7 +50,6 @@ public class ViewHLAfterAction extends JDialog {
         cboxAlarm.setSelectedIndex(0);
         lblCount.setText("Fremmødt: " + model.getRowCount());
     }
-    
 
     private void msgbox(String message) {
         JOptionPane.showMessageDialog(this, message);
@@ -118,7 +117,7 @@ public class ViewHLAfterAction extends JDialog {
             }
         });
     }
-    
+
     private void changeTime() {
         BEAppearance appearance = null;
         if (cboxAlarm.getSelectedIndex() == 0) {
@@ -135,9 +134,9 @@ public class ViewHLAfterAction extends JDialog {
             bllAppearance.confirmTeam(localLog, (BEAlarm) cboxAlarm.getSelectedItem(), txtComment.getText());
             msgbox("Holdet er nu bekræftet!");
             ViewHLAfterActionStory frame = new ViewHLAfterActionStory(bllAppearance.getAllHlGodkendtAppearances((BEAlarm) cboxAlarm.getSelectedItem()), (BEAlarm) cboxAlarm.getSelectedItem());
+            dispose();
             frame.setVisible(true);
             txtComment.setText(null);
-            dispose();
         } catch (Exception ex) {
             msgbox("fejl i confirmteam" + ex);
         }
