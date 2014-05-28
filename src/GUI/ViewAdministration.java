@@ -47,6 +47,7 @@ public class ViewAdministration extends JDialog {
 
     /**
      * Creates new form Administration
+     *
      * @param log gets the login from the form that opened this
      */
     public ViewAdministration(BELogin log) {
@@ -61,11 +62,11 @@ public class ViewAdministration extends JDialog {
         fillcboxBrandMand();
         populateAlarmList();
         addCellRenderer();
-        
+
         this.setModal(true);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        this.setTitle("Administration");
+        this.setTitle("Administration - Løn");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
@@ -80,14 +81,14 @@ public class ViewAdministration extends JDialog {
         tblBM = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         lstAlarm = new javax.swing.JList();
-        btnOK = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnHent = new javax.swing.JButton();
+        pnlcustom = showLabelPanel();
         btnBack = new javax.swing.JButton();
-        pnlcustom = showMofoPanel();
+        btnOK = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -112,8 +113,6 @@ public class ViewAdministration extends JDialog {
         });
         jScrollPane2.setViewportView(lstAlarm);
 
-        btnOK.setText("Gem");
-
         btnEdit.setText("Rediger");
 
         jLabel1.setText("Fra:");
@@ -124,29 +123,31 @@ public class ViewAdministration extends JDialog {
 
         btnHent.setText("Hent");
 
-        btnBack.setText("Tilbage");
-
         javax.swing.GroupLayout pnlcustomLayout = new javax.swing.GroupLayout(pnlcustom);
         pnlcustom.setLayout(pnlcustomLayout);
         pnlcustomLayout.setHorizontalGroup(
             pnlcustomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 67, Short.MAX_VALUE)
         );
         pnlcustomLayout.setVerticalGroup(
             pnlcustomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 23, Short.MAX_VALUE)
         );
 
+        btnBack.setText("Tilbage");
+
+        btnOK.setText("Gem");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(cboxBM, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(53, 53, 53)
@@ -158,17 +159,23 @@ public class ViewAdministration extends JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(dchoTil, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnHent, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel3)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btnBack)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(pnlcustom, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEdit, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                .addComponent(btnHent, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3))
+                                .addGap(601, 601, 601)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(pnlcustom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE))
+                                    .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBack)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -187,12 +194,8 @@ public class ViewAdministration extends JDialog {
                         .addComponent(jLabel1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(pnlcustom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -200,7 +203,11 @@ public class ViewAdministration extends JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnOK)
-                            .addComponent(btnBack))))
+                            .addComponent(btnBack)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(13, 13, 13))
         );
 
@@ -225,9 +232,9 @@ public class ViewAdministration extends JDialog {
     private javax.swing.JTable tblBM;
     // End of variables declaration//GEN-END:variables
 /**
- * sets the datechoosers and the btn
- * adds the listeners the the different btns and tbl.
- */
+     * sets the datechoosers and the button adds the listeners the the different
+     * buttons and tables.
+     */
     private void initOtherComponents() {
         lstAlarm.setEnabled(false);
         long firstDayOfMonth = new Date().getDate() * DAY - DAY;// the first in the current month.
@@ -286,7 +293,7 @@ public class ViewAdministration extends JDialog {
      *
      * @return the panel
      */
-    public LabelPanel showMofoPanel() {
+    public LabelPanel showLabelPanel() {
         panel = new LabelPanel();
         panel.setLayout(null);
         l = new ListenerLabel();
@@ -330,7 +337,7 @@ public class ViewAdministration extends JDialog {
     }
 
     /**
-     * filss the alarmliste, with all unfinishedalarms(do not have a timestamp
+     * fills the alarmliste, with all unfinishedalarms(do not have a timestamp
      * from IL)
      */
     private void populateAlarmList() {
@@ -365,7 +372,7 @@ public class ViewAdministration extends JDialog {
     }
 
     /**
-     * opens the selected firemans apperance, so the user can change the time
+     * opens the selected firemans appearance, so the user can change the time
      * stamps. either when no firemen is selected or when there is.
      */
     private void updateSalary() {
@@ -389,14 +396,15 @@ public class ViewAdministration extends JDialog {
     }
 
     /**
-     * sets the text on the label lisnter.
+     * sets the text on the label listener.
      */
     private void setTotalTime() {
         int amount = 0;
         for (int i = 0; i < tblBM.getRowCount(); i++) {
-            amount += (int) tblBM.getModel().getValueAt(i, 7);// 7 is the colum where time is.
+            amount += (int) tblBM.getModel().getValueAt(i, 7);// 7 is the column where time is.
         }
         l.setText("Total Tid: " + amount);
+        l.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
     }
 
     private void addCellRenderer() {
@@ -423,18 +431,19 @@ public class ViewAdministration extends JDialog {
     }
 
     /**
-     * a panel to put in, too add our listner label to
+     * a panel to put in, too add our listener label to
      */
     public class LabelPanel extends JPanel {
 
         public LabelPanel() {
-
             setPreferredSize(new Dimension(100, 40));
         }
     }
-/**
- * a label with an observer, so it changes every time u set the appearancelist on the model
- */
+
+    /**
+     * a label with an observer, so it changes every time you invoke the
+     * setAppearanceList method on the model
+     */
     public class ListenerLabel extends JLabel implements IObserver {
 
         public ListenerLabel() {

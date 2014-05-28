@@ -18,7 +18,7 @@ public class ViewAdministrationChoose extends JDialog {
         initOtherComponents();
         this.setModal(true);
         this.setLocationRelativeTo(null);
-        this.setTitle("Admin");
+        this.setTitle("Administration - Vælg kategori");
         this.setResizable(false);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }

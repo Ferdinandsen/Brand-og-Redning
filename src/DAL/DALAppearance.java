@@ -5,8 +5,6 @@ import BE.BEAppearance;
 import BE.BEFireman;
 import BE.BELogin;
 import BE.BEVehicle;
-import TableModels.ITableObserver;
-import TableModels.TableModelFremmøde;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

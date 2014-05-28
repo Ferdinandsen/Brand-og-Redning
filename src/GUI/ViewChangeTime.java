@@ -35,7 +35,7 @@ public class ViewChangeTime extends javax.swing.JDialog {
         this.setModal(true);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setTitle("Ændre tiden");
+        this.setTitle("Rediger tid");
         fillInformation();
         calculateHours();
     }
@@ -216,7 +216,7 @@ public class ViewChangeTime extends javax.swing.JDialog {
 
         btnOk.setText("OK");
 
-        btnCancel.setText("Cancel");
+        btnCancel.setText("Fortryd");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

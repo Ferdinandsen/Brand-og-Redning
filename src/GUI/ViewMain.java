@@ -73,11 +73,11 @@ public class ViewMain extends javax.swing.JFrame {
 
         lblLogIn.setText("Logget ind som:");
 
-        btnErrorReport.setText("Fejl rapport");
+        btnErrorReport.setText("Fejl Rapport");
 
         btnConfirmApp.setText("Bekræft Fremmøder");
 
-        btnIL.setText("IndsatsLeder");
+        btnIL.setText("Indsatsleder");
 
         btnSalery.setText("Administration");
 
