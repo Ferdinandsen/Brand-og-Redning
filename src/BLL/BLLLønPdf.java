@@ -72,7 +72,7 @@ public class BLLLønPdf {
             addMetaData(document);
             addTitlePage(document);
             addContent(document);
-            Paragraph p = new Paragraph("Total timer som BM: " + String.valueOf(totalTimerBM) + ", Total timer som ST: " + String.valueOf(totalTimerST) + ", Total timer som ST: " + String.valueOf(totalTimerHL));
+            Paragraph p = new Paragraph("Total timer som BM: " + String.valueOf(totalTimerBM) + ", Total timer som ST: " + String.valueOf(totalTimerST) + ", Total timer som HL: " + String.valueOf(totalTimerHL));
 
             p.setAlignment(Element.ALIGN_RIGHT);
             document.add(p);
