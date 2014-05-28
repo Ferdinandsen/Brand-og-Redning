@@ -26,14 +26,6 @@ public class BLLAlarm{
         }
     }
 
-    public void update() {
-        try {
-            dalAlarm.populateAlarm();
-        } catch (SQLException ex) {
-             System.out.println("fejl i dalAlarm: " + ex.getMessage());
-        }
-    }
-
     /**
      *
      * @return a new instance, if an instance isn't already created
