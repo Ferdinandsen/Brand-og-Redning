@@ -216,7 +216,7 @@ public class ViewChangeTime extends javax.swing.JDialog {
 
         btnOk.setText("OK");
 
-        btnCancel.setText("Cancel");
+        btnCancel.setText("Fortryd");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
