@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author AndreThy
+ * @author Team Kawabunga
  */
 public class TestBLLAppearance {
     
