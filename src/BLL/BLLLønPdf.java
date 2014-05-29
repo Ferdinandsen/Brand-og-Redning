@@ -39,7 +39,9 @@ public class BLLLønPdf {
     BLLVehicle bllVehicle;
     ArrayList<BEFireman> usedFiremen = new ArrayList<>();
     ArrayList<BEAppearance> firemanAppearances = new ArrayList<>();
-    int totalTimer = 0;
+    int totalTimerBM = 0;
+    int totalTimerHL = 0;
+    int totalTimerST = 0;
 
     public BLLLønPdf(ArrayList<BEAppearance> appearances, BELogin log, String fromDate, String toDate) throws DocumentException, FileNotFoundException, IOException {
         localAppearances = appearances;
@@ -54,7 +56,9 @@ public class BLLLønPdf {
         }
 
         for (BEFireman fireman : usedFiremen) { //loops through each unique fireman
-            totalTimer = 0;
+            totalTimerBM = 0;
+            totalTimerHL = 0;
+            totalTimerST = 0;
             firemanAppearances = new ArrayList<>();
             for (BEAppearance appearance : localAppearances) { //loops through the whole list
                 if (appearance.getFireman() == fireman) {
@@ -68,7 +72,8 @@ public class BLLLønPdf {
             addMetaData(document);
             addTitlePage(document);
             addContent(document);
-            Paragraph p = new Paragraph("Total timer: " + String.valueOf(totalTimer));
+            Paragraph p = new Paragraph("Total timer som BM: " + String.valueOf(totalTimerBM) + ", Total timer som ST: " + String.valueOf(totalTimerST) + ", Total timer som HL: " + String.valueOf(totalTimerHL));
+
             p.setAlignment(Element.ALIGN_RIGHT);
             document.add(p);
             document.close();
@@ -156,7 +161,15 @@ public class BLLLønPdf {
     private void insertDataIntoFremmødeTable(PdfPTable table, Document doc) throws DocumentException {
 
         for (BEAppearance app : firemanAppearances) {
-            totalTimer += app.getTotalTid();
+            if (app.getFireman().isHoldleder() && !app.isSTvagt()) {
+                totalTimerHL += app.getTotalTid();
+            }
+            if (!app.getFireman().isHoldleder() && !app.isSTvagt()) {
+                totalTimerBM += app.getTotalTid();
+            }
+            if(app.isSTvagt()){
+                totalTimerST += app.getTotalTid(); 
+            }
             PdfPCell c1 = new PdfPCell(new Phrase(app.getFireman().getMedarbjeder().getFornavn()));
             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(c1);
