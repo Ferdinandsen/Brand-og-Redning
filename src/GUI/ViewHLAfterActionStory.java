@@ -175,7 +175,7 @@ public class ViewHLAfterActionStory extends javax.swing.JDialog {
 
     /**
      * 
-     * @return a JPnale with a borderlayout
+     * @return a JPanel with a borderlayout
      */
     private JPanel getBorderLayout() {
         JPanel p = new JPanel();
