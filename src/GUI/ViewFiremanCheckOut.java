@@ -30,7 +30,6 @@ public class ViewFiremanCheckOut extends javax.swing.JDialog {
 
     /**
      * Creates new form CheckOutView
-     *
      * @param fireman
      */
     public ViewFiremanCheckOut(BEFireman fireman) {
@@ -59,7 +58,10 @@ public class ViewFiremanCheckOut extends javax.swing.JDialog {
 
         this.setLocationRelativeTo(null);
     }
-
+    
+    /**
+     * sets the frames settings (this)
+     */
     private void initMetaData() {
         this.setTitle("Check ud");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -189,8 +191,10 @@ public class ViewFiremanCheckOut extends javax.swing.JDialog {
     private javax.swing.JRadioButton rbtnStVagt;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * initialize listeners
+     */
     private void initOtherComponents() {
-
         rbtnChauffør.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -267,6 +271,9 @@ public class ViewFiremanCheckOut extends javax.swing.JDialog {
         });
     }
 
+    /**
+     * set component settings
+     */
     private void initComponentSettings() {
         btnReset.setBackground(Color.LIGHT_GRAY);
         btnAcknowledge.setBackground(new Color(255, 255, 102));
@@ -288,22 +295,35 @@ public class ViewFiremanCheckOut extends javax.swing.JDialog {
         }
     }
 
+    /**
+     * fills our cboxVehicle with cars
+     */
     private void fillCboxVehicle() {
         for (BEVehicle car : bllvehicle.getAllVehicles()) {
             cboxVehicle.addItem(car);
         }
     }
 
+    /**
+     * fills our cboxAlarm with alarms
+     */
     private void fillCboxAlarm() {
         for (BEAlarm alarm : bllAlarm.getAllAlarms()) {
             cboxAlarm.addItem(alarm);
         }
     }
 
+    /**
+     * 
+     * @return the selected alarm 
+     */
     private BEAlarm getAlarm() {
         return (BEAlarm) cboxAlarm.getSelectedItem();
     }
 
+    /**
+     * creates the firemans checkout time
+     */
     private void endShift() {
         BEVehicle veh = cboxVehicle.getSelectedIndex() == 0 ? null : (BEVehicle) cboxVehicle.getSelectedItem();
         boolean hl = rbtnHoldleder.isSelected();

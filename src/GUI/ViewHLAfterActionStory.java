@@ -27,7 +27,7 @@ import javax.swing.JPanel;
  */
 public class ViewHLAfterActionStory extends javax.swing.JDialog {
 
-    ArrayList<BEAppearance> allappearances;
+    ArrayList<BEAppearance> allAppearances;
     BLLAlarm bllAlarm;
     BLLAppearance bllAppearance;
     ArrayList<KørselPanel> køtj = new ArrayList<>();
@@ -35,12 +35,11 @@ public class ViewHLAfterActionStory extends javax.swing.JDialog {
 
     /**
      * Creates new form HLAfterActionStory
-     *
      * @param a
      * @param alarm
      */
     public ViewHLAfterActionStory(ArrayList<BEAppearance> a, BEAlarm alarm) {
-        allappearances = a;
+        allAppearances = a;
         localAlarm = alarm;
         bllAppearance = BLLAppearance.getInstance();
         bllAlarm = BLLAlarm.getInstance();
@@ -160,9 +159,13 @@ public class ViewHLAfterActionStory extends javax.swing.JDialog {
     private javax.swing.JTextField txtFGRP;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * 
+     * @return an arraylist of vehicles without duplicates on the given appearance list: allAppearances 
+     */
     private ArrayList<BEVehicle> getVeh() {
         ArrayList<BEVehicle> allvehicles = new ArrayList<>();
-        for (BEAppearance a : allappearances) {
+        for (BEAppearance a : allAppearances) {
             if (a.getVeh() != null && !allvehicles.contains(a.getVeh())) {
                 allvehicles.add(a.getVeh());
             }
@@ -170,6 +173,10 @@ public class ViewHLAfterActionStory extends javax.swing.JDialog {
         return allvehicles;
     }
 
+    /**
+     * 
+     * @return a JPnale with a borderlayout
+     */
     private JPanel getBorderLayout() {
         JPanel p = new JPanel();
         p.setLayout(new BorderLayout());
@@ -177,6 +184,10 @@ public class ViewHLAfterActionStory extends javax.swing.JDialog {
         return p;
     }
 
+    /**
+     * 
+     * @return a JPanel with a grouplayout
+     */
     private JPanel getGroupLayout() {
         JPanel p = new JPanel();
         GridLayout gl = new GridLayout(0, 1);
@@ -198,6 +209,9 @@ public class ViewHLAfterActionStory extends javax.swing.JDialog {
         return p;
     }
 
+    /**
+     * set component settings, and initialize components
+     */
     private void initOtherComponents() {
         btnGrpAlarm.add(rbtnNormalAlarm);
         btnGrpAlarm.add(rbtnBAlarm);
@@ -245,6 +259,9 @@ public class ViewHLAfterActionStory extends javax.swing.JDialog {
         });
     }
 
+    /**
+     * updates data, and show the next form
+     */
     private void confirm() {
         getDataToIL();
         JOptionPane.showMessageDialog(null, "Tak for bekræftigelsen");
@@ -253,6 +270,9 @@ public class ViewHLAfterActionStory extends javax.swing.JDialog {
         frame.setVisible(true);
     }
 
+    /**
+     * updates the data
+     */
     private void getDataToIL() {
         String alarmtype = "Normal Alarm";
         int gruppeNo;
@@ -277,7 +297,7 @@ public class ViewHLAfterActionStory extends javax.swing.JDialog {
         localAlarm.setDetekterNo(detekNo);
         bllAlarm.updateAlarm(localAlarm);
         for (KørselPanel kør : køtj) {
-            for (BEAppearance a : allappearances) {
+            for (BEAppearance a : allAppearances) {
                 if (a.getVeh() != null && a.getVeh().getOdinnummer() == kør.name) {
                     bllAppearance.updateKørselType(a, kør.getselected());
 
@@ -286,6 +306,9 @@ public class ViewHLAfterActionStory extends javax.swing.JDialog {
         }
     }
 
+    /**
+     * our innerclass representing the combobox/comboboxes with vehicles in it
+     */
     private class KørselPanel extends JPanel {
 
         int name = 0;
@@ -310,14 +333,26 @@ public class ViewHLAfterActionStory extends javax.swing.JDialog {
             combo.setSelectedIndex(0);
         }
 
+        /**
+         * 
+         * @return an int representing the selected item
+         */
         public int getselected() {
             return combo.getSelectedItem().equals("Ikke i brug") ? 3 : (int) combo.getSelectedItem();
         }
 
+        /**
+         * 
+         * @return a JLabel
+         */
         public JLabel getLBL() {
             return lbl;
         }
 
+        /**
+         * 
+         * @return a JCombobox
+         */
         public JComboBox getCombo() {
             return combo;
         }

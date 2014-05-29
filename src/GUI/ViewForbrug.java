@@ -28,6 +28,9 @@ public class ViewForbrug extends JDialog {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
+    /**
+     * fills our list with materials
+     */
     private void fillList() {
         model.clear();
         for (BEMateriel mat : bllUsage.getAllMats()) {
@@ -35,6 +38,9 @@ public class ViewForbrug extends JDialog {
         }
     }
 
+    /**
+     * set component settings, and initialize listeners
+     */
     private void initOtherComponents() {
         btnRemove.setEnabled(false);
         lstMats.addListSelectionListener(new ListSelectionListener() {
@@ -61,6 +67,9 @@ public class ViewForbrug extends JDialog {
         });
     }
 
+    /**
+     * creates the new material written in the textfield
+     */
     private void create() {
         if (txtMat.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Udfyld venligst al information!");
@@ -71,6 +80,9 @@ public class ViewForbrug extends JDialog {
         }
     }
 
+    /**
+     * deletes the selected material
+     */
     private void delete() {
         BEMateriel mat = (BEMateriel) lstMats.getSelectedValue();
         bllUsage.deleteMaterial(mat);

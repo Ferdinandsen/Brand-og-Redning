@@ -40,7 +40,9 @@ public class ViewILIndsats extends JDialog {
         this.setModal(true);
     }
 
-
+/**
+ * adds a cell renderer to our table
+ */
     private void addCellRenderer() {
         RenderUnfinishedAlarmsCell renderer = new RenderUnfinishedAlarmsCell();
         for (int col = 0; col < model.getColumnCount(); col++) {
@@ -49,13 +51,19 @@ public class ViewILIndsats extends JDialog {
             tc.setCellRenderer(renderer);
         }
     }
-
+    
+    /**
+     * fills our table with alarms
+     */
     private void populateFremmødeTable() {
         model = new TableModelUnfinishedFremmøde(bllAlarm.getAllHLGodkendtAndNotILGodkend());
         tblFremmøder.setModel(model);
         model.fireTableDataChanged();
     }
-
+    
+/**
+ * set component settings, and initialize listeners
+ */
     private void initOtherComponents() {
         btnHent.setEnabled(false);
 

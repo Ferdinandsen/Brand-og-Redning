@@ -189,6 +189,9 @@ public class ViewHLErrorReport extends JDialog {
     private javax.swing.JTextField txtWash;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * fills our combobox with vehicles
+     */
     private void fillCboxKøretøj() {
         for (BEVehicle veh : bllVehicle.getAllVehicles()) {
             cboxKøretøj.addItem(veh);
@@ -196,6 +199,9 @@ public class ViewHLErrorReport extends JDialog {
         cboxKøretøj.setSelectedIndex(-1);
     }
 
+    /**
+     * set component settings, and initialize listeners
+     */
     private void initOtherComponents() {
         lblHeader.setText("Fejl og mangler");
         btnAcknowledge.setEnabled(true);
@@ -207,6 +213,9 @@ public class ViewHLErrorReport extends JDialog {
         });
     }
 
+    /**
+     * creates the error report
+     */
     private void confirm() {
         if (!txtError.getText().isEmpty() && cboxKøretøj.getSelectedIndex() != -1 && !txtMadeBy.getText().isEmpty()) {
             bllreport.createErrorReport(errorAsBE(), (BEVehicle) cboxKøretøj.getSelectedItem());
@@ -217,10 +226,19 @@ public class ViewHLErrorReport extends JDialog {
         }
     }
 
+    /**
+     * 
+     * @param message 
+     * a message dialog, showing the parameter
+     */
     private void msgbox(String message) {
         JOptionPane.showMessageDialog(this, message);
     }
 
+    /**
+     * 
+     * @return the business entity BEError
+     */
     private BEError errorAsBE() {
         String error = txtError.getText();
         String course = txtCourse.getText();

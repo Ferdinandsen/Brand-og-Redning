@@ -76,6 +76,9 @@ public class ViewHLUsageReport extends javax.swing.JDialog {
         fillInfo();
     }
 
+    /**
+     * fills in all info in our panels
+     */
     private void fillInfo() {
         for (ForbrugPanel test : forbrug) {
             for (BEUsage usage : localAllUsages) {
@@ -85,7 +88,11 @@ public class ViewHLUsageReport extends javax.swing.JDialog {
             }
         }
     }
-
+    
+/**
+ * 
+ * @return a JPanel with a borderlayout
+ */
     private JPanel getBorderLayout() {
         JPanel p = new JPanel();
         p.setLayout(new BorderLayout());
@@ -94,6 +101,10 @@ public class ViewHLUsageReport extends javax.swing.JDialog {
         return p;
     }
 
+    /**
+     * 
+     * @return a JPanel with a gridlayout 
+     */
     private JPanel getGridLayout() {
         JPanel p = new JPanel();
         GridLayout gl = new GridLayout();
@@ -102,6 +113,10 @@ public class ViewHLUsageReport extends javax.swing.JDialog {
         return p;
     }
 
+    /**
+     * 
+     * @return a JPanel with flowLayout
+     */
     private JPanel getFlowLayoutSouth() {
         JPanel p = new JPanel();
         FlowLayout fl = new FlowLayout();
@@ -130,7 +145,10 @@ public class ViewHLUsageReport extends javax.swing.JDialog {
         return p;
     }
    
-
+/**
+ * 
+ * @return a JPanel with the grouplayout
+ */
     private JPanel getGroupLayout() {
         allMats = bllusage.getAllMats();
         int modsize = allMats.size() % 2;
@@ -203,6 +221,9 @@ public class ViewHLUsageReport extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * inner class representing each label and textbox (forbrugpanel)
+     */
     private class ForbrugPanel extends JPanel {
 
         String name;
@@ -237,19 +258,36 @@ public class ViewHLUsageReport extends javax.swing.JDialog {
                 }
             });
         }
-
+        
+        /**
+         * 
+         * @return the textfield
+         */
         public JTextField getTF() {
             return tf;
         }
 
+        /**
+         * 
+         * @param text 
+         * set the textfields text to the parameter
+         */
         public void setText(String text) {
             tf.setText(text);
         }
 
+        /**
+         * 
+         * @return the label
+         */
         public JLabel getLBL() {
             return lbl;
         }
 
+        /**
+         * 
+         * @return the amount written in the textfield
+         */
         public int getAmount() {
             return !tf.getText().equals("") ? Integer.parseInt(tf.getText()) : 0;
         }

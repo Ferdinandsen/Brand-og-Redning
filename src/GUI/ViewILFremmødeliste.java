@@ -53,7 +53,9 @@ public class ViewILFremmødeliste extends JDialog {
         populateFremmødeTable();
         addCellRenderer();
     }
-
+/**
+ * adds a cell renderer to our table
+ */
     private void addCellRenderer() {
 
         RenderILFremmødeTableCell renderer = new RenderILFremmødeTableCell(bllAppearance.getAllHlGodkendtAppearances(localAlarm));
@@ -301,6 +303,9 @@ public class ViewILFremmødeliste extends JDialog {
     private javax.swing.JTextArea txtHlKommentar;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * set component settings, and initialize listeners
+     */
     private void initOtherComponents() {
         txtAlarmTid.setEditable(false);
         btnDelete.setEnabled(false);
@@ -428,6 +433,10 @@ public class ViewILFremmødeliste extends JDialog {
             }
         });
     }
+    
+    /**
+     * if 'isInformationValid' is true, it will confirm the appearances on the alarm
+     */
 
     private void confirmTeam() {
         if (isInformationValid()) {
@@ -460,6 +469,9 @@ public class ViewILFremmødeliste extends JDialog {
         }
     }
 
+    /**
+     * opens a new frame, with the usage for the localAlarm
+     */
     private void openUsage() {
         ArrayList<BEUsage> localUsages = new ArrayList<>();
         for (BEUsage usage : bllUsage.getAllUsages()) {
@@ -473,25 +485,36 @@ public class ViewILFremmødeliste extends JDialog {
         btnUsage.setForeground(Color.GREEN);
     }
 
+    /**
+     * goes back to the previous frame
+     */
     private void cancel() {
         ViewILIndsats frame = new ViewILIndsats(localLogin);
         dispose();
         frame.setVisible(true);
 
     }
-
+/**
+ * deletes the selected appearance
+ */
     private void deleteAppearance() {
         bllAppearance.deleteAppearance(bllAppearance.getAllHlGodkendtAppearances(localAlarm).get(tblFremmøde.convertRowIndexToView(tblFremmøde.getSelectedRow())));
         model.setAppearanceList(bllAppearance.getAllHlGodkendtAppearances(localAlarm));
         model.fireTableDataChanged();
     }
 
+    /**
+     * opens the update frame with the selected appearance
+     */
     private void updateAppearance() {
         ViewChangeTime frame = new ViewChangeTime(bllAppearance.getAllHlGodkendtAppearances(localAlarm).get(tblFremmøde.convertRowIndexToView(tblFremmøde.getSelectedRow())));
         frame.setVisible(true);
         model.fireTableDataChanged();
     }
 
+    /**
+     * open the add appearance frame, and refresh the table, so the added appearance will be listed
+     */
     private void addAppearance() {
         ViewAddAppearance frame = new ViewAddAppearance(localAlarm, localLogin);
         frame.setVisible(true);
@@ -499,12 +522,18 @@ public class ViewILFremmødeliste extends JDialog {
         model.fireTableDataChanged();
     }
 
+    /**
+     * fills our table with appearances
+     */
     private void populateFremmødeTable() {
         model = new TableModelILFremmøde(bllAppearance.getAllHlGodkendtAppearances(localAlarm));
         tblFremmøde.setModel(model);
         model.fireTableDataChanged();
     }
 
+    /**
+     * sets our components with the information from the localAlarm(the alarm from the previous form)
+     */
     private void getInfo() {
         cboxAlarmType.addItem("Normal Alarm");
         cboxAlarmType.addItem("Falsk Alarm");
@@ -517,6 +546,10 @@ public class ViewILFremmødeliste extends JDialog {
         txtBeskrivelse.setText(localAlarm.getDesc());
     }
 
+    /**
+     * 
+     * @return  true if the necessary information is entered
+     */
     private boolean isInformationValid() {
         if (txtEvaNo.getText().isEmpty() && usageConfirmed) {
             JOptionPane.showMessageDialog(this, "Indtast venligst EVA nr.");
@@ -528,6 +561,9 @@ public class ViewILFremmødeliste extends JDialog {
         return !txtEvaNo.getText().isEmpty() && usageConfirmed;
     }
 
+    /**
+     * creates a new PDF
+     */
     private void createPDF() {
         new BLLOdinPdf(localAlarm, localLogin);
         JOptionPane.showMessageDialog(this, "PDF'en er nu lavet på skrivebordet!");

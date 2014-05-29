@@ -171,6 +171,7 @@ public class ViewAddAppearance extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Skriv venligst et check ud tidspunkt");
         }
     }
+    
 /**
  * Fills the cboxFiremen with all firemen
  * But first it adds an item "ingen brandmand"

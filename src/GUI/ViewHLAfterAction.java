@@ -51,10 +51,9 @@ public class ViewHLAfterAction extends JDialog {
         lblCount.setText("Fremmødt: " + model.getRowCount());
     }
 
-    private void updateTable() {
-        model.fireTableDataChanged();
-    }
-
+    /**
+     * set component settings, and initialize listeners
+     */
     private void initOtherComponents() {
         btnChangeTime.setEnabled(false);
         txtFremmøde.setEditable(false);
@@ -71,7 +70,7 @@ public class ViewHLAfterAction extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 changeTime();
-                updateTable();
+                model.fireTableDataChanged();
             }
         });
 
@@ -98,8 +97,7 @@ public class ViewHLAfterAction extends JDialog {
                     lblCount.setText("Fremmødt: " + model.getRowCount());
                 }
             }
-        }
-        );
+        });
 
         btnBekæft.addActionListener(new ActionListener() {
             @Override
@@ -113,6 +111,9 @@ public class ViewHLAfterAction extends JDialog {
         });
     }
 
+    /**
+     * gets the selected appearance, and opens the "ViewChangeTime" form
+     */
     private void changeTime() {
         BEAppearance appearance = null;
         if (cboxAlarm.getSelectedIndex() == 0) {
@@ -124,6 +125,9 @@ public class ViewHLAfterAction extends JDialog {
         frame.setVisible(true);
     }
 
+    /**
+     * confirms the team
+     */
     private void confirmTeam() {
         try {
             bllAppearance.confirmTeam(localLog, (BEAlarm) cboxAlarm.getSelectedItem(), txtComment.getText());
@@ -137,12 +141,18 @@ public class ViewHLAfterAction extends JDialog {
         }
     }
 
+    /**
+     * fill our table with appearances
+     */
     private void populateFremmødeTable() {
         model = new TableModelFremmøde(bllAppearance.getAllAppearancesNotHlGodkendt());
         tblTider.setModel(model);
         model.fireTableDataChanged();
     }
 
+    /**
+     * adds a cell renderer to our table
+     */
     private void addCellRenderer() {
         RenderFremmødeTableCell renderer = new RenderFremmødeTableCell();
         for (int col = 0; col < model.getColumnCount(); col++) {
@@ -152,6 +162,9 @@ public class ViewHLAfterAction extends JDialog {
         }
     }
 
+    /**
+     * fills our combobox with alarm that isn't done, and alarms that are not HLGodkendt
+     */
     private void fillCboxAlarm() {
         cboxAlarm.addItem("Ingen alarm");
         for (BEAlarm alarm : bllAlarm.getAllUnfinishedAlarms()) {
@@ -162,7 +175,12 @@ public class ViewHLAfterAction extends JDialog {
             }
         }
     }
-
+    
+/**
+ * 
+ * @param message 
+ * a messagedialog, with the parameter as message
+ */
     private void msgbox(String message) {
         JOptionPane.showMessageDialog(this, message);
     }

@@ -49,15 +49,26 @@ public class ViewCheckOut extends javax.swing.JFrame {
         this.add(main);
     }
 
+    /**
+     *
+     * @return a JPanel with a borderlayout
+     */
     private JPanel getBorderLayout() {
         JPanel p = new JPanel();
         BorderLayout blayout = new BorderLayout();
         p.setLayout(blayout);
-        p.add(getPanelLayout(), BorderLayout.CENTER);
+        p.add(getFlowLayout(), BorderLayout.CENTER);
         return p;
     }
 
-    private JPanel getPanelLayout() {
+    /**
+     *
+     * @return a JPanel with a flowlayout
+     * loops through all the teams -->
+     * creates a panel, where the teams are to be contained -->
+     * creates a panel, where all the firemen are to be contained with their portrait and names
+     */
+    private JPanel getFlowLayout() {
         int amount = 1;
         allFiremen = bllFireman.getAllfiremen();
         FlowLayout flayout = new FlowLayout();
@@ -128,6 +139,11 @@ public class ViewCheckOut extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
+    /**
+     *
+     * @param i
+     * @return the color for the parameter (team number)
+     */
     private Color getColorTeam(int i) {
         Color myColor = Color.red;
         switch (i) {
@@ -147,6 +163,9 @@ public class ViewCheckOut extends javax.swing.JFrame {
         return myColor;
     }
 
+    /**
+     * our innerclass, representing each button with the portrait and fireman name
+     */
     private class firemanButton extends JButton {
 
         String name;
@@ -159,6 +178,10 @@ public class ViewCheckOut extends javax.swing.JFrame {
             this.setText(name);
         }
 
+        /**
+         *
+         * @return the color of the fireman teamnumber
+         */
         private Color getColor() {
             Color myColor = new Color(255, 255, 102);
             switch (localFireman.getTeam()) {
@@ -175,9 +198,5 @@ public class ViewCheckOut extends javax.swing.JFrame {
             return myColor;
         }
 
-        public void updateLocalFireman(BEFireman lfm) {
-            localFireman = lfm;
-            this.setBackground(getColor());
-        }
     }
 }

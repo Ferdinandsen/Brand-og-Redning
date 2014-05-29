@@ -34,6 +34,9 @@ public class ViewFiremen extends JDialog {
         this.setTitle("Administration - Medarbejder");
     }
 
+    /**
+     * set component settings, and initialize listeners
+     */
     private void initOtherComponents() {
         chckboxCH.setEnabled(false);
         chckboxHL.setEnabled(false);
@@ -94,6 +97,9 @@ public class ViewFiremen extends JDialog {
         });
     }
 
+    /**
+     * clear all the component
+     */
     private void clearInfo() {
         txtTeam.setText("");
         txtTeam.setEnabled(false);
@@ -113,6 +119,11 @@ public class ViewFiremen extends JDialog {
         lblImage.setIcon(new ImageIcon(((new ImageIcon("images/blank.jpg")).getImage()).getScaledInstance(110, 100, java.awt.Image.SCALE_SMOOTH)));
     }
 
+    /**
+     * 
+     * @param emp 
+     * fills all components with the parameter information
+     */
     private void fillInfo(BEEmployee emp) {
         txtFornavn.setText(emp.getFornavn());
         txtMellemnavn.setText(emp.getMellemnavn());
@@ -130,6 +141,9 @@ public class ViewFiremen extends JDialog {
 
     }
 
+    /**
+     * gets the written information, and sends the information to the BLL method
+     */
     private void addEmployee() {
         int gadenummer = !txtGadenummer.getText().isEmpty() ? Integer.parseInt(txtGadenummer.getText()) : 0;
         int etage = !txtEtage.getText().isEmpty() ? Integer.parseInt(txtEtage.getText()) : 0;
@@ -144,7 +158,10 @@ public class ViewFiremen extends JDialog {
             fillList();
         }
     }
-
+    
+    /**
+     * removes the selected employee
+     */
     private void removeEmployee() {
         BEEmployee emp = (BEEmployee) lstEmployees.getSelectedValue();
         if (emp.isFriviligBrandmand()) {
@@ -155,6 +172,9 @@ public class ViewFiremen extends JDialog {
         JOptionPane.showMessageDialog(this, "Medarbejderen er nu slettet!");
     }
 
+    /**
+     * clears the list, and fills it with employees
+     */
     private void fillList() {
         model.clear();
         model.addElement("Ingen brandmand valgt");
