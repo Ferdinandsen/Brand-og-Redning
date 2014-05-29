@@ -45,16 +45,17 @@ public class ViewAddAppearance extends javax.swing.JDialog {
         fillCboxAlarm();
         fillCboxVehicle();
         fillCboxKørselstype();
-        
+
         this.setResizable(false);
         this.setTitle("Tilføj brandmand");
         this.setModal(true);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
     }
-/**
- * 
- */
+
+    /**
+     *
+     */
     private void initOtherComponents() {
 
         btnGroup.add(rbtnStVagt);
@@ -144,11 +145,12 @@ public class ViewAddAppearance extends javax.swing.JDialog {
             }
         });
     }
-/**
- * Gathers all the information that the user have put in, to make an appearance
- * Splits the date from dateChooser into hour and min
- * Calls the addApperance in BLLAppearance
- */
+
+    /**
+     * Gathers all the information that the user have put in, to make an
+     * appearance Splits the date from dateChooser into hour and min Calls the
+     * addApperance in BLLAppearance
+     */
     private void addAppearance() {
         if (txtCheckUdTid.getText().length() == 5) {
             boolean hl = rbtnHoldleder.isSelected();
@@ -164,46 +166,49 @@ public class ViewAddAppearance extends javax.swing.JDialog {
             int hour = Integer.parseInt(test[0]);
             int min = Integer.parseInt(test[1]);
             Timestamp thistime = new Timestamp(date.getYear(), date.getMonth(), date.getDate(), hour, min, 0, 0);
-            bllAppearance.addAppearance((BEFireman) cboxFireman.getSelectedItem(), (BEAlarm) cboxAlarm.getSelectedItem(), veh, thistime, hl, ch, st, (int) cboxKørselstype.getSelectedItem(),localLog);
+            bllAppearance.addAppearance((BEFireman) cboxFireman.getSelectedItem(), (BEAlarm) cboxAlarm.getSelectedItem(), veh, thistime, hl, ch, st, (int) cboxKørselstype.getSelectedItem(), localLog);
             JOptionPane.showMessageDialog(this, cboxFireman.getSelectedItem() + " er nu tilføjet til listen!");
             dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Skriv venligst et check ud tidspunkt");
         }
     }
-/**
- * Fills the cboxFiremen with all firemen
- * But first it adds an item "ingen brandmand"
- * 
- */
+
+    /**
+     * Fills the cboxFiremen with all firemen But first it adds an item "ingen
+     * brandmand"
+     *
+     */
     private void fillCboxFireman() {
         cboxFireman.addItem("Ingen brandmand valgt");
         for (BEFireman fireman : bllFireman.getAllfiremen()) {
             cboxFireman.addItem(fireman);
         }
     }
-/**
- * Fills the cboxAlam with the alarm 
- * That the IL have choosen to add an appaerance to
- */
+
+    /**
+     * Fills the cboxAlam with the alarm That the IL have choosen to add an
+     * appaerance to
+     */
     private void fillCboxAlarm() {
         cboxAlarm.addItem(localAlarm);
     }
-/**
- * Fills the cboxVehicle with all vehicles
- * But first it adds an item "intet køretøj valgt"
- */
+
+    /**
+     * Fills the cboxVehicle with all vehicles But first it adds an item "intet
+     * køretøj valgt"
+     */
     private void fillCboxVehicle() {
         cboxKøretøj.addItem("Intet køretøj valgt");
         for (BEVehicle veh : bllVehicle.getAllVehicles()) {
             cboxKøretøj.addItem(veh);
         }
     }
-/**
- * Fills the cboxKørselstype, with the 2 options 
- * 1 "udrykning"
- * 2 "alm kørsel"
- */
+
+    /**
+     * Fills the cboxKørselstype, with the 2 options 1 "udrykning" 2 "alm
+     * kørsel"
+     */
     private void fillCboxKørselstype() {
         cboxKørselstype.addItem(1);
         cboxKørselstype.addItem(2);
