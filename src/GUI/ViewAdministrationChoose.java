@@ -8,10 +8,12 @@ import javax.swing.JDialog;
 public class ViewAdministrationChoose extends JDialog {
 
     BELogin localLog;
-/**
- * creates new form ViewAdministrationsChoose
- * @param log gets the login from the form that opened this. 
- */
+
+    /**
+     * creates new form ViewAdministrationsChoose
+     *
+     * @param log gets the login from the form that opened this.
+     */
     public ViewAdministrationChoose(BELogin log) {
         localLog = log;
         initComponents();
@@ -22,9 +24,10 @@ public class ViewAdministrationChoose extends JDialog {
         this.setResizable(false);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
-/**
- * adds the listners to the different btns
- */
+
+    /**
+     * adds the listeners to the different buttons
+     */
     private void initOtherComponents() {
         btnSalary.addActionListener(new ActionListener() {
             @Override

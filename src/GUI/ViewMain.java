@@ -73,7 +73,7 @@ public class ViewMain extends javax.swing.JFrame {
 
         btnErrorReport.setText("Fejl Rapport");
 
-        btnConfirmApp.setText("Bekræft Fremmøder");
+        btnConfirmApp.setText("Holdleder");
 
         btnIL.setText("Indsatsleder");
 
@@ -211,7 +211,7 @@ public class ViewMain extends javax.swing.JFrame {
         btnConfirmApp.setEnabled(false);
         btnIL.setEnabled(false);
         btnSalery.setEnabled(false);
-        btnConfirmApp.setText("Bekræft fremmøder");
+        btnConfirmApp.setText("Holdleder");
 
         btnSalery.addActionListener(new ActionListener() {
 

@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 /**
- * REFACTOR TIL ARVECLASS?????
+ *
  *
  * @author Team Kawabunga
  */
@@ -24,11 +24,10 @@ public class ViewChangeTime extends javax.swing.JDialog {
     BEAppearance localAppearance;
 
     public ViewChangeTime(BEAppearance appearance) {
-       
-        
+
         localAppearance = appearance;
         bllAppearance = BLLAppearance.getInstance();
-        
+
         initComponents();
         initOtherComponents();
 
@@ -40,6 +39,9 @@ public class ViewChangeTime extends javax.swing.JDialog {
         calculateHours();
     }
 
+    /**
+     * fills in the information from localappearance.
+     */
     private void fillInformation() {
         txtFornavn.setText(localAppearance.getFireman().getMedarbjeder().getFornavn());
         txtEfternavn.setText(localAppearance.getFireman().getMedarbjeder().getEfternavn());
@@ -49,6 +51,9 @@ public class ViewChangeTime extends javax.swing.JDialog {
         dateCheckUd.setDate(new Date(localAppearance.getCheckOut().getTime()));
     }
 
+    /**
+     * add listeners to buttons and textfields
+     */
     private void initOtherComponents() {
         txtFornavn.setEditable(false);
         txtEfternavn.setEditable(false);
@@ -155,22 +160,41 @@ public class ViewChangeTime extends javax.swing.JDialog {
         });
     }
 
+    /**
+     * updates/sets the text on the lblTotal Label
+     */
     private void calculateHours() {
         lblTotal.setText(String.valueOf(bllAppearance.calculateTotalTime(getcheckInTime(), getcheckOutTime())));
     }
 
+    /**
+     * Retrieves the user input time from txtCheckin and splits it in to hour
+     * and min.
+     *
+     * @returns the new Timestamp
+     */
     private Timestamp getcheckInTime() {
         String[] checkInHour = txtCheckIn.getText().split(":");
         Timestamp checkInHourTs = new Timestamp(dateCheckIn.getDate().getYear(), dateCheckIn.getDate().getMonth(), dateCheckIn.getDate().getDate(), Integer.parseInt(checkInHour[0]), Integer.parseInt(checkInHour[1]), 0, 0);
         return checkInHourTs;
     }
 
+    /**
+     * Retrieves the user input from txtcheckUd and splits it into hour and min.
+     *
+     * @returns the new Timestamp
+     */
     private Timestamp getcheckOutTime() {
         String[] checkOutHour = txtCheckUd.getText().split(":");
         Timestamp checkOutHourTs = new Timestamp(dateCheckUd.getDate().getYear(), dateCheckUd.getDate().getMonth(), dateCheckUd.getDate().getDate(), Integer.parseInt(checkOutHour[0]), Integer.parseInt(checkOutHour[1]), 0, 0);
         return checkOutHourTs;
     }
 
+    /**
+     * Gathers the information from changeFunction , newCheckIn, newCheckOut and
+     * puts it on localappearance to be sent to BllAppearance.updateAppearance.
+     *
+     */
     private void confirm() {
         Timestamp newCheckInTime = getcheckInTime();
         Timestamp newCheckOutTime = getcheckOutTime();

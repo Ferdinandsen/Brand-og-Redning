@@ -14,9 +14,10 @@ public class ViewCar extends JDialog {
 
     BLLVehicle bllVehicle;
     DefaultListModel model = new DefaultListModel();
-/**
- * creates the form for ViewCar
- */
+
+    /**
+     * creates the form for ViewCar
+     */
     public ViewCar() {
         bllVehicle = BLLVehicle.getInstance();
 
@@ -24,25 +25,27 @@ public class ViewCar extends JDialog {
         initOtherComponents();
         fillList();
         lstVehicles.setModel(model);
-        
+
         this.setModal(true);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
         this.setTitle("Administration - Køretøjer");
         this.setLocationRelativeTo(null);
     }
-/**
- * fills the lsit with all the Vehicles
- */
+
+    /**
+     * fills the list with all the Vehicles
+     */
     private void fillList() {
         model.clear();
         for (BEVehicle veh : bllVehicle.getAllVehicles()) {
             model.addElement(veh);
         }
     }
-/**
- * adds the listeners to the lst and btns
- */
+
+    /**
+     * adds the listeners to the list and buttons
+     */
     private void initOtherComponents() {
         btnRemove.setEnabled(false);
 
@@ -82,18 +85,22 @@ public class ViewCar extends JDialog {
             }
         });
     }
-/**
- * removes the selected car from the model, and goes to BLLVehicle.deleteVehicle with the Vehicle
- */
+
+    /**
+     * removes the selected car from the model, and goes to
+     * BLLVehicle.deleteVehicle with the Vehicle
+     */
     private void deleteCar() {
         BEVehicle veh = (BEVehicle) lstVehicles.getSelectedValue();
         bllVehicle.deleteVehicle(veh);
         model.removeElement(veh);
         JOptionPane.showMessageDialog(this, "Bilen er nu slettet!");
     }
-/**
- * goes to BLLVEhicle with the information that have been filed and runs the fillList. 4wea,200000000000000000000000000
- */
+
+    /**
+     * goes to BLLVEhicle with the information that have been filed and runs the
+     * fillList.
+     */
     private void createCar() {
         if (txtBeskrivelse.getText().isEmpty() && txtBilnr.getText().isEmpty() && txtModel.getText().isEmpty() && txtMærke.getText().isEmpty() && txtNummerplade.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Udfyld venligst al information!");

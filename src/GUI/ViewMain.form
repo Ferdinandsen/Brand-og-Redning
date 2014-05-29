@@ -136,7 +136,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnConfirmApp">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Bekr&#xe6;ft Fremm&#xf8;der"/>
+        <Property name="text" type="java.lang.String" value="Holdleder"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnIL">
