@@ -12,7 +12,8 @@ public class BEVehicle {
     private String model;
     private String description;
 
-    public BEVehicle(int odin, String reg, String mark, String mod, String desc) {
+    public BEVehicle(int odin, String reg, String mark, 
+            String mod, String desc) {
         odinnummer = odin;
         licensplate = reg;
         this.mark = mark;
