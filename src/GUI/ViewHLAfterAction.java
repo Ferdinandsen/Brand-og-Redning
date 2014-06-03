@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -163,24 +164,28 @@ public class ViewHLAfterAction extends JDialog {
     }
 
     /**
-     * fills our combobox with alarm that isn't done, and alarms that are not HLGodkendt
+     * fills our combobox with alarm that isn't done, and alarms that are not
+     * HLGodkendt
      */
     private void fillCboxAlarm() {
+        ArrayList<BEAlarm> test = new ArrayList<>();
         cboxAlarm.addItem("Ingen alarm");
         for (BEAlarm alarm : bllAlarm.getAllUnfinishedAlarms()) {
             for (BEAppearance a : bllAppearance.getAllAppearancesNotHlGodkendt()) {
-                if (a.getAlarm().equals(alarm)) {
-                    cboxAlarm.addItem(alarm);
+                if (a.getAlarm().equals(alarm) && !test.contains(alarm)) {
+                    test.add(alarm);
                 }
             }
         }
+        for (BEAlarm alarm : test) {
+            cboxAlarm.addItem(alarm);
+        }
     }
-    
-/**
- * 
- * @param message 
- * a messagedialog, with the parameter as message
- */
+
+    /**
+     *
+     * @param message a messagedialog, with the parameter as message
+     */
     private void msgbox(String message) {
         JOptionPane.showMessageDialog(this, message);
     }
