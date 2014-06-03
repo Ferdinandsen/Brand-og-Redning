@@ -305,11 +305,10 @@ public class ViewAdministration extends JDialog {
     }
 
     /**
-     *
-     * @return !#!#!#!#!#!#!#!#!#!#1#!#!#!#!"#!#@throws HeadlessException wtf is
-     * this shit "!!!"!"#!#!#!#!#!¤!¤!¤!"¤!"¤
+     * sends app tp bllappearance to make endSalary
+     * @returns app 
      */
-    private ArrayList<BEAppearance> confirm() throws HeadlessException {
+    private ArrayList<BEAppearance> confirm() {
         ArrayList<BEAppearance> app = new ArrayList<>();
         TableModelLøn løn = (TableModelLøn) tblBM.getModel();
         for (int i = 0; i < tblBM.getRowCount(); i++) {
@@ -321,8 +320,8 @@ public class ViewAdministration extends JDialog {
     }
 
     /**
-     * ???? skal den her ikk kun repainte eller noget
-     * ??????????????????????????????????????????????????????????? sets the
+     * 
+     * 
      * model for the table with an arraylist
      */
     private void hentInfo() {
