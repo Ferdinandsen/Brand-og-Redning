@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  *
  * @author Team Kawabunga
  */
-public class BEAlarm extends IBESubject{
+public class BEAlarm {
 
     private int id;
     private String title;

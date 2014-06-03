@@ -1,7 +1,6 @@
 package TableModels;
 
 import BE.BEAppearance;
-import BE.IBESubject;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 

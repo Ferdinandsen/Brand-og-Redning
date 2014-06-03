@@ -2,7 +2,6 @@ package DAL;
 
 import BE.BEAlarm;
 import BE.BEOdinAlarm;
-import BE.IBESubject;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.io.InputStream;

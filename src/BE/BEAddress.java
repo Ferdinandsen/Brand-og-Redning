@@ -4,7 +4,7 @@ package BE;
  *
  * @author Team Kawabunga
  */
-public class BEAddress extends IBESubject{
+public class BEAddress {
 
     private int ID;
     private String streetName;
