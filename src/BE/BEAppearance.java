@@ -26,9 +26,11 @@ public class BEAppearance extends IBESubject{
     private Timestamp lønTime;
     
 
-    public BEAppearance(int id, BEFireman fireman, Timestamp checkIn, Timestamp checkOut, int totaltid, 
-            boolean hlGodkendt, boolean ilGodkendt, boolean holdleder, boolean chauffør, boolean STvagt, 
-            int type, BEAlarm alarm, BEVehicle veh, BELogin login, boolean lønDone, Timestamp lønTime) {
+    public BEAppearance(int id, BEFireman fireman, Timestamp checkIn,
+            Timestamp checkOut, int totaltid, boolean hlGodkendt, 
+            boolean ilGodkendt, boolean holdleder, boolean chauffør, 
+            boolean STvagt, int type, BEAlarm alarm, BEVehicle veh, 
+            BELogin login, boolean lønDone, Timestamp lønTime) {
         this.id = id;
         this.alarm = alarm;
         this.fireman = fireman;

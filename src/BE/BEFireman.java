@@ -12,7 +12,8 @@ public class BEFireman {
     private String name;
     private int team;
 
-    public BEFireman(BEEmployee medarbejderRef, boolean holdleder, boolean chauffør, int team) {
+    public BEFireman(BEEmployee medarbejderRef, 
+            boolean holdleder, boolean chauffør, int team) {
 
         medarbjeder = medarbejderRef;
         this.holdleder = holdleder;
@@ -82,7 +83,8 @@ public class BEFireman {
      */
     @Override
     public String toString() {
-        return getMedarbjeder().getFornavn() + " " + getMedarbjeder().getEfternavn();
+        return getMedarbjeder().getFornavn() + 
+                " " + getMedarbjeder().getEfternavn();
     }
 
     /**

@@ -25,9 +25,11 @@ public class BEAlarm extends IBESubject{
     private Timestamp hlGodkendtTid;
     private boolean guestConfirmed;
 
-    public BEAlarm(int id, String title, String desc, String station, Timestamp time, boolean done,
-            String alarmType, int evaNo, int gruppeNo, int detekterNo, String hlBemærkning,
-            String ilBemærkning, Timestamp ilGodkendtTid, Timestamp hlGodkendtTid) {
+    public BEAlarm(int id, String title, String desc, String station,
+            Timestamp time, boolean done, String alarmType, int evaNo, 
+            int gruppeNo, int detekterNo, String hlBemærkning,
+            String ilBemærkning, Timestamp ilGodkendtTid, 
+            Timestamp hlGodkendtTid) {
         this.id = id;
         this.title = title;
         this.desc = desc;
@@ -267,7 +269,8 @@ public class BEAlarm extends IBESubject{
     public String getIlGodkendtTidTimeString() {
         String godkendtTid[] = ilGodkendtTid.toString().split(" ");
         String[] fixedGodkendtTid = godkendtTid[1].split(":");
-        String finalGodkendtTid = fixedGodkendtTid[0] + ":" + fixedGodkendtTid[1];
+        String finalGodkendtTid = 
+                fixedGodkendtTid[0] + ":" + fixedGodkendtTid[1];
         return finalGodkendtTid;
     }
 

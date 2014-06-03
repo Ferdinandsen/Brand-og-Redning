@@ -14,7 +14,8 @@ public class BEAddress extends IBESubject{
     private BEZipCode zip;
   
 
-    public BEAddress(int id, String streetname, int streetNumber, int floor, String apartment, BEZipCode zip) {
+    public BEAddress(int id, String streetname, int streetNumber, 
+            int floor, String apartment, BEZipCode zip) {
         this.ID = id;
         this.streetName = streetname;
         this.streetNumber = streetNumber;
@@ -23,7 +24,8 @@ public class BEAddress extends IBESubject{
         this.zip = zip;
     }
 
-    public BEAddress(String streetname, int streetNumber, int floor, String apartment, BEZipCode zip) {
+    public BEAddress(String streetname, int streetNumber, int floor, 
+            String apartment, BEZipCode zip) {
         this.streetName = streetname;
         this.streetNumber = streetNumber;
         this.floor = floor;

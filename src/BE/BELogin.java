@@ -12,7 +12,8 @@ public class BELogin {
     private boolean kontor;
     private boolean holdleder;
 
-    public BELogin(BEEmployee medarbejder, String kode, boolean admin, boolean kontor, boolean holdleder) {
+    public BELogin(BEEmployee medarbejder, String kode, 
+            boolean admin, boolean kontor, boolean holdleder) {
 
         this.medarbejder = medarbejder;
         this.kode = kode;
@@ -97,6 +98,7 @@ public class BELogin {
      */
     @Override
     public String toString() {
-        return getMedarbejder().getFornavn() + " " + getMedarbejder().getEfternavn();
+        return getMedarbejder().getFornavn() + 
+                " " + getMedarbejder().getEfternavn();
     }
 }
